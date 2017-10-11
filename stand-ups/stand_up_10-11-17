@@ -1,0 +1,18 @@
+Complications:
+	- Issues with miscommunication between professor/client/team members 
+	- Better practice for git flow
+	- New product manager to be discussed:
+		> Max will be chosen
+
+
+Aspects of Loan Tracking:
+	- View Design
+		- Set Up from Wire Frame
+	- Based On Authorization, direction to views
+		- Need to differentiate between admin and user views and routes.
+	- Advertisements
+	- Data modeling for loan tracking
+		- On admin-view, loan status updates should trickle down to the user views
+		- Database Querying
+	- Look for API's
+		- APIs for ???
