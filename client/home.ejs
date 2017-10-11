@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./partials/header.ejs %>
+</head>
+<body>
+  <div id="app">
+    <!-- CSS Grids from the getgo? -->
+    <!--
+    <div class="header clearfix center" style="margin-bottom: 20px">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item"> <a class="nav-links btn" href="#/registrar" >Registrador</a> </li>
+          <li class="nav-item"> <a class="nav-links btn" href="#/facturas" >Facturas</a> </li>
+          <li> <a class="nav-links" ui-sref="logger" >Registrador</a> </li>
+          <li> <a class="nav-links" ui-sref="invoice" >Facturas</a> </li>
+        </ul>
+      </nav>
+    </div>
+    -->
+
+    <h3 class="title">ScreenTime</h3>
+    <div id="formm" class="row" ng-app="ElectricApp" ng-controller="ElectricController" ng-init="start()">
+      <!-- <div style="width: 100%" ui-view></div> -->
+      <!-- <ui-view style="width: 100%"></ui-view> -->
+      <div class="hide_form" style="display: grid; grid-template-rows: 25% 25% auto">
+        <% include ./partials/invoice.html %>
+      </div>
+
+    </div>
+  
+    <div id="about-us">
+      <br>
+      <h3><b>About Us</b></h3>
+      <div>
+        We are ScreenTime, a video chatting platform that allows for easy one-on-one communication between content creators and their supporters.
+      </div>
+      <br>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/EXWEpElHY7U" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+  </div>
+</body>
+
+<script src="/public/angular/angular.js"></script>
+<script src="/public/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/public/lodash/dist/lodash.min.js"></script>
+
+<!-- Application Source Code -->
+<!-- All dependent JS files: app.js, routes, factory, controller -->
+<script src="/app/app.js"></script>
+<script src="/app/client.routes.js"></script>
+<script src="/app/factory.js"></script>
+<script src="/app/controller.js"></script>
+
+<script type="text/javascript">
+  $("document").ready(function() {
+    if (location.protocol != 'http:')
+      location.protocol = "http:";
+
+    try {
+      angular;
+    }
+    catch (ReferenceError) {
+      // hide all dynamic page elements if can't find anglar
+      // and show some an error message gracefuly
+      // $("#clockdiv").addClass("hidden");
+      
+      // $("#clockdiv").ccss("display", "none");
+      $("#clockdiv").html("<h5 class=\"center\" id=\"sub\">Accepting investments starting this Saturday</h5>");
+      alert("Plase try running this website again in another device");
+    }
+  })
+
+</script>
+
+</html>
