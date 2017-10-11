@@ -10,6 +10,7 @@
 - Clone
 - First Installation
     - Run `npm run first-install`
+    - on Windows, MAKE SURE to have admin access on cmd/powershell when running this
 - Any other time
     - Run `gulp` for automatic server and front end restart every time after that
 - Deployments will happen on every push to master (`git push origin master`)
