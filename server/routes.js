@@ -17,4 +17,11 @@ router.route('/time').get(
     res.json({time: server_time});
 });
 
+router.route('/loans').get(
+  function(req, res) {
+    console.log("TEST") ;
+    
+    res.json({time: server_time}) ;
+});
+
 module.exports = router;
