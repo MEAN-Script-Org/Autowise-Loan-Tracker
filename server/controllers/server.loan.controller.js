@@ -2,7 +2,7 @@
 
 // Dependencies
 var mongoose = require('mongoose') ;
-var Loan = require('../models/loan.server.model.js') ;
+var Loan = require('../models/server.loan.model.js') ;
 
 // Saves a loan to the database
 function save(loan) {
