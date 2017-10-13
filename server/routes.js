@@ -3,6 +3,8 @@ var express = require('express');
 var router = express.Router();
 var names = require("./names");
 
+var loans = require("./controllers/server.loan.controller.js") ;
+
 router.route('/').post(emailHandler);
 
 router.route('/people').get(
@@ -17,11 +19,10 @@ router.route('/time').get(
     res.json({time: server_time});
 });
 
-router.route('/loans').get(
-  function(req, res) {
-    console.log("TEST") ;
-    
-    res.json({time: server_time}) ;
-});
+// Loan CRUD routing
+router.route('/loans').get(loans.list) ;
+router.route('/loans').post(loans.create) ;
+router.route('/loans').put(loans.update)
+router.route('/loans').delete(loans.delete);
 
 module.exports = router;
