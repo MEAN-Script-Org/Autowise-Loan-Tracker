@@ -4,7 +4,7 @@ var mongoose = require('mongoose') ;
 
 // Define loan schema
 var loanSchema = new mongoose.Schema({
-	
+	bleh: Number
 });
 
 // Any pre-processing on saving a loan document?

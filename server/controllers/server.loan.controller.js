@@ -5,7 +5,7 @@ var mongoose = require('mongoose') ;
 var Loan = require('../models/server.loan.model.js') ;
 
 // Saves a loan to the database
-function save(loan) {
+function save(loan, res) {
   loan.save(function(err) {
     if(err) {
       console.log(err) ;
@@ -16,12 +16,12 @@ function save(loan) {
 
 // Loan creation
 exports.create = function(req, res) {
-  save(new Loan(req.body)) ;
+  save(new Loan(req.body), res) ;
 };
 
 // Loan read
 exports.read = function(req, res) {
-  res.json(req.listing) ;
+  res.json(req.loan) ;
 };
 
 // Loan update
@@ -29,9 +29,9 @@ exports.update = function(req, res) {
   var loan = req.loan ;
   
   // Update individual fields
-  // ???
+  loan.bleh = req.body.bleh ;
   
-  save(loan) ;
+  save(loan, res) ;
 };
 
 // Loan deletion
@@ -65,7 +65,7 @@ exports.list = function(req, res) {
 	}) ;
 };
 
-// Get a loan by ID (do we need this?)
+// Get a loan by ID
 exports.loanByID = function(req, res, next, id) {
   Loan.findById(id).exec(function(err, loan) {
     if(err) { res.status(400).send(err) ; }

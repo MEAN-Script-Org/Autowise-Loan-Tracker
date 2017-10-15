@@ -19,10 +19,17 @@ router.route('/time').get(
     res.json({time: server_time});
 });
 
-// Loan CRUD routing
+// Loan CRUD routing ~
+
+// > Multiple loans
 router.route('/loans').get(loans.list) ;
 router.route('/loans').post(loans.create) ;
-router.route('/loans').put(loans.update)
-router.route('/loans').delete(loans.delete);
+
+// > Individual loan
+router.route('/loan/:loanID').get(loans.read) ;
+router.route('/loan/:loanID').put(loans.update) ;
+router.route('/loan/:loanID').delete(loans.delete) ;
+
+router.param('loanID', loans.loanByID) ;
 
 module.exports = router;
