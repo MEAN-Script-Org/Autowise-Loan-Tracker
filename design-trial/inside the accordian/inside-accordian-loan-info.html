@@ -1,28 +1,31 @@
 <style>
     .container {
         background-color: white;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
         width: 100%;
         text-align: left;
   
     }
     .column {
-        
         width: 100%;
     }
     
     .comments {
-        margin: 0;
-        padding: 0;
+        list-style: none;
+        margin: -15px;
+        padding: 15px;
+        overflow-y: scroll;
         
     }
     
     .border {
         border-style:solid;
+        border-color:black;
         border-width:2px;
         width: 100%;    
     }
-
-
 </style>
 
 <!DOCTYPE html>
@@ -35,6 +38,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -56,25 +60,29 @@
     <div class="panel-body">
 						<ul class ="comments">
                             <span class="chat-img pull-left">
-								<div class="chat-body clearfix">
-                                    
+                                <li class="left clearfix">
+								<div class="chat-body clearfix">  
 									<div class="header"><strong class="primary-font">Admin Name (or just Admin Comment)</strong> <small class="text-muted">32 mins ago</small></div>
 									<p>1st Admin Comment</p>
                                     <p></p>
 								</div>
+                                </li>    
                                 
-
+                                <li class="left clearfix">
 								<div class="chat-body clearfix"> 
 									<div class="header"><strong class="primary-font">Admin Name (or just Admin Comment)</strong> <small class="text-muted">32 mins ago</small></div>
 									<p>2nd Admin Comment</p>
                                     <p></p>
 								</div>
+                                </li>
                                 
 								<div class="chat-body clearfix">
+                                    <li class="left clearfix">
 									<div class="header"><strong class="primary-font">Admin Name (or just Admin Comment)</strong> <small class="text-muted">32 mins ago</small></div>
 									<p>3rd Admin Comment</p>
                                     <p></p>
                                     </div>
+                                </li>
                             </span></ul>
 					</div>
 					<div class="panel-footer">
