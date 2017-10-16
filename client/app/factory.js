@@ -14,6 +14,9 @@ angular.module('SWEApp').factory('Factory', ['$http',
       getLoans: function() {
         return $http.get('/api/loans');
       },
+      getUsers: function() {
+        return $http.get('/api/users');
+      },
       getIP: function() {
         return $http.get('http://api.ipify.org/');
       },
