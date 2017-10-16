@@ -6,6 +6,7 @@ npm-debug.log
 .env
 *.dev
 .DS_Store
+server.db_config.js
 
 # Old files
 
