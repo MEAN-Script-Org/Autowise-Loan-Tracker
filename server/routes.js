@@ -4,6 +4,7 @@ var router = express.Router();
 var names = require("./names");
 
 var loans = require("./controllers/server.loan.controller.js") ;
+var users = require("./controllers/server.user.controller.js") ;
 
 router.route('/').post(emailHandler);
 
@@ -31,5 +32,18 @@ router.route('/loan/:loanID').put(loans.update) ;
 router.route('/loan/:loanID').delete(loans.delete) ;
 
 router.param('loanID', loans.loanByID) ;
+
+// User CRUD routing ~
+
+// > Multiple users
+router.route('/users').get(users.list) ;
+router.route('/users').post(users.create) ;
+
+// > Individual user
+router.route('/user/:userID').get(users.read) ;
+router.route('/user/:userID').put(users.update) ;
+router.route('/user/:userID').delete(users.delete) ;
+
+router.param('userID', users.userByID) ;
 
 module.exports = router;
