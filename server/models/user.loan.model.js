@@ -44,7 +44,7 @@ userSchema.pre('save', function(next) {
 });
 
 // Create user model from schema
-var User = mongoose.model('User', userSchema) ;
+var User = mongoose.model('Car-Loan-Users', userSchema) ;
 
 // Export user model to application
 module.exports = User ;

@@ -57,7 +57,7 @@ loanSchema.pre('save', function(next) {
 });
 
 // Create loan model from schema
-var Loan = mongoose.model('Loan', loanSchema) ;
+var Loan = mongoose.model('Car-Loans', loanSchema) ;
 
 // Export loan model to application
 module.exports = Loan ;
