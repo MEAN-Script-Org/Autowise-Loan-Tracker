@@ -35,7 +35,20 @@ Comments
 
 */
 var loanSchema = new mongoose.Schema({
-	comments: String,
+	Status: String,
+	
+
+	Costs: {
+  		Taxes: Number,
+  		Warranties: Number,
+  	},
+
+  	Types: String,
+
+  	Trades: Boolean,
+
+	Comments: String
+
 	
 });
 

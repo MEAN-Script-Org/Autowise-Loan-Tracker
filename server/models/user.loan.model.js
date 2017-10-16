@@ -1,12 +1,14 @@
 
 // Dependencies
-var mongoose = require('mongoose') ;
+var mongoose = require('mongoose');
 
 // Define user schema
 var userSchema = new mongoose.Schema({
   username: String,
-  password: hash,
-  isAdmin: bool,
+  password: String,
+  isAdmin: Boolean,
+
+  loans: Array,
 
   created_at: Date,
   updated_at: Date
@@ -47,5 +49,6 @@ var User = mongoose.model('User', userSchema) ;
 // Export user model to application
 module.exports = User ;
 
-//created on, created by, modified on, modified by (who created users)
+//created on, created by, modified on, 
+// TODO:     modified by (who created users)
 
