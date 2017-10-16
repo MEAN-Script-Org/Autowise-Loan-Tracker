@@ -35,7 +35,6 @@ Comments
 
 */
 var loanSchema = new mongoose.Schema({
-<<<<<<< HEAD
 	Status: String,
 	
 
@@ -49,10 +48,6 @@ var loanSchema = new mongoose.Schema({
   	Trades: Boolean,
 
 	Comments: String
-
-	
-=======
->>>>>>> loan_database_crud
 });
 
 // Any pre-processing on saving a loan document?
