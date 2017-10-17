@@ -1,3 +1,5 @@
+// This file needs to go ASAP
+// TB changes to Heroku config var
 
 // Export database object to application
 module.exports = {

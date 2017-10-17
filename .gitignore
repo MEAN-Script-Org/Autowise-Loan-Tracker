@@ -6,16 +6,9 @@ npm-debug.log
 .env
 *.dev
 .DS_Store
+
+# Old config file
 server.db_config.js
-
-# Old files
-
-# database testing
-server/models/user.queries.js
-server/models/server.db_config.js
-server/server.db_config.js
-server/models/userJSONtoMongo.js
-server/models/UserListings.json
 
 # Docker
 Dockerfile
