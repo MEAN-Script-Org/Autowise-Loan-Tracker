@@ -1,5 +1,6 @@
 <h4 class="center white padded" style="grid-row: 2;">First round of investments are now closed.... catch us next round soon!</h4>
 
+ 
 <!-- 
 <div style="grid-row: 3; height: 50%;" id="clockdiv">
   <p>&nbsp;</p>
@@ -23,6 +24,7 @@
 
   <p>&nbsp;</p>
 </div>
+ -->
 
 
 <center style="grid-row: 1;" class="padded">
@@ -42,8 +44,8 @@
     </div>
 
     <div class="modal-body" ng-show="found.hasOwnProperty(investor.gatorlink.toLowerCase())">
+    
     <form ng-submit="email(investment_form.$valid)">
-
       <div class="form-group" style="margin-top: -25px;">
         <b>Hi {{found[investor.gatorlink.toLowerCase()]}}!</b>
       </div>
@@ -68,6 +70,7 @@
              style="margin-bottom: -25px;">
       </div>
     </form>
+    
     </div>
 
     <div class="padded" ng-hide="us.indexOf(investor.gatorlink.toLowerCase()) != -1 || found.hasOwnProperty(investor.gatorlink.toLowerCase())">
@@ -82,4 +85,4 @@
   </div>
 </div>
 </center>
--->
+
