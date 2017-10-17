@@ -5,10 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Autowise Inside Accordian</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<link href="css/datepicker3.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/datepicker3.css" rel="stylesheet">
+	<link href="/css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	
 	<script src="js/html5shiv.js"></script>
@@ -16,167 +16,97 @@
 
 </head>
 
-<body>
-<h2>Autowise Loan Progress Tracker</h2>    
-<div class="panel panel-default ">
-					<div class="panel-heading">
-						Loan Progress Tracking for (USER NAME/LOAN ID GOES HERE)
-						<ul class="pull-right panel-settings panel-button-tab-right">
-							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
-								<em class="fa fa-cogs"></em>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li>
-										<ul class="dropdown-settings">
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 1
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 2
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 3
-											</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body">
-						<div class="col-md-12 no-padding">
-							<div class="row progress-labels">
-								<div class="col-sm-6">Loan Progress (Whatever step of the loan process this user is currently on)</div>
-                                <p></p>
-								<div class="col-sm-6" style="text-align: right;">80%</div>
-							</div>
-							<div class="progress">
-								<div data-percentage="0%" style="width: 80%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>
-<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-default chat">
-					<div class="panel-heading">
-						Admin Comments
-						<ul class="pull-right panel-settings panel-button-tab-right">
-							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
-								<em class="fa fa-cogs"></em>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li>
-										<ul class="dropdown-settings">
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 1
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 2
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 3
-											</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body">
-						<ul>
-							<li class="left clearfix"><span class="chat-img pull-left">
-                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								<!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>This is where the first admin comment would go.</p>
-								</div>
-							</li>
-							<li class="right clearfix"><span class="chat-img pull-right">
-                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								<!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="pull-left primary-font">Admin Comment #2</strong> <small class="text-muted">6 mins ago</small></div>
-									<p>This is where the second admin comment would go.</p>
-								</div>
-							</li>
-							<li class="left clearfix"><span class="chat-img pull-left">
-                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								<!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">Admin Comment #3</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>This is where the 3rd admin comment would go.</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="panel-footer">
-						<div class="input-group">
-							<input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
-								<button class="btn btn-primary btn-md" id="btn-chat">Send</button>
-                            <button type="button" class="btn btn-primary btn-md">Edit the user loan</button>
-						</span></div>
-					</div>
-				</div>    
+<body>   
+    <div class="row">
+        <div class="col-md-12 no-padding">
+            <div class = "progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                    Loan is currently being processed.
+                </div>
+            </div>
         </div>
-    
-    <div class="col-md-6">
-				<div class="panel panel-default ">
-					<div class="panel-heading">
-						Current Loan Information
-						<ul class="pull-right panel-settings panel-button-tab-right">
-							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
-								<em class="fa fa-cogs"></em>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li>
-										<ul class="dropdown-settings">
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 1
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 2
-											</a></li>
-											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 3
-											</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body timeline-container">
-						<ul class="timeline">
-							<li>
-								<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">Loan Info</h4>
-									</div>
-									<div class="timeline-body">
-										<p>This is where the current loan information can go.</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div><!--/.col-->
     </div>
-
-    
+    <div class="row">
+        <div class="col-xs-7 no-padding">
+            <div class="panel panel-default chat">
+                <div class="panel-heading">
+                    Admin Comments
+                </div>    
+                <div class="panel-body">
+                        <ul>
+                            <li class="left clearfix"><span class="chat-img pull-left">
+                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                </span>
+                                <div class="chat-body clearfix">
+                                    <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
+                                    <p>This is where the first admin comment would go.</p>
+                                </div>
+                            </li>
+                            <li class="left clearfix"><span class="chat-img pull-left">
+                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                </span>
+                                <div class="chat-body clearfix">
+                                    <div class="header"><strong class="primary-font">Admin Comment #2</strong> <small class="text-muted">32 mins ago</small></div>
+                                    <p>This is where the 2nd admin comment would go.</p>
+                                </div>
+                            </li>
+                            <li class="left clearfix"><span class="chat-img pull-left">
+                                <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                </span>
+                                <div class="chat-body clearfix">
+                                    <div class="header"><strong class="primary-font">Admin Comment #3</strong> <small class="text-muted">32 mins ago</small></div>
+                                    <p>This is where the 3rd admin comment would go.</p>
+                                </div>
+                            </li>
+                        </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
+                            <button class="btn btn-primary btn-md" id="btn-chat">Send</button>
+                            <button type="button" class="btn btn-primary btn-md">Edit the user loan</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5" style="padding: 0;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Current Loan Information
+                </div>
+                <div class="panel-body timeline-container">
+                        <ul class="timeline">
+                            <li>
+                                <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Loan Info</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Update on user's registration.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Urgent</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Immediate action needed.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                </div>
+             </div>
+        </div><!--/.col-->
+    </div>
     
 <script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
