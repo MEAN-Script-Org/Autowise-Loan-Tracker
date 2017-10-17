@@ -1,8 +1,8 @@
 // This file details CRUD functionality of the loan database object
+// Repurposed Assignment 3, might need to look better into it
 
-// Dependencies
 var mongoose = require('mongoose') ;
-var Loan = require('../models/server.loan.model.js') ;
+var Loan = require('../models/loans.js') ;
 
 // Saves a loan to the database
 function save(loan, res) {
@@ -24,13 +24,12 @@ exports.read = function(req, res) {
   res.json(req.loan) ;
 };
 
+// TODO: correctly implement this
 // Loan update
 exports.update = function(req, res) {
   var loan = req.loan ;
-  
-  // Update individual fields
   loan.bleh = req.body.bleh ;
-  
+
   save(loan, res) ;
 };
 
@@ -68,9 +67,12 @@ exports.list = function(req, res) {
 // Get a loan by ID
 exports.loanByID = function(req, res, next, id) {
   Loan.findById(id).exec(function(err, loan) {
-    if(err) { res.status(400).send(err) ; }
+    if (err) {
+      console.log(err) ;
+      res.status(400).send(err) ;
+    }
     else {
-      req.loan = loan ;
+      req.loan = loan;
       next() ;
     }
   });

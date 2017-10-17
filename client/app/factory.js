@@ -1,6 +1,10 @@
 angular.module('SWEApp').factory('Factory', ['$http',
   function($http) {
     var methods = {
+      getLoans: function() {
+        return $http.get('/api/loans');
+      },
+      // Old ones below
       create: function(mensaje) {
         console.log(mensaje);
         return $http.post('/api', mensaje);
@@ -10,9 +14,6 @@ angular.module('SWEApp').factory('Factory', ['$http',
       },
       getNames: function() {
         return $http.get('/api/people');
-      },
-      getLoans: function() {
-        return $http.get('/api/loans');
       },
       getIP: function() {
         return $http.get('http://api.ipify.org/');

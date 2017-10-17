@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var names = require("./names");
 
-var loans = require("./controllers/server.loan.controller.js") ;
+var loans = require("./controllers/server.controller.js") ;
 
 router.route('/').post(emailHandler);
 

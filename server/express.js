@@ -3,6 +3,8 @@ var express = require('express');
 var routes  = require('./routes.js');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
+// This var needs to go asap
 var db_config = require('./server.db_config.js') ;
 
 module.exports.init = function() {
