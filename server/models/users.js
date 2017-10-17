@@ -6,15 +6,15 @@ var userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true
-  }
+  },
   password: {
     type: String,
     required: true
-  }
+  },
   isAdmin: {
     type: Boolean,
     required: true
-  }
+  },
 
   loans: Array,
   created_at: Date,

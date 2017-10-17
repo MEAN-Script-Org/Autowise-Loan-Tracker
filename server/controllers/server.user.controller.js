@@ -2,7 +2,7 @@
 
 // Dependencies
 var mongoose = require('mongoose') ;
-var User = require('../models/server.user.model.js') ;
+var User = require('../models/users.js') ;
 
 // Saves a user to the database
 function save(user, res) {
