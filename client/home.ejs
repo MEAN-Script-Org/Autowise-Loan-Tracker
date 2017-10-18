@@ -10,7 +10,10 @@
 <!-- styling should not be hardcoded in html... -->
 <!-- as in don't have "style=..." at all on these pages -->
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" ng-app="SWEApp" ng-controller="SWEAppController" ng-init="">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
+     ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
+
+    <!-- TODO: Modularize/fix/implement these -->
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="#">
@@ -93,6 +96,10 @@
             </div>
         </div>
     </div>
+
+    <!-- End of filters -->
+    <!-- Start of accodion content -->
+
     <div class="row">
       <div class="col-md-12">
         <div class="container-accordion">
@@ -104,41 +111,8 @@
                 </a>
               </dt>
               <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
-                <div class="row progress-row">
-                    <div class="col-xs-9" style="">
-                        <div class = "progress">
-                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                Processing...
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <ul class="pull-right panel-settings">
-                        <li class="dropdown">
-                            <a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#" style="display: flex; justify-content: center; align-items: center;">
-                                <em class="fa fa-cogs"></em>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <ul class="dropdown-settings">
-                                        <li><a href="#">
-                                            <em class="fa fa-cog"></em> Settings 1
-                                        </a></li>
-                                        <hr>
-                                        <li><a href="#">
-                                            <em class="fa fa-cog"></em> Settings 2
-                                        </a></li>
-                                        <hr>
-                                        <li><a href="#">
-                                            <em class="fa fa-cog"></em> Settings 3
-                                        </a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                          </li>
-                    </ul>
-                    </div>
-                </div>
+                <% include partials/progress-row.ejs %>
+
                 <div class="row">
                     <div class="col-xs-7 no-padding">
                         <div class="panel panel-default chat">

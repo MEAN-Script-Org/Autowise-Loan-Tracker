@@ -2,6 +2,16 @@ angular.module('SWEApp').controller('SWEAppController',
   ['$rootScope', '$scope', '$location', 'Factory',
   function($rootScope, $scope, $location, Factory) {
 
+    $scope.init = function() {
+      console.log("MEAN App on it's way!");
+      $scope.state = "Processing";
+
+      $scope.loans = [
+        {owner: "SHurtado", _id: "434234230", price: "3332"},
+        {owner: "MAbrahantes", _id: "434234235", price: "3333"},
+      ];
+    }
+
     $scope.start = function() {
       Factory.getLoans().then(
         function(res) {
@@ -28,5 +38,6 @@ angular.module('SWEApp').controller('SWEAppController',
         }
       );
     };
+
   }
 ]);
