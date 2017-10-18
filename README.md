@@ -3,8 +3,8 @@
 ## Sprint ~ 1.5 ~
 
 ## Dependencies
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 - [npm 6.x](https://nodejs.org/en/)
+- TBNeeded soon: [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 ## Installation
 - Clone
@@ -93,4 +93,3 @@ I'm thinking of something like this, with *click* and expand functionality
     - On sprint end: Optionally, merge feature branches with the master
 
 Others from [*sprint 1 README*](https://github.com/MEAN-Script-Org/sprint1/blob/master/README.md)
-
