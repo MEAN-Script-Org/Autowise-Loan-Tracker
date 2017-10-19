@@ -34,6 +34,12 @@
   line-height: 1.5em;
 }
 
+.panel-heading
+{
+    font-size: 1em;
+    height: fit-content;
+}
+
 .accordion p {
   padding: 1em 2em 1em 2em;
 }
@@ -107,7 +113,7 @@
   padding: 0px;
   height: auto;
   overflow: hidden;
-  max-height: 50em;
+  max-height: fit-content;
   -webkit-transition: max-height 1s, padding 1s;
   transition: max-height 1s, padding 1s;
 }
@@ -160,7 +166,7 @@
 
 @media screen and (min-width: 48em) {
   .accordionItem {
-    max-height: 50em;
+    max-height: fit-content;
     -webkit-transition: max-height 0.5s, padding 0.5s;
     transition: max-height 0.5s, padding 0.5s;
   }
