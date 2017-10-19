@@ -1,4 +1,3 @@
-
 /*//updated ver*/
 * {
   box-sizing:border-box;
@@ -33,6 +32,12 @@
   background-color: #eee;
   font-size: 1em;
   line-height: 1.5em;
+}
+
+.panel-heading
+{
+    font-size: 1em;
+    height: fit-content;
 }
 
 .accordion p {
@@ -108,13 +113,14 @@
   padding: 0px;
   height: auto;
   overflow: hidden;
-  max-height: 50em;
+  max-height: fit-content;
   -webkit-transition: max-height 1s, padding 1s;
   transition: max-height 1s, padding 1s;
 }
 
 .is-expanded.accordionItem {
   padding: 8px;
+<<<<<<< HEAD
 }
 
 .progress-row {
@@ -130,6 +136,23 @@
     margin-bottom: 0;
 }
 
+=======
+}
+
+.progress-row {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.progress {
+    height: 100%;
+    margin-bottom: 0;
+}
+
+>>>>>>> 0930f14fe5bca1eb089530de9605e34493034e00
 .progress-row hr
 {
     margin-top: 8px;
@@ -143,7 +166,7 @@
 
 @media screen and (min-width: 48em) {
   .accordionItem {
-    max-height: 50em;
+    max-height: fit-content;
     -webkit-transition: max-height 0.5s, padding 0.5s;
     transition: max-height 0.5s, padding 0.5s;
   }
