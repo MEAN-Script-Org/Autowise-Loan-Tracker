@@ -29,6 +29,8 @@ module.exports = function (req, res) {
 
   // Basic Email Settings
   var mailOptions = {
+    // to: [process.env.YAHOO_USERNAME].concat(req.body.to),
+    // from: process.env.YAHOO_USERNAME,
     to: [process.env.GMAIL_USERNAME].concat(req.body.to),
     from: process.env.GMAIL_USERNAME,
     subject: subject,
@@ -36,6 +38,12 @@ module.exports = function (req, res) {
   };
 
   var transporter = nodemailer.createTransport({
+    // yahoo: smtp.mail.yahoo.com
+    // auth: {
+    //   user: process.env.YAHOO_USERNAME,
+    //   pass: atob(process.env.YAHOO_PASSWORD)
+    // }
+
     // service: 'Gmail',
     host: 'smtp.gmail.com',
     clientId: process.env.CLIENT_ID,

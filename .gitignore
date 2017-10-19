@@ -7,8 +7,8 @@ npm-debug.log
 *.dev
 .DS_Store
 
-# Old files
-
+# Old config file
+server.db_config.js
 
 # Docker
 Dockerfile
