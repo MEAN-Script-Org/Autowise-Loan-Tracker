@@ -1,4 +1,3 @@
-
 /*//updated ver*/
 * {
   box-sizing:border-box;
@@ -12,7 +11,7 @@
 }
 
 .accordion a, a:hover, a:focus {
-  color: #ddd; 
+  color: #fff; 
   text-decoration: none;
 }
 .accordion dl,
@@ -56,7 +55,9 @@
   text-align: center;
   font-weight: 700;
   padding: 2em;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   text-decoration: none;
   color: #fff;
   -webkit-transition: background-color 0.5s ease-in-out;
@@ -74,6 +75,19 @@
   transition: transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
+
+.accordionTitle:after,
+.accordion__Heading:after {
+  content: " ";
+  font-size: 1.5em;
+  line-height: 0.5em;
+}
+
+.header-settings
+{
+    position: relative;
+}
+
 .accordionTitle:hover,
 .accordion__Heading:hover {
   background-color: #2ba659;
@@ -90,17 +104,47 @@
 }
 
 .accordionItem {
+  padding: 0px;
   height: auto;
   overflow: hidden;
   max-height: 50em;
-  -webkit-transition: max-height 1s;
-  transition: max-height 1s;
+  -webkit-transition: max-height 1s, padding 1s;
+  transition: max-height 1s, padding 1s;
 }
+
+.is-expanded.accordionItem {
+  padding: 8px;
+}
+
+.progress-row {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.progress {
+    height: 100%;
+    margin-bottom: 0;
+}
+
+.progress-row hr
+{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.dropdown-menu
+{
+    padding: 8px;
+}
+
 @media screen and (min-width: 48em) {
   .accordionItem {
-    max-height: 15em;
-    -webkit-transition: max-height 0.5s;
-    transition: max-height 0.5s;
+    max-height: 50em;
+    -webkit-transition: max-height 0.5s, padding 0.5s;
+    transition: max-height 0.5s, padding 0.5s;
   }
 }
 
