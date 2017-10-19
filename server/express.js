@@ -1,12 +1,15 @@
+var routes = require('./routes.js');
 var morgan = require('morgan');
 var express = require('express');
-var routes  = require('./routes.js');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-// var mongoose = require('mongoose');
+
+// This var needs to go asap
+var db_config = require('./server.db_config.js') ;
 
 module.exports.init = function() {
   // Connect to database
-  // mongoose.connect(process.env.MLAB_DB);
+  mongoose.connect(db_config.db.uri);
 
   // initialize app
   var app = express();
