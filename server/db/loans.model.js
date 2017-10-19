@@ -35,8 +35,7 @@ Comments
 
 var loanSchema = new mongoose.Schema({
   status: {
-    type: String,
-    required: true
+    type: String
   },
 
   types: {
