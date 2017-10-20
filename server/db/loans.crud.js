@@ -2,61 +2,53 @@
 // Repurposed Assignment 3, might need to look better into it
 
 var mongoose = require('mongoose') ;
+mongoose.Promise = global.Promise;
 var Loan = require('./loans.model.js') ;
 
-// Saves a loan to the database
-function save(loan, res) {
-  loan.save(function(err) {
-    if(err) {
-      console.log(err) ;
-      res.status(400).send(err) ;
-    } else res.status(200) ;
-  });
-}
-
 module.exports = {
-  // Loan creation
+
   create: function(req, res) {
-    save(new Loan(req.body), res) ;
+    var newLoan = new Loan(req.body);
+
+    newLoan.save(function(err) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      } else res.json(newLoan) ;
+    });
   },
 
-  // Loan read
   read: function(req, res) {
     res.json(req.loan) ;
   },
 
-  // Loan update
-  // TODO: correctly implement this
   update: function(req, res) {
-    var loan = req.loan ;
-    loan.bleh = req.body.bleh ;
-
-    save(loan, res) ;
+    var loan = req.loan;
+    
+    // {new: true} => makes 'updatedLoan' the updated version
+    Loan.findByIdAndUpdate(loan._id, loan, {new: true}, 
+      function(err, updatedLoan) {
+        if (err) res.status(404).send(err);
+        else res.json(updatedLoan);
+    });
   },
 
-  // Loan deletion
+  newComment: function(req, res) {
+    // Upon successful message append, update
+    // doing it this way to catch for asynchronous errors
+    if (req.loan.comments.push(req.body.newComment))
+      module.exports.update(req, res);
+  },
+
   delete: function(req, res) {
-    var loan = req.loan ;
-    
-    // Find the loan of interest
-    Loan.find(loan, function(err, loans) {
-      if (err) {
-        console.log(err) ;
-        res.status(404).send(err) ;
-      } else {
-        // TODO: Correctly implement this
-        // since this is wrong, can't use hardcoded index
-        loans[0].remove(function(err) {
-          if (err) {
-            console.log(err) ;
-            res.status(404).send(err) ;
-          } else res.json(loans) ;
-        }) ;
-      }
+    Loan.findByIdAndRemove(req.loan._id, function(err) {
+      if (err) res.status(404).send(err);
+      else res.json(req.loan);
     });
   },
 
   // Get all loans
+  // rename
   list: function(req, res) {
     Loan.find({}, function(err, loans) {
       if (err) {
@@ -66,7 +58,6 @@ module.exports = {
     });
   },
 
-  // Get a loan by ID
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {

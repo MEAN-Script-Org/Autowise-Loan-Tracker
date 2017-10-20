@@ -2,6 +2,7 @@
 
 // Dependencies
 var mongoose = require('mongoose') ;
+mongoose.Promise = global.Promise;
 var User = require('./users.model.js') ;
 
 // Saves a user to the database
