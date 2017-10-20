@@ -77,7 +77,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.2: All Loans may be retrieved -> HTTP response body is JSON array of Loans
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.2: All Loans may be retrieved -> HTTP response body is JSON array of Loans', function(done) {
-    agent.get('/api/listings').expect(200).end(function(err, res) {
+    agent.get('/api/loans').expect(200).end(function(err, res) {
       should.not.exist(err) ;
       should.exist(res) ;
       
@@ -88,9 +88,9 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #2.3: Error is thrown when attempting to update a loan to an unspecified 'status'
+  // Test #2.3: Error is thrown when attempting to update a loan to an unspecified 'type'
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #2.3: Error is thrown when attempting to update a loan to an unspecified \'status\'', function(done) {
+  it('Test #2.3: Error is thrown when attempting to update a loan to an unspecified \'type\'', function(done) {
     agent.put('/api/loan/' + test_loan_id).send(test_loan_bad).expect(400).end(function(err, res) {
       should.exist(err) ;
       
@@ -98,7 +98,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     });
   });
   
-  //--------------------------------------------------------------------------------------------------------------------
+  /*//--------------------------------------------------------------------------------------------------------------------
   // Test #2.4: May update a loan successfully -> HTTP response body is JSON of posted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.4: May update a loan successfully -> HTTP response body is JSON of posted Loan', function(done) {
@@ -132,5 +132,5 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     agent.get('/api/loan/' + test_loan_id).expect(400).end(function(err, res) {
       done() ;
     });
-  });
+  });*/
 });

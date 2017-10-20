@@ -7,7 +7,7 @@ var Loan = require('./loans.model.js') ;
 // Saves a loan to the database and responds with the database loan object in JSON
 function save_n_respond(loan, res) {
   loan.save(function(err) {
-    if(err) {
+    if (err) {
       res.status(400).send(err) ;
     } else {
       Loan.find(loan, function(err, loans) {
@@ -55,14 +55,12 @@ module.exports = {
     // Find the loan of interest
     Loan.find(loan, function(err, loans) {
       if (err) {
-        console.log(err) ;
         res.status(404).send(err) ;
       } else {
         // TODO: Correctly implement this
         // since this is wrong, can't use hardcoded index
         loans[0].remove(function(err) {
           if (err) {
-            console.log(err) ;
             res.status(404).send(err) ;
           } else res.json(loans) ;
         }) ;
@@ -74,7 +72,6 @@ module.exports = {
   list: function(req, res) {
     Loan.find().exec(function(err, loans) {
       if (err) {
-        console.log(err) ;
         res.status(404).send(err) ;
       } else res.json(loans) ;
     });
@@ -84,7 +81,6 @@ module.exports = {
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {
-        console.log(err) ;
         res.status(400).send(err) ;
       }
       else {
