@@ -29,11 +29,13 @@ gulp.task('nodemon', function (cb) {
             cb();
             started = true;
         }
-    })
-    .on('restart', function() {
+
         setTimeout(function() {
-            console.log('-------- restart BS --------');
+            console.log('-------- Restarting browser-sync --------');
             bs.reload();
         }, 1000);
+    })
+    .on('crash', function() {
+        console.log('-------- APP CRASHED! MAKE SURE YOU HAVE VALID HEROKU CREDENTIALS --------');
     });
 });
