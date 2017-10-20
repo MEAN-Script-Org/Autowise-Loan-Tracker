@@ -141,6 +141,11 @@
     margin-bottom: 8px;
 }
 
+#user-progress
+{
+  margin-top: 16px;
+}
+
 .dropdown-menu
 {
     padding: 8px;
