@@ -41,14 +41,13 @@ angular.module('SWEApp').controller('EmailTestController',
       
       Factory.getLoans().then(
         function(res) {
-          if (res.data != []){
+          if (res.data.length != 0){
             $rootScope.loans = res.data;
             console.log(res.data);
           }
           else {
             console.log("DB is empty ~");
           }
-          // $rootScope.loans = res.data;
         }
       );
     }
@@ -69,18 +68,19 @@ angular.module('SWEApp').controller('EmailTestController',
     $scope.addLoan = function() {
       // Assigning foreign key
       $scope.newLoan.user_id = $rootScope.user_id;
-      $rootScope.loans.unshift($scope.newLoan);
     
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
-            $rootScope.loans[0]._id = response.data._id;
+            $rootScope.loans.unshift(response.data);
+            console.log("Returned new loan:");
+            console.log(response.data);
 
             // clear once done
             $scope.newLoan = {};
           }
           else {
-            // $scope.newLoan = {};
+            $scope.newLoan = {};
             console.log("some weird shit happened");
           }
         },
@@ -110,6 +110,7 @@ angular.module('SWEApp').controller('EmailTestController',
       $rootScope.loans[index].comments.push(newComment);
       Factory.newComment(loanID, newComment).then(
         function(res) {
+          console.log("Returned new loan with updated comments:");
           console.log(res.data);
       });
     }
