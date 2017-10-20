@@ -1,4 +1,5 @@
 var mongoose = require('mongoose') ;
+mongoose.Promise = global.Promise;
 
 // Define loan schema
 /* 
@@ -30,32 +31,35 @@ Comments
   important : bool
   CHANGE TO MOCKUP: Same area as normal info
 
-
 */
 
 var loanSchema = new mongoose.Schema({
-  status: {
-    type: String
-  },
-
-  types: {
-    type: String,
-    required: true
-  },
+  user_id: String,
+  status: String,
+  types: String,
+  name: String,
   
   costs: {
     taxes: Number,
     warranties: Number,
   },
 
+  // trades: String/Array,
   trades: Boolean,
-  comments: Array
+  comments: Array,
+  updated_at: Date
 });
 
 // Any pre-processing on saving a loan document?
 loanSchema.pre('save', function(next) {
+  var currentDate = new Date();
+  this.updated_at = currentDate;
+
   if (!this.status)
-    this.status = "RECEIVED" ;
+    this.status = "RECEIVED";
+  
+  if (!this.type)
+    this.status = "Auto Loan";
 
   next() ;
 });

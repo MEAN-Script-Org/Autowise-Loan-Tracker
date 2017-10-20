@@ -5,15 +5,9 @@ var bs = require('browser-sync');
 var exec = require('child_process').exec;
 var nodemon = require('gulp-nodemon');
 
-gulp.task('default', ['get-config', 'nodemon', 'browser-sync']);
+gulp.task('default', ['import-heroku-config', 'nodemon', 'browser-sync']);
 
-// gulp.task('install', ['npm', 'default']);
-
-// gulp.task('npm', function(cb) {
-//     exec("npm install -g gulp");
-// });
-
-gulp.task('get-config', function(cb) {
+gulp.task('import-heroku-config', function() {
     exec("heroku config -s > .env");
 });
 
@@ -31,7 +25,6 @@ gulp.task('nodemon', function (cb) {
     return nodemon({env: { 'NODE_ENV': 'development' }})
     .on('start', function () {
         // to avoid nodemon being started multiple times
-        // thanks @matthisk
         if (!started) {
             cb();
             started = true;

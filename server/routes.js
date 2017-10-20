@@ -5,11 +5,11 @@ var router = express.Router();
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
-router.route('/send').post(emailHandler);
+router.route('/email').post(emailHandler);
 
-router.route('/people').get(
+router.route('/id').get(
   function(req, res) {
-    res.json({});
+    res.json(123456);
 });
 
 router.route('/time').get(
@@ -30,6 +30,11 @@ router.route('/loan/:loanID')
       .get(loans.read)
       .put(loans.update)
       .delete(loans.delete) ;
+
+// > 
+router.route('/newComment/:loanID')
+      .put(loans.newComment);
+
 
 router.param('loanID', loans.loanByID) ;
 

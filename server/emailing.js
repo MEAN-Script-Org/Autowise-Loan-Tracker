@@ -9,10 +9,16 @@ var money_formatter = new Intl.NumberFormat('en-US', {
 });
 
 var format_email_html = function (form) {
-  
-  var message = [];
+  // html body: 
+  //   Hi [first name],
+  //   <br>
+  //   [message]
+  //   <br>
+  //   [Team Autowise]
 
+  var message = [];
   var attributes = Object.keys(form);
+
   attributes.forEach(function(atr) {
     message.push(["<b>", atr.toUpperCase(), "</b>: ", form[atr]].join(""));
   });
@@ -24,46 +30,35 @@ var format_email_html = function (form) {
 module.exports = function (req, res) {
 
   var message = format_email_html(req.body);
-  // TB Changed
+  // TB Changed A LOT
   var subject = "Investment from " + req.body.name; 
 
   // Basic Email Settings
   var mailOptions = {
-    // to: [process.env.YAHOO_USERNAME].concat(req.body.to),
-    // from: process.env.YAHOO_USERNAME,
-    to: [process.env.GMAIL_USERNAME].concat(req.body.to),
-    from: process.env.GMAIL_USERNAME,
+    to: [process.env.YAHOO_USERNAME].concat(req.body.to),
+    from: process.env.YAHOO_USERNAME,
+    generateTextFromHTML: true,
     subject: subject,
     html: message
   };
 
   var transporter = nodemailer.createTransport({
-    // yahoo: smtp.mail.yahoo.com
-    // auth: {
-    //   user: process.env.YAHOO_USERNAME,
-    //   pass: atob(process.env.YAHOO_PASSWORD)
-    // }
-
-    // service: 'Gmail',
-    host: 'smtp.gmail.com',
-    clientId: process.env.CLIENT_ID,
-    secure: true,
-    port: 465,
+    service: "Yahoo",
     auth: {
-      user: process.env.GMAIL_USERNAME,
-      pass: atob(process.env.GMAIL_PASSWORD)
+      user: process.env.YAHOO_USERNAME,
+      pass: atob(process.env.YAHOO_PASSWORD)
     }
   });
   
   // Token generation/retrival
-  transporter.set('oauth2_provision_cb', function(user, renew, callback) {
-    var accessToken = userTokens[user];
-    if (!accessToken) {
-      return callback(new Error('Unknown user'));
-    } else {
-      return callback(null, accessToken);
-    }
-  });
+  // transporter.set('oauth2_provision_cb', function(user, renew, callback) {
+  //   var accessToken = userTokens[user];
+  //   if (!accessToken) {
+  //     return callback(new Error('Unknown user'));
+  //   } else {
+  //     return callback(null, accessToken);
+  //   }
+  // });
 
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {

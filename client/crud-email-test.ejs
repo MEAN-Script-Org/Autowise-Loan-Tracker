@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include partials/header.html %>
+</head>
+<body>
+<% include partials/nav.html %>
+
+<!-- styling should not be hardcoded in html... -->
+<!-- as in don't have "style=..." at all on these pages -->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
+     ng-app="SWEApp" ng-controller="EmailTestController" ng-init="init()">
+
+    <!-- End of filters -->
+    <!-- Start of accordion content -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container-accordion">
+          <div class="accordion">
+            <dl>
+              <div ng-repeat="loan in loans | orderBy:'updated_at'">
+                <!-- filter:searchText | orderBy:'updated_at' -->
+              <dt>
+                <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                  {{loan.name}} – Loan #{{loan._id}}
+                </a>
+              </dt>
+              <dd class="accordion-content accordionItem" for="accordion{{$index}}">
+                <% include partials/progress-row.ejs %>
+
+                <div class="row">
+                    <div class="col-xs-11 no-padding">
+                        <div class="panel panel-default chat">
+                            <div class="panel-heading">
+                                Admin Comments
+                            </div>
+                            <div class="panel-body">
+                                  <!-- ng-repeat here -->
+                                    <ul ng-repeat="comment in loan.comments">
+                                        <li class="left clearfix"><span class="chat-img pull-left">
+                                            <div class="chat-body clearfix">
+                                                <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
+                                                <p>{{comment}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="input-group">
+                                  <form style="display: flex;" ng-submit="">
+                                    <input type="text" class="form-control input-md" 
+                                           placeholder="Type your message here..." 
+                                           id="{{loan._id}}-new-comment" />
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-primary btn-md" ng-click="addComment($index, loan._id)">
+                                        Send
+                                      </button>
+                                      <button class="btn btn-danger btn-md" ng-click="removeLoan($index, loan._id)">
+                                        Bye bye
+                                      </button>
+                                    </span>
+                                  </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form ng-submit="addLoan()">
+      <h3>New Loan</h3>
+      <input placeholder="Name" type="text" ng-model="newLoan.name" required>
+      <input placeholder="Email" type="email" ng-model="newLoan.email">
+      <input type="submit" class="btn btn-default">
+      <input type="submit" style="display: none">
+    </form>
+</div>
+
+<% include partials/footer.html %>
+
+<script src="js/classie.js"></script>
+<script src="js/uisearch.js"></script>
+<script src="js/accord.js"></script>
+
+</body>
+</html>

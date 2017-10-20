@@ -5,11 +5,13 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 // This var needs to go asap
-var db_config = require('./server.db_config.js') ;
+// This was replaced by .env variable 'MONGO_URI' in Heroku
+// var db_config = require('./server.db_config.js') ;
 
 module.exports.init = function() {
+
   // Connect to database
-  mongoose.connect(db_config.db.uri);
+  mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
 
   // initialize app
   var app = express();
@@ -30,6 +32,11 @@ module.exports.init = function() {
 
   // use the listings router for requests to the api
   app.use('/api', routes);
+
+  // load 
+  app.use('/crud', function(req, res) {
+    res.render('crud-email-test');
+  });
 
   // go to homepage for all routes not specified
   app.all('/*', function(req, res) {
