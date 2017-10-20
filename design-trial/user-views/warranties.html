@@ -26,7 +26,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
+		<div class="timeline-container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
@@ -68,7 +68,7 @@
 		</div>
 		<div class="divider"></div>
 		<ul class="nav menu">
-			<li class="active"><a href="index.html"><em class="fa fa-spinner">&nbsp;</em> Active Loans</a></li>
+			<li class="active"><a href="index.html"><em class="fa fa-spinner">&nbsp;</em> Warranties</a></li>
 			<li><a href="widgets.html"><em class="fa fa-history">&nbsp;</em> Archived Loans</a></li>
 			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
@@ -85,14 +85,24 @@
 		</div><!--/.row-->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Active Loans</h1>
-                <div id="sb-search" class="sb-search">
-                    <form>
+				<h1 class="page-header">Warranties</h1>
+                <!-- <div id="sb-search" class="sb-search"> -->
+                    <!-- <form>
                         <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
                         <input class="sb-search-submit" type="submit" value="">
                         <span class="sb-icon-search"></span>
+                    </form> -->
+                    <div class="panel-heading">
+                        
+                    <form action="/action_page.php">
+                        Car Model Year:<br>
+                        <input type="text" name="firstname" value="Mickey"><br>
+                        Mileage:<br>
+                        <input type="text" name="lastname" value="Mouse"><br><br>
+                        <input type="submit" value="Submit">
                     </form>
-                </div>
+
+                <!-- </div> -->
 			</div>
 		</div><!--/.row-->
 		<!-- <div class="row">
@@ -164,17 +174,17 @@
                 <dl>
                   <dt>
                     <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
-                      SHurtado – Loan #4344431
+                      Drivetrain Plus - Any Year
                     </a>
                   </dt>
                   <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
                     <div class="row progress-row">
                         <div class="col-xs-12" style="">
-                            <div class = "progress" id="user-progress">
+                            <!-- <div class = "progress" id="user-progress">
                                 <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
                                     Processing...
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -192,7 +202,7 @@
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Current Loan Information
+                                    Warranty Information
                                 </div>
                                 <div class="panel-body timeline-container">
                                         <ul class="timeline">
@@ -226,7 +236,7 @@
                   </dd>
                   <dt>
                     <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
-                      HarrisonFord – Loan #4466464
+                      Deluxe - 2007 and Newer
                         
                     </a>
                   </dt>
@@ -236,7 +246,7 @@
                   </dd>
                   <dt>
                     <a href="#accordion3" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
-                      TerraCruz – Loan #1259345
+                      Factory Type Coverage - 2011 and Newer
                         
                     </a>
                   </dt>
