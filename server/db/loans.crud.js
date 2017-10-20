@@ -4,20 +4,25 @@
 var mongoose = require('mongoose') ;
 var Loan = require('./loans.model.js') ;
 
-// Saves a loan to the database
-function save(loan, res) {
+// Saves a loan to the database and responds with the database loan object in JSON
+function save_n_respond(loan, res) {
   loan.save(function(err) {
-    if(err) {
-      console.log(err) ;
+    if (err) {
       res.status(400).send(err) ;
-    } else res.status(200) ;
+    } else {
+      Loan.find(loan, function(err, loans) {
+        if (err) {
+          res.status(400).send(err) ;
+        } else { res.status(200).json(loans[0]) ; }
+      });
+    }
   });
 }
 
 module.exports = {
   // Loan creation
   create: function(req, res) {
-    save(new Loan(req.body), res) ;
+    save_n_respond(new Loan(req.body), res) ;
   },
 
   // Loan read
@@ -26,12 +31,21 @@ module.exports = {
   },
 
   // Loan update
-  // TODO: correctly implement this
   update: function(req, res) {
     var loan = req.loan ;
-    loan.bleh = req.body.bleh ;
-
-    save(loan, res) ;
+    
+    // Exhaustively update fields from HTTP request
+    loan.status = req.body.status
+    loan.types = req.body.types
+    loan.trades = req.body.trades
+    loan.comments = req.body.comments
+    
+    if (req.body.costs) {
+      loan.costs.taxes = req.body.costs.taxes
+      loan.costs.warranties = req.body.costs.warranties
+    }
+    
+    save_n_respond(loan, res) ;
   },
 
   // Loan deletion
@@ -41,14 +55,12 @@ module.exports = {
     // Find the loan of interest
     Loan.find(loan, function(err, loans) {
       if (err) {
-        console.log(err) ;
         res.status(404).send(err) ;
       } else {
         // TODO: Correctly implement this
         // since this is wrong, can't use hardcoded index
         loans[0].remove(function(err) {
           if (err) {
-            console.log(err) ;
             res.status(404).send(err) ;
           } else res.json(loans) ;
         }) ;
@@ -58,9 +70,8 @@ module.exports = {
 
   // Get all loans
   list: function(req, res) {
-    Loan.find({}, function(err, loans) {
+    Loan.find().exec(function(err, loans) {
       if (err) {
-        console.log(err) ;
         res.status(404).send(err) ;
       } else res.json(loans) ;
     });
@@ -70,7 +81,6 @@ module.exports = {
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {
-        console.log(err) ;
         res.status(400).send(err) ;
       }
       else {
