@@ -86,77 +86,80 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Active Loans</h1>
+                <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="heading-primary">Search by...</h1>
+                  </div>
+                    <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
+                </div>
+                <div class="panel panel-container">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-user color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">User's Name
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-envelope color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Email
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-university color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Lender
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-calendar color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Date Posted
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
+                </div>
                 <div id="sb-search" class="sb-search">
                     <form>
                         <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
                         <input class="sb-search-submit" type="submit" value="">
-                        <span class="sb-icon-search"></span>
+                        <span class="sb-icon-search">
+                        </span>
                     </form>
+                    <div class="disabler"></div>
                 </div>
 			</div>
 		</div><!--/.row-->
-		<div class="row">
-          <div class="col-md-12">
-              <h1 class="heading-primary">Filter by...</h1>
-          </div>
-            <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-        </div>
-		<div class="panel panel-container">
-			<div class="row">
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 1
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 2
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 3
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 4
-                            </label>
-						</div>
-					</div>
-				</div>
-			</div><!--/.row-->
-		</div>
+		
         <div class="row">
           <div class="col-md-12">
             <div class="container-accordion">
@@ -317,6 +320,7 @@
 	<script src="js/bootstrap-datepicker.js"></script>
     <script src="ExpandingSearchBar/js/classie.js"></script>
     <script src="ExpandingSearchBar/js/uisearch.js"></script>
+    <script src="js/admin_script.js"></script>
     <script>
         new UISearch( document.getElementById( 'sb-search' ) );
     </script>
