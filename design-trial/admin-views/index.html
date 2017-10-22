@@ -18,7 +18,7 @@
 	<![endif]-->
     <link rel="shortcut icon" href="../favicon.ico"> 
     
-<!--    <link rel="stylesheet" type="text/css" href="ExpandingSearchBar/css/default.css" />-->
+<!--    <link rel="stylesheet" type="text/css" href="/ExpandingSearchBar/css/default.css" />-->
     <link rel="stylesheet" type="text/css" href="../ExpandingSearchBar/css/component.css" />
 <!--    <script src="/ExpandingSearchBar/js/modernizr.custom.js"></script>-->
 
@@ -86,77 +86,80 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Active Loans</h1>
+                <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="heading-primary">Search by...</h1>
+                  </div>
+                    <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
+                </div>
+                <div class="panel panel-container">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-user color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">User's Name
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-envelope color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Email
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-university color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Lender
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-calendar color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Date Posted
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
+                </div>
                 <div id="sb-search" class="sb-search">
                     <form>
                         <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
                         <input class="sb-search-submit" type="submit" value="">
-                        <span class="sb-icon-search"></span>
+                        <span class="sb-icon-search">
+                        </span>
                     </form>
+                    <div class="disabler"></div>
                 </div>
 			</div>
 		</div><!--/.row-->
-		<!-- <div class="row">
-          <div class="col-md-12">
-              <h1 class="heading-primary">Filter by...</h1>
-          </div>
-            <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-        </div> -->
-		<div class>
-			<div class>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <!-- <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span> 
-                            </label>
-                             <label class="text-muted">Filter 1
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 2
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 3
-                            </label>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<div class="panel panel-teal panel-widget border-right">
-						<div class="row no-padding">
-                            <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Filter 4
-                            </label> -->
-						</div>
-					</div>
-				</div>
-			</div><!--/.row-->
-		</div>
+		
         <div class="row">
           <div class="col-md-12">
             <div class="container-accordion">
@@ -169,24 +172,81 @@
                   </dt>
                   <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
                     <div class="row progress-row">
-                        <div class="col-xs-12" style="">
-                            <div class = "progress" id="user-progress">
+                        <div class="col-xs-9" style="">
+                            <div class = "progress">
                                 <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
                                     Processing...
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-xs-3">
+                            <ul class="pull-right panel-settings">
+                            <li class="dropdown">
+                                <a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#" style="display: flex; justify-content: center; align-items: center;">
+                                    <em class="fa fa-cogs"></em>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <ul class="dropdown-settings">
+                                            <li><a href="#">
+                                                <em class="fa fa-cog"></em> Settings 1
+                                            </a></li>
+                                            <hr>
+                                            <li><a href="#">
+                                                <em class="fa fa-cog"></em> Settings 2
+                                            </a></li>
+                                            <hr>
+                                            <li><a href="#">
+                                                <em class="fa fa-cog"></em> Settings 3
+                                            </a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                              </li>
+                        </ul>
+                        </div>
                     </div>
-
-                    
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- <div class="panel panel-default chat"> -->
-                                <div class="panel-heading"> 
-
-                    <!-- type your message here was deleted -->
-
+                            <div class="panel panel-default chat">
+                                <div class="panel-heading">
+                                    Admin Comments
+                                </div>    
+                                <div class="panel-body">
+                                        <ul>
+                                            <li class="left clearfix"><span class="chat-img pull-left">
+                                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                                </span>
+                                                <div class="chat-body clearfix">
+                                                    <div class="header"><strong class="primary-font">Admin Name</strong><small class="text-muted">32 mins ago</small></div>
+                                                    <p>This is where the first admin comment would go.</p>
+                                                </div>
+                                            </li>
+                                            <li class="left clearfix"><span class="chat-img pull-left">
+                                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                                </span>
+                                                <div class="chat-body clearfix">
+                                                    <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">5 hours ago</small></div>
+                                                    <p>This is where the 2nd admin comment would go.</p>
+                                                </div>
+                                            </li>
+                                            <li class="left clearfix"><span class="chat-img pull-left">
+                                                <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
+                                                </span>
+                                                <div class="chat-body clearfix">
+                                                    <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">10/02/17</small></div>
+                                                    <p>This is where the 3rd admin comment would go.</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
+                                            <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -260,6 +320,7 @@
 	<script src="../js/bootstrap-datepicker.js"></script>
     <script src="../ExpandingSearchBar/js/classie.js"></script>
     <script src="../ExpandingSearchBar/js/uisearch.js"></script>
+    <script src="../js/admin_script.js"></script>
     <script>
         new UISearch( document.getElementById( 'sb-search' ) );
     </script>
