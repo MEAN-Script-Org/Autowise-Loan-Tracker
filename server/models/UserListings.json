@@ -1,0 +1,16 @@
+{
+    "entries": [
+        {
+            "username": "Marcial", 
+            "password": "password", 
+            "isAdmin": false
+            
+        }, 
+
+        {
+            "username": "Harrison", 
+            "password": "password", 
+            "isAdmin": false            
+        }
+    ]
+}
