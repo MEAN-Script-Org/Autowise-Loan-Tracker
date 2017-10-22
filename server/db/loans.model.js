@@ -58,8 +58,8 @@ loanSchema.pre('save', function(next) {
   if (!this.status)
     this.status = "RECEIVED";
   
-  if (!this.type)
-    this.status = "Auto Loan";
+  if (!this.types)
+    this.types = "Auto Loan";
 
   next() ;
 });

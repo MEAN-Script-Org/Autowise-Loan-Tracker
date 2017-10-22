@@ -3,9 +3,11 @@
 // Dependencies - installed modules
 var should   = require('should') ;
 var mongoose = require('mongoose') ;
+var config_loader = require('dotenv');
+
+config_loader.load({path: "../../.env"});
 
 // Dependencies - local files
-//var config_db = require('../../server/server.db_config.js') ;
 var Loan      = require('../../server/db/loans.model.js') ;
 var express   = require('../../server/express.js') ;
 
@@ -16,8 +18,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   
   // Specify database connection
   before(function(done) {
-    express.init() ;
-    
+
+    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    //'mongodb://max_admin2:n$E0yDCyLc07@ds119044.mlab.com:19044/cen-class'
     done() ;
   }) ;
   
@@ -108,20 +111,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.5: Error is thrown when attempting to save without 'types' field
+  // Test #1.5: Loan can be deleted from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.5: Error is thrown when attempting to save without \'types\' field', function(done) {
-    test_loan_bad.save(function (err) {
-      should.exist(err) ;
-      
-      done() ;
-    });
-  });
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.6: Loan can be deleted from the database
-  //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.6: Loan can be deleted from the database', function(done) {
+  it('Test #1.5: Loan can be deleted from the database', function(done) {
     test_db_loan.remove(test_db_loan, function (err) {
       should.not.exist(err) ;
       
@@ -130,9 +122,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.7: Loan is successfully removed from the database
+  // Test #1.6: Loan is successfully removed from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.7: Loan is successfully removed from the database', function(done) {
+  it('Test #1.6: Loan is successfully removed from the database', function(done) {
     Loan.find({_id: test_db_loan._id}, function(err, loans) {
       should.not.exist(err) ;
       should.not.exist(loans[0]) ;

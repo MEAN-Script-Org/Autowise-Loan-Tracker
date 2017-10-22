@@ -12,7 +12,6 @@ module.exports = {
 
     newLoan.save(function(err) {
       if (err) {
-        console.log(err) ;
         res.status(400).send(err) ;
       } else res.json(newLoan) ;
     });
@@ -26,9 +25,9 @@ module.exports = {
     var loan = req.loan;
     
     // {new: true} => makes 'updatedLoan' the updated version
-    Loan.findByIdAndUpdate(loan._id, loan, {new: true}, 
+    Loan.findByIdAndUpdate(loan._id, req.body.loan_new, {new: true}, 
       function(err, updatedLoan) {
-        if (err) res.status(404).send(err);
+        if (err) { console.log(err) ; res.status(404).send(err); }
         else res.json(updatedLoan);
     });
   },
