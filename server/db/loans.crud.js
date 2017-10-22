@@ -26,7 +26,7 @@ module.exports = {
     var loan = req.loan;
     
     // {new: true} => makes 'updatedLoan' the updated version
-    Loan.findByIdAndUpdate(loan._id, loan, {new: true}, 
+    Loan.findByIdAndUpdate(loan._id, req.body.new_loan, {new: true}, 
       function(err, updatedLoan) {
         if (err) res.status(404).send(err);
         else res.json(updatedLoan);
