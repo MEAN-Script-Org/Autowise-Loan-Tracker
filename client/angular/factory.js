@@ -1,8 +1,8 @@
 angular.module('SWEApp').factory('Factory', ['$http',
   function($http) {
     var methods = {
-      getUserId: function() {
-        return $http.get('/api/id');
+      getUserInfo: function() {
+        return $http.get('/api/info');
       },
       getLoans: function() {
         return $http.get('/api/loans');

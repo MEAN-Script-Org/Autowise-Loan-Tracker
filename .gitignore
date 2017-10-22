@@ -4,6 +4,7 @@ npm-debug.log
 
 # Local development
 .env*
+.sublime*
 .DS_Store
 
 # Old config file

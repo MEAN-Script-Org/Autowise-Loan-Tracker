@@ -1,53 +1,44 @@
 'use strict';
 
-var bs = require('browser-sync');
 var gulp = require('gulp');
+var bs = require('browser-sync');
 var exec = require('child_process').exec;
-var clear = require('clear');
 var nodemon = require('gulp-nodemon');
-var config_loader = require("dotenv-safe");
+var clear = require('clear');
 
-// gulp.task('default', seq);
-gulp.task('default', ['import-heroku-config', 'nodemon', 'browser-sync']);
+gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
 
-gulp.task('import-heroku-config', function(callback) {
-    exec("heroku config -s > .env.example");
-    callback();
+gulp.task('get-config', function(cb) {
+    if (exec("heroku config -s > .env"))
+        cb();
 });
 
-// Doc: https://browsersync.io/docs/options
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        // browser: "firefox"
-        browser: "chrome",
-        reloadOnRestart: true,
-        files: ["client/**/*.*"],
-        proxy: "http://localhost:5000",
         port: "5001",
+        proxy: "http://localhost:5000",
+        files: ["client/**/*.*"],
+        reloadOnRestart: true,
+        browser: "chrome",
     });
 });
 
-gulp.task('nodemon', function (callback) {
+gulp.task('nodemon', function (cb) {
     var started = false;
-    return nodemon({
-        env: config_loader.load().parsed
-    })
+    return nodemon({env: { 'NODE_ENV': 'development' }})
     .on('start', function () {
         // to avoid nodemon being started multiple times
         if (!started) {
+            cb();
             started = true;
-            callback();
-        } 
+        }
+        setTimeout(function() {
+            bs.reload();
+            console.log('-------- Starting BS --------');
+        }, 2000);
     })
     .on('restart', function() {
         clear();
         console.log('-------- Restarting Server --------');
-    })
-    .on('crash', function() {
-        clear();
-        console.log('-------- APP CRASHED! Make sure you have valid Heroku credentials --------');
-        console.log("-------- Type 'rs' [enter] on THIS command line to RESTART server --------");
-        console.log('-------- Restarting browser-sync --------');
-        bs.reload();
     });
 });

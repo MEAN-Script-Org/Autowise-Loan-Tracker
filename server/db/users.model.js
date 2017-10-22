@@ -17,7 +17,6 @@ var userSchema = new mongoose.Schema({
   },
 
   loans: Array,
-  created_at: Date,
   updated_at: Date
 });
 
@@ -26,8 +25,8 @@ userSchema.pre('save', function(next) {
   var currentDate = new Date();
   this.updated_at = currentDate;
   
-  if (!this.created_at)
-    this.created_at = currentDate;
+  // if (!this.created_at)
+  //   this.created_at = currentDate;
 
   next();
 });

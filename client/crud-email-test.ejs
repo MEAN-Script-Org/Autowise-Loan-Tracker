@@ -21,6 +21,7 @@
           <div class="accordion">
             <dl>
               <div ng-repeat="loan in loans">
+                <!-- make this into a compenent/partial -->
                 <!-- filter:searchText | orderBy:'updated_at' -->
               <dt>
                 <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
@@ -37,15 +38,14 @@
                                 Admin Comments
                             </div>
                             <div class="panel-body">
-                                  <!-- ng-repeat here -->
-                                    <ul ng-repeat="comment in loan.comments">
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>{{comment}}</p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <ul ng-repeat="comment in loan.comments">
+                                    <li class="left clearfix"><span class="chat-img pull-left">
+                                        <div class="chat-body clearfix">
+                                            <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
+                                            <p>{{comment}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="panel-footer">
                                 <div class="input-group">
@@ -54,10 +54,17 @@
                                            placeholder="Type your message here..." 
                                            id="{{loan._id}}-new-comment" />
                                     <span class="input-group-btn">
-                                      <button class="btn btn-primary btn-md" ng-click="addComment($index, loan._id)">
+                                      <button class="btn btn-primary btn-md" ng-click="addComment(loan._id)">
                                         Send
                                       </button>
-                                      <button class="btn btn-danger btn-md" ng-click="removeLoan($index, loan._id)">
+                                      <!-- ng-show="loan.user_email && (oldLoans($index) != loans($index))"  -->
+                                      <button class="btn btn-warning btn-md" 
+                                        ng-show="loan.user_email"
+                                        ng-click="emailClient(loan._id, loan.user_email)">
+                                        Email
+                                      </button>
+                                      <button class="btn btn-danger btn-md" ng-click="removeLoan(loan._id)">
+                                        <!-- Add BIG ASS WARNING Modal -->
                                         Bye bye
                                       </button>
                                     </span>
@@ -74,6 +81,8 @@
         </div>
       </div>
     </div>
+
+    <a href="http://swe-2017.herokuapp.com/loan/" target="_blank"> helloooo test </a>
 
     <form ng-submit="addLoan()">
       <h3>New Loan</h3>

@@ -7,9 +7,14 @@ var users = require("./db/users.crud.js") ;
 
 router.route('/email').post(emailHandler);
 
-router.route('/id').get(
+router.route('/info').get(
   function(req, res) {
-    res.json(123456);
+    // fake funtion
+    // TBImplemented
+    res.json({
+      _id: 123456,
+      email: "marcial.abrahantes@gmail.com"
+    });
 });
 
 router.route('/time').get(

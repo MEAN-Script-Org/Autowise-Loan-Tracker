@@ -30,18 +30,22 @@ Comments
   visibleToConsumer : bool
   important : bool
   CHANGE TO MOCKUP: Same area as normal info
-
 */
 
 var loanSchema = new mongoose.Schema({
+  // Foreign Key
   user_id: String,
-  status: String,
-  types: String,
+
+  // Foreign Attributes
   name: String,
+  user_email: String,
+
+  type: String,
+  status: String,
   
   costs: {
     taxes: Number,
-    warranties: Number,
+    warranty: Number,
   },
 
   // trades: String/Array,
@@ -61,7 +65,11 @@ loanSchema.pre('save', function(next) {
   if (!this.type)
     this.status = "Auto Loan";
 
-  next() ;
+  // if (!this.name.length)
+  //   this.name = ["Last", "First"];
+
+  // Check for async/concurrency here...
+  next();
 });
 
 // Create loan model from schema
