@@ -3,13 +3,8 @@ node_modules
 npm-debug.log
 
 # Local development
-.env
-*.dev
+.env*
 .DS_Store
 
 # Old config file
 server.db_config.js
-
-# Docker
-Dockerfile
-docker-compose.yml

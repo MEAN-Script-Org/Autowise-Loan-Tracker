@@ -43,7 +43,11 @@ angular.module('SWEApp').controller('EmailTestController',
         function(res) {
           if (res.data.length != 0){
             $rootScope.loans = res.data;
-            console.log(res.data);
+
+            // once the index of 
+            $rootScope.oldLoans = res.data;
+
+            // console.log(res.data);
           }
           else {
             console.log("DB is empty ~");
