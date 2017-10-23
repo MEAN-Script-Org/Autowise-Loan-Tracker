@@ -1,4 +1,4 @@
-angular.module('SWEApp').controller('EmailTestController',
+angular.module('SWEApp').controller('SWEAppController',
   ['$rootScope', '$scope', '$location', 'Factory',
   function($rootScope, $scope, $location, Factory) {
 
@@ -52,7 +52,7 @@ angular.module('SWEApp').controller('EmailTestController',
           alert("Successfully deleted loan");
         },
         function(err) {
-          alert("Error deleting loan. Perhaps it was already deleted");
+          alert("Error deleting loan. Perhaps it was already deleted.");
           console.log(err);
         }
       );
@@ -141,6 +141,8 @@ angular.module('SWEApp').controller('EmailTestController',
 
     $scope.emailClient = function(loanID, userEmail, clientName) {
 
+      var errorMsg = "There was an error sending the email. Please check the logs";
+
       if (!userEmail) {
         alert("User has no email associated with their account");
         return
@@ -161,14 +163,14 @@ angular.module('SWEApp').controller('EmailTestController',
           //    and just do sucess messages like Assignments
           if (response.data.error) {
             console.log(response.data.error);
-            alert("There was an error sending the email. Please check the logs");
+            alert(errorMsg);
           } else {
             alert("Notification email sent to " + userEmail + "!");
           }
         },
         function(error) {
           console.log(error);
-          alert("There was an error sending the email. Please check the logs");
+          alert(errorMsg);
       });
     };
   }
