@@ -1,7 +1,9 @@
 //uses classList, setAttribute, and querySelectorAll
 //if you want this to work in IE8/9 youll need to polyfill these
 (function(){
-	var d = document,
+    setTimeout(function(){ 
+        
+        var d = document,
 	accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
 	setAria,
 	setAccordionAria,
@@ -9,6 +11,7 @@
   touchSupported = ('ontouchstart' in window),
   pointerSupported = ('pointerdown' in window);
 
+    
   skipClickDelay = function(e){
     e.preventDefault();
     e.target.click();
@@ -51,6 +54,7 @@
  	
   	thisAnswer.classList.toggle('animateIn');
 	};
+
 	for (var i=0,len=accordionToggles.length; i<len; i++) {
 		if(touchSupported) {
       accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
@@ -60,4 +64,9 @@
     }
     accordionToggles[i].addEventListener('click', switchAccordion, false);
   }
+        
+        
+        
+        ; }, 3000);
+	
 })();

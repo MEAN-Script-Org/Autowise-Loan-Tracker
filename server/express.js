@@ -15,6 +15,8 @@ module.exports.init = function() {
 
   // initialize app
   var app = express();
+  // app.all('/api/*', requireAuthentication);
+  // app.all('/admin/*', requireAuthentication, requireAdminStatus);
 
   // enable request logging for development debugging
   app.use(morgan('dev'));
@@ -27,21 +29,38 @@ module.exports.init = function() {
   app.set('view engine', 'ejs');
 
   // serve static files
-  // app.use('/client', express.static(__dirname + '/../client'));
   app.use('/', express.static(__dirname + '/../client'));
 
-  // use the listings router for requests to the api
+  // use this router for requests to the api
   app.use('/api', routes);
+  // app.use('/loans', routes);
 
-  // load 
+  // Marcial work
   app.use('/crud', function(req, res) {
     res.render('crud-email-test');
   });
 
-  // go to homepage for all routes not specified
-  app.all('/*', function(req, res) {
+  // Default if not logged in
+  app.use('/login', function(req, res) {
+    res.render('login');
+  });
+
+  // Default if logged in
+  app.use('/loans', function(req, res) {
+    res.render('user');
+  });
+
+  app.use('/admin', function(req, res) {
     res.render('home');
   });
 
+  // Wildcard
+  app.use('/*', function(req, res) {
+    res.redirect('login');
+  });
+
+  // if (req.accepts('html')) {
+  // if (req.accepts('json')) {
+  
   return app;
 };

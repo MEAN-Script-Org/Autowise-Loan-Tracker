@@ -23,79 +23,81 @@
         </ol>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Active Loans</h1>
-            <div id="sb-search" class="sb-search">
-                <form>
-                    <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
-                    <input class="sb-search-submit" type="submit" value="">
-                    <span class="sb-icon-search"></span>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-          <h1 class="heading-primary">Filter by...</h1>
-      </div>
-        <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-    </div>
-    <div class="panel panel-container">
-        <div class="row">
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 1
-                        </label>
-                    </div>
+			<div class="col-lg-12">
+				<h1 class="page-header">Active Loans</h1>
+                <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="heading-primary">Search by...</h1>
+                  </div>
+                    <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
                 </div>
-            </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 2
-                        </label>
-                    </div>
+                <div class="panel panel-container">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-user color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">User's Name
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-envelope color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Email
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-university color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Lender
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-calendar color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Date Posted
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
                 </div>
-            </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 3
-                        </label>
-                    </div>
+                <div id="sb-search" class="sb-search">
+                    <form>
+                        <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
+                        <input class="sb-search-submit" type="submit" value="">
+                        <span class="sb-icon-search">
+                        </span>
+                    </form>
+                    <div class="disabler"></div>
                 </div>
-            </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 4
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div><!--/.row-->
 
     <!-- End of filters -->
     <!-- Start of accordion content -->
@@ -105,116 +107,76 @@
         <div class="container-accordion">
           <div class="accordion">
             <dl>
-              <dt>
-                <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
-                  SHurtado – Loan #4344431
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
-                <% include partials/progress-row.ejs %>
+              <div ng-repeat="loan in loans">
+                  <dt>
+                    <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                      {{loan.owner}} – Loan #{{loan._id}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                    <% include partials/progress-row.ejs %>
 
-                <div class="row">
-                    <div class="col-xs-7 no-padding">
-                        <div class="panel panel-default chat">
-                            <div class="panel-heading">
-                                Admin Comments
-                            </div>
-                            <div class="panel-body">
-                                    <ul>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the first admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #2</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the 2nd admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #3</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the 3rd admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
-                                        <button class="btn btn-primary btn-md" id="btn-chat">Send</button>
-                                        <button type="button" class="btn btn-primary btn-md">Edit the user loan</button>
-                                    </span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default chat">
+                                <div class="panel-heading">
+                                    Admin Comments
+                                </div>
+                                <div class="panel-body">
+                                        <ul>
+                                            <li class="left clearfix">
+                                                <div class="chat-body clearfix">
+                                                    <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">32 mins ago</small></div>
+                                                    <p>This is where the first admin comment would go.</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
+                                            <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Current Loan Information
+                                </div>
+                                <div class="panel-body timeline-container">
+                                        <ul class="timeline">
+                                            <li>
+                                                <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+                                                <div class="timeline-panel">
+                                                    <div class="timeline-heading">
+                                                        <h4 class="timeline-title">Loan Info</h4>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        <p>Update on user's registration.</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
+                                                <div class="timeline-panel">
+                                                    <div class="timeline-heading">
+                                                        <h4 class="timeline-title">Urgent</h4>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        <p>Immediate action needed.</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                             </div>
+                        </div>
                     </div>
-                    <div class="col-xs-5" style="padding: 0;">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Current Loan Information
-                            </div>
-                            <div class="panel-body timeline-container">
-                                    <ul class="timeline">
-                                        <li>
-                                            <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <h4 class="timeline-title">Loan Info</h4>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Update on user's registration.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <h4 class="timeline-title">Urgent</h4>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Immediate action needed.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                            </div>
-                         </div>
-                    </div>
-                </div>
-              </dd>
-              <dt>
-                <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
-                  HarrisonFord – Loan #4466464
-
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
-                <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
-              </dd>
-              <dt>
-                <a href="#accordion3" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
-                  TerraCruz – Loan #1259345
-
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
-                <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
-              </dd>
+                  </dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -222,14 +184,12 @@
     </div>
 </div>
 
-<% include partials/footer.html %>
-
+<script src="js/accord.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
 new UISearch( document.getElementById( 'sb-search' ) );
 </script>
-<script src="js/accord.js"></script>
-
+<% include partials/footer.html %>
 </body>
 </html>
