@@ -13,8 +13,8 @@ angular.module('SWEApp').factory('Factory', ['$http',
       deleteLoan: function(id) {
         return $http.delete('/api/loan/' + id);
       },
-      newComment: function(id, newComment ) {
-        return $http.put('/api/newComment/' + id, {newComment});
+      modifyLoan: function(id, updatedLoan) {
+        return $http.put('/api/loan/' + id, {updatedLoan, comments: updatedLoan.comments});
       },
       sendEmail: function(updates) {
         return $http.post('/api/email', updates);

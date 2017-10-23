@@ -40,6 +40,8 @@ var loanSchema = new mongoose.Schema({
   name: String,
   user_email: String,
 
+  // Above need to be from User Collection
+
   type: String,
   status: String,
   
@@ -63,12 +65,8 @@ loanSchema.pre('save', function(next) {
     this.status = "RECEIVED";
   
   if (!this.type)
-    this.status = "Auto Loan";
+    this.type = "Auto Loan";
 
-  // if (!this.name.length)
-  //   this.name = ["Last", "First"];
-
-  // Check for async/concurrency here...
   next();
 });
 

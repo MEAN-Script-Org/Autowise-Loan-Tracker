@@ -11,7 +11,9 @@ var money_formatter = new Intl.NumberFormat('en-US', {
 var format_email_html = function (form) {
   // <a href="swe-2017.herokuapp.com/loan/" target="_blank"> </a>
   var app_link = ["<a href='", process.env.BASE_URL, 
-                  "loan/", + form.id, "' target='_blank'>here</a>."].join("");
+                  "loan/", form.id, "' target='_blank'>here</a>."].join("");
+
+  console.log(app_link);
 
   var message = [
     "",
@@ -33,7 +35,7 @@ var format_email_html = function (form) {
 
 module.exports = function (req, res) {
 
-  console.log(req.body);
+  // console.log(req.body);
   var message = format_email_html(req.body);
   var subject = "Autowise: Your loan application has been updated";
 

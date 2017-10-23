@@ -13,7 +13,8 @@ router.route('/info').get(
     // TBImplemented
     res.json({
       _id: 123456,
-      email: "marcial.abrahantes@gmail.com"
+      email: "marcial.abrahantes@gmail.com",
+      isAdmin: true,
     });
 });
 
@@ -27,7 +28,7 @@ router.route('/time').get(
 
 // > Multiple loans
 router.route('/loans')
-      .get(loans.list)
+      .get(loans.getAll)
       .post(loans.create);
 
 // > Individual loan
@@ -36,7 +37,7 @@ router.route('/loan/:loanID')
       .put(loans.update)
       .delete(loans.delete) ;
 
-// > 
+// > Technically this is a put above...
 router.route('/newComment/:loanID')
       .put(loans.newComment);
 

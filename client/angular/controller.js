@@ -5,17 +5,22 @@ angular.module('SWEApp').controller('EmailTestController',
     Factory.getUserInfo().then(function(response) {
       // Globals
       $rootScope.loans = [];
+      $rootScope.reverse = true;
+      $rootScope.reverse_comments = true;
+      $rootScope.updatedLoan = {};
+
       $rootScope.user_id = response.data._id;
-      $rootScope.user_email = response.data.email;
+      // $rootScope.user_email = response.data.email;
+      $rootScope.user_isAdmin = response.data.isAdmin;
     });
 
     $scope.init = function() {
       console.log("MEAN App on it's way!");
-      
+
       // Declared models
       $scope.state = "Processing";
       $scope.newLoan = {};
-      
+
       Factory.getLoans().then(
         function(res) {
           if (res.data.length != 0){
@@ -56,12 +61,12 @@ angular.module('SWEApp').controller('EmailTestController',
     $scope.addLoan = function() {
       // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;
-      $scope.newLoan.user_email = $rootScope.user_email;
-        
+      // $scope.newLoan.user_email = $rootScope.user_email;
+
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
-            $rootScope.loans.unshift(response.data);
+            $rootScope.loans.push(response.data);
             console.log("Returned new loan: ");
             console.log(response.data);
 
@@ -75,43 +80,69 @@ angular.module('SWEApp').controller('EmailTestController',
       );
     }
 
-    $scope.addComment = function(loanID) {
-      /*
-        Marcial, Style comment:
-          The following uses jQuery
-          It'll be better if it was in Angular style
-            if anyone finds a way to do the "Angular way", change it
-            just make sure to update the view logic as well
-      */
-      var wantedInputField = "#" + loanID + "-new-comment";
-      var newComment = $(wantedInputField).val();
-      $(wantedInputField).val("");
-      // saving text message content, clearing input field
+    // Helper method for '$scope.addComment'
+    function addCommentFrontend(loanID, newCommentContent) {
+      var time_options = {
+        minute: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        year: "numeric",
+        hour12: true,
+        timeZone: "America/New_York",
+        timeZoneName: "short",
+      };
 
-      // update frontend
-      $rootScope.loans.some(function(item, index, loans) {
+      return $rootScope.loans.some(function(item, index, loans) {
         if (item._id) {
           if (item._id == loanID) {
+            var newComment = {
+              content: newCommentContent,
+              admin: $rootScope.user_isAdmin,
+              time: new Date().toLocaleString('en-US', time_options),
+            }
+
             loans[index].comments.push(newComment);
+            $rootScope.updatedLoan = loans[index];
+            // if (loans[index].comments.push(newComment)) {}
+            // console.log($rootScope.updatedLoan == loans[index]);
+
             return true;
           }
         }
       });
-
-      // and DB
-      Factory.newComment(loanID, newComment).then(
-        function(res) {
-          console.log("Returned new loan with updated comments:");
-          console.log(res.data);
-      });
     }
 
-    $scope.emailClient = function(loanID, userEmail) {
-      // Trigger modal here too??
+    $scope.addComment = function(loanID) {
+      /*
+        Marcial, Style comment:
+          The following uses jQuery, although
+          it'll be better if it was in Angular style
+            if anyone finds a way to do the "Angular way", change it
+            JUST MAKE SURE to update the view logic as well
+      */
+      var wantedInputField = "#" + loanID + "-new-comment";
+      var newCommentContent = $(wantedInputField).val();
+      $(wantedInputField).val("");
+      // saving text message content, clearing input field
 
-      if (!userEmail)
-      {
-        // console.log("ooink");
+      if (newCommentContent) {
+        // update frontend
+        if (addCommentFrontend(loanID, newCommentContent)) {
+          // and DB
+          Factory.modifyLoan(loanID, $rootScope.updatedLoan).then(
+            function(res) {
+              console.log("Returned new loan with updated comments:");
+              console.log(res.data);
+          });
+        }
+      }
+    }
+
+    $scope.emailClient = function(loanID, userEmail, clientName) {
+
+      if (!userEmail) {
+        alert("User has no email associated with their account");
         return
       }
 
@@ -120,7 +151,7 @@ angular.module('SWEApp').controller('EmailTestController',
       var email = {
         id: loanID,
         to: userEmail,
-        name: loan.name,
+        name: clientName,
         message: bodyMessage,
       };
 
@@ -132,7 +163,7 @@ angular.module('SWEApp').controller('EmailTestController',
             console.log(response.data.error);
             alert("There was an error sending the email. Please check the logs");
           } else {
-            alert("Notification email successfully sent to " + userEmail + "!");
+            alert("Notification email sent to " + userEmail + "!");
           }
         },
         function(error) {
