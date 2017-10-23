@@ -24,7 +24,7 @@
                 <div ng-if="!loan.new">
                   <dt>
                     <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                      {{loan.name}} – Loan #{{loan._id}}
+                      {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                     </a>
                   </dt>
                   <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}">
@@ -32,10 +32,11 @@
                     <% include partials/accordion-comments.html %>
                   </dd>
                 </div>
+                
                 <div ng-if="loan.new">
                   <dt>
                     <a href="#accordion1{{$index}}" aria-expanded="false" aria-controls="accordion1{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                      {{loan.name}} – Loan #{{loan._id}}
+                      {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                     </a>
                   </dt>
                   <dd class="accordion-content accordionItem" id="accordion1{{$index}}">

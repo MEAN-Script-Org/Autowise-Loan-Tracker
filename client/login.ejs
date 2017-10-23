@@ -32,10 +32,7 @@
                   <input name="remember" type="checkbox" value="Remember Me">Remember Me
                 </label>
               </div>
-              <button href="/admin" class="btn btn-primary"
-                 ng-show="pwd && username">
-                Login
-              </button>
+              <a ng-show="pwd && username" class="btn btn-primary" href="/admin">Login</a>
             </fieldset>
           </form>
         </div>

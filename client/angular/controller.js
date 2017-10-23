@@ -5,10 +5,18 @@ angular.module('SWEApp').controller('SWEAppController',
     Factory.getUserInfo().then(function(response) {
       // Globals
       $rootScope.loans = [];
+      $rootScope.updatedLoan = {};
+      $scope.commentAsAdmin = false;
+
+      // ## Filter ~ !them for ascending order
       $rootScope.reverse = true;
       $rootScope.reverse_comments = true;
-      $rootScope.updatedLoan = {};
 
+      // ## Login Details
+      // $rootScope.pwd = "";
+      // $rootScope.username = "";
+
+      // ## User Details
       $rootScope.user_id = response.data._id;
       // $rootScope.user_email = response.data.email;
       $rootScope.user_isAdmin = response.data.isAdmin;
@@ -33,13 +41,45 @@ angular.module('SWEApp').controller('SWEAppController',
       );
     }
 
+    $scope.logLoan = function(loanID) {
+      $scope.changeLoanStatus(loanID, "ARCHIVED");
+    }
+
+    // TODO: add more state change f(x)s
+    $scope.futureStateLoan = function(loanID) {
+      $scope.changeLoanStatus(loanID, "future!");
+    }
+
+    // Main f(x) for changing state
+    $scope.changeLoanStatus = function(loanID, status) {
+      Factory.modifyLoan(loanID, {status: status}).then(
+        function(response) {
+          // update frontend after DB
+          $rootScope.loans.some(function(item, index, loans) {
+            if (item._id) {
+              if (item._id == loanID) {
+                loans[index].status = status;
+                return true;
+              }
+            }
+          });
+
+          alert("Successfully archived loan");
+        },
+        function(err) {
+          alert("Error archiving loan. Perhaps it was already archived.");
+          console.log(err);
+        }
+      );
+    }
+
     $scope.removeLoan = function(loanID) {
       // trigger modal.... THEN this
       // Delete should send things to archieve...
       //        Delete from DB, Add to 'archieve.json'
       Factory.deleteLoan(loanID).then(
         function(response) {
-          // update frontend
+          // update frontend after DB
           $rootScope.loans.some(function(item, index, loans) {
             if (item._id) {
               if (item._id == loanID) {
@@ -86,6 +126,7 @@ angular.module('SWEApp').controller('SWEAppController',
 
     // Helper method for '$scope.addComment'
     function addCommentFrontend(loanID, newCommentContent) {
+      // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
       var time_options = {
         minute: "numeric",
         month: "short",
@@ -100,10 +141,17 @@ angular.module('SWEApp').controller('SWEAppController',
       return $rootScope.loans.some(function(item, index, loans) {
         if (item._id) {
           if (item._id == loanID) {
+            
+            console.log(loans[index].commentAsAdmin);
+            console.log(loans[index].commentAsAdmin);
+            console.log(loans[index].commentAsAdmin);
+            console.log(loans[index].commentAsAdmin);
+
             var newComment = {
+              admin: loans[index].commentAsAdmin,
               content: newCommentContent,
-              admin: $rootScope.user_isAdmin,
-              time: new Date().toLocaleString('en-US', time_options),
+              // time: new Date().toLocaleString('en-US', time_options),
+              newtime: new Date(),
             }
 
             loans[index].comments.push(newComment);
