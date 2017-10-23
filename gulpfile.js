@@ -29,7 +29,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
 });
 
 function load_frontend() {
-    console.log('-------- Starting BS --------');
+    console.log('-------- Starting browser-sync (frontend loader) --------');
     bs.reload();
 }
 
@@ -37,7 +37,12 @@ gulp.task('nodemon', function (cb) {
     var started = false;
     var reloaded = false;
     return nodemon({
-        env: locals
+        env: locals,
+        watch: [
+            "server.js",
+            "server/",
+        ],
+
     })
     .on('start', function () {
         // to avoid nodemon being started multiple times
@@ -58,7 +63,6 @@ gulp.task('nodemon', function (cb) {
         clear();
         console.log('-------- APP CRASHED! Make sure you have valid Heroku credentials --------');
         console.log("-------- Type 'rs' [enter] on THIS command line to RESTART server --------");
-        console.log('-------- Restarting browser-sync --------');
-        bs.reload();
+        load_frontend();
     });
 });

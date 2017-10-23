@@ -66,7 +66,11 @@ angular.module('SWEApp').controller('SWEAppController',
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
-            $rootScope.loans.push(response.data);
+            // Making the loan
+            var newLoad = response.data;
+            newLoad.new = true;
+            $rootScope.loans.push(newLoad);
+
             console.log("Returned new loan: ");
             console.log(response.data);
 

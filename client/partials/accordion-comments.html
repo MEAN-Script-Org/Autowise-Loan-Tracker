@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-xs-11 no-padding">
+        <div class="panel panel-default chat">
+            <div class="panel-heading">
+                Comments
+            </div>
+            <div class="panel-body">
+                <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
+                    <li class="left clearfix"><span class="chat-img pull-left">
+                        <div class="chat-body clearfix">
+                            <div class="header">
+                              <strong class="primary-font" 
+                                      ng-if="comment.admin && user_isAdmin">
+                                  Admin Only
+                              </strong>
+                              <small class="text-muted">{{comment.time}}</small>
+                            </div>
+                            <p>{{comment.content}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <div class="input-group">
+                  <form style="display: flex;">
+                    <input type="text" class="form-control input-md" 
+                           placeholder="Type your message here..." 
+                           id="{{loan._id}}-new-comment"/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary btn-md" 
+                        ng-click="addComment(loan._id)">
+                        Comment
+                      </button>
+                      <!-- ng-show="loan.user_email" -->
+                      <button class="btn btn-warning btn-md" 
+                        ng-click="emailClient(loan._id, loan.user_email, loan.name)">
+                        Email
+                      </button>
+                      <button class="btn btn-danger btn-md" ng-click="removeLoan(loan._id)">
+                        <!-- Add BIG ASS WARNING Modal -->
+                        Archieve
+                      </button>
+                    </span>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
