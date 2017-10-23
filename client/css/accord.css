@@ -149,6 +149,11 @@
   }
 }
 
+.accordion-content
+{
+    overflow: scroll;
+}
+
 .accordionItem.is-collapsed {
   max-height: 0;
 }

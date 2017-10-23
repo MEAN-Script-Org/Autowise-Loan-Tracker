@@ -9,6 +9,7 @@
   touchSupported = ('ontouchstart' in window),
   pointerSupported = ('pointerdown' in window);
 
+    console.log(accordionToggles);
   skipClickDelay = function(e){
     e.preventDefault();
     e.target.click();

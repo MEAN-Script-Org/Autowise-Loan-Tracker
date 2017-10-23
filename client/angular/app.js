@@ -2,21 +2,21 @@
 angular.module('SWEApp', []);
 
 // register the application and inject all the necessary dependencies 
-var app = angular.module('SWEAppApp', ['ui.router', 'SWEApp']);
+var app = angular.module('SWEAppController', ['ui.router', 'SWEApp']);
 
 // // application configuration 
-// app.config(['$urlRouterProvider',
-//   function($urlRouterProvider) {
-//     // go to the '/listings' URL if an invalid route is provided 
-//     // console.log($urlRouterProvider);
-//     $urlRouterProvider.otherwise('');
-//   }
-// ]);
+ app.config(['$urlRouterProvider',
+   function($urlRouterProvider) {
+     // go to the '/listings' URL if an invalid route is provided 
+     // console.log($urlRouterProvider);
+     $urlRouterProvider.otherwise('');
+   }
+ ]);
 
-// // set the initial state of the application 
-// app.run(['$state', 
-//   function($state) {
-//     console.log($state);
-//     $state.go('...');
-//   }
-// ]);
+ // set the initial state of the application 
+ app.run(['$state', 
+   function($state) {
+     console.log($state);
+     $state.go('...');
+   }
+ ]);

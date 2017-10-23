@@ -1061,6 +1061,13 @@ p.back-link {
   margin: 8px;
 }
 
+.disable
+{
+    background:#fff; bottom:0; left:0; opacity:0.48; position:absolute; right:0; top:0; 
+    z-index: 100;
+    cursor: not-allowed;
+}
+
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
