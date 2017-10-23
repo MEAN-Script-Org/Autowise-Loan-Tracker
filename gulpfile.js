@@ -2,42 +2,53 @@
 
 var bs = require('browser-sync');
 var gulp = require('gulp');
-var exec = require('child_process').exec;
 var clear = require('clear');
+var exec = require('child_process').exec;
 var nodemon = require('gulp-nodemon');
-var config_loader = require("dotenv-safe");
+var config_loader = require('dotenv');
 
-// gulp.task('default', seq);
-gulp.task('default', ['import-heroku-config', 'nodemon', 'browser-sync']);
+var locals = config_loader.load();
 
-gulp.task('import-heroku-config', function(callback) {
-    exec("heroku config -s > .env.example");
-    callback();
+gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
+// can i pass flags to this?? 
+// so i can start in a specific page...
+
+gulp.task('get-config', function(cb) {
+    if (exec("heroku config -s > .env"))
+        cb();
 });
 
-// Doc: https://browsersync.io/docs/options
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        // browser: "firefox"
-        browser: "chrome",
-        reloadOnRestart: true,
-        files: ["client/**/*.*"],
-        proxy: "http://localhost:5000",
         port: "5001",
+        proxy: "http://localhost:5000",
+        files: ["client/**/*.*"],
+        reloadOnRestart: true,
+        browser: "chrome",
     });
 });
 
-gulp.task('nodemon', function (callback) {
+function load_frontend() {
+    console.log('-------- Starting BS --------');
+    bs.reload();
+}
+
+gulp.task('nodemon', function (cb) {
     var started = false;
+    var reloaded = false;
     return nodemon({
-        env: config_loader.load().parsed
+        env: locals
     })
     .on('start', function () {
         // to avoid nodemon being started multiple times
         if (!started) {
+            cb();
             started = true;
-            callback();
-        } 
+        }
+
+        if (!load_frontend()) {
+            load_frontend();
+        }
     })
     .on('restart', function() {
         clear();

@@ -9,19 +9,25 @@ var money_formatter = new Intl.NumberFormat('en-US', {
 });
 
 var format_email_html = function (form) {
-  // html body: 
-  //   Hi [first name],
-  //   <br>
-  //   [message]
-  //   <br>
-  //   [Team Autowise]
+  // <a href="swe-2017.herokuapp.com/loan/" target="_blank"> </a>
+  var app_link = ["<a href='", process.env.BASE_URL, 
+                  "loan/", form.id, "' target='_blank'>here</a>."].join("");
 
-  var message = [];
-  var attributes = Object.keys(form);
+  console.log(app_link);
 
-  attributes.forEach(function(atr) {
-    message.push(["<b>", atr.toUpperCase(), "</b>: ", form[atr]].join(""));
-  });
+  var message = [
+    "",
+    "Hi " + form.name + "!",
+    "",
+    form.message,
+    "",
+    "You can check your application by clicking " + app_link,
+    "",
+    "",
+    "Sincerely,",
+    "",
+    "<b>Autowise Buying Service, Inc</b>"
+  ];
 
   return message.join("<br>");
 }
@@ -29,41 +35,50 @@ var format_email_html = function (form) {
 
 module.exports = function (req, res) {
 
+  // console.log(req.body);
   var message = format_email_html(req.body);
-  // TB Changed A LOT
-  var subject = "Investment from " + req.body.name; 
+  var subject = "Autowise: Your loan application has been updated";
 
   // Basic Email Settings
   var mailOptions = {
-    to: [process.env.YAHOO_USERNAME].concat(req.body.to),
-    from: process.env.YAHOO_USERNAME,
+    // from: process.env.YAHOO_USERNAME,
+    from: process.env.GMAIL_USERNAME,
+    to: req.body.to,
     generateTextFromHTML: true,
     subject: subject,
-    html: message
+    html: message,
   };
 
   var transporter = nodemailer.createTransport({
-    service: "Yahoo",
+    // service: "Yahoo",
+    // clientId: process.env.CLIENT_ID,
+    // auth: {
+    //   user: process.env.YAHOO_USERNAME,
+    //   pass: atob(process.env.YAHOO_PASSWORD)
+    // }
+    // This works
+    clientId: process.env.CLIENT_ID,
+    service: "Gmail",
     auth: {
-      user: process.env.YAHOO_USERNAME,
-      pass: atob(process.env.YAHOO_PASSWORD)
+      user: process.env.GMAIL_USERNAME,
+      pass: atob(process.env.GMAIL_PASSWORD)
     }
   });
   
   // Token generation/retrival
-  // transporter.set('oauth2_provision_cb', function(user, renew, callback) {
-  //   var accessToken = userTokens[user];
-  //   if (!accessToken) {
-  //     return callback(new Error('Unknown user'));
-  //   } else {
-  //     return callback(null, accessToken);
-  //   }
-  // });
+  transporter.set('oauth2_provision_cb', function(user, renew, callback) {
+    var accessToken = userTokens[user];
+    if (!accessToken) {
+      return callback(new Error('Unknown user'));
+    } else {
+      return callback(null, accessToken);
+    }
+  });
 
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
       console.log(error);
-      res.json({result: 'error'});
+      res.json({error: error});
     } else {
       console.log('Message sent: ' + info.response);
       res.json({result: info.response});

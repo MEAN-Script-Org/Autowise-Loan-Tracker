@@ -2,48 +2,29 @@ angular.module('SWEApp').controller('EmailTestController',
   ['$rootScope', '$scope', '$location', 'Factory',
   function($rootScope, $scope, $location, Factory) {
 
-    Factory.getUserId().then(function(response) {
-      $rootScope.user_id = response.data;
+    Factory.getUserInfo().then(function(response) {
+      // Globals
+      $rootScope.loans = [];
+      $rootScope.reverse = true;
+      $rootScope.reverse_comments = true;
+      $rootScope.updatedLoan = {};
+
+      $rootScope.user_id = response.data._id;
+      // $rootScope.user_email = response.data.email;
+      $rootScope.user_isAdmin = response.data.isAdmin;
     });
 
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
-      // declared models
+      // Declared models
       $scope.state = "Processing";
       $scope.newLoan = {};
 
-      $rootScope.loans = [];
-      // $rootScope.loans = [
-      //   {
-      //     owner: "SHurtado", _id: "434234230", price: "3332",
-      //     email: "shurtado91112@ufl.edu",
-      //     comments: [
-      //       "This is where the first admin comment would go.",
-      //       "This is where the second ...",
-      //       "This is where the third ...",
-      //     ]
-      //   },
-      //   {
-      //     owner: "MAbrahantes", _id: "434234235", price: "3333",
-      //     email: "marcial1234@ufl.edu",
-      //     comments: [
-      //       "This is where the first admin comment would go.",
-      //     ]
-      //   },
-      //   {
-      //     owner: "Person with no email", _id: "pobre", price: "666",
-      //     comments: [
-      //       "[Insert comment here]",
-      //     ]
-      //   },
-      // ];
-      
       Factory.getLoans().then(
         function(res) {
           if (res.data.length != 0){
             $rootScope.loans = res.data;
-            console.log(res.data);
           }
           else {
             console.log("DB is empty ~");
@@ -52,10 +33,22 @@ angular.module('SWEApp').controller('EmailTestController',
       );
     }
 
-    $scope.removeLoan = function(index, id) {
-      Factory.deleteLoan(id).then(
+    $scope.removeLoan = function(loanID) {
+      // trigger modal.... THEN this
+      // Delete should send things to archieve...
+      //        Delete from DB, Add to 'archieve.json'
+      Factory.deleteLoan(loanID).then(
         function(response) {
-          $rootScope.loans.splice(index, 1);
+          // update frontend
+          $rootScope.loans.some(function(item, index, loans) {
+            if (item._id) {
+              if (item._id == loanID) {
+                loans.splice(index, 1);
+                return true;
+              }
+            }
+          });
+
           alert("Successfully deleted loan");
         },
         function(err) {
@@ -66,22 +59,19 @@ angular.module('SWEApp').controller('EmailTestController',
     }
 
     $scope.addLoan = function() {
-      // Assigning foreign key
+      // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;
-    
+      // $scope.newLoan.user_email = $rootScope.user_email;
+
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
-            $rootScope.loans.unshift(response.data);
-            console.log("Returned new loan:");
+            $rootScope.loans.push(response.data);
+            console.log("Returned new loan: ");
             console.log(response.data);
 
-            // clear once done
+            // clear form data once done
             $scope.newLoan = {};
-          }
-          else {
-            $scope.newLoan = {};
-            console.log("some weird shit happened");
           }
         },
         function(err) {
@@ -90,48 +80,95 @@ angular.module('SWEApp').controller('EmailTestController',
       );
     }
 
-    $scope.addComment = function(index, loanID) {
-      /*
-        Marcial, Style comment:
-          The following uses jQuery
-          It'll be better if it was in Angular style
-            if anyone finds a way to do the "Angular way", change it
-            just make sure to update the view logic as well
-      */
-      var wantedInputField = "#" + loanID + "-new-comment";
-      var newComment = $(wantedInputField).val();
-      $(wantedInputField).val("");
-      // saving text message content, clearing input field
+    // Helper method for '$scope.addComment'
+    function addCommentFrontend(loanID, newCommentContent) {
+      var time_options = {
+        minute: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        year: "numeric",
+        hour12: true,
+        timeZone: "America/New_York",
+        timeZoneName: "short",
+      };
 
-      // console.log(wantedInputField);
-      // console.log(newComment);
+      return $rootScope.loans.some(function(item, index, loans) {
+        if (item._id) {
+          if (item._id == loanID) {
+            var newComment = {
+              content: newCommentContent,
+              admin: $rootScope.user_isAdmin,
+              time: new Date().toLocaleString('en-US', time_options),
+            }
 
-      // update frontend and DB
-      $rootScope.loans[index].comments.push(newComment);
-      Factory.newComment(loanID, newComment).then(
-        function(res) {
-          console.log("Returned new loan with updated comments:");
-          console.log(res.data);
+            loans[index].comments.push(newComment);
+            $rootScope.updatedLoan = loans[index];
+            // if (loans[index].comments.push(newComment)) {}
+            // console.log($rootScope.updatedLoan == loans[index]);
+
+            return true;
+          }
+        }
       });
     }
 
-    // logic to send email on change...
-    $scope.email = function(isValid) {
-      // $rootScope.updates = ...
-      // Generic message will do for now...
-      var bodyMessage = "You have a new update on your loan application";
+    $scope.addComment = function(loanID) {
+      /*
+        Marcial, Style comment:
+          The following uses jQuery, although
+          it'll be better if it was in Angular style
+            if anyone finds a way to do the "Angular way", change it
+            JUST MAKE SURE to update the view logic as well
+      */
+      var wantedInputField = "#" + loanID + "-new-comment";
+      var newCommentContent = $(wantedInputField).val();
+      $(wantedInputField).val("");
+      // saving text message content, clearing input field
 
-      Factory.email(bodyMessage).then(
+      if (newCommentContent) {
+        // update frontend
+        if (addCommentFrontend(loanID, newCommentContent)) {
+          // and DB
+          Factory.modifyLoan(loanID, $rootScope.updatedLoan).then(
+            function(res) {
+              console.log("Returned new loan with updated comments:");
+              console.log(res.data);
+          });
+        }
+      }
+    }
+
+    $scope.emailClient = function(loanID, userEmail, clientName) {
+
+      if (!userEmail) {
+        alert("User has no email associated with their account");
+        return
+      }
+
+      // Generic message will do for now...
+      var bodyMessage = "You have an update on your loan application.";
+      var email = {
+        id: loanID,
+        to: userEmail,
+        name: clientName,
+        message: bodyMessage,
+      };
+
+      Factory.sendEmail(email).then(
         function(response) {
           // this can be changed later to not trigger the alert
-          // or just do sucess messages like before
-          if (true) {
-            alert("Update email successfully sent to " + "[Inser client name here]!");
+          //    and just do sucess messages like Assignments
+          if (response.data.error) {
+            console.log(response.data.error);
+            alert("There was an error sending the email. Please check the logs");
+          } else {
+            alert("Notification email sent to " + userEmail + "!");
           }
         },
         function(error) {
           console.log(error);
-          alert("There was an error sending the email. Pleas check the logs");
+          alert("There was an error sending the email. Please check the logs");
       });
     };
   }
