@@ -33,8 +33,8 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   // Testing loan objects that are well-defined
   var test_loan_ok = new Loan({
     status: '',
-    types: 'Auto Loan',
-    costs: { taxes: 3000.00, warranties: 200.00 },
+    type: 'Auto Loan',
+    costs: { taxes: 3000.00, warranty: 200.00 },
     trades: {},
     comments: ['This is a test']
   });
@@ -66,10 +66,10 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.2: Loan is created and saved succesfully when missing 'types' field
+  // Test #1.2: Loan is created and saved succesfully when missing 'type' field
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.2: Loan is created and saved succesfully when missing \'types\' field', function(done) {
-    test_db_loan.types = '' ;
+  it('Test #1.2: Loan is created and saved succesfully when missing \'type\' field', function(done) {
+    test_db_loan.type = '' ;
     
     test_db_loan.save(function (err) {
       should.not.exist(err) ;
@@ -88,10 +88,10 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.3.1: Loan 'types' field updated to 'Auto Loan' due to unspecified 'types'
+  // Test #1.3.1: Loan 'type' field updated to 'Auto Loan' due to unspecified 'type'
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.3.1: Loan \'types\' field updated to \'Auto Loan\' due to unspecified \'types\'', function(done) {
-    test_db_loan.types.should.equal('Auto Loan') ;
+  it('Test #1.3.1: Loan \'type\' field updated to \'Auto Loan\' due to unspecified \'type\'', function(done) {
+    test_db_loan.type.should.equal('Auto Loan') ;
     
     done() ;
   });
@@ -100,9 +100,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   // Test #1.4: Other Loan fields match those of uploaded Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.4: Other Loan fields match those of uploaded Loan', function(done) {
-    test_db_loan.types.should.equal(test_loan_ok.types) ;
+    test_db_loan.type.should.equal(test_loan_ok.type) ;
     test_db_loan.costs.taxes.should.equal(test_loan_ok.costs.taxes) ;
-    test_db_loan.costs.warranties.should.equal(test_loan_ok.costs.warranties) ;
+    test_db_loan.costs.warranty.should.equal(test_loan_ok.costs.warranty) ;
     test_db_loan.trades.should.equal(test_loan_ok.trades) ;
     test_db_loan.comments[0].should.equal(test_loan_ok.comments[0]) ;
     should.not.exist(test_db_loan.comments[1])
