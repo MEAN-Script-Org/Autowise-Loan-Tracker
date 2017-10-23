@@ -93,32 +93,41 @@
                         <span class="sb-icon-search"></span>
                     </form> -->
                     <div class="panel-heading">
+
+                    <form action="/action_page.php" method="get">
                     
-                    <h4 class="page-header">Car model year</h4>
+                        <h4 class="page-header">Car model year</h4>
 
-                    <select>
-                        <option value="volvo">Older than 2007</option>
-                        <option value="saab">2007 to 2011</option>
-                        <option value="opel">Newer than 2011</option>
-                    </select>
+                        <select>
+                            <option value="volvo">Older than 2007</option>
+                            <option value="saab">2007 to 2011</option>
+                            <option value="opel">Newer than 2011</option>
+                        </select>
 
 
-                    <h4 class="page-header">Mileage</h4>
-                    <form>
-                        <input type="text" name="firstname"><br>
+                        <h4 class="page-header">Mileage</h4>
+                        <form>
+                            <input type="text" name="Mileage"><br>
+                        </form>
+
+                        <h4 class="page-header">Length of warranty</h4>
+                        <select>
+                            <option value="volvo">3 Months / 3,000 miles</option>
+                            <option value="saab">6 Months / 6,000 miles</option>
+                            <option value="opel">12 Months / 12,000 miles</option>
+                            <option value="volvo">24 Months / 24,000 miles</option>
+                            <option value="saab">36 Months / 36,000 miles</option>
+                            <option value="opel">48 Months / 48,000 miles</option>
+                        </select>
+
+                    </div>
+                    <script src="SubmitButton.js"></script>
+                    <input id="Submit" type="button" value="Submit" onclick="doFunction();" />
+                    
+
                     </form>
-
-                    <h4 class="page-header">Length of warranty</h4>
-                    <select>
-                        <option value="volvo">3 Months / 3,000 miles</option>
-                        <option value="saab">6 Months / 6,000 miles</option>
-                        <option value="opel">12 Months / 12,000 miles</option>
-                        <option value="volvo">24 Months / 24,000 miles</option>
-                        <option value="saab">36 Months / 36,000 miles</option>
-                        <option value="opel">48 Months / 48,000 miles</option>
-                    </select>
-                </div>
-                <input type="submit" value="Submit">
+                    
+                
 			</div>
             
 		</div><!--/.row-->
@@ -362,7 +371,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 100,001-125,000</h4>
+                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 100,001 - 125,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$640</h2>
@@ -373,7 +382,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 125,001-150,000</h4>
+                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 125,001 - 150,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$710</h2>
@@ -384,7 +393,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 0-100,000</h4>
+                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 0 - 100,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1285</h2>
@@ -395,7 +404,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 100,001-125,000</h4>
+                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 100,001 - 125,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1360</h2>
@@ -406,7 +415,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 125,001-150,000</h4>
+                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 125,001 - 150,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1415</h2>
@@ -417,7 +426,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 0-80,000</h4>
+                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 0 - 80,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1665</h2>
@@ -428,7 +437,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 80,001-125,000</h4>
+                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 80,001 - 125,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1755</h2>
@@ -439,7 +448,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 125,001-150,000</h4>
+                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 125,001 - 150,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1805</h2>
@@ -450,7 +459,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 0-80,000</h4>
+                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 0 - 80,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1915</h2>
@@ -461,7 +470,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 80,001-125,000</h4>
+                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 80,001 - 125,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2030</h2>
@@ -472,7 +481,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 125,001-140,000</h4>
+                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 125,001 - 140,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2090</h2>
@@ -483,7 +492,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 0-80,000</h4>
+                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 0 - 80,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2220</h2>
@@ -494,7 +503,7 @@
                                             <li>   
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 80,001-125,000</h4>
+                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 80,001 - 125,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2350</h2>
@@ -547,7 +556,7 @@
                                             <li>                                             
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">3 Months / 3,000 Miles, Mileage: 0-65,000</h4>
+                                                        <h4 class="timeline-title">3 Months / 3,000 Miles, Mileage: 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$410</h2>
@@ -558,7 +567,7 @@
                                             <li>                                            
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">3 Months / 3,000 Miles, Mileage: 65,001-85,000</h4>
+                                                        <h4 class="timeline-title">3 Months / 3,000 Miles, Mileage: 65,001 - 85,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$440</h2>
@@ -569,7 +578,7 @@
                                             <li>                                            
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, 0-65,000</h4>
+                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$630</h2>
@@ -580,7 +589,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 65,001-85,000</h4>
+                                                        <h4 class="timeline-title">6 Months / 6,000 Miles, Mileage: 65,001 - 85,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$695</h2>
@@ -591,7 +600,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 0-65,000</h4>
+                                                        <h4 class="timeline-title">12 Months / 12,000 Miles, Mileage: 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1335</h2>
@@ -602,7 +611,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 0-65,000</h4>
+                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1740</h2>
@@ -613,7 +622,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 65,001-85,000</h4>
+                                                        <h4 class="timeline-title">24 Months / 24,000 Miles, Mileage: 65,001 - 85,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$1810</h2>
@@ -624,7 +633,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 0-65,000</h4>
+                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2060</h2>
@@ -635,7 +644,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 65,001-85,000</h4>
+                                                        <h4 class="timeline-title">36 Months / 36,000 Miles, Mileage: 65,001 - 85,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2185</h2>
@@ -646,7 +655,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 0-65,000</h4>
+                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 0 - 65,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2310</h2>
@@ -657,7 +666,7 @@
                                             <li>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 65,001-85,000</h4>
+                                                        <h4 class="timeline-title">48 Months / 48,000 Miles, Mileage: 65,001 - 85,000</h4>
                                                     </div>
                                                     <div class="timeline-body">
                                                         <h2 class="timeline-title">$2430</h2>
