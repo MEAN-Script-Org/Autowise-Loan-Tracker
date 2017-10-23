@@ -4,7 +4,7 @@ var $query ;
 
 // Tabulation of warranty plan prices according to car age, period of use, and mileage
 // The order of these entries is critical to the querying algorithm! They are ordered (with priority) by:
-// Age (year made) ascending, term/period of use ascending, maximum mileage descending
+// Age (year made) ascending, term/period of warranty ascending, maximum mileage descending
 var warranties_table = [
   
   // Any year warranties
@@ -103,8 +103,8 @@ var warranties_table = [
  A Query is pulled from the client side and matched against warranty plans in the warranty table
  The following steps determine the warranty plan that is returned
     
- 1. Car age less than query age
- 2. Period of use and miles less than query period of use and miles (the smaller takes priority)
+ 1. Car minimum age equal to query minimum age
+ 2. Period and miles of warranty equal to query period and miles
  3. Maximum mileage greater than query maximum mileage (-1 if no maximum)
  4. Select the last entry of the filtered array: this is the appropriate warranty plan
  5. If applicable, select price based on the country of origin
@@ -130,13 +130,13 @@ var query_warranty_plan = function(query) {
 
 // Filter function for warranty querying
 function checkWarrantyAgainstQuery(warranty) {
-    return  warranty.age                <=  $query.age         &&
-            warranty.term.months        >=  $query.term.months &&
-            warranty.term.miles  * 1000 >=  $query.term.miles  &&
+    return  warranty.age                === $query.age         &&
+            warranty.term.months        === $query.term.months &&
+            warranty.term.miles  * 1000 === $query.term.miles  &&
            (warranty.max_mileage * 1000 >=  $query.max_mileage || warranty.max_mileage < 0) ;
             
 }
   
-console.log(query_warranty_plan({age: 2012, term: {months: 33, miles: 34000}, max_mileage: 70000, country: 'domestic'})) ;
+console.log(query_warranty_plan({age: 2011, term: {months: 3, miles: 3000}, max_mileage: 55000, country: 'domestic'})) ;
 
 //module.exports = query_warranty_plan
