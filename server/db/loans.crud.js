@@ -12,6 +12,7 @@ module.exports = {
 
     newLoan.save(function(err) {
       if (err) {
+        console.log(err) ;
         res.status(400).send(err) ;
       } else res.json(newLoan) ;
     });
@@ -22,23 +23,20 @@ module.exports = {
   },
 
   update: function(req, res) {
-    var id = req.loan._id;
+    var oldLoad = req.loan;
     // console.log(req.body);
 
-    if (req.body.new_loan) {
-      // to make it work for max for now
-      var loanToBeUpdated = req.body.new_loan;
-      loanToBeUpdated.comments = req.body.comments;
-    } else {
-      var loanToBeUpdated = req.loan;
-      loanToBeUpdated.comments = req.body.comments;
-    }
+    // Replace old loan's properties with the new sent ones
+    var loanToBeUpdated = Object.assign(oldLoad, req.body, function(former, replacement){
+      if (!replacement) return former;
+      else return replacement;
+    });
     
     // {new: true} => Returns the real/actual updated version
     //             => 'updatedLoan'
-    Loan.findByIdAndUpdate(id, loanToBeUpdated, {new: true}, 
+    Loan.findByIdAndUpdate(oldLoad._id, loanToBeUpdated, {new: true}, 
       function(err, updatedLoan) {
-        if (err) { console.log(err) ; res.status(404).send(err); }
+        if (err) res.status(404).send(err);
         else res.json(updatedLoan);
     });
   },
@@ -58,9 +56,11 @@ module.exports = {
     });
   },
 
+  // Get all loans
   getAll: function(req, res) {
     Loan.find({}, function(err, loans) {
       if (err) {
+        console.log(err) ;
         res.status(404).send(err) ;
       } else res.json(loans) ;
     });
@@ -69,6 +69,7 @@ module.exports = {
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {
+        console.log(err) ;
         res.status(400).send(err) ;
       }
       else {
