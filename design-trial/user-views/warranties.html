@@ -99,9 +99,9 @@
                         <h4 class="page-header">Car model year</h4>
 
                         <select>
-                            <option value="volvo">Older than 2007</option>
-                            <option value="saab">2007 to 2011</option>
-                            <option value="opel">Newer than 2011</option>
+                            <option value="OlderThan2007">Older than 2007</option>
+                            <option value="2007To2011">2007 to 2011</option>
+                            <option value="NewerThan2011">Newer than 2011</option>
                         </select>
 
 
@@ -112,18 +112,23 @@
 
                         <h4 class="page-header">Length of warranty</h4>
                         <select>
-                            <option value="volvo">3 Months / 3,000 miles</option>
-                            <option value="saab">6 Months / 6,000 miles</option>
-                            <option value="opel">12 Months / 12,000 miles</option>
-                            <option value="volvo">24 Months / 24,000 miles</option>
-                            <option value="saab">36 Months / 36,000 miles</option>
-                            <option value="opel">48 Months / 48,000 miles</option>
+                            <option value="3Months">3 Months / 3,000 miles</option>
+                            <option value="6Months">6 Months / 6,000 miles</option>
+                            <option value="12Months">12 Months / 12,000 miles</option>
+                            <option value="24Months">24 Months / 24,000 miles</option>
+                            <option value="36Months">36 Months / 36,000 miles</option>
+                            <option value="48Months">48 Months / 48,000 miles</option>
                         </select>
 
                     </div>
-                    <script src="SubmitButton.js"></script>
-                    <input id="Submit" type="button" value="Submit" onclick="doFunction();" />
                     
+                    <button onclick="doFunction()">Submit</button>
+
+                    <script>
+                    function doFunction() {
+                        alert("I am an alert box!");
+                    }
+                    </script>
 
                     </form>
                     

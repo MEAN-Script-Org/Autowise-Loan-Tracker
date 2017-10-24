@@ -1,11 +1,17 @@
-var el = document.getElementById("Submit");
-if (el.addEventListener)
-    el.addEventListener("Submit", doFunction, false);
-else if (el.attachEvent)
-    el.attachEvent('onclick', doFunction);
+// var el = document.getElementById("Submit");
+// if (el.addEventListener)
+//     el.addEventListener("Submit", doFunction, false);
+// else if (el.attachEvent)
+//     el.attachEvent('onclick', doFunction);
 
-//- Using a function pointer:
-document.getElementById("Submit").onclick = doFunction;
+// function doFunction
 
-//- Using an anonymous function:
-document.getElementById("Submit").onclick = doFunction () { alert('hello!'); };
+// //- Using a function pointer:
+// document.getElementById("Submit").onclick = doFunction;
+
+// //- Using an anonymous function:
+// document.getElementById("Submit").onclick = doFunction () { alert('hello!'); };
+
+function doFunction(){
+	alert('Hello world');
+}
