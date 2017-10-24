@@ -107,21 +107,25 @@
 			this.inputEl.addEventListener( 'click', function( ev ) { ev.stopPropagation(); });
 			this.inputEl.addEventListener( 'touchstart', function( ev ) { ev.stopPropagation(); } );
 		},
-		open : function() {
+        open : function() {
 			var self = this;
-			classie.add( this.el, 'sb-search-open' );
-			// focus the input
-			if( !mobilecheck() ) {
-				this.inputEl.focus();
-			}
-			// close the search input if body is clicked
-			var bodyFn = function( ev ) {
-				self.close();
-				this.removeEventListener( 'click', bodyFn );
-				this.removeEventListener( 'touchstart', bodyFn );
-			};
-			document.addEventListener( 'click', bodyFn );
-			document.addEventListener( 'touchstart', bodyFn );
+           
+            if(!$('.disabler').hasClass('disable'))
+            {
+                classie.add( this.el, 'sb-search-open' );
+                // focus the input
+                if( !mobilecheck() ) {
+                    this.inputEl.focus();
+                }
+                // close the search input if body is clicked
+                var bodyFn = function( ev ) {
+                    self.close();
+                    this.removeEventListener( 'click', bodyFn );
+                    this.removeEventListener( 'touchstart', bodyFn );
+                };
+                document.addEventListener( 'click', bodyFn );
+                document.addEventListener( 'touchstart', bodyFn );
+            }
 		},
 		close : function() {
 			this.inputEl.blur();

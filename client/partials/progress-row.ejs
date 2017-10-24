@@ -4,7 +4,7 @@
             <div class="progress-bar progress-bar-success progress-bar-striped active" 
                 role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" 
                 style="width:40%">
-                {{ state }}
+                {{ loan.status }}
             </div>
         </div>
     </div>
@@ -17,12 +17,13 @@
             <ul class="dropdown-menu dropdown-menu-right">
                 <li>
                     <ul class="dropdown-settings">
-                        <li><a href="#">
-                            <em class="fa fa-cog"></em> Settings 1
+                        <li><a class="danger" ng-click="removeLoan(loan._id)">
+                            <em class="fa fa-trash"></em> DELETE
+                            <em class="fa fa-trash-o"></em> DELETE
                         </a></li>
                         <hr>
-                        <li><a href="#">
-                            <em class="fa fa-cog"></em> Settings 2
+                        <li><a ng-click="logLoan(loan._id)">
+                            <em class="fa fa-archive"></em> Archive
                         </a></li>
                         <hr>
                         <li><a href="#">

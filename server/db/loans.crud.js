@@ -23,16 +23,25 @@ module.exports = {
   },
 
   update: function(req, res) {
-    var loan = req.loan;
+    var oldLoad = req.loan;
+    // console.log(req.body);
+
+    // Replace old loan's properties with the new sent ones
+    var loanToBeUpdated = Object.assign(oldLoad, req.body, function(former, replacement){
+      if (!replacement) return former;
+      else return replacement;
+    });
     
-    // {new: true} => makes 'updatedLoan' the updated version
-    Loan.findByIdAndUpdate(loan._id, req.body.new_loan, {new: true}, 
+    // {new: true} => Returns the real/actual updated version
+    //             => 'updatedLoan'
+    Loan.findByIdAndUpdate(oldLoad._id, loanToBeUpdated, {new: true}, 
       function(err, updatedLoan) {
         if (err) res.status(404).send(err);
         else res.json(updatedLoan);
     });
   },
 
+  // technically don't need this... but...
   newComment: function(req, res) {
     // Upon successful message append, update
     // doing it this way to catch for asynchronous errors
@@ -48,8 +57,7 @@ module.exports = {
   },
 
   // Get all loans
-  // rename
-  list: function(req, res) {
+  getAll: function(req, res) {
     Loan.find({}, function(err, loans) {
       if (err) {
         console.log(err) ;
