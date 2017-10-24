@@ -140,4 +140,9 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
               warranty.term.miles  * 1000 === $scope.query.term.miles  &&
              (warranty.max_mileage * 1000 >=  $scope.query.max_mileage || warranty.max_mileage < 0) ;           
   }
+  
+  $scope.doTest = function() {
+    console.log("Hello, World!") ;
+    console.log($scope.query) ;
+  };
 }]);
