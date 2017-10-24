@@ -2,6 +2,7 @@ angular.module('SWEApp').controller('SWEAppController',
   ['$rootScope', '$scope', '$location', 'Factory',
   function($rootScope, $scope, $location, Factory) {
 
+    // TODO: Add progress effect like assigment 6 while we wait
     Factory.getUserInfo().then(function(response) {
       // Globals
       $rootScope.loans = [];

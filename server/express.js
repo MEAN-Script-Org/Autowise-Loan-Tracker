@@ -1,8 +1,12 @@
-var routes = require('./routes.js');
 var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+
+var routes = require('./routes.js');
+// WORKING ON THIS
+// var api_routes = require('./api_routes.js');
+// var display_routes = require('./display_routes.js');
 
 // This var needs to go asap
 // This was replaced by .env variable 'MONGO_URI' in Heroku
@@ -33,9 +37,8 @@ module.exports.init = function() {
 
   // use this router for requests to the api
   app.use('/api', routes);
-  // app.use('/loans', routes);
 
-  // Marcial work
+  // Main CRUD funtionality
   app.use('/crud', function(req, res) {
     res.render('crud-email-test');
   });
@@ -45,22 +48,20 @@ module.exports.init = function() {
     res.render('login');
   });
 
-  // Default if logged in
-  app.use('/loans', function(req, res) {
-    res.render('user');
-  });
-
+  // TODO: Should Default if logged in as admin
   app.use('/admin', function(req, res) {
     res.render('home');
   });
 
-  // Wildcard
+  // TODO: Should Default if logged in as user
+  // app.use('/', function(req, res) {
+  //   res.render('user');
+  // });
+
+  // Wildcard for everything else
   app.use('/*', function(req, res) {
-    res.redirect('login');
+    res.redirect('/login');
   });
 
-  // if (req.accepts('html')) {
-  // if (req.accepts('json')) {
-  
   return app;
 };

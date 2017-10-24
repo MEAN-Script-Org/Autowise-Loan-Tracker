@@ -22,6 +22,14 @@ module.exports = {
     res.json(req.loan) ;
   },
 
+  // TODO: Make single view THAT FUCKING TAKES IN PARAMETERS!!
+  // for /crud/:id => render request, then do a factory call for that ID, done!
+  // I want to go to a specific loan...
+  // Scrap this thing. needs to be on in the 'express' area
+  // display: function(req, res) {
+  //     res.redirect('/crud/' + req.loan._id);
+  // },
+
   update: function(req, res) {
     var oldLoad = req.loan;
     // console.log(req.body);

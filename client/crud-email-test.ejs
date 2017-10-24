@@ -19,8 +19,9 @@
             <dl>
               <!-- make this into a compenent/partial -->
               <!-- to be it for user view -->
-              <div ng-repeat="loan in loans | orderBy:'updated_at':reverse">
+              <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter:wantedID">
                 <!-- filter:searchText -->
+                {{wantedID}}
                 <div ng-if="!loan.new">
                   <dt>
                     <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
