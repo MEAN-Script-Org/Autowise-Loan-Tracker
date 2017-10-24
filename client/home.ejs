@@ -110,6 +110,11 @@
               <div ng-repeat="loan in loans">
                   <dt>
                     <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                    <label class="container-mass container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                        
                       {{loan.owner}} – Loan #{{loan._id}}
                     </a>
                   </dt>
@@ -182,8 +187,16 @@
         </div>
       </div>
     </div>
+    
+    <!-- Add Content -->
+    <a  href="#" class="add-btn">
+<!--        //open model on click-->
+            <em class="fa fa-plus"></em>
+    </a>
+    <!-- -->
 </div>
 
+    
 <script src="js/accord.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
