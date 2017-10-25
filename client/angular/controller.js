@@ -7,6 +7,7 @@ angular.module('SWEApp').controller('SWEAppController',
       // Globals
       $rootScope.loans = [];
       $rootScope.updatedLoan = {};
+      $rootScope.massLoans = [];
       $scope.commentAsAdmin = false;
 
       // ## Filter ~ !them for ascending order
@@ -34,6 +35,7 @@ angular.module('SWEApp').controller('SWEAppController',
         function(res) {
           if (res.data.length != 0){
             $rootScope.loans = res.data;
+            $rootScope.maxLoans = $rootScope.loans.slice(0);
           }
           else {
             console.log("DB is empty ~");
@@ -123,6 +125,26 @@ angular.module('SWEApp').controller('SWEAppController',
           console.log(err);
         }
       );
+    }
+    
+    $scope.updateCheckList = function(loanID, remove) {
+        if(remove == 1)
+        {
+            $rootScope.maxLoans.push(loanID);
+            angular.forEach($rootScope.maxLoans, function(value) {
+                console.log("val: " + value);
+            });
+        }
+        else
+        {
+            angular.forEach($rootScope.maxLoans, function(value, key) {
+                if(value === loanID)
+                {
+                    $rootScope.maxLoans.splice(key, 1);
+                    return;
+                }
+            });
+        }
     }
 
     // Helper method for '$scope.addComment'

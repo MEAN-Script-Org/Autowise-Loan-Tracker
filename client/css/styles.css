@@ -1139,6 +1139,8 @@ p.back-link {
   width: 60px;
   border-radius: 50%;
   
+  z-index: 200;
+    
   right: 16px;
   bottom: 16px;
   background-color: #38cc70;

@@ -104,17 +104,16 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="container-accordion">
+        <div class="container-accordion" ng-controller="AccordFuncController">
           <div class="accordion">
             <dl>
               <div ng-repeat="loan in loans">
-                  <dt>
+                  <dt ng-click="clickAccordion(loan._id)">
                     <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
                     <label class="container-mass container">
                         <input type="checkbox">
                         <span class="checkmark"></span>
                     </label>
-                        
                       {{loan.owner}} – Loan #{{loan._id}}
                     </a>
                   </dt>
@@ -196,13 +195,12 @@
     <!-- -->
 </div>
 
-    
-<script src="js/accord.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
 new UISearch( document.getElementById( 'sb-search' ) );
 </script>
 <% include partials/footer.html %>
+<script src="js/accord.js"></script>
 </body>
 </html>
