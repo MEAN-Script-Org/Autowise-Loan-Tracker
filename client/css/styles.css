@@ -1116,7 +1116,7 @@ p.back-link {
   left: 44%;
   width: 5px;
   height: 10px;
-  border: solid 38cc70;
+  border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);

@@ -11,6 +11,10 @@
   margin: 0;
 }
 
+.accoordion {
+    width: 100%;
+}
+
 .accordion a, a:hover, a:focus {
   color: #fff; 
   text-decoration: none;

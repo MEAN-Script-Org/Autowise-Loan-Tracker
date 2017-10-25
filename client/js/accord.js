@@ -41,9 +41,8 @@
         e.preventDefault();
 
         var thisAnswer = e.target.parentNode.nextElementSibling;
-        console.log("ANS " + thisAnswer);
         var thisQuestion = e.target;
-        console.log("QUES " + thisQuestion);
+        
         if(!(thisAnswer === null))
         {
             if(thisAnswer.classList.contains('is-collapsed')) {
@@ -53,16 +52,18 @@
             }
             thisQuestion.classList.toggle('is-collapsed');
             thisQuestion.classList.toggle('is-expanded');
-                thisAnswer.classList.toggle('is-collapsed');
-                thisAnswer.classList.toggle('is-expanded');
+            thisAnswer.classList.toggle('is-collapsed');
+            thisAnswer.classList.toggle('is-expanded');
 
             thisAnswer.classList.toggle('animateIn');
         }
-        else if(thisQuestion.parentNode.tagName.toLowerCase() === 'span')
+        else if(thisQuestion.tagName.toLowerCase() === 'span')
         {
-            //this would be where we need to CHECK our checked item
-            //TODO: set property and figure out way to interact with angular so that we can keep track of a list of the checked values
-//            thisQuestion.classList.toggle();
+            var input = e.target.previousElementSibling;
+            input.checked = !input.checked;
+            
+            //TODO: figure out way to interact with angular so that we can keep track of a list of the checked values
+            
         }
     };
 
