@@ -6,7 +6,6 @@
 <body>
 <% include partials/nav.html %>
 <% include partials/sidebar.html %>
-<% include partials/Modal_Test.html %> 
 
 <!-- styling should not be hardcoded in html... -->
 <!-- as in don't have "style=..." at all on these pages -->
@@ -188,6 +187,7 @@
       </div>
     </div>
     
+    <% include partials/Modal_Test.html %> 
     <!-- Selection Menu Content -->
     <a  href="#" class="float-btn" id="menu-share">
 <!--        //open model on click-->
@@ -195,8 +195,8 @@
     </a>
     <ul id="float-list">
         <li>
-            <a href="#" id="float-trash" ng-click='removeEnMass()'>
-                <em class="fa fa-trash float-child"></em>
+            <a href="#" id="float-trash" >
+                <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>

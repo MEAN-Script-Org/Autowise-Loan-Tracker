@@ -115,6 +115,7 @@ angular.module('SWEApp').controller('SWEAppController',
           $rootScope.loans.some(function(item, index, loans) {
             if (item._id) {
               if (item._id == loanID) {
+                $rootScope.massLoans.splice(index, 1) ; // Remove from the mass selection array
                 loans.splice(index, 1);
                 return true;
               }
