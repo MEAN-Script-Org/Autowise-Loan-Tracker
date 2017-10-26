@@ -2,12 +2,10 @@ var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes.js');
 // WORKING ON THIS
 // var api_routes = require('./api_routes.js');
 // var display_routes = require('./display_routes.js');
-
 // This var needs to go asap
 // This was replaced by .env variable 'MONGO_URI' in Heroku
 // var db_config = require('./server.db_config.js') ;
