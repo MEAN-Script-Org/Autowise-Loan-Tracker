@@ -14,12 +14,14 @@
     $('.disabler').addClass('disable');
     $(":checkbox").change(function(index) {
         if(this.checked)
-        {currentCheckCount = currentCheckCount + 1;}
+        {currentCheckCount = currentCheckCount + 1;
+        $('.sb-search').addClass('sb-search-open');}
         else
         {currentCheckCount = currentCheckCount - 1;}
         
         if(currentCheckCount === 0)
-        {$('.disabler').addClass('disable');}
+        {$('.disabler').addClass('disable');
+        $('.sb-search').removeClass('sb-search-open');}
         else
         {$('.disabler').removeClass('disable');}
     });

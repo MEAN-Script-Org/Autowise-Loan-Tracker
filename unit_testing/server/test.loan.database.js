@@ -6,6 +6,8 @@ var mongoose = require('mongoose') ;
 var config_loader = require('dotenv');
 
 config_loader.load({path: "../../.env"});
+if (!process.env.MONGO_URI)
+  config_loader.load();
 
 // Dependencies - local files
 var Loan      = require('../../server/db/loans.model.js') ;

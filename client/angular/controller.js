@@ -7,6 +7,7 @@ angular.module('SWEApp').controller('SWEAppController',
       // Globals
       $rootScope.loans = [];
       $rootScope.updatedLoan = {};
+      $rootScope.massLoans = [];
       $scope.commentAsAdmin = false;
 
       // ## Filter ~ !them for ascending order
@@ -98,7 +99,38 @@ angular.module('SWEApp').controller('SWEAppController',
         }
       );
     }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Removal of all selected loans. Called from the modal dialog for mass loan deletion
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.removeEnMass = function() {
+      console.log("Delete button clicked!") ;
+      
+      console.log("Loans deleted: " + $rootScope.massLoans) ;
+      
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        Factory.deleteLoan(loanID).then(
+        function(response) {
+          // update frontend after DB
+          $rootScope.loans.some(function(item, index, loans) {
+            if (item._id) {
+              if (item._id == loanID) {
+                $rootScope.massLoans.splice(index, 1) ; // Remove from the mass selection array
+                loans.splice(index, 1);
+                return true;
+              }
+            }
+          });
 
+          alert("Successfully deleted loan");
+        },
+        function(err) {
+          alert("Error deleting loan. Perhaps it was already deleted.");
+          console.log(err);
+        });
+      });
+    }
+    
     $scope.addLoan = function() {
       // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;
@@ -123,6 +155,26 @@ angular.module('SWEApp').controller('SWEAppController',
           console.log(err);
         }
       );
+    }
+    
+    $scope.updateCheckList = function(loanID, remove) {
+        if(remove == 1)
+        {
+            $rootScope.massLoans.push(loanID);
+            angular.forEach($rootScope.massLoans, function(value) {
+                console.log("val: " + value);
+            });
+        }
+        else
+        {
+            angular.forEach($rootScope.massLoans, function(value, key) {
+                if(value === loanID)
+                {
+                    $rootScope.massLoans.splice(key, 1);
+                    return;
+                }
+            });
+        }
     }
 
     // Helper method for '$scope.addComment'

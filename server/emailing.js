@@ -40,9 +40,9 @@ module.exports = function (req, res) {
   var subject = "Autowise: Your loan application has been updated";
 
   // Basic Email Settings
+  // console.log(req.body);
   var mailOptions = {
-    // from: process.env.YAHOO_USERNAME,
-    from: process.env.GMAIL_USERNAME,
+    from: process.env.YAHOO_USERNAME,
     to: req.body.to,
     generateTextFromHTML: true,
     subject: subject,
@@ -50,19 +50,15 @@ module.exports = function (req, res) {
   };
 
   var transporter = nodemailer.createTransport({
-    // service: "Yahoo",
-    // clientId: process.env.CLIENT_ID,
-    // auth: {
-    //   user: process.env.YAHOO_USERNAME,
-    //   pass: atob(process.env.YAHOO_PASSWORD)
-    // }
-    // This works
-    clientId: process.env.CLIENT_ID,
-    service: "Gmail",
+    service: "Yahoo",
     auth: {
-      user: process.env.GMAIL_USERNAME,
-      pass: atob(process.env.GMAIL_PASSWORD)
+      // Yahoo instructions =>
+      //   Account Security => Two-step => New App => Other App
+      //   Maybe also: Allow less-secure apps
+      user: process.env.YAHOO_USERNAME,
+      pass: process.env.YAHOO_PASSWORD,
     }
+    // Gmail Instructions: Get a Gmail API key, adjust valid urls
   });
   
   // Token generation/retrival

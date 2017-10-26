@@ -1075,7 +1075,7 @@ p.back-link {
 
 .disable
 {
-    background:#fff; bottom:0; left:0; opacity:0.48; position:absolute; right:0; top:0; 
+    background: #fff; bottom: 0; left: 0; opacity: 0.48; position: absolute; right: 0; top: 0; 
     z-index: 100;
     cursor: not-allowed;
 }
@@ -1121,4 +1121,147 @@ p.back-link {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.container-mass {
+    width: fit-content;
+    padding: 0;
+    margin: 0;
+}
+
+/*FLOATING MENU*/
+.label-container {
+	position: fixed;
+	bottom: 28px;
+	right: 0px;
+	display: table;
+	visibility: hidden;
+}
+
+.label-text {
+	color: #FFF;
+	background: rgba(51,51,51,0.5);
+	display: table-cell;
+	vertical-align: middle;
+	padding: 8px;
+	border-radius: 0px;
+}
+
+.label-arrow {
+	display: table-cell;
+	vertical-align: middle;
+	color: #333;
+	opacity: 0.5;
+}
+
+.float-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  
+  z-index: 200;
+  font-size: 28px;
+  background-color: #38cc70;
+  color: white;
+    
+  right: 16px;
+  bottom: 16px;
+  box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.4);
+	-o-box-shadow: 0px 0px 12px 1px  rgba(0,0,0,0.4);
+    animation: bot-to-top 1.0s ease;
+}
+
+#float-list {
+	position: fixed;
+	right: 21px;
+    padding: 0;
+	padding-bottom: 8px;
+	bottom: 0;
+	z-index: 150;
+    
+    transition: bottom 0.5s ease;
+}
+
+#float-list li {
+	list-style: none;
+	margin-bottom: 10px;
+}
+
+#float-list li a {
+	background-color: #E8E8E8;
+	color: #38cc70;
+	border-radius: 50%;
+	text-align: center;
+	box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.4);
+	-o-box-shadow: 0px 0px 12px 0px  rgba(0,0,0,0.4);
+	width: 50px;
+	height: 50px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#float-list li a:hover {
+    background-color: white;
+}
+
+#float-list:hover {
+	visibility: visible!important;
+	opacity: 1!important;
+    bottom: 60px;
+}
+
+.float-child {
+    font-size: 24px;
+}
+
+.float-btn:hover {
+  background-color: white;
+  color: #38cc70;
+}
+
+a#menu-share + #float-list {
+  visibility: hidden;
+}
+
+a#menu-share:hover + #float-list {
+  visibility: visible;
+  animation: scale-in 0.5s;
+  bottom: 60px;
+}
+
+a#menu-share em {
+	animation: rotate-in 0.5s;
+}
+
+a#menu-share:hover > em {
+	animation: rotate-out 0.5s;
+}
+
+@keyframes bot-to-top {
+    0%   {bottom:-100px}
+    50%  {bottom:40px}
+}
+
+@keyframes scale-in {
+    from {transform: scale(0);opacity: 0;}
+    to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
 }

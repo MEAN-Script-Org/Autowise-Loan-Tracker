@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include partials/header.html %>
+</head>
+<body>
+<% include partials/nav.html %>
+<% include partials/sidebar.html %>
+
+<!-- styling should not be hardcoded in html... -->
+<!-- as in don't have "style=..." at all on these pages -->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
+     ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
+
+    <!-- TODO: Modularize/fix/implement these -->
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#">
+                <em class="fa fa-home"></em>
+            </a></li>
+            <li class="active">Active Loans</li>
+        </ol>
+    </div>
+    <div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Active Loans</h1>
+                <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="heading-primary">Search by...</h1>
+                  </div>
+                    <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
+                </div>
+                <div class="panel panel-container">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-user color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Customer's Name
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-envelope color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Email
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-university color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Lender
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                            <div class="panel panel-teal panel-widget border-right">
+                                <div class="row no-padding">
+                                    <em class="fa fa-xl fa-calendar color-blue"></em>
+                                    <label class="container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="text-muted">Date Posted
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
+                </div>
+                <div id="sb-search" class="sb-search">
+                    <form>
+                        <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search">
+                        <input class="sb-search-submit" type="submit" value="">
+                        <span class="sb-icon-search">
+                        </span>
+                    </form>
+                    <div class="disabler"></div>
+                </div>
+			</div>
+		</div><!--/.row-->
+
+    <!-- End of filters -->
+    <!-- Start of accordion content -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container-accordion" ng-controller="AccordFuncController">
+          <div class="accordion">
+            <dl>
+              <div ng-repeat="loan in loans">
+                  <dt ng-click="clickAccordion(loan._id)">
+                    <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                    <label class="container-mass container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                      {{loan.owner}} – Loan #{{loan._id}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                    <% include partials/progress-row.ejs %>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default chat">
+                                <div class="panel-heading">
+                                    Admin Comments
+                                </div>
+                                <div class="panel-body">
+                                        <ul>
+                                            <li class="left clearfix">
+                                                <div class="chat-body clearfix">
+                                                    <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">32 mins ago</small></div>
+                                                    <p>This is where the first admin comment would go.</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
+                                            <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Current Loan Information
+                                </div>
+                                <div class="panel-body timeline-container">
+                                        <ul class="timeline">
+                                            <li>
+                                                <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+                                                <div class="timeline-panel">
+                                                    <div class="timeline-heading">
+                                                        <h4 class="timeline-title">Loan Info</h4>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        <p>Update on user's registration.</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
+                                                <div class="timeline-panel">
+                                                    <div class="timeline-heading">
+                                                        <h4 class="timeline-title">Urgent</h4>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        <p>Immediate action needed.</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                  </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <% include partials/Modal_Test.html %> 
+    <!-- Selection Menu Content -->
+    <a  href="#" class="float-btn" id="menu-share">
+<!--        //open model on click-->
+            <em class="fa fa-ellipsis-v"></em>
+    </a>
+    <ul id="float-list">
+        <li>
+            <a href="#" id="float-trash" >
+                <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="float-archive">
+                <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="float-edit">
+                <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="float-plus"> 
+                <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
+            </a>
+        </li>
+    </ul>
+    <!-- -->
+</div>
+
+<script src="js/classie.js"></script>
+<script src="js/uisearch.js"></script>
+<script>
+new UISearch( document.getElementById( 'sb-search' ) );
+</script>
+<% include partials/footer.html %>
+<script src="js/accord.js"></script>
+</body>
+</html>
