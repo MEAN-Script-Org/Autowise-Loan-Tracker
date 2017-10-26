@@ -1,16 +1,15 @@
 'use strict';
 
+var bs = require('browser-sync');
 var gulp = require('gulp');
-var clear = require('clear');
 var exec = require('child_process').exec;
+var clear = require('clear');
 var nodemon = require('gulp-nodemon');
 var config_loader = require('dotenv');
 
 var locals = config_loader.load();
 
 gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
-// can i pass flags to this?? 
-// so i can start in a specific page...
 
 gulp.task('get-config', function(cb) {
     if (exec("heroku config -s > .env"))
