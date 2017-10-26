@@ -51,6 +51,11 @@ module.exports.init = function() {
     res.render('home');
   });
 
+  // Warranties plan view for a client
+  app.use('/warranties', function(req, res) {
+    res.render('warranties');
+  });
+
   // TODO: Should Default if logged in as user
   // app.use('/', function(req, res) {
   //   res.render('user');

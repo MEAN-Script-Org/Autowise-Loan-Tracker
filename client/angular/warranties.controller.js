@@ -106,8 +106,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
    2. Maximum mileage greater than query maximum mileage (-1 if no maximum)
    3. If applicable, select price based on the country of origin
   */
-  $scope.queryWarrantyPlan = function(query) {
+  $scope.queryWarrantyPlan = function() {
     $scope.query = query ;
+    
+    console.log("Current query is: " + query) ;
+    
+    return ;
     
     // Select possible warranties
     var warranties = warranties_table.filter(checkWarrantyAgainstQuery) ;
