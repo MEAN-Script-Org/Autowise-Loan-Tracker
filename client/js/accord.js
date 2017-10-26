@@ -44,7 +44,6 @@ angular.module('SWEApp').controller('AccordFuncController',
         //function
           $scope.clickAccordion = function(loanID) {
               
-              console.log("AccordionClick")
               if(stateUpdate != -1)
               {
                   $scope.$parent.updateCheckList(loanID, stateUpdate);
@@ -80,8 +79,6 @@ angular.module('SWEApp').controller('AccordFuncController',
                     input.checked = !input.checked;
                     
                     stateUpdate = input.checked ? 1 : 0;
-                    
-                    //TODO: figure out way to interact with angular so that we can keep track of a list of the checked values
                 }
             };
 

@@ -41,7 +41,7 @@
                                         <input type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label class="text-muted">User's Name
+                                    <label class="text-muted">Customer's Name
                                     </label>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div id="sb-search" class="sb-search">
                     <form>
-                        <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
+                        <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search">
                         <input class="sb-search-submit" type="submit" value="">
                         <span class="sb-icon-search">
                         </span>
@@ -187,11 +187,46 @@
       </div>
     </div>
     
-    <!-- Add Content -->
-    <a  href="#" class="add-btn">
+    <!-- Selection Menu Content -->
+    <a  href="#" class="float-btn" id="menu-share">
 <!--        //open model on click-->
-            <em class="fa fa-plus"></em>
+            <em class="fa fa-ellipsis-v"></em>
     </a>
+    <ul id="float-list">
+        <li>
+            <a href="#">
+                <em class="fa fa-trash float-child"></em>
+            </a>
+<!--
+            <div class="label-container">
+                <div class="label-text">Delete</div>
+                <i class="fa fa-play label-arrow"></i>
+            </div>
+-->
+        </li>
+        <li>
+            <a href="#">
+                <em class="fa fa-archive float-child"></em>
+            </a>
+<!--
+            <div class="label-container">
+                <div class="label-text">Archive</div>
+                <i class="fa fa-play label-arrow"></i>
+            </div>
+-->
+        </li>
+        <li>
+            <a href="#">
+                <em class="fa fa-plus float-child"></em>
+            </a>
+<!--
+            <div class="label-container">
+                <div class="label-text">Add Loan</div>
+                <i class="fa fa-play label-arrow"></i>
+            </div>
+-->
+        </li>
+    </ul>
     <!-- -->
 </div>
 
