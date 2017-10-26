@@ -6,6 +6,7 @@
 <body>
 <% include partials/nav.html %>
 <% include partials/sidebar.html %>
+<% include partials/Modal_Test.html %> 
 
 <!-- styling should not be hardcoded in html... -->
 <!-- as in don't have "style=..." at all on these pages -->
@@ -200,12 +201,12 @@
         </li>
         <li>
             <a href="#" id="float-archive">
-                <em class="fa fa-archive float-child"></em>
+                <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>
             <a href="#" id="float-edit">
-                <em class="fa fa-edit float-child"></em>
+                <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>
