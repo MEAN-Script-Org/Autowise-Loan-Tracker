@@ -20,7 +20,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Specify HTTP agent
   var agent ;
   before(function(done) {
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    mongoose.connect('mongodb://max_admin2:n$E0yDCyLc07@ds119044.mlab.com:19044/cen-class', {useMongoClient: true});
     agent = request.agent(express.init()) ;
     
     done() ;
@@ -34,11 +34,24 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   
   // Testing loan object that is well-defined
   var test_loan_ok = new Loan({
-    status: '',
-    type: 'Car Loan',
-    costs: { taxes: 3000.00, warranty: 200.00 },
-    trades: {},
-    comments: ['This is a test']
+    purchase_order: {
+      purchaser: {
+        name: "Marcial Abrrrrahantes",
+        dl:   "E123456789",
+        dob:  "5/15/1996",
+      },
+      
+      // Contact information
+      address: {
+        street: "Hello World Rd.",
+        city:   "El Paso",
+        state:  "Texas",
+        county: "Somewhere in Texas",
+        zip:    142536,
+      },
+    },
+    
+    comments: ['This is a test'],
   });
   
   // Testing loan object that is poorly defined
@@ -67,10 +80,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
       should.exist(res) ;
       
       res.body.status.should.equal('RECEIVED') ;
-      res.body.type.should.equal(test_loan_ok.type) ;
-      res.body.costs.taxes.should.equal(test_loan_ok.costs.taxes) ;
-      res.body.costs.warranty.should.equal(test_loan_ok.costs.warranty) ;
-      res.body.trades.should.equal(test_loan_ok.trades) ;
+      res.body.type.should.equal('Auto Loan') ;
       res.body.comments[0].should.equal(test_loan_ok.comments[0]) ;
       should.not.exist(res.body.comments[1]) ;
       

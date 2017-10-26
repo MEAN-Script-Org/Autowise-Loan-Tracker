@@ -32,11 +32,24 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   
   // Testing loan objects that are well-defined
   var test_loan_ok = new Loan({
-    status: '',
-    type: 'Auto Loan',
-    costs: { taxes: 3000.00, warranty: 200.00 },
-    trades: {},
-    comments: ['This is a test']
+    purchase_order: {
+      purchaser: {
+        name: "Marcial Abrrrrahantes",
+        dl:   "E123456789",
+        dob:  "5/15/1996",
+      },
+      
+      // Contact information
+      address: {
+        street: "Hello World Rd.",
+        city:   "El Paso",
+        state:  "Texas",
+        county: "Somewhere in Texas",
+        zip:    142536,
+      },
+    },
+    
+    comments: ['This is a test'],
   });
   
   // Testing loan object that is poorly defined
@@ -97,13 +110,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.4: Other Loan fields match those of uploaded Loan
+  // Test #1.4: Loan Comments field match that of uploaded Loan
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.4: Other Loan fields match those of uploaded Loan', function(done) {
-    test_db_loan.type.should.equal(test_loan_ok.type) ;
-    test_db_loan.costs.taxes.should.equal(test_loan_ok.costs.taxes) ;
-    test_db_loan.costs.warranty.should.equal(test_loan_ok.costs.warranty) ;
-    test_db_loan.trades.should.equal(test_loan_ok.trades) ;
+  it('Test #1.4: Loan Comments field match that of uploaded Loan', function(done) {
     test_db_loan.comments[0].should.equal(test_loan_ok.comments[0]) ;
     should.not.exist(test_db_loan.comments[1])
     

@@ -42,13 +42,13 @@ var loanSchema = new mongoose.Schema({
     purchaser: {
       name: {type: String, required: true},
       dl:   {type: String, required: true},
-      dob:  {type: String, required: true},
-    }
+      dob:  {type: Date,   required: true},
+    },
     copurchaser: {
       name: {type: String, required: false},
       dl:   {type: String, required: false},
-      dob:  {type: String, required: false},
-    }  
+      dob:  {type: Date,   required: false},
+    },
     
     // Contact information
     address: {
@@ -56,14 +56,14 @@ var loanSchema = new mongoose.Schema({
       city:   {type: String, required: true},
       state:  {type: String, required: true},
       county: {type: String, required: true},
-      zip:    {type: String, required: true},
-    }
+      zip:    {type: Number, required: true},
+    },
     
     phone: {  // TODO: any of these required?
       home: Number,
       work: Number,
       cell: Number,
-    }
+    },
     
     // Car information
     car_info: {   // TODO: what here is required?
@@ -85,7 +85,7 @@ var loanSchema = new mongoose.Schema({
       tag_no:           String,
       plate_no:         String,
       exp_date:         Date,
-    }
+    },
     
     // Financing and fees
     finances: {   // TODO: what here is required?
@@ -102,7 +102,8 @@ var loanSchema = new mongoose.Schema({
       sales_tax: {
         is_county:  Boolean,   // TODO: is this necessary?
         percentage: Number,
-      }
+      },
+      
       estimated_fees: Number,
       lemon_law_fee:  Number,
       sub_total_b:    Number,          // TODO: automatic calculation
@@ -111,7 +112,7 @@ var loanSchema = new mongoose.Schema({
       total_due:         Number,
       down_payment:      Number,
       unpaid_due:        Number,
-    }
+    },
     
     // Insurance information
     insurance_info: { // TODO: what here is required?
@@ -121,7 +122,7 @@ var loanSchema = new mongoose.Schema({
       phone_no:  Number,
       eff_dates: String,
       verif_by:  String,
-    }
+    },
     
     // Trades information
     trade_in: { // TODO: what here is required?
@@ -143,7 +144,7 @@ var loanSchema = new mongoose.Schema({
       qualif_by:   String,
       verif_by:    String,
       good_thru:   Date,
-    }
+    },
   }
   
 });
