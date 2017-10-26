@@ -37,9 +37,10 @@
             + RECEIVED/SUBMITTED
                 - RECEIVED => FROM OFFICE
                 - SUBMITTED => FROM BANK
+            + APPROVED/DENIED
+            + ^ most important ones
             + PENDING => everything in the process
             + VERIFIED => REVIEWED APP, things are ok
-            + APPROVED/DENIED
         + Archived : bool. True if (APPROVED/DENIED)
     - Costs
         - Taxes
