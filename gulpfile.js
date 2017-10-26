@@ -1,6 +1,5 @@
 'use strict';
 
-var bs = require('browser-sync');
 var gulp = require('gulp');
 var clear = require('clear');
 var exec = require('child_process').exec;
