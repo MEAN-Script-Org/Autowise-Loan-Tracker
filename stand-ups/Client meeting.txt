@@ -1,0 +1,34 @@
+Client Meeting Notes 10/25/2017
++Replace users name with customers name in the filter bar
++The user would only have 1 loan but there would be more than 1 lender?
++Instead of the user having the number of loans you would have a list of the different applications
+	+When they are denied from one bank they are able to try somewhere else, this will keep track of where they keep their applications
++One or Two main admins (big boss admin), they can give authorization to other users and make them admins
+	+assign admin roles to users and also have the ability to remove them
+	+Admin roles will be given based on username (since they all have the same email)
+	+Email of first superadmin: autowisecars@yahoo.com, Heidi Dhein (We need to assign them usernames)
+	+Email of another admin: autowisecars@yahoo.com, Dan Dhein (We need to assign them usernames)
++What she wants to do on a daily basis
+	+Which loans she needs to follow up with
+	+Where they are in the loan process (Loan status we already have that)
+	+If there are 200 loans she would want the status of them to be visible so she doesn't have to click through each loan. The loan status of the ones that she would be working with are (Most critical) Recieved, Submitted, Approved.
++Main fields for loan creation (other than typical user info)
+	+What car they are interested in (Make and Model and color)
+	+Budget/Amount
+	+Customers Name
++The loan number from autowise is the last 6 digits of the VIN (Vehicle Identification Number)
+	+If the user switches the car it will be confusing, so we are allowed to use our own generated ID from the DB
++Warranties
+	+The user will select their own warranty based on the one they are interested in
+	+The admin will still have to approve it
+	+Will add the total cost of the warranty to that loan cost
++Trades
+	+If the user wanted to trade a car in they would have to include that car information
+	+Required information is: Year, Make, Model, Miles
+	+If they don't want to trade it doesnt matter
+	+Insurance information is not required, but the admins can put it in
++Buyers Order
+	+The online loan (what you would see on the website)
+	+Only thing that we have are car, make, model, name
+	+VERY IMPORTANT all of the information is important, only thing not required on there is the rebate (on the right side). EVERYTHING ELSE SHOULD BE ON THERE		
+
