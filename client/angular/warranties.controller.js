@@ -3,13 +3,7 @@
 angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location',
   function($rootScope, $scope, $location) {
   
-  /* Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
-     The order of these entries is critical to the querying algorithm! They are ordered (with priority) by:
-     -> Minimum age (year made) ascending
-     -> Period of warranty descending
-     -> Mileage of plan descending
-     -> Maximum mileage descending
-  */
+  // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
   var warranties_table = [
     
     // Any year warranties
@@ -109,10 +103,8 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
    The following steps determine the warranty plan that is returned
       
    1. Car minimum age equal to query minimum age
-   2. Period and miles of warranty equal to query period and miles
-   3. Maximum mileage greater than query maximum mileage (-1 if no maximum)
-   4. Select the last entry of the filtered array: this is the appropriate warranty plan
-   5. If applicable, select price based on the country of origin
+   2. Maximum mileage greater than query maximum mileage (-1 if no maximum)
+   3. If applicable, select price based on the country of origin
   */
   $scope.queryWarrantyPlan = function(query) {
     $scope.query = query ;
@@ -122,27 +114,19 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     
     console.log(warranties) ;
     
-    // Select most suitable warranty
-    var warranty = warranties[warranties.length - 1] ;
-    
     // Refine 'price' field if a country of origin is requried
-    if (typeof warranty.price === 'object')
-      warranty.price = warranty.price[query.country] ;
+    warranties.ForEach(function(warranty) {
+      if (typeof warranty.price === 'object')
+        warranty.price = warranty.price[query.country] ;
+    });
     
-    // Return the type and price of the warranty plan
-    return {type: warranty.type, price: warranty.price} ;
+    // Return the compatible warranties
+    return warranties ;
   }
   
   // Filter function for warranty querying
   $scope.checkWarrantyAgainstQuery = function(warranty) {
-      return  warranty.age                === $scope.query.age         &&
-              warranty.term.months        === $scope.query.term.months &&
-              warranty.term.miles  * 1000 === $scope.query.term.miles  &&
+      return  warranty.age                === $scope.query.age &&
              (warranty.max_mileage * 1000 >=  $scope.query.max_mileage || warranty.max_mileage < 0) ;           
   }
-  
-  $scope.doTest = function() {
-    console.log("Hello, World!") ;
-    console.log($scope.query) ;
-  };
 }]);

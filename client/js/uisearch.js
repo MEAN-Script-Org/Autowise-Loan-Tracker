@@ -98,7 +98,7 @@
 					}
 					else if( classie.has( self.el, 'sb-search-open' ) && /^\s*$/.test( self.inputEl.value ) ) { // close it
 						ev.preventDefault();
-						self.close();
+//						self.close();
 					}
 				}
 
