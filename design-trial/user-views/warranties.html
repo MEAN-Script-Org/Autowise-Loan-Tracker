@@ -1,3 +1,10 @@
+<!-- NOTES: 10-25-17 
+    +Warranties
+    +The user will select their own warranty based on the one they are interested in
+    +The admin will still have to approve it
+    +Will add the total cost of the warranty to that loan cost -->
+
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html>
@@ -110,7 +117,8 @@
                             <input type="text" name="Mileage"><br>
                         </form>
 
-                        <h4 class="page-header">Length of warranty</h4>
+
+<!--                         <h4 class="page-header">Length of warranty</h4>
                         <select>
                             <option value="3Months">3 Months / 3,000 miles</option>
                             <option value="6Months">6 Months / 6,000 miles</option>
@@ -118,17 +126,23 @@
                             <option value="24Months">24 Months / 24,000 miles</option>
                             <option value="36Months">36 Months / 36,000 miles</option>
                             <option value="48Months">48 Months / 48,000 miles</option>
-                        </select>
+                        </select> -->
 
-                    </div>
                     
-                    <button onclick="doFunction()">Submit</button>
+                       <h4 class="page-header">Car make: Domestic or Asian</h4>
 
-                    <script>
-                    function doFunction() {
-                        alert("I am an alert box!");
-                    }
-                    </script>
+                    <div>
+
+                        <form action="">
+                            <input type="radio" name="RadioAnswer" value="Domestic" checked> Domestic<br>
+                            <input type="radio" name="RadioAnswer" value="Asian"> Asian
+                        </form>
+                    
+
+                    <form id="form-id">
+                        <button id="your-id">Submit</button>
+                    </form>
+
 
                     </form>
                     
