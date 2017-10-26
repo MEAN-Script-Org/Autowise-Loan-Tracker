@@ -27,15 +27,13 @@
               <div class="form-group">
                 <input ng-model="pwd" class="form-control" placeholder="Password" name="password" type="password" >
               </div>
+              <button ng-model="doTest()">BUTTON</button>
               <div class="checkbox">
                 <label>
                   <input name="remember" type="checkbox" value="Remember Me">Remember Me
                 </label>
               </div>
-              <button href="/admin" class="btn btn-primary"
-                 ng-show="pwd && username">
-                Login
-              </button>
+              <a ng-show="pwd && username" class="btn btn-primary" href="/admin">Login</a>
             </fieldset>
           </form>
         </div>
