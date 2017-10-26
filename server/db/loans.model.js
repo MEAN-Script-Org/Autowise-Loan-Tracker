@@ -1,70 +1,165 @@
 var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 
-// Define loan schema
-/* 
-Status : enum?/strings. 
-  MUST BE VISIBLE on description/without clicking on them
-  They can be
-  RECEIVED/SUBMITTED
-    RECEIVED => FROM OFFICE
-    SUBMITTED => FROM BANK
-  PENDING => everything in the process
-  VERIFIED => REVIEWED APP, things are ok
-  APPROVED/DENIED
-  Archived : bool. True if (APPROVED/DENIED)
-Costs
-  Taxes
-  Warranties ? => CHECK PICTURES. NEED MORE DETAILS
-Types
-  Auto Loan
-  Repair
-  Admin - need more details on this. Administrative fees?
-Trades
-  default to false/'[]' (empty array - which is 'falsey')
-  ADMIN puts in trade information later
-Comments
-  Content : array with messages in reverse chronological order (easy to flip in angular)
-    Need more clarification of what to put 'on top' as important message
-  Date/timestamps - format tba later. not that important
-  visibleToConsumer : bool
-  important : bool
-  CHANGE TO MOCKUP: Same area as normal info
+/* Loan schema notes/unresolved issues and fields ~
+  - visibleToConsumer : bool
+  - important : bool
 */
 
+//----------------------------------------------------------------------------------------------------------------------
+// LOAN SCHEMA
+//======================================================================================================================
+// Details a type and status and admin-created comments. Shows static info transcribed from the purchase order. Every
+// loan is associated with a particular customer
+//----------------------------------------------------------------------------------------------------------------------
 var loanSchema = new mongoose.Schema({
+  
   // Foreign Key
-  user_id: String,
-
-  // Foreign Attributes
-  name: String,
-  user_email: String,
-
-  // Above need to be from User Collection
-
-  type: String,
+  user_id:    String,
+  updated_at: Date,
+  
+  // Loan type and status
+  type:   String,
   status: String,
   
-  costs: {
-    taxes: Number,
-    warranty: Number,
-  },
-
-  // trades: String/Array,
-  trades: Boolean,
-  comments: Array,
-  updated_at: Date
+  // Warranty plan cost, if any
+  warranty: Number,
+  
+  trades:     Boolean,
+  comments:   Array,
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Purchase Order
+  //====================================================================================================================
+  // The original "paper copy" of a loan. Majority of fields described here are transcribed from the document
+  //--------------------------------------------------------------------------------------------------------------------
+  purchase_order: {
+    form_date:   Date,
+    is_car_used: Boolean,
+    email:       String,
+  
+    // Purchaser and Co-Purchaser
+    purchaser: {
+      name: {type: String, required: true},
+      dl:   {type: String, required: true},
+      dob:  {type: String, required: true},
+    }
+    copurchaser: {
+      name: {type: String, required: false},
+      dl:   {type: String, required: false},
+      dob:  {type: String, required: false},
+    }  
+    
+    // Contact information
+    address: {
+      street: {type: String, required: true},
+      city:   {type: String, required: true},
+      state:  {type: String, required: true},
+      county: {type: String, required: true},
+      zip:    {type: String, required: true},
+    }
+    
+    phone: {  // TODO: any of these required?
+      home: Number,
+      work: Number,
+      cell: Number,
+    }
+    
+    // Car information
+    car_info: {   // TODO: what here is required?
+      year:        Number,
+      make:        String,
+      model:       String,
+      type:        String,
+      color:       String,
+      cyl:         String,     // TODO: what is this
+      
+      serial_no:   String,
+      stock_no:    String,
+      mileage:     Number,
+      salesperson: String,
+      lender:      String,     // TODO: can implement as an array -> most recent lender at end of array
+      
+      purchase_new_tag: String,
+      transfer:         String,
+      tag_no:           String,
+      plate_no:         String,
+      exp_date:         Date,
+    }
+    
+    // Financing and fees
+    finances: {   // TODO: what here is required?
+      nada_retail: Number,
+      accessories: String,
+      
+      total_sale_price:    Number,
+      trade_allowance:     Number,
+      trade_difference:    Number,
+      admin_fees:          Number,
+      waste_tire_batt_fee: Number,
+      sub_total_a:         Number,    // TODO: automatic calculation
+      
+      sales_tax: {
+        is_county:  Boolean,   // TODO: is this necessary?
+        percentage: Number,
+      }
+      estimated_fees: Number,
+      lemon_law_fee:  Number,
+      sub_total_b:    Number,          // TODO: automatic calculation
+      
+      bal_owed_on_trade: Number,
+      total_due:         Number,
+      down_payment:      Number,
+      unpaid_due:        Number,
+    }
+    
+    // Insurance information
+    insurance_info: { // TODO: what here is required?
+      policy_no: Number,
+      company:   String,
+      agent:     String,
+      phone_no:  Number,
+      eff_dates: String,
+      verif_by:  String,
+    }
+    
+    // Trades information
+    trade_in: { // TODO: what here is required?
+      year:        Number,
+      make:        String,
+      model:       String,
+      type:        String,
+      color:       String,
+      cyl:         String,     // TODO: what is this?!
+      
+      serial_no:   String,
+      account_no:  String,
+      mileage:     Number,
+      phone_no:    Number,
+      holder:      String,
+      address:     String,
+      
+      amount:      Number,    // TODO: what is this?!
+      qualif_by:   String,
+      verif_by:    String,
+      good_thru:   Date,
+    }
+  }
+  
 });
 
-// Any pre-processing on saving a loan document?
+// On save preprocessing
 loanSchema.pre('save', function(next) {
+  
+  // Mark update time
   var currentDate = new Date();
   this.updated_at = currentDate;
 
-  // console.log(this);
+  // Fill in status field if missing
   if (!this.status)
     this.status = "RECEIVED";
   
+  // Fill in type field if missing
   if (!this.type)
     this.type = "Auto Loan";
 
