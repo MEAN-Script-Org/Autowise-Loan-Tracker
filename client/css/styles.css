@@ -173,6 +173,12 @@ input.form-control {
   text-decoration: none;
   background: none; }
 
+/*Marcial testing*/
+/*yah.... nope*/
+.dropdown-menu li a.danger:hover {
+  color: #f9243f;
+}
+
 .divider, .clear {
   clear: both; }
 
@@ -217,6 +223,12 @@ a.btn:active, button:active {
 .btn-danger, .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger, .btn-danger.disabled, .btn-danger[disabled], fieldset[disabled] .btn-danger, .btn-danger.disabled:hover, .btn-danger[disabled]:hover, fieldset[disabled] .btn-danger:hover, .btn-danger.disabled:focus, .btn-danger[disabled]:focus, fieldset[disabled] .btn-danger:focus, .btn-danger.disabled:active, .btn-danger[disabled]:active, fieldset[disabled] .btn-danger:active, .btn-danger.disabled.active, .btn-danger[disabled].active, fieldset[disabled] .btn-danger.active {
   background-color: #f9243f;
   border-color: #f9243f; }
+
+.btn-dark, .btn-dark:hover, .btn-dark:focus, .btn-dark:active, .btn-dark.active, .open > .dropdown-toggle.btn-dark, .btn-dark.disabled, .btn-dark[disabled], fieldset[disabled] .btn-dark, .btn-dark.disabled:hover, .btn-dark[disabled]:hover, fieldset[disabled] .btn-dark:hover, .btn-dark.disabled:focus, .btn-dark[disabled]:focus, fieldset[disabled] .btn-dark:focus, .btn-dark.disabled:active, .btn-dark[disabled]:active, fieldset[disabled] .btn-dark:active, .btn-dark.disabled.active, .btn-dark[disabled].active, fieldset[disabled] .btn-dark.active {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
 
 .btn-link, .page-link, .text-primary {
   color: #30a5ff !important; }

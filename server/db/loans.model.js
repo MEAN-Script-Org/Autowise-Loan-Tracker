@@ -61,6 +61,7 @@ loanSchema.pre('save', function(next) {
   var currentDate = new Date();
   this.updated_at = currentDate;
 
+  // console.log(this);
   if (!this.status)
     this.status = "RECEIVED";
   

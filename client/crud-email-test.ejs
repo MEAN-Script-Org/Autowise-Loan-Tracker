@@ -7,7 +7,7 @@
 <% include partials/nav.html %>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
-     ng-app="SWEApp" ng-controller="EmailTestController" ng-init="init()">
+     ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
 
     <!-- End of filters -->
     <!-- Start of accordion content -->
@@ -21,65 +21,29 @@
               <!-- to be it for user view -->
               <div ng-repeat="loan in loans | orderBy:'updated_at':reverse">
                 <!-- filter:searchText -->
-              <dt>
-                <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                  {{loan.name}} – Loan #{{loan._id}}
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem" id="accordion{{$index}}">
-              <!-- <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}"> -->
-                <% include partials/progress-row.ejs %>
-
-                <div class="row">
-                    <div class="col-xs-11 no-padding">
-                        <div class="panel panel-default chat">
-                            <div class="panel-heading">
-                                Comments
-                            </div>
-                            <div class="panel-body">
-                                <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
-                                    <li class="left clearfix"><span class="chat-img pull-left">
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                              <strong class="primary-font" 
-                                                      ng-if="comment.admin && user_isAdmin">
-                                                  Admin Only
-                                              </strong>
-                                              <small class="text-muted">{{comment.time}}</small>
-                                            </div>
-                                            <p>{{comment.content}}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                  <form style="display: flex;">
-                                    <input type="text" class="form-control input-md" 
-                                           placeholder="Type your message here..." 
-                                           id="{{loan._id}}-new-comment"/>
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-primary btn-md" 
-                                        ng-click="addComment(loan._id)">
-                                        Comment
-                                      </button>
-                                      <!-- ng-show="loan.user_email" -->
-                                      <button class="btn btn-warning btn-md" 
-                                        ng-click="emailClient(loan._id, loan.user_email, loan.name)">
-                                        Email
-                                      </button>
-                                      <button class="btn btn-danger btn-md" ng-click="removeLoan(loan._id)">
-                                        <!-- Add BIG ASS WARNING Modal -->
-                                        Archieve
-                                      </button>
-                                    </span>
-                                  </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div ng-if="!loan.new">
+                  <dt>
+                    <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                      {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}">
+                    <% include partials/progress-row.ejs %>
+                    <% include partials/accordion-comments.html %>
+                  </dd>
                 </div>
-              </dd>
+                
+                <div ng-if="loan.new">
+                  <dt>
+                    <a href="#accordion1{{$index}}" aria-expanded="false" aria-controls="accordion1{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                      {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem" id="accordion1{{$index}}">
+                    <% include partials/progress-row.ejs %>
+                    <% include partials/accordion-comments.html %>
+                  </dd>
+                </div>
               </div>
             </dl>
           </div>
