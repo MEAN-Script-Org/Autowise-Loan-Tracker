@@ -8,6 +8,8 @@ angular.module('SWEApp').controller('SWEAppController',
       $rootScope.loans = [];
       $rootScope.updatedLoan = {};
       $rootScope.massLoans = [];
+      $rootScope.searchScopes = [];
+    
       $scope.commentAsAdmin = false;
 
       // ## Filter ~ !them for ascending order
@@ -127,6 +129,8 @@ angular.module('SWEApp').controller('SWEAppController',
       );
     }
     
+    // MARK: CHECK LIST
+    
     $scope.updateCheckList = function(loanID, remove) {
         if(remove == 1)
         {
@@ -147,6 +151,27 @@ angular.module('SWEApp').controller('SWEAppController',
         }
     }
 
+    // MARK: Search
+    $scope.search = function(loan) {
+        item.brand.toLowerCase().indexOf($scope.query) 
+        if (!$scope.query)
+        {
+            let nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
+            let emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
+            let lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
+            let dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
+            
+            if((nameCheckbox && loan.displayName.toLowerCase().indexOf($scope.query)) || (emailCheckbox && loan.email.toLowerCase().indexOf($scope.query)) ||
+            (lenderCheckbox && loan.lender.toLowerCase().indexOf($scope.query)) ||
+            (dateCheckbox && loan.date_posted.toLowerCase().indexOf($scope.query)))
+            {
+                return true;
+            }
+        }
+        return false;
+    };
+    
+    
     // Helper method for '$scope.addComment'
     function addCommentFrontend(loanID, newCommentContent) {
       // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
