@@ -126,7 +126,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     });
     
     // Return the compatible warranties
-    return warranties ;
+    $scope.matchedWarranties ;
   }
   
   // Filter function for warranty querying

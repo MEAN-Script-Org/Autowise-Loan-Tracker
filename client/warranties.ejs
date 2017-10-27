@@ -71,7 +71,7 @@
 			</ol>
 		</div><!--/.row-->
     
-    <!-- ROW -->
+    <!-- ROW - WARRANTIES QUERY FORM -->
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Warranties</h1>
@@ -113,11 +113,32 @@
         </div>
       </div>
 		</div><!--/.row-->
+    
+    <!-- ROW - WARRANTIES QUERY RESULTS -->
+		<div class="row">
+      <div ng-repeat="warranty in matchedWarranties">
+        
+        <!-- ACCORDION HEADER -->
+        <dt>
+          <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+            TEMP
+          </a>
+        </dt>
+        
+        <!-- ACCORDION CONTENTS -->
+        <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+          <div class="row">
+            HEYO, this is a test!
+          </div>
+        </dd>
+      </div>
+    </div>
   </div>
 	
   <!-- JAVASCRIPT FILES -->
+  <% include partials/footer.html %> 
   <script src="js/classie.js"></script>
   <script src="js/uisearch.js"></script>
-  <% include partials/footer.html %>  
+  <script src="js/accord.js"></script> 
 </body>
 </html>
