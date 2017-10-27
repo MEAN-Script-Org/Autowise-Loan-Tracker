@@ -19,6 +19,8 @@ var loanSchema = new mongoose.Schema({
   name:       String,
   updated_at: Date,
   
+  archived: {type: Boolean, default: false},
+  
   // Loan type and status
   type:   String,
   status: String,

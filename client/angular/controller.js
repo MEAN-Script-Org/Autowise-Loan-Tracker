@@ -137,6 +137,60 @@ angular.module('SWEApp').controller('SWEAppController',
       });
     }
     
+    //------------------------------------------------------------------------------------------------------------------
+    // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.updateStatusEnMass = function(newSatus) {
+      
+      console.log("Update Status button clicked!") ;
+      console.log("Loans affected: " + $rootScope.massLoans) ;
+      
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        Factory.getLoan(loanID).then(function(res) {
+          
+          // Fetch selected loan and update its status
+          var loan = res.body ;
+          loan.status = newStatus ;
+          
+          // Send a request to save over the original loan
+          Factory.modifyLoan(loanID, loan).then(function(res) {
+            alert("Successfully updated loans!");
+          });
+        },
+        function(err) {
+          alert("Error updating loans.");
+          console.log(err);
+        });
+      });
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Archive all selected loans. Called from the modal dialog for mass loan archive
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.archiveEnMass = function() {
+      
+      console.log("Archive button clicked!") ;
+      console.log("Loans affected: " + $rootScope.massLoans) ;
+      
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        Factory.getLoan(loanID).then(function(res) {
+          console.log(res) ;
+          // Fetch selected loan and update its status
+          var loan = res.data ;
+          loan.archived = true ;
+          
+          // Send a request to save over the original loan
+          Factory.modifyLoan(loanID, loan).then(function(res) {
+            alert("Successfully archived loans!");
+          });
+        },
+        function(err) {
+          alert("Error archiving loans.");
+          console.log(err);
+        });
+      });
+    }
+    
     $scope.addLoan = function() {
       // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;

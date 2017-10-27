@@ -62,7 +62,7 @@
 						<div class="modal-body">
 							<form>
                                 Change the status of the selected loans: <br>
-                                <select name="Loan Status">
+                                <select name="Loan Status" ng-model="newStatus">
                                     <option value="Received">Received</option>
                                     <option value="Submitted">Submitted</option>
                                     <option value="Pending">Pending</option>
@@ -73,7 +73,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary">Update</button>
+							<button class="btn btn-primary" ng-click="updateStatusEnMass($scope.newStatus)">Update</button>
 							<button class="btn btn-primary" data-dismiss="modal">Close</button>				
 						</div>
 					</div>
@@ -96,7 +96,7 @@
 						<div class="modal-body">
 							<form>
                                 Archive The Selected Loans:<br> 
-                                <button class="btn btn-primary">Archive Selected Loans</button><br>
+                                <button class="btn btn-primary" ng-click="archiveEnMass()">Archive Selected Loans</button><br>
 							</form>
 						</div>
 						<div class="modal-footer">

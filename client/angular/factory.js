@@ -4,6 +4,9 @@ angular.module('SWEApp').factory('Factory', ['$http',
       getUserInfo: function() {
         return $http.get('/api/info');
       },
+      getLoan: function(id) {
+        return $http.get('/api/loan/' + id);
+      },
       getLoans: function() {
         return $http.get('/api/loans');
       },
