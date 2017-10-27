@@ -10,7 +10,7 @@
 <!-- styling should not be hardcoded in html... -->
 <!-- as in don't have "style=..." at all on these pages -->
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
      ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
 
     <!-- TODO: Modularize/fix/implement these -->
@@ -22,7 +22,7 @@
             <li class="active">Active Loans</li>
         </ol>
     </div>
-    
+
     <!-- SCOPE FOR SEARCH -->
     <div ng-controller="SearchController">
         <div class="row">
@@ -91,6 +91,11 @@
                     </div><!--/.row-->
                 </div>
                 <div id="sb-search" class="sb-search">
+                    <!-- Marcial -->
+                    <!-- in order for this to work properly you'll need a diff input field per search criteria -->
+                    <!-- each linked to the desired property as ng-model=query.property_goes_here -->
+                    <!-- this is a mess, so a general search works best imo -->
+                    <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
                     <form>
                         <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search" ng-model="query2">
                         <input class="sb-search-submit" type="submit" value="">
@@ -110,82 +115,43 @@
             <div class="container-accordion" ng-controller="AccordFuncController">
               <div class="accordion">
                 <dl>
-                    
+
+
 <!--                    specifity for which query needs to be fixed, it is currently referencing improper controller-->
-                  <input ng-model="query">
-                  <div ng-repeat="loan in loans | filter: search">
+                  <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
+                         style="width: 100%"
+                    >
+                  <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter:wanted">
+                    <div ng-if="!loan.new">
                       <dt ng-click="clickAccordion(loan._id)">
                         <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                        <label class="container-mass container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                          {{loan.name}} – Loan #{{loan._id}}
+                          <label class="container-mass container">
+                              <input type="checkbox">
+                              <span class="checkmark"></span>
+                          </label>
+                          {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>
                       </dt>
                       <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
                         <% include partials/progress-row.ejs %>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="panel panel-default chat">
-                                    <div class="panel-heading">
-                                        Admin Comments
-                                    </div>
-                                    <div class="panel-body">
-                                            <ul>
-                                                <li class="left clearfix">
-                                                    <div class="chat-body clearfix">
-                                                        <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">32 mins ago</small></div>
-                                                        <p>This is where the first admin comment would go.</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="input-group">
-                                            <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
-                                                <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        Current Loan Information
-                                    </div>
-                                    <div class="panel-body timeline-container">
-                                            <ul class="timeline">
-                                                <li>
-                                                    <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-                                                    <div class="timeline-panel">
-                                                        <div class="timeline-heading">
-                                                            <h4 class="timeline-title">Loan Info</h4>
-                                                        </div>
-                                                        <div class="timeline-body">
-                                                            <p>Update on user's registration.</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
-                                                    <div class="timeline-panel">
-                                                        <div class="timeline-heading">
-                                                            <h4 class="timeline-title">Urgent</h4>
-                                                        </div>
-                                                        <div class="timeline-body">
-                                                            <p>Immediate action needed.</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                    </div>
-                                 </div>
-                            </div>
-                        </div>
+                        <% include partials/accordion-comments.html %>
                       </dd>
+                    </div>
+
+                    <!-- Marcial: -->
+                    <!-- these are not hidden, and the collapse funtionality won't be included as of now give the js logic... -->
+                    <!-- the accordion logic needs to change to pure CSS IMHO -->
+                    <div ng-if="loan.new">
+                      <dt>
+                        <a href="#accordion1{{$index}}" aria-expanded="false" aria-controls="accordion1{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                          {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                        </a>
+                      </dt>
+                      <dd class="accordion-content accordionItem" id="accordion1{{$index}}">
+                        <% include partials/progress-row.ejs %>
+                        <% include partials/accordion-comments.html %>
+                      </dd>
+                    </div>
                   </div>
                 </dl>
               </div>
@@ -193,14 +159,15 @@
           </div>
         </div>
     </div>
-    
-    <% include partials/Modal_Test.html %> 
+
+    <% include partials/Modal_Test.html %>
     <!-- Selection Menu Content -->
+    <!-- id="float-plus" -->
     <a  href="#" class="float-btn" id="menu-share">
 <!--        //open model on click-->
-            <em class="fa fa-ellipsis-v"></em>
+            <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
     </a>
-    <ul id="float-list">
+    <ul id="float-list" ng-show="massLoans.length > 0">
         <li>
             <a href="#" id="float-trash" >
                 <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
@@ -211,26 +178,14 @@
                 <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
             </a>
         </li>
-        <li>
-            <a href="#" id="float-edit">
-                <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
-            </a>
-        </li>
-        <li>
-            <a href="#" id="float-plus"> 
-                <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
-            </a>
-        </li>
     </ul>
-    <!-- -->
 </div>
-    
-    
+
 
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
-new UISearch( document.getElementById( 'sb-search' ) );
+    new UISearch( document.getElementById( 'sb-search' ) );
 </script>
 <% include partials/footer.html %>
 </body>

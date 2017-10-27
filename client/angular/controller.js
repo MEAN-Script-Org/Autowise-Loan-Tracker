@@ -78,7 +78,7 @@ angular.module('SWEApp').controller('SWEAppController',
       );
     }
 
-    $scope.removeLoan = function(loanID) {
+    $scope.removeLoan = function(loanID, displayAlert) {
       // trigger modal.... THEN this
       // Delete should send things to archieve...
       //        Delete from DB, Add to 'archieve.json'
@@ -94,7 +94,8 @@ angular.module('SWEApp').controller('SWEAppController',
             }
           });
 
-          alert("Successfully deleted loan");
+          if (displayAlert)
+            alert("Successfully deleted loan");
         },
         function(err) {
           alert("Error deleting loan. Perhaps it was already deleted.");
@@ -106,9 +107,11 @@ angular.module('SWEApp').controller('SWEAppController',
     //------------------------------------------------------------------------------------------------------------------
     // Removal of all selected loans. Called from the modal dialog for mass loan deletion
     //------------------------------------------------------------------------------------------------------------------
+    // TODO when cleaning: Change the implementation of this method to use the already created "removeLoan"
+    //                      Just pass a boolean to not display "delete success" more than once
     $scope.removeEnMass = function() {
-      console.log("Delete button clicked!") ;
       
+      console.log("Delete button clicked!") ;
       console.log("Loans deleted: " + $rootScope.massLoans) ;
       
       angular.forEach($rootScope.massLoans, function(loanID) {
