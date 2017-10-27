@@ -16,6 +16,7 @@ var loanSchema = new mongoose.Schema({
   
   // Foreign Key
   user_id:    String,
+  name:       String,
   updated_at: Date,
   
   // Loan type and status
@@ -40,9 +41,9 @@ var loanSchema = new mongoose.Schema({
   
     // Purchaser and Co-Purchaser
     purchaser: {
-      name: {type: String, required: true},
-      dl:   {type: String, required: true},
-      dob:  {type: Date,   required: true},
+      name: {type: String, required: false},
+      dl:   {type: String, required: false},
+      dob:  {type: Date,   required: false},
     },
     copurchaser: {
       name: {type: String, required: false},
@@ -52,11 +53,11 @@ var loanSchema = new mongoose.Schema({
     
     // Contact information
     address: {
-      street: {type: String, required: true},
-      city:   {type: String, required: true},
-      state:  {type: String, required: true},
-      county: {type: String, required: true},
-      zip:    {type: Number, required: true},
+      street: {type: String, required: false},
+      city:   {type: String, required: false},
+      state:  {type: String, required: false},
+      county: {type: String, required: false},
+      zip:    {type: Number, required: false},
     },
     
     phone: {  // TODO: any of these required?

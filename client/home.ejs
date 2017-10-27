@@ -187,6 +187,7 @@
       </div>
     </div>
     
+    <% include partials/Modal_Test.html %> 
     <!-- Selection Menu Content -->
     <a  href="#" class="float-btn" id="menu-share">
 <!--        //open model on click-->
@@ -194,23 +195,23 @@
     </a>
     <ul id="float-list">
         <li>
-            <a href="#" id="float-trash">
-                <em class="fa fa-trash float-child"></em>
+            <a href="#" id="float-trash" >
+                <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>
             <a href="#" id="float-archive">
-                <em class="fa fa-archive float-child"></em>
+                <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>
             <a href="#" id="float-edit">
-                <em class="fa fa-edit float-child"></em>
+                <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
             </a>
         </li>
         <li>
             <a href="#" id="float-plus"> 
-                <em class="fa fa-plus float-child"></em>
+                <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
             </a>
         </li>
     </ul>

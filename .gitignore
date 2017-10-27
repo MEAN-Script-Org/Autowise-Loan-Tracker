@@ -10,3 +10,6 @@ swe-2017/*
 
 # Old config file
 server.db_config.js
+
+# THE gulp file
+gulpfile.js
