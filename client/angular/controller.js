@@ -37,6 +37,7 @@ angular.module('SWEApp').controller('SWEAppController',
         function(res) {
           if (res.data.length != 0){
             $rootScope.loans = res.data;
+            console.log($rootScope.loans);
           }
           else {
             console.log("DB is empty ~");
@@ -183,20 +184,28 @@ angular.module('SWEApp').controller('SWEAppController',
 
     // MARK: Search
     $scope.search = function(loan) {
-        item.brand.toLowerCase().indexOf($scope.query) 
-        if (!$scope.query)
+//        item.brand.toLowerCase().indexOf($scope.query) 
+        let nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
+        let emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
+        let lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
+        let dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
+
+        console.log("N: " + nameCheckbox);
+        console.log("E: " + emailCheckbox);
+        console.log("L: " + lenderCheckbox);
+        console.log("D: " + dateCheckbox);
+        console.log(loan);
+        //            nameCheckbox && 
+        console.log($scope.query);
+        
+        let nameMatch = loan.name.toLowerCase().includes($scope.query);
+//        let emailMatch = loan.purchase_order.email.toLowerCase().includes($scope.query);
+//        let lenderMatch = loan.purchase_order.car_info.lender.toLowerCase().includes($scope.query);
+//        let dateMatch = loan.purchase_order.form_date.toLowerCase().includes($scope.query);
+        
+        if(!$scope.query)
         {
-            let nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
-            let emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
-            let lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
-            let dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
-            
-            if((nameCheckbox && loan.displayName.toLowerCase().indexOf($scope.query)) || (emailCheckbox && loan.email.toLowerCase().indexOf($scope.query)) ||
-            (lenderCheckbox && loan.lender.toLowerCase().indexOf($scope.query)) ||
-            (dateCheckbox && loan.date_posted.toLowerCase().indexOf($scope.query)))
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     };

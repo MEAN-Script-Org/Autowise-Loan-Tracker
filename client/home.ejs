@@ -22,7 +22,10 @@
             <li class="active">Active Loans</li>
         </ol>
     </div>
-    <div class="row" ng-controller="SearchController">
+    
+    <!-- SCOPE FOR SEARCH -->
+    <div ng-controller="SearchController">
+        <div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Active Loans</h1>
                 <div class="row">
@@ -37,8 +40,8 @@
                             <div class="panel panel-teal panel-widget border-right">
                                 <div class="row no-padding">
                                     <em class="fa fa-xl fa-user color-blue"></em>
-                                    <label class="container" id="nameCheckbox">
-                                        <input type="checkbox">
+                                    <label class="container">
+                                        <input type="checkbox" id="nameCheckbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="text-muted">Customer's Name
@@ -89,102 +92,106 @@
                 </div>
                 <div id="sb-search" class="sb-search">
                     <form>
-                        <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search">
-                        <input class="sb-search-submit" type="submit" value="" ng-model="query">
+                        <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search" ng-model="query2">
+                        <input class="sb-search-submit" type="submit" value="">
                         <span class="sb-icon-search">
                         </span>
                     </form>
                     <div class="disabler"></div>
                 </div>
 			</div>
-    </div><!--/.row-->
+        </div><!--/.row-->
 
-    <!-- End of filters -->
-    <!-- Start of accordion content -->
+        <!-- End of filters -->
+        <!-- Start of accordion content -->
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="container-accordion" ng-controller="AccordFuncController">
-          <div class="accordion">
-            <dl>
-              <div ng-repeat="loan in loans | filter: search">
-                  <dt ng-click="clickAccordion(loan._id)">
-                    <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                    <label class="container-mass container">
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                      {{loan.owner}} – Loan #{{loan._id}}
-                    </a>
-                  </dt>
-                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
-                    <% include partials/progress-row.ejs %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="container-accordion" ng-controller="AccordFuncController">
+              <div class="accordion">
+                <dl>
+                    
+<!--                    specifity for which query needs to be fixed, it is currently referencing improper controller-->
+                  <input ng-model="query">
+                  <div ng-repeat="loan in loans | filter: search">
+                      <dt ng-click="clickAccordion(loan._id)">
+                        <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                        <label class="container-mass container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                          {{loan.name}} – Loan #{{loan._id}}
+                        </a>
+                      </dt>
+                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                        <% include partials/progress-row.ejs %>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="panel panel-default chat">
-                                <div class="panel-heading">
-                                    Admin Comments
-                                </div>
-                                <div class="panel-body">
-                                        <ul>
-                                            <li class="left clearfix">
-                                                <div class="chat-body clearfix">
-                                                    <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">32 mins ago</small></div>
-                                                    <p>This is where the first admin comment would go.</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="input-group">
-                                        <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
-                                            <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
-                                        </span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default chat">
+                                    <div class="panel-heading">
+                                        Admin Comments
+                                    </div>
+                                    <div class="panel-body">
+                                            <ul>
+                                                <li class="left clearfix">
+                                                    <div class="chat-body clearfix">
+                                                        <div class="header"><strong class="primary-font">Admin Name</strong> <small class="text-muted">32 mins ago</small></div>
+                                                        <p>This is where the first admin comment would go.</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="input-group">
+                                            <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
+                                                <button class="btn btn-primary btn-md" id="btn-chat">Add</button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Current Loan Information
+                                    </div>
+                                    <div class="panel-body timeline-container">
+                                            <ul class="timeline">
+                                                <li>
+                                                    <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">Loan Info</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>Update on user's registration.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">Urgent</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>Immediate action needed.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                 </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Current Loan Information
-                                </div>
-                                <div class="panel-body timeline-container">
-                                        <ul class="timeline">
-                                            <li>
-                                                <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-                                                <div class="timeline-panel">
-                                                    <div class="timeline-heading">
-                                                        <h4 class="timeline-title">Loan Info</h4>
-                                                    </div>
-                                                    <div class="timeline-body">
-                                                        <p>Update on user's registration.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
-                                                <div class="timeline-panel">
-                                                    <div class="timeline-heading">
-                                                        <h4 class="timeline-title">Urgent</h4>
-                                                    </div>
-                                                    <div class="timeline-body">
-                                                        <p>Immediate action needed.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                </div>
-                             </div>
-                        </div>
-                    </div>
-                  </dd>
+                      </dd>
+                  </div>
+                </dl>
               </div>
-            </dl>
+            </div>
           </div>
         </div>
-      </div>
     </div>
     
     <% include partials/Modal_Test.html %> 

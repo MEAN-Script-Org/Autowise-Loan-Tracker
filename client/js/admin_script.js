@@ -22,7 +22,8 @@ angular.module('SWEApp').controller('SearchController',
                 if(this.checked)
                 {currentCheckCount = currentCheckCount + 1;
                 $('.sb-search').addClass('sb-search-open');
-                $scope.$parent.searchScopes.push(getId);}
+                $scope.$parent.searchScopes.push(getId);
+                console.log($scope.$parent.searchScopes);}
                 else
                 {currentCheckCount = currentCheckCount - 1;
                 angular.forEach($scope.$parent.searchScopes, function(value, key) {
