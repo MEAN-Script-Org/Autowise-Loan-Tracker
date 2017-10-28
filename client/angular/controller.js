@@ -119,24 +119,24 @@ angular.module('SWEApp').controller('SWEAppController',
     //------------------------------------------------------------------------------------------------------------------
     // Updates the status of a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    $scope.changeLoanStatus = function(loanID, status, displayAlert) {
-      Factory.modifyLoan(loanID, {status: status}).then(
+    $scope.changeLoanStatus = function(loanID, newStatus, displayAlert) {
+      Factory.modifyLoan(loanID, {status: newStatus}).then(
         function(response) {
           // update frontend after DB
           $rootScope.loans.some(function(item, index, loans) {
             if (item._id) {
               if (item._id == loanID) {
-                loans[index].status = status;
+                loans[index].status = newStatus;
                 return true;
               }
             }
           });
           
           if (displayAlert)
-            alert("Successfully archived loan");
+            alert("Successfully updated loan to status '" + newStatus + "'");
         },
         function(err) {
-          alert("Error archiving loan. Perhaps it was already archived.");
+          alert("Error updating loan status");
           console.log(err);
         }
       );
