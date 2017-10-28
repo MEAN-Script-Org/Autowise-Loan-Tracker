@@ -25,7 +25,7 @@ angular.module('SWEApp').controller('SWEAppController',
       // $rootScope.user_email = response.data.email;
       $rootScope.user_isAdmin = response.data.isAdmin;
     });
-
+    
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
@@ -45,39 +45,51 @@ angular.module('SWEApp').controller('SWEAppController',
         }
       );
     }
-
+    
     $scope.logLoan = function(loanID) {
       $scope.changeLoanStatus(loanID, "ARCHIVED");
     }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // LOAN CRUD FUNCTIONS - SINGLE
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Create a new loan, prompting the buyer's order modal dialog
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.addLoan = function() {
+      // Assigning foreign elements
+      $scope.newLoan.user_id = $rootScope.user_id;
+      // $scope.newLoan.user_email = $rootScope.user_email;
 
-    // TODO: add more state change f(x)s
-    $scope.futureStateLoan = function(loanID) {
-      $scope.changeLoanStatus(loanID, "future!");
-    }
-
-    // Main f(x) for changing state
-    $scope.changeLoanStatus = function(loanID, status) {
-      Factory.modifyLoan(loanID, {status: status}).then(
+      Factory.newLoan($scope.newLoan).then(
         function(response) {
-          // update frontend after DB
-          $rootScope.loans.some(function(item, index, loans) {
-            if (item._id) {
-              if (item._id == loanID) {
-                loans[index].status = status;
-                return true;
-              }
-            }
-          });
+          if (response.data) {
+            // Making the loan
+            var newLoad = response.data;
+            newLoad.new = true;
+            $rootScope.loans.push(newLoad);
 
-          alert("Successfully archived loan");
+            console.log("Returned new loan: ");
+            console.log(response.data);
+
+            // clear form data once done
+            $scope.newLoan = {};
+          }
         },
         function(err) {
-          alert("Error archiving loan. Perhaps it was already archived.");
           console.log(err);
         }
       );
     }
-
+    
+    // TODO: add more state change f(x)s
+    $scope.futureStateLoan = function(loanID) {
+      $scope.changeLoanStatus(loanID, "future!");
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Removes a single loan of the specified ID
+    //------------------------------------------------------------------------------------------------------------------
     $scope.removeLoan = function(loanID, displayAlert) {
       // trigger modal.... THEN this
       // Delete should send things to archieve...
@@ -105,120 +117,93 @@ angular.module('SWEApp').controller('SWEAppController',
     }
     
     //------------------------------------------------------------------------------------------------------------------
-    // Removal of all selected loans. Called from the modal dialog for mass loan deletion
+    // Updates the status of a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    // TODO when cleaning: Change the implementation of this method to use the already created "removeLoan"
-    //                      Just pass a boolean to not display "delete success" more than once
-    $scope.removeEnMass = function() {
-      
-      console.log("Delete button clicked!") ;
-      console.log("Loans deleted: " + $rootScope.massLoans) ;
-      
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        Factory.deleteLoan(loanID).then(
+    $scope.changeLoanStatus = function(loanID, status, displayAlert) {
+      Factory.modifyLoan(loanID, {status: status}).then(
         function(response) {
           // update frontend after DB
           $rootScope.loans.some(function(item, index, loans) {
             if (item._id) {
               if (item._id == loanID) {
-                $rootScope.massLoans.splice(index, 1) ; // Remove from the mass selection array
-                loans.splice(index, 1);
+                loans[index].status = status;
                 return true;
               }
             }
           });
-
-          alert("Successfully deleted loan");
+          
+          if (displayAlert)
+            alert("Successfully archived loan");
         },
         function(err) {
-          alert("Error deleting loan. Perhaps it was already deleted.");
+          alert("Error archiving loan. Perhaps it was already archived.");
           console.log(err);
-        });
-      });
+        }
+      );
     }
     
     //------------------------------------------------------------------------------------------------------------------
-    // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
+    // Archives the loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    $scope.updateStatusEnMass = function(newSatus) {
-      
-      console.log("Update Status button clicked!") ;
-      console.log("Loans affected: " + $rootScope.massLoans) ;
-      
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        Factory.getLoan(loanID).then(function(res) {
+    $scope.archiveLoan = function(loanID, displayAlert) {
+      Factory.getLoan(loanID).then(function(res) {
           
-          // Fetch selected loan and update its status
-          var loan = res.body ;
-          loan.status = newStatus ;
-          
-          // Send a request to save over the original loan
-          Factory.modifyLoan(loanID, loan).then(function(res) {
-            alert("Successfully updated loans!");
-          });
-        },
-        function(err) {
-          alert("Error updating loans.");
-          console.log(err);
-        });
-      });
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Archive all selected loans. Called from the modal dialog for mass loan archive
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.archiveEnMass = function() {
-      
-      console.log("Archive button clicked!") ;
-      console.log("Loans affected: " + $rootScope.massLoans) ;
-      
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        Factory.getLoan(loanID).then(function(res) {
-          console.log(res) ;
           // Fetch selected loan and update its status
           var loan = res.data ;
           loan.archived = true ;
           
           // Send a request to save over the original loan
           Factory.modifyLoan(loanID, loan).then(function(res) {
-            alert("Successfully archived loans!");
+            if (displayAlert)
+              alert("Successfully archived loan");
           });
         },
         function(err) {
-          alert("Error archiving loans.");
+          alert("Error archiving loan");
           console.log(err);
         });
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // LOAN CRUD FUNCTIONS - EN MASSE
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Removal of all selected loans. Called from the modal dialog for mass loan deletion
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.removeEnMass = function() {
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        $scope.removeLoan(loanID, false) ;
       });
+      
+      alert("All selected loans have been deleted") ;
     }
     
-    $scope.addLoan = function() {
-      // Assigning foreign elements
-      $scope.newLoan.user_id = $rootScope.user_id;
-      // $scope.newLoan.user_email = $rootScope.user_email;
-
-      Factory.newLoan($scope.newLoan).then(
-        function(response) {
-          if (response.data) {
-            // Making the loan
-            var newLoad = response.data;
-            newLoad.new = true;
-            $rootScope.loans.push(newLoad);
-
-            console.log("Returned new loan: ");
-            console.log(response.data);
-
-            // clear form data once done
-            $scope.newLoan = {};
-          }
-        },
-        function(err) {
-          console.log(err);
-        }
-      );
+    //------------------------------------------------------------------------------------------------------------------
+    // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.updateStatusEnMass = function(newStatus) {
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        $scope.changeLoanStatus(loanID, newStatus, false)
+      });
+      
+      alert("All selected loans have been updated to status '" + newStatus + "'") ;
     }
     
+    //------------------------------------------------------------------------------------------------------------------
+    // Archive all selected loans. Called from the modal dialog for mass loan archive
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.archiveEnMass = function() {
+      angular.forEach($rootScope.massLoans, function(loanID) {
+        $scope.archiveLoan(loanID, false) ;
+      });
+      
+      alert("All selected loans have been archived") ;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // OTHER FUNCTIONS
+    //------------------------------------------------------------------------------------------------------------------
     // MARK: CHECK LIST
-    
     $scope.updateCheckList = function(loanID, remove) {
         if(remove == 1)
         {

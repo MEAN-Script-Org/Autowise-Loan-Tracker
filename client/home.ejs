@@ -22,7 +22,7 @@
             <li class="active">Active Loans</li>
         </ol>
     </div>
-
+    
     <!-- SCOPE FOR SEARCH -->
     <div ng-controller="SearchController">
         <div class="row">
@@ -159,25 +159,34 @@
           </div>
         </div>
     </div>
-
+    
+    <!-- MODALS FOR LOAN CRUD -->
     <% include partials/Modal_Test.html %>
-    <!-- Selection Menu Content -->
-    <!-- id="float-plus" -->
     <a  href="#" class="float-btn" id="menu-share">
-<!--        //open model on click-->
-            <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
+      <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
     </a>
     <ul id="float-list" ng-show="massLoans.length > 0">
-        <li>
-            <a href="#" id="float-trash" >
-                <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
-            </a>
-        </li>
-        <li>
-            <a href="#" id="float-archive">
-                <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
-            </a>
-        </li>
+      
+      <!-- Mass loan delete -->
+      <li>
+        <a href="#" id="float-trash" >
+          <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
+        </a>
+      </li>
+      
+      <!-- Mass loan status change -->
+      <li>
+        <a href="#" id="float-edit" >
+          <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
+        </a>
+      </li>
+      
+      <!-- Mass loan archive -->
+      <li>
+        <a href="#" id="float-archive">
+          <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
+        </a>
+      </li>
     </ul>
 </div>
 

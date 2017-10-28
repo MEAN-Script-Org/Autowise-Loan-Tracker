@@ -35,11 +35,10 @@
 						<div class="modal-body">
 							<form>
 								Delete The Selected Loans:<br> 
-                                <button class="btn btn-primary" ng-click="removeEnMass()">Delete Selected Loans</button><br>
+                                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button><br>
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary">Update</button>
 							<button class="btn btn-primary" data-dismiss="modal">Close</button>				
 						</div>
 					</div>
@@ -73,7 +72,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary" ng-click="updateStatusEnMass($scope.newStatus)">Update</button>
+							<button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass(newStatus)">Update</button>
 							<button class="btn btn-primary" data-dismiss="modal">Close</button>				
 						</div>
 					</div>
@@ -96,11 +95,10 @@
 						<div class="modal-body">
 							<form>
                                 Archive The Selected Loans:<br> 
-                                <button class="btn btn-primary" ng-click="archiveEnMass()">Archive Selected Loans</button><br>
+                                <button class="btn btn-primary" data-dismiss="modal" ng-click="archiveEnMass()">Archive Selected Loans</button><br>
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-primary">Update</button>
 							<button class="btn btn-primary" data-dismiss="modal">Close</button>				
 						</div>
 					</div>
