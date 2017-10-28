@@ -87,23 +87,23 @@
             <div class="form-group">
               <h4 class="page-header">Car model year</h4>
               <select ng-model="query.age">
-                <option value="OlderThan2007">Older than 2007</option>
-                <option value="2007To2011">2007 to 2011</option>
-                <option value="NewerThan2011">Newer than 2011</option>
+                <option value="-1">Older than 2007</option>
+                <option value="2007">2007 to 2011</option>
+                <option value="2011">Newer than 2011</option>
               </select>
             </div>
             
             <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
             <div class="form-group">
               <h4 class="page-header">Mileage</h4>
-              <input type="text" name="Mileage" ng-model="max_mileage"><br>
+              <input type="text" name="Mileage" ng-model="query.max_mileage"><br>
             </div>
             
             <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
             <div class="form-group">
               <h4 class="page-header">Car make: Domestic or Asian</h4>
-              <input type="radio" name="RadioAnswer" value="Domestic" checked> Domestic<br>
-              <input type="radio" name="RadioAnswer" value="Asian"> Asian
+              <input type="radio" name="RadioAnswer" value="Domestic" ng-model="query.make"> Domestic<br>
+              <input type="radio" name="RadioAnswer" value="Asian" ng-model="query.make"> Asian
             </div>
             
             <!-- SUBMISSION BUTTON -->
@@ -118,28 +118,24 @@
     <!-- ROW - WARRANTIES QUERY RESULTS -->
     <div class="row">
       <div class="col-md-12">
-        <div class="container-accordion" ng-controller="AccordFuncController">
+        <div class="container-accordion">
           <div class="accordion">
             <dl>
               <div ng-repeat="warranty in matchedWarranties">
                 
                 <!-- ACCORDION HEADER -->
                 <dt>
-                  <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                    TEMP
+                  <a class="accordionFakeTitle">
+                   <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                      <div class="row">
+                        <h4><strong>Age:</strong> {{warranties_table[0].age}}</h4>
+                        <h4><strong>Term:</strong> {{warranties_table.term}}</h4>
+                        <h4><strong>Max Mileage:</strong> {{warranties_table.max_mileage}</h4>
+                        <h4><strong>Price:</strong> {{warranties_table.price}}</h4>
+                      </div>
+                    </dd>
                   </a>
                 </dt>
-                
-
-                <!-- ACCORDION CONTENTS -->
-                <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
-                  <div class="row">
-                    <h4><strong>Age:</strong> {{warranties_table[0].age}}</h4>
-                    <h4><strong>Term:</strong> {{warranties_table.term}}</h4>
-                    <h4><strong>Max Mileage:</strong> {{warranties_table.max_mileage}</h4>
-                    <h4><strong>Price:</strong> {{warranties_table.price}}</h4>
-                  </div>
-                </dd>
               </div>
             </div>
           </div>
@@ -152,6 +148,5 @@
   <% include partials/footer.html %> 
   <script src="js/classie.js"></script>
   <script src="js/uisearch.js"></script>
-  <script src="js/accord.js"></script> 
 </body>
 </html>
