@@ -108,9 +108,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   */
   
   $scope.init = function() {
-    $scope.matchedWarranties = warranties_table ;
-    
-    console.log(matchedWarranties) ;
+    $scope.matchedWarranties = [1, 2, 3] ;
   }
   
   $scope.queryWarrantyPlan = function() {
