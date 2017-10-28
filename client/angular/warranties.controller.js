@@ -143,6 +143,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Filter function for warranty querying
   //--------------------------------------------------------------------------------------------------------------------
   function checkWarrantyAgainstQuery(warranty) {
-      return  warranty.age.toString() === $scope.query.age ;           
+      return  warranty.age.toString()     === $scope.query.age &&
+             (warranty.max_mileage * 1000 >=  $scope.query.max_mileage || warranty.max_mileage < 0) ;          
   }
 }]);
