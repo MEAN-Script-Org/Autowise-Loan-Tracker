@@ -107,16 +107,22 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
    3. If applicable, select price based on the country of origin
   */
   
+  //--------------------------------------------------------------------------------------------------------------------
+  // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
+  //--------------------------------------------------------------------------------------------------------------------
   $scope.init = function() {
-    $scope.matchedWarranties = [1, 2, 3] ;
+    $scope.matchedWarranties = warranties_table ;
+    $scope.query = { age: '', max_mileage: 0, make: ''} ;
   }
   
+  //--------------------------------------------------------------------------------------------------------------------
+  // Called on submission of the warranties selection form. Checks the query against all possible warranties and assigns
+  // Matching warranties to the 'matchedWarranties' object
+  //--------------------------------------------------------------------------------------------------------------------
   $scope.queryWarrantyPlan = function() {
-    $scope.query = query ;
-    
-    console.log("Current query is: " + query) ;
-    
-    return ;
+    console.log("Query age:         " + $scope.query.age) ;
+    console.log("Query max milegae: " + $scope.query.max_mileage) ;
+    console.log("Query make:        " + $scope.query.make) ;
     
     // Select possible warranties
     var warranties = warranties_table.filter(checkWarrantyAgainstQuery) ;
@@ -124,18 +130,19 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     console.log(warranties) ;
     
     // Refine 'price' field if a country of origin is requried
-    warranties.ForEach(function(warranty) {
+    warranties.forEach(function(warranty) {
       if (typeof warranty.price === 'object')
-        warranty.price = warranty.price[query.country] ;
+        warranty.price = warranty.price[$scope.query.make] ;
     });
     
-    // Return the compatible warranties
-    $scope.matchedWarranties ;
+    // Assign the compatible warranties to an object in the scope
+    $scope.matchedWarranties = warranties ;
   }
   
+  //--------------------------------------------------------------------------------------------------------------------
   // Filter function for warranty querying
-  $scope.checkWarrantyAgainstQuery = function(warranty) {
-      return  warranty.age                === $scope.query.age &&
-             (warranty.max_mileage * 1000 >=  $scope.query.max_mileage || warranty.max_mileage < 0) ;           
+  //--------------------------------------------------------------------------------------------------------------------
+  function checkWarrantyAgainstQuery(warranty) {
+      return  warranty.age.toString() === $scope.query.age ;           
   }
 }]);
