@@ -107,6 +107,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
    3. If applicable, select price based on the country of origin
   */
   
+  $scope.init = function() {
+    $scope.matchedWarranties = warranties_table ;
+    
+    console.log(matchedWarranties) ;
+  }
+  
   $scope.queryWarrantyPlan = function() {
     $scope.query = query ;
     

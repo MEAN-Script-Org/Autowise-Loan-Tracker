@@ -60,7 +60,8 @@
 	</div><!--/.sidebar-->
 	
   <!-- MAIN PAGE DIV -->
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" ng-app="SWEApp" ng-controller="Warranties">
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
+    ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
 		<div class="header row">
 			<ol class="breadcrumb">
 				<li><a href="#">
@@ -115,22 +116,30 @@
 		</div><!--/.row-->
     
     <!-- ROW - WARRANTIES QUERY RESULTS -->
-		<div class="row">
-      <div ng-repeat="warranty in matchedWarranties">
-        
-        <!-- ACCORDION HEADER -->
-        <dt>
-          <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-            TEMP
-          </a>
-        </dt>
-        
-        <!-- ACCORDION CONTENTS -->
-        <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
-          <div class="row">
-            HEYO, this is a test!
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container-accordion" ng-controller="AccordFuncController">
+          <div class="accordion">
+            <dl>
+              <div ng-repeat="warranty in matchedWarranties">
+                
+                <!-- ACCORDION HEADER -->
+                <dt>
+                  <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
+                    TEMP
+                  </a>
+                </dt>
+                
+                <!-- ACCORDION CONTENTS -->
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                  <div class="row">
+                    HEYO, this is a test!
+                  </div>
+                </dd>
+              </div>
+            </div>
           </div>
-        </dd>
+        </div>
       </div>
     </div>
   </div>
