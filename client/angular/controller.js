@@ -20,6 +20,7 @@ angular.module('SWEApp').controller('SWEAppController',
       // $rootScope.pwd = "";
       // $rootScope.username = "";
 
+      // TO Change based on routes~
       // ## User Details
       $rootScope.user_id = response.data._id;
       // $rootScope.user_email = response.data.email;
@@ -44,10 +45,6 @@ angular.module('SWEApp').controller('SWEAppController',
           }
         }
       );
-    }
-    
-    $scope.logLoan = function(loanID) {
-      $scope.changeLoanStatus(loanID, "ARCHIVED");
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -83,8 +80,8 @@ angular.module('SWEApp').controller('SWEAppController',
     }
     
     // TODO: add more state change f(x)s
-    $scope.futureStateLoan = function(loanID) {
-      $scope.changeLoanStatus(loanID, "future!");
+    $scope.futureStateLoan = function(loanID, displayAlert) {
+      $scope.changeLoanStatus(loanID, "future!", displayAlert);
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -146,23 +143,25 @@ angular.module('SWEApp').controller('SWEAppController',
     // Archives the loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
     $scope.archiveLoan = function(loanID, displayAlert) {
-      Factory.getLoan(loanID).then(function(res) {
-          
-          // Fetch selected loan and update its status
-          var loan = res.data ;
-          loan.archived = true ;
-          
-          // Send a request to save over the original loan
-          Factory.modifyLoan(loanID, loan).then(function(res) {
-            if (displayAlert)
-              alert("Successfully archived loan");
-          });
-        },
-        function(err) {
-          alert("Error archiving loan");
-          console.log(err);
-        });
+      $scope.changeLoanStatus(loanID, "ARCHIVED", displayAlert);
     }
+    // Function Below was already implemented in the wrapper method above
+    // $scope.archiveLoan = function(loanID, displayAlert) {
+    //   Factory.getLoan(loanID).then(function(res) {
+    //       // Fetch selected loan and update its status
+    //       var loan = res.data ;
+    //       loan.archived = true ;
+    //       // Send a request to save over the original loan
+    //       Factory.modifyLoan(loanID, loan).then(function(res) {
+    //         if (displayAlert)
+    //           alert("Successfully archived loan");
+    //       });
+    //     },
+    //     function(err) {
+    //       alert("Error archiving loan");
+    //       console.log(err);
+    //     });
+    // }
     
     //------------------------------------------------------------------------------------------------------------------
     // LOAN CRUD FUNCTIONS - EN MASSE
@@ -171,8 +170,13 @@ angular.module('SWEApp').controller('SWEAppController',
     // Removal of all selected loans. Called from the modal dialog for mass loan deletion
     //------------------------------------------------------------------------------------------------------------------
     $scope.removeEnMass = function() {
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        $scope.removeLoan(loanID, false) ;
+      // this was the cause of the 'angular is not defined' prob
+      // angular.forEach($rootScope.massLoans, function(loanID) {
+      //   $scope.removeLoan(loanID, false) ;
+      // });
+      $rootScope.massLoans.forEach(
+        function(loanID) {
+          $scope.removeLoan(loanID, false) ;
       });
       
       alert("All selected loans have been deleted") ;
@@ -182,19 +186,21 @@ angular.module('SWEApp').controller('SWEAppController',
     // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
     //------------------------------------------------------------------------------------------------------------------
     $scope.updateStatusEnMass = function(newStatus) {
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        $scope.changeLoanStatus(loanID, newStatus, false)
+      $rootScope.massLoans.forEach(
+        function(loanID) {
+          $scope.changeLoanStatus(loanID, newStatus, false)
       });
       
-      alert("All selected loans have been updated to status '" + newStatus + "'") ;
+      alert("All selected loans have been updated to '" + newStatus + "'") ;
     }
     
     //------------------------------------------------------------------------------------------------------------------
     // Archive all selected loans. Called from the modal dialog for mass loan archive
     //------------------------------------------------------------------------------------------------------------------
     $scope.archiveEnMass = function() {
-      angular.forEach($rootScope.massLoans, function(loanID) {
-        $scope.archiveLoan(loanID, false) ;
+      $rootScope.massLoans.forEach(
+        function(loanID) {
+          $scope.archiveLoan(loanID, false) ;
       });
       
       alert("All selected loans have been archived") ;
@@ -205,51 +211,52 @@ angular.module('SWEApp').controller('SWEAppController',
     //------------------------------------------------------------------------------------------------------------------
     // MARK: CHECK LIST
     $scope.updateCheckList = function(loanID, remove) {
-        if(remove == 1)
-        {
-            $rootScope.massLoans.push(loanID);
-            angular.forEach($rootScope.massLoans, function(value) {
-                console.log("val: " + value);
-            });
-        }
-        else
-        {
-            angular.forEach($rootScope.massLoans, function(value, key) {
-                if(value === loanID)
-                {
-                    $rootScope.massLoans.splice(key, 1);
-                    return;
-                }
-            });
-        }
+      if(remove) {
+        $rootScope.massLoans.push(loanID);
+        $rootScope.massLoans.forEach(
+          function(loanID) {
+            // This will log each loan id in 'massLoans'
+            // But what's the point? 
+            console.log("Loan selected: " + loanID);
+        });
+      } else {
+        $rootScope.massLoans.forEach(
+          function(value, index) {
+            if (value === loanID) {
+              $rootScope.massLoans.splice(key, 1);
+            }
+        });
+      }
     }
 
+    // TODO: Cleannnn this
     // MARK: Search
     $scope.search = function(loan) {
-//        item.brand.toLowerCase().indexOf($scope.query) 
-        let nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
-        let emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
-        let lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
-        let dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
+      // item.brand.toLowerCase().indexOf($scope.query) 
+      var nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
+      var emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
+      var lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
+      var dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
 
-        console.log("N: " + nameCheckbox);
-        console.log("E: " + emailCheckbox);
-        console.log("L: " + lenderCheckbox);
-        console.log("D: " + dateCheckbox);
-        console.log(loan);
-        //            nameCheckbox && 
-        console.log($scope.query);
-        
-        let nameMatch = loan.name.toLowerCase().includes($scope.query);
-//        let emailMatch = loan.purchase_order.email.toLowerCase().includes($scope.query);
-//        let lenderMatch = loan.purchase_order.car_info.lender.toLowerCase().includes($scope.query);
-//        let dateMatch = loan.purchase_order.form_date.toLowerCase().includes($scope.query);
-        
-        if(!$scope.query)
-        {
-            return true;
-        }
-        return false;
+      console.log("N: " + nameCheckbox);
+      console.log("E: " + emailCheckbox);
+      console.log("L: " + lenderCheckbox);
+      console.log("D: " + dateCheckbox);
+      console.log(loan);
+      // nameCheckbox && 
+      console.log($scope.query);
+      
+      var nameMatch = loan.name.toLowerCase().includes($scope.query);
+      // var emailMatch = loan.purchase_order.email.toLowerCase().includes($scope.query);
+      // var lenderMatch = loan.purchase_order.car_info.lender.toLowerCase().includes($scope.query);
+      // var dateMatch = loan.purchase_order.form_date.toLowerCase().includes($scope.query);
+      
+      return !$scope.query; 
+      // if(!$scope.query)
+      // {
+      //     return true;
+      // }
+      // return false;
     };
     
     
@@ -271,11 +278,6 @@ angular.module('SWEApp').controller('SWEAppController',
         if (item._id) {
           if (item._id == loanID) {
             
-            console.log(loans[index].commentAsAdmin);
-            console.log(loans[index].commentAsAdmin);
-            console.log(loans[index].commentAsAdmin);
-            console.log(loans[index].commentAsAdmin);
-
             var newComment = {
               admin: loans[index].commentAsAdmin,
               content: newCommentContent,

@@ -19,7 +19,8 @@ router.route('/info').get(
     });
 });
 
-// > Multiple loans
+// # LOANS
+// > 'Multiple' loans
 router.route('/loans')
       .get(loans.getAll)
       .post(loans.create);
@@ -32,16 +33,17 @@ router.route('/loan/:loanID')
 
 router.param('loanID', loans.loanByID) ;
 
-// > Multiple users
-router.route('/users')
-      .get(users.list)
-      .post(users.create) ;
-
+// # USERS
 // > Individual user
 router.route('/user/:userID')
       .get(users.read)
       .put(users.update)
       .delete(users.delete) ;
+
+// > 'Multiple' users
+router.route('/users')
+      .get(users.list)
+      .post(users.create) ;
 
 router.param('userID', users.userByID) ;
 
