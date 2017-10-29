@@ -1,3 +1,7 @@
+<!-- add title before query "available plans"
+    Mileage -> Car Mileage 
+    Add description of "pleaes enter car information" at the top -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,14 +82,19 @@
         <div class="panel-heading">
           <h1 class="page-header">Warranties</h1>
         </div>
+
+        <h5 class="warranty-instruction">
+          (Please enter car information and click 'Submit'. Qualified warranties will be displayed.)
+        </h5>
         
+
         <!-- FORM FOR WARRANTY PLAN QUERY -->
         <form ng-submit="queryWarrantyPlan()">
           <fieldset>
             
             <!-- DROP-DOWN FOR CAR AGE SELECTION -->
             <div class="form-group">
-              <h4 class="page-header">Car model year</h4>
+              <h4 class="page-header-warranties">Car model year</h4>
               <select ng-model="query.age">
                 <option value="-1">Older than 2007</option>
                 <option value="2007">2007 to 2011</option>
@@ -95,13 +104,13 @@
             
             <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
             <div class="form-group">
-              <h4 class="page-header">Mileage</h4>
+              <h4 class="page-header-warranties">Mileage</h4>
               <input type="text" name="Mileage" ng-model="query.max_mileage"><br>
             </div>
             
             <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
             <div class="form-group">
-              <h4 class="page-header">Car make: Domestic or Asian</h4>
+              <h4 class="page-header-warranties">Car make: Domestic or Asian</h4>
               <input type="radio" name="RadioAnswer" value="Domestic" ng-model="query.make"> Domestic<br>
               <input type="radio" name="RadioAnswer" value="Asian" ng-model="query.make"> Asian
             </div>
@@ -126,14 +135,13 @@
                 <!-- ACCORDION HEADER -->
                 <dt>
                   <a class="accordionFakeTitle">
-                   <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
-                      <div class="row">
-                        <h4><strong>Age:</strong> {{warranties_table[0].age}}</h4>
-                        <h4><strong>Term:</strong> {{warranties_table.term}}</h4>
-                        <h4><strong>Max Mileage:</strong> {{warranties_table.max_mileage}</h4>
-                        <h4><strong>Price:</strong> {{warranties_table.price}}</h4>
-                      </div>
-                    </dd>
+                    <div class="warrantiesQueryText">
+                      <h4><strong>Age:</strong> {{warranty.age}}</h4>
+                      <h4><strong>Term length of warranty:</strong> {{warranty.term.months}} months</h4>
+                      <h4><strong>Mileage length of warranty:</strong> {{warranty.term.miles}} miles</h4>
+                      <h4><strong>Max Mileage:</strong> {{warranty.max_mileage}} miles</h4>
+                      <h2><strong>Price:</strong> {{warranty.price}}</h2>
+                    </div>
                   </a>
                 </dt>
               </div>
