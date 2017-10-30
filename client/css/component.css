@@ -40,7 +40,7 @@
 	padding: 20px 65px 20px 20px;
 	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 20px;
-	color: rgb(22, 75, 42);
+	color: #444444;
 }
 
 .sb-search-input::-webkit-input-placeholder {

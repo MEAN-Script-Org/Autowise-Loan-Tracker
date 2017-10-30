@@ -207,36 +207,6 @@ angular.module('SWEApp').controller('CRUDController',
         });
       }
     }
-
-    // TODO: Cleannnn this
-    // MARK: Search
-    // $scope.search = function(loan) {
-    //   // item.brand.toLowerCase().indexOf($scope.query) 
-    //   var nameCheckbox = $rootScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
-    //   var emailCheckbox = $rootScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
-    //   var lenderCheckbox = $rootScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
-    //   var dateCheckbox = $rootScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
-    // 
-    //   console.log("N: " + nameCheckbox);
-    //   console.log("E: " + emailCheckbox);
-    //   console.log("L: " + lenderCheckbox);
-    //   console.log("D: " + dateCheckbox);
-    //   console.log(loan);
-    //   // nameCheckbox && 
-    //   console.log($scope.query);
-    //
-    //   var nameMatch = loan.name.toLowerCase().includes($scope.query);
-    //   // var emailMatch = loan.purchase_order.email.toLowerCase().includes($scope.query);
-    //   // var lenderMatch = loan.purchase_order.car_info.lender.toLowerCase().includes($scope.query);
-    //   // var dateMatch = loan.purchase_order.form_date.toLowerCase().includes($scope.query);
-    //
-    //   return !$scope.query; 
-    //   // if(!$scope.query)
-    //   // {
-    //   //     return true;
-    //   // }
-    //   // return false;
-    // };
     
     // TODO LATER: Same comment as 'changeLoanStatus' ~
     // Clearing frontend checkboxes

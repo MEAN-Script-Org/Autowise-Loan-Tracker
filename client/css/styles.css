@@ -1659,15 +1659,32 @@ div.left-text {
     margin: 0;
 }
 
-
 /*FLOATING MENU*/
 
 .label-container {
     position: fixed;
-    bottom: 28px;
-    right: 0px;
     display: table;
-    visibility: hidden;
+/*    visibility: hidden;*/
+}
+
+.label-container.AddTip {
+    bottom: 28px;
+    right: 78px;
+}
+
+.label-container.DelTip {
+    bottom: 28px;
+    right: 78px;
+}
+
+.label-container.ArcTip {
+    bottom: 28px;
+    right: 78px;
+}
+
+.label-container.StatTip {
+    bottom: 28px;
+    right: 78px;
 }
 
 .label-text {
@@ -1685,6 +1702,15 @@ div.left-text {
     color: #333;
     opacity: 0.5;
 }
+    /* NG-ANIMATION */
+    div.label-container.fadeTip.ng-hide {
+        opacity: 0;
+    }
+
+    div.label-container.fadeTip {
+        transition: opacity 0.5s ease;
+        opacity: 1;
+    }
 
 .float-btn {
     display: flex;
@@ -1697,8 +1723,8 @@ div.left-text {
 
     z-index: 200;
     font-size: 28px;
-    background-color: #38cc70;
-    color: white;
+    background-color: white;
+    color: #38cc70;
 
     right: 16px;
     bottom: 16px;
@@ -1707,6 +1733,10 @@ div.left-text {
     -webkit-box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.4);
     -o-box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.4);
     animation: bot-to-top 1.0s ease;
+}
+
+.float-btn:hover {
+    color: #38cc70;
 }
 
 #float-list {
@@ -1755,11 +1785,6 @@ div.left-text {
     font-size: 24px;
 }
 
-.float-btn:hover {
-    background-color: white;
-    color: #38cc70;
-}
-
 a#menu-share+#float-list {
     visibility: hidden;
 }
@@ -1768,6 +1793,13 @@ a#menu-share:hover+#float-list {
     visibility: visible;
     animation: scale-in 0.5s;
     bottom: 60px;
+}
+
+div.label-container {
+/*
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+*/
 }
 
 a#menu-share em {

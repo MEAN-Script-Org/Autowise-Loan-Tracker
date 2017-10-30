@@ -126,10 +126,16 @@
                 document.addEventListener( 'click', bodyFn );
                 document.addEventListener( 'touchstart', bodyFn );
             }
+            else {
+                this.inputEl.blur();
+			     classie.remove( this.el, 'sb-search-open' );
+                this.inputEl.val('');
+            }
 		},
 		close : function() {
 			this.inputEl.blur();
 			classie.remove( this.el, 'sb-search-open' );
+            this.inputEl.val('');
 		}
 	}
 

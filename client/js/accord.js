@@ -5,6 +5,40 @@ angular.module('SWEApp').controller('AccordFuncController',
   ['$scope', '$location', 'Factory',
   function($scope, $location, Factory) {
       
+    // TODO: Cleannnn this
+    // MARK: Search
+    $scope.search = function(loan) {
+        // item.brand.toLowerCase().indexOf($scope.query) 
+        let parentScope = $scope.$parent.$parent.$parent;
+        
+        var nameCheckbox = parentScope.searchScopes.indexOf("nameCheckbox") === -1 ? false : true;
+        var emailCheckbox = parentScope.searchScopes.indexOf("emailCheckbox") === -1 ? false : true;
+        var lenderCheckbox = parentScope.searchScopes.indexOf("lenderCheckbox") === -1 ? false : true;
+        var dateCheckbox = parentScope.searchScopes.indexOf("dateCheckbox") === -1 ? false : true;
+        
+//        console.log(parentScope.searchScopes);
+//        console.log(parentScope.loans);
+        //find queried value in specified fields
+        let queryVal = angular.lowercase($scope.query);
+
+        var nameMatch = loan.name.toLowerCase().includes(queryVal);
+        
+        //the other fields can work once the loan object has the COMPLETE model information from the buyer order: email, lender info, form_date
+        
+//        var emailMatch = loan.purchase_order.email.toLowerCase().includes(queryVal);
+//        var lenderMatch = loan.purchase_order.car_info.lender.toLowerCase().includes(queryVal);
+//        var dateMatch = loan.purchase_order.form_date.toLowerCase().includes(queryVal);
+
+//        || (emailCheckbox && emailMatch) || (lenderCheckbox && lenderMatch) || (dateCheckbox && dateMatch)
+        
+//         console.log(nameMatch)// + " " + emailMatch + " " + lenderMatch + " " + dateMatch);
+         if(!$scope.query || (nameCheckbox && nameMatch) )
+         {
+             return true;
+         }
+         return false;
+    };
+      
       (function(){
             setTimeout(function(){ 
 
