@@ -84,7 +84,7 @@
         </div>
 
         <h5 class="warranty-instruction">
-          (Please enter car information and click 'Submit'. Qualified warranties will be displayed.)
+          (Please enter car information and click 'Submit'. Qualified warranties will be displayed below.)
         </h5>
         
 
@@ -124,23 +124,32 @@
       </div>
 		</div><!--/.row-->
     
+
+
     <!-- ROW - WARRANTIES QUERY RESULTS -->
+
     <div class="row">
+
+      <div class="panel-heading">
+        <center><h2 class="page-header">Available Warranty Plans:</h2><center>
+      </div>
+
       <div class="col-md-12">
         <div class="container-accordion">
           <div class="accordion">
             <dl>
               <div ng-repeat="warranty in matchedWarranties">
-                
+
                 <!-- ACCORDION HEADER -->
                 <dt>
                   <a class="accordionFakeTitle">
                     <div class="warrantiesQueryText">
-                      <h4><strong>Age:</strong> {{warranty.age}}</h4>
+                      <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
+
                       <h4><strong>Term length of warranty:</strong> {{warranty.term.months}} months</h4>
                       <h4><strong>Mileage length of warranty:</strong> {{warranty.term.miles}} miles</h4>
-                      <h4><strong>Max Mileage:</strong> {{warranty.max_mileage}} miles</h4>
-                      <h2><strong>Price:</strong> {{warranty.price}}</h2>
+                      <!-- <h4><strong>Max Mileage:</strong> {{warranty.max_mileage}} miles</h4> -->
+                      <h2><strong>Price:</strong> ${{warranty.price}}.00</h2>
                     </div>
                   </a>
                 </dt>
