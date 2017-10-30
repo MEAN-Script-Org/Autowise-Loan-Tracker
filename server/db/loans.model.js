@@ -1,11 +1,6 @@
 var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 
-/* Loan schema notes/unresolved issues and fields ~
-  - visibleToConsumer : bool
-  - important : bool
-*/
-
 //----------------------------------------------------------------------------------------------------------------------
 // LOAN SCHEMA
 //======================================================================================================================
@@ -13,155 +8,174 @@ mongoose.Promise = global.Promise;
 // loan is associated with a particular customer
 //----------------------------------------------------------------------------------------------------------------------
 var loanSchema = new mongoose.Schema({
-  
+
+  // DISTANCE TO FIELDS SHOULD NOT WILDLY VARY!!
+  //    MY.EYES . THEY.HURT
+
   // Foreign Key
   user_id:    String,
   name:       String,
   updated_at: Date,
-  
+
+  // This field is redundant, already as 'status'
+  // archived: {type: Boolean, default: false},
+
   // Loan type and status
-  type:   String,
-  status: String,
-  
+  type:       String,
+  status:     String,
   // Warranty plan cost, if any
-  warranty: Number,
-  
+  warranty:   Number,
   trades:     Boolean,
   comments:   Array,
-  
+  created_by: String,
+
   //--------------------------------------------------------------------------------------------------------------------
   // Purchase Order
   //====================================================================================================================
   // The original "paper copy" of a loan. Majority of fields described here are transcribed from the document
   //--------------------------------------------------------------------------------------------------------------------
+  // TODO: Clean the hell out of this to see what's really needed. 
+  //       otherwise DB is gonna be $$$
   purchase_order: {
-    form_date:   Date,
-    is_car_used: Boolean,
-    email:       String,
-  
+    form_date:       Date,
+    is_car_used:     Boolean,
+    email:           String,
+
     // Purchaser and Co-Purchaser
     purchaser: {
-      name: {type: String, required: false},
-      dl:   {type: String, required: false},
-      dob:  {type: Date,   required: false},
+      name: {type:   String, /*required: false*/},
+      dl:   {type:   String, /*required: false*/},
+      dob:  {type:   Date,   /*required: false*/},
     },
     copurchaser: {
-      name: {type: String, required: false},
-      dl:   {type: String, required: false},
-      dob:  {type: Date,   required: false},
+      name: {type:   String, /*required: false*/},
+      dl:   {type:   String, /*required: false*/},
+      dob:  {type:   Date,   /*required: false*/},
     },
-    
+
     // Contact information
     address: {
-      street: {type: String, required: false},
-      city:   {type: String, required: false},
-      state:  {type: String, required: false},
-      county: {type: String, required: false},
-      zip:    {type: Number, required: false},
+      street: {type: String, /*required: false*/},
+      city:   {type: String, /*required: false*/},
+      state:  {type: String, /*required: false*/},
+      county: {type: String, /*required: false*/},
+      zip:    {type: Number, /*required: false*/},
     },
-    
-    phone: {  // TODO: any of these required?
+
+    // TODO: any of these required?
+    // Only one of these are REALLY needed
+    phone: {
       home: Number,
       work: Number,
       cell: Number,
     },
-    
+
     // Car information
-    car_info: {   // TODO: what here is required?
-      year:        Number,
-      make:        String,
-      model:       String,
-      type:        String,
-      color:       String,
-      cyl:         String,     // TODO: what is this
-      
-      serial_no:   String,
-      stock_no:    String,
-      mileage:     Number,
-      salesperson: String,
-      lender:      String,     // TODO: can implement as an array -> most recent lender at end of array
-      
-      purchase_new_tag: String,
-      transfer:         String,
+    // TODO: what here is required?
+    car_info: {   
+      year:             Number,
+      make:             String,
+      model:            String,
+      type:             String,
+      color:            String,
+      // TODO: what is this?
+      cyl:              String,
+
+      serial_no:        String,
+      stock_no:         String,
+      mileage:          Number,
+      salesperson:      String,
+      // TODO: can implement as an array -> most recent lender at end of array
+      //   Followup -> This will be a waste of time, leave it for the comments
+      //           If anything changing the lender will trigger a comment, etc
+      lender:           String,
+
       tag_no:           String,
-      plate_no:         String,
       exp_date:         Date,
+      transfer:         String,
+      plate_no:         String,
+      purchase_new_tag: String,
     },
-    
+
     // Financing and fees
-    finances: {   // TODO: what here is required?
-      nada_retail: Number,
-      accessories: String,
-      
-      total_sale_price:    Number,
+    // TODO: what here is required?
+    finances: {
+      nada_retail:         Number,
+      accessories:         String,
+
+      admin_fees:          Number,
       trade_allowance:     Number,
       trade_difference:    Number,
-      admin_fees:          Number,
+      total_sale_price:    Number,
       waste_tire_batt_fee: Number,
-      sub_total_a:         Number,    // TODO: automatic calculation
-      
+      // TODO: automatic calculation ?
+      sub_total_a:         Number,
+
+      // TODO: is this necessary?
       sales_tax: {
-        is_county:  Boolean,   // TODO: is this necessary?
-        percentage: Number,
+        is_county:         Boolean,
+        percentage:        Number,
       },
-      
-      estimated_fees: Number,
-      lemon_law_fee:  Number,
-      sub_total_b:    Number,          // TODO: automatic calculation
-      
-      bal_owed_on_trade: Number,
-      total_due:         Number,
-      down_payment:      Number,
-      unpaid_due:        Number,
+
+      estimated_fees:      Number,
+      lemon_law_fee:       Number,
+      // TODO: automatic calculation
+      sub_total_b:         Number,
+
+      bal_owed_on_trade:   Number,
+      down_payment:        Number,
+      unpaid_due:          Number,
+      total_due:           Number,
     },
-    
+
     // Insurance information
-    insurance_info: { // TODO: what here is required?
-      policy_no: Number,
-      company:   String,
-      agent:     String,
-      phone_no:  Number,
-      eff_dates: String,
-      verif_by:  String,
+    // TODO: what here is required?
+    insurance_info: {
+      agent:       String,
+      company:     String,
+      verif_by:    String,
+      phone_no:    Number,
+      policy_no:   Number,
+      eff_dates:   String,
     },
-    
+
     // Trades information
-    trade_in: { // TODO: what here is required?
+    // TODO: what here is required?
+    trade_in: {
       year:        Number,
       make:        String,
       model:       String,
       type:        String,
       color:       String,
-      cyl:         String,     // TODO: what is this?!
-      
+      // TODO: what is this?!
+      cyl:         String,
+
+      holder:      String,
+      mileage:     Number,
+      address:     String,
+      phone_no:    Number,
       serial_no:   String,
       account_no:  String,
-      mileage:     Number,
-      phone_no:    Number,
-      holder:      String,
-      address:     String,
-      
-      amount:      Number,    // TODO: what is this?!
-      qualif_by:   String,
+
+      // TODO: what is this?!
+      amount:      Number,
       verif_by:    String,
+      qualif_by:   String,
       good_thru:   Date,
     },
   }
-  
+
 });
 
 // On save preprocessing
 loanSchema.pre('save', function(next) {
-  
-  // Mark update time
   var currentDate = new Date();
   this.updated_at = currentDate;
 
-  // Fill in status field if missing
+  // Fill in fields if missing
   if (!this.status)
-    this.status = "RECEIVED";
-  
-  // Fill in type field if missing
+    this.status = "Received";
+
   if (!this.type)
     this.type = "Auto Loan";
 

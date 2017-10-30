@@ -43,11 +43,10 @@ angular.module('SWEApp').controller('AccordFuncController',
 
         //function
           $scope.clickAccordion = function(loanID) {
-              
-              if(stateUpdate != -1)
-              {
-                  $scope.$parent.updateCheckList(loanID, stateUpdate);
-              }
+            if(stateUpdate != -1)
+            {
+              $scope.$parent.updateCheckList(loanID, stateUpdate);
+            }
           };
                 
           switchAccordion = function(e) {

@@ -2,7 +2,7 @@
 angular.module('SWEApp', []);
 
 // register the application and inject all the necessary dependencies 
-var app = angular.module('SWEAppController', ['ui.router', 'SWEApp']);
+var app = angular.module('CRUDController', ['ui.router', 'SWEApp']);
 
 // application configuration 
 // app.config(['$urlRouterProvider',
