@@ -36,7 +36,8 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   var test_loan_ok = new Loan({
     status: '',
     type: 'Auto Loan',
-    costs: { taxes: 3000.00, warranty: 200.00 },
+    // costs: { taxes: 3000.00, warranty: 200.00 },
+    warranty: 200.00,
     trades: {},
     comments: ['This is a test']
   });
@@ -81,10 +82,10 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.3.0: Loan 'status' field updated to 'RECEIVED' due to unspecified 'status'
+  // Test #1.3.0: Loan 'status' field updated to 'Received' due to unspecified 'status'
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.3.0: Loan \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
-    test_db_loan.status.should.equal('RECEIVED') ;
+  it('Test #1.3.0: Loan \'status\' field updated to \'Received\' due to unspecified \'status\'', function(done) {
+    test_db_loan.status.should.equal('Received') ;
     
     done() ;
   });
@@ -103,8 +104,8 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.4: Other Loan fields match those of uploaded Loan', function(done) {
     test_db_loan.type.should.equal(test_loan_ok.type) ;
-    test_db_loan.costs.taxes.should.equal(test_loan_ok.costs.taxes) ;
-    test_db_loan.costs.warranty.should.equal(test_loan_ok.costs.warranty) ;
+    // test_db_loan.taxes.should.equal(test_loan_ok.taxes) ;
+    test_db_loan.warranty.should.equal(test_loan_ok.warranty) ;
     test_db_loan.trades.should.equal(test_loan_ok.trades) ;
     test_db_loan.comments[0].should.equal(test_loan_ok.comments[0]) ;
     should.not.exist(test_db_loan.comments[1])

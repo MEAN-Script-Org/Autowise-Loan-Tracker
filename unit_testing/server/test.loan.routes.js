@@ -6,6 +6,7 @@ var mongoose = require('mongoose') ;
 var request  = require('supertest') ;
 var config_loader = require('dotenv');
 
+config_loader.load({path: ".env"});
 config_loader.load({path: "../../.env"});
 
 // Dependencies - local files
@@ -36,7 +37,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   var test_loan_ok = new Loan({
     status: '',
     type: 'Car Loan',
-    costs: { taxes: 3000.00, warranty: 200.00 },
+    // costs: { taxes: 3000.00, warranty: 200.00 },
+    warranty: 200.00,
     trades: {},
     comments: ['This is a test']
   });
@@ -66,10 +68,11 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     agent.get('/api/loan/' + test_loan_id).expect(200).end(function(err, res) {
       should.exist(res) ;
       
-      res.body.status.should.equal('RECEIVED') ;
+      res.body.status.should.equal('Received') ;
       res.body.type.should.equal(test_loan_ok.type) ;
-      res.body.costs.taxes.should.equal(test_loan_ok.costs.taxes) ;
-      res.body.costs.warranty.should.equal(test_loan_ok.costs.warranty) ;
+      // TBChanged
+      // res.body.taxes.should.equal(test_loan_ok.taxes) ;
+      res.body.warranty.should.equal(test_loan_ok.warranty) ;
       res.body.trades.should.equal(test_loan_ok.trades) ;
       res.body.comments[0].should.equal(test_loan_ok.comments[0]) ;
       should.not.exist(res.body.comments[1]) ;
@@ -103,7 +106,6 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     if (test_loan_ok.status = 'PENDING') {
       agent.put('/api/loan/' + test_loan_id).send(test_loan_ok).expect(200).end(function(err, res) {
         should.not.exist(err) ;
-        
         res.body.status.should.equal(test_loan_ok.status)
         done() ;
       });
