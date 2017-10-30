@@ -1,0 +1,166 @@
+<!-- add title before query "available plans"
+    Mileage -> Car Mileage 
+    Add description of "pleaes enter car information" at the top -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/header.html %>
+</head>
+<body>
+  <% include partials/nav.html %>
+  <% include partials/sidebar.html %>
+  
+  <!-- NAVIGATION BAR -->
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="timeline-container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="#"><span>Autowise</span>Admin</a>
+				<ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+						<em class="fa fa-bell"></em><span class="label label-info">5</span>
+					</a>
+						<ul class="dropdown-menu dropdown-alerts">
+							<li><a href="#">
+								<div><em class="fa fa-envelope"></em> 1 New Message
+									<span class="pull-right text-muted small">3 mins ago</span></div>
+							</a></li>
+							<li class="divider"></li>
+							<li><a href="#">
+								<div><em class="fa fa-heart"></em> 12 New Likes
+									<span class="pull-right text-muted small">4 mins ago</span></div>
+							</a></li>
+							<li class="divider"></li>
+							<li><a href="#">
+								<div><em class="fa fa-user"></em> 5 New Followers
+									<span class="pull-right text-muted small">4 mins ago</span></div>
+							</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+  
+  <!-- SIDE BAR -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<ul class="nav menu">
+			<li class="active"><a href="index.html"><em class="fa fa-spinner">&nbsp;</em> Warranties</a></li>
+			<li><a href="widgets.html"><em class="fa fa-history">&nbsp;</em> Archived Loans</a></li>
+			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+	
+  <!-- MAIN PAGE DIV -->
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
+    ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
+		<div class="header row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Active Loans</li>
+				<li class="active">Warranties</li>
+			</ol>
+		</div><!--/.row-->
+    
+    <!-- ROW - WARRANTIES QUERY FORM -->
+		<div class="row">
+			<div class="col-md-12">
+        <div class="panel-heading">
+          <h1 class="page-header">Warranties</h1>
+        </div>
+
+        <h5 class="warranty-instruction">
+          (Please enter car information. Qualified warranties will be displayed below.)
+        </h5>
+        
+
+        <!-- FORM FOR WARRANTY PLAN QUERY -->
+        <form ng-submit="queryWarrantyPlan()">
+          <fieldset>
+            
+            <!-- DROP-DOWN FOR CAR AGE SELECTION -->
+            <div class="form-group">
+              <h3 class="page-header-warranties">Insurance Type - Car Model Year</h3>
+              <select ng-model="query.age" ng-change="queryWarrantyPlan()">
+                <option value="-1">BASIC - ANY YEAR</option>
+                <option value="2007">DELUXE - 2007 OR NEWER</option>
+                <option value="2011">FACTORY COVERAGE - 2011 OR NEWER</option>
+              </select>
+            </div>
+            
+            <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
+            <div class="form-group">
+            <h3 class="page-header-warranties">Mileage</h3>
+              <input type="text" name="Mileage" ng-model="query.mileage" ng-change="queryWarrantyPlan()" > miles<br>
+            </div>
+            
+            <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
+            <div class="form-group">
+            <h3 class="page-header-warranties">Car make: Domestic or Asian</h3>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Asian" ng-change="queryWarrantyPlan()"> Asian
+            </div>
+            
+            
+          </fieldset>
+        </form>
+      </div>
+		</div><!--/.row-->
+    
+
+
+    <!-- ROW - WARRANTIES QUERY RESULTS -->
+
+    <div class="row">
+
+      <div class="panel-heading">
+        <center><h2 class="page-header">Available Warranty Plans:</h2><center>
+      </div>
+
+      <div class="col-md-12">
+        <div class="container-accordion">
+          <div class="accordion">
+            <dl>
+              <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
+
+                <!-- ACCORDION HEADER -->
+                <dt>
+                  <a class="accordionFakeTitle">
+                    <div class="warrantiesQueryText">
+                      <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
+
+                      <h4><strong>Term length of warranty:</strong> {{warranty.term.months}} months</h4>
+                      <h4><strong>Mileage length of warranty:</strong> {{warranty.term.miles}} miles</h4>
+                      <!-- <h4><strong>Max Mileage:</strong> {{warranty.mileage}} miles</h4> -->
+                      <h2><strong>Price:</strong> ${{warranty.price}}.00</h2>
+                    </div>
+                  </a>
+                </dt>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+  <!-- JAVASCRIPT FILES -->
+  <% include partials/footer.html %> 
+  <script src="js/classie.js"></script>
+  <script src="js/uisearch.js"></script>
+</body>
+</html>
