@@ -105,14 +105,14 @@
             <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
             <div class="form-group">
               <h4 class="page-header-warranties">Mileage</h4>
-              <input type="text" name="Mileage" ng-model="query.max_mileage"><br>
+              <input type="text" name="Mileage" ng-model="query.mileage"><br>
             </div>
             
             <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
             <div class="form-group">
               <h4 class="page-header-warranties">Car make: Domestic or Asian</h4>
-              <input type="radio" name="RadioAnswer" value="Domestic" ng-model="query.make"> Domestic<br>
-              <input type="radio" name="RadioAnswer" value="Asian" ng-model="query.make"> Asian
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic"> Domestic<br>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Asian"> Asian
             </div>
             
             <!-- SUBMISSION BUTTON -->
@@ -148,7 +148,7 @@
 
                       <h4><strong>Term length of warranty:</strong> {{warranty.term.months}} months</h4>
                       <h4><strong>Mileage length of warranty:</strong> {{warranty.term.miles}} miles</h4>
-                      <!-- <h4><strong>Max Mileage:</strong> {{warranty.max_mileage}} miles</h4> -->
+                      <!-- <h4><strong>Max Mileage:</strong> {{warranty.mileage}} miles</h4> -->
                       <h2><strong>Price:</strong> ${{warranty.price}}.00</h2>
                     </div>
                   </a>
