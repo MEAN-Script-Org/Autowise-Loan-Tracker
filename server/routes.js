@@ -42,7 +42,7 @@ router.route('/user/:userID')
 
 // > 'Multiple' users
 router.route('/users')
-      .get(users.list)
+      .get(users.getAll)
       .post(users.create) ;
 
 router.param('userID', users.userByID) ;

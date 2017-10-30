@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include partials/header.html %>
+  <% include partials/header.html %>
 </head>
 <body>
-<% include partials/nav.html %>
-<% include partials/sidebar.html %>
 
 <!-- styling should not be hardcoded in html... -->
 <!-- as in don't have "style=..." at all on these pages -->
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"
-     ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
+<!-- col-sm-offset-1 col-lg-offset-1 -->
+<div class="col-sm-12 col-lg-12 main"
+     ng-app="SWEApp" ng-controller="CRUDController" ng-init="init()">
 
-    <!-- TODO: Modularize/fix/implement these -->
+    <% include partials/nav.html %>
+    <!-- This looks bad as of now -->
+    <!-- 
+    <% include partials/sidebar.html %>
+     -->
+
+    <!-- 
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="#">
@@ -22,172 +27,180 @@
             <li class="active">Active Loans</li>
         </ol>
     </div>
+     -->
     
+    <!-- TODO: Delete these and modularize into another partial -->
     <!-- SCOPE FOR SEARCH -->
     <div ng-controller="SearchController">
-        <div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Active Loans</h1>
-                <div class="row">
-                  <div class="col-md-12">
-                      <h1 class="heading-primary">Search by...</h1>
-                  </div>
-                    <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-                </div>
-                <div class="panel panel-container">
-                    <div class="row">
-                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                            <div class="panel panel-teal panel-widget border-right">
-                                <div class="row no-padding">
-                                    <em class="fa fa-xl fa-user color-blue"></em>
-                                    <label class="container">
-                                        <input type="checkbox" id="nameCheckbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="text-muted">Customer's Name
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                            <div class="panel panel-teal panel-widget border-right">
-                                <div class="row no-padding">
-                                    <em class="fa fa-xl fa-envelope color-blue"></em>
-                                    <label class="container">
-                                        <input type="checkbox" id="emailCheckbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="text-muted">Email
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                            <div class="panel panel-teal panel-widget border-right">
-                                <div class="row no-padding">
-                                    <em class="fa fa-xl fa-university color-blue"></em>
-                                    <label class="container">
-                                        <input type="checkbox" id="lenderCheckbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="text-muted">Lender
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                            <div class="panel panel-teal panel-widget border-right">
-                                <div class="row no-padding">
-                                    <em class="fa fa-xl fa-calendar color-blue"></em>
-                                    <label class="container">
-                                        <input type="checkbox" id="dateCheckbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="text-muted">Date Posted
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/.row-->
-                </div>
-                <div id="sb-search" class="sb-search">
-                    <!-- Marcial -->
-                    <!-- in order for this to work properly you'll need a diff input field per search criteria -->
-                    <!-- each linked to the desired property as ng-model=query.property_goes_here -->
-                    <!-- this is a mess, so a general search works best imo -->
-                    <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
-                    <form>
-                        <input class="sb-search-input" placeholder="Enter search criteria here..." type="text" value="" name="search" id="search" ng-model="query2">
-                        <input class="sb-search-submit" type="submit" value="">
-                        <span class="sb-icon-search">
-                        </span>
-                    </form>
-                    <div class="disabler"></div>
-                </div>
-			</div>
-        </div><!--/.row-->
-
-        <!-- End of filters -->
-        <!-- Start of accordion content -->
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="container-accordion" ng-controller="AccordFuncController">
-              <div class="accordion">
-                <dl>
-
-
-<!--                    specifity for which query needs to be fixed, it is currently referencing improper controller-->
-                  <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
-                         style="width: 100%"
-                    >
-                  <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter:wanted">
-                    <div ng-if="!loan.new">
-                      <dt ng-click="clickAccordion(loan._id)">
-                        <a href="#accordion{{$index}}" aria-expanded="false" aria-controls="accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                          <label class="container-mass container">
-                              <input type="checkbox">
-                              <span class="checkmark"></span>
-                          </label>
-                          {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
-                        </a>
-                      </dt>
-                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
-                        <% include partials/progress-row.ejs %>
-                        <% include partials/accordion-comments.html %>
-                      </dd>
-                    </div>
-
-                    <!-- Marcial: -->
-                    <!-- these are not hidden, and the collapse funtionality won't be included as of now give the js logic... -->
-                    <!-- the accordion logic needs to change to pure CSS IMHO -->
-                    <div ng-if="loan.new">
-                      <dt>
-                        <a href="#accordion1{{$index}}" aria-expanded="false" aria-controls="accordion1{{$index}}" class="accordion-title accordionTitle js-accordionTrigger">
-                          {{loan.name | limitTo: 18}} – Loan # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
-                        </a>
-                      </dt>
-                      <dd class="accordion-content accordionItem" id="accordion1{{$index}}">
-                        <% include partials/progress-row.ejs %>
-                        <% include partials/accordion-comments.html %>
-                      </dd>
-                    </div>
-                  </div>
-                </dl>
+      <div class="row">
+  			<div class="col-lg-12">
+  				<h1 class="page-header">Loans</h1>
+            <div class="row">
+              <div class="col-md-12">
+                  <h1 class="heading-primary">Search by...</h1>
               </div>
+              <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
+            </div>
+            <div class="panel panel-container">
+                <div class="row">
+                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                        <div class="panel panel-teal panel-widget border-right">
+                            <div class="row no-padding">
+                                <em class="fa fa-xl fa-user color-blue"></em>
+                                <label class="container">
+                                    <!-- checked="checked" -->
+                                    <input type="checkbox" id="nameCheckbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="text-muted">Customer's Name </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                        <div class="panel panel-teal panel-widget border-right">
+                            <div class="row no-padding">
+                                <em class="fa fa-xl fa-envelope color-blue"></em>
+                                <label class="container">
+                                    <input type="checkbox" id="emailCheckbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="text-muted">Email </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                        <div class="panel panel-teal panel-widget border-right">
+                            <div class="row no-padding">
+                                <em class="fa fa-xl fa-university color-blue"></em>
+                                <label class="container">
+                                    <input type="checkbox" id="lenderCheckbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="text-muted">Lender </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                        <div class="panel panel-teal panel-widget border-right">
+                            <div class="row no-padding">
+                                <em class="fa fa-xl fa-calendar color-blue"></em>
+                                <label class="container">
+                                    <input type="checkbox" id="dateCheckbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="text-muted">Date Posted </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sb-search" class="sb-search">
+              <!-- Marcial: -->
+              <!-- in order for this to work properly you'll need a diff input field per search criteria -->
+              <!-- each linked to the desired property as ng-model=query.property_goes_here -->
+              <!-- this is a mess, so a general search works best imo -->
+              <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
+              <form>
+                  <input class="sb-search-input" placeholder="Enter search criteria here..." 
+                         type="text" value="" name="search" id="search" ng-model="query2">
+                  <input class="sb-search-submit" type="submit" value="">
+                  <span class="sb-icon-search"></span>
+              </form>
+              <div class="disabler"></div>
+            </div>
+  	    </div>
+      </div>
+
+      <!-- End of filters -->
+      <!-- Start of accordion content -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container-accordion" ng-controller="AccordFuncController">
+            <div class="accordion">
+              <dl>
+                <!-- specifity for which query needs to be fixed, it is currently referencing improper controller-->
+                <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
+                       style="width: 100%">
+                <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter:wanted">
+                  <div ng-if="!loan.new">
+                    <dt ng-click="clickAccordion(loan._id)">
+                      <a href="#accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger"
+                         aria-controls="accordion{{$index}}" aria-expanded="false">
+                         
+                        <label class="container-mass container">
+                            <input type="checkbox" id="{{loan._id}}-checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                        {{loan.name | limitTo: 18}} 
+                        - {{loan.type}} 
+                        - {{loan.status}}
+                        <!-- - total $ -->
+                        – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                      </a>
+                    </dt>
+                    <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                      <% include partials/progress-row.ejs %>
+                      <% include partials/accordion-comments.html %>
+                    </dd>
+                  </div>
+
+                  <!-- Marcial: -->
+                  <!-- the accordion logic needs to change to pure CSS IMO -->
+                  <div ng-if="loan.new">
+                    <dt>
+                      <a class="accordion-title accordionTitle">
+                        {{loan.name | limitTo: 18}} 
+                        - {{loan.type}} 
+                        - {{loan.status}}
+                        <!-- - total $ -->
+                        – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                      </a>
+                    </dt>
+                    <dd class="accordion-content accordionItem">
+                      <% include partials/progress-row.ejs %>
+                      <% include partials/accordion-comments.html %>
+                    </dd>
+                  </div>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
+      </div>
     </div>
     
     <!-- MODALS FOR LOAN CRUD -->
     <% include partials/Modal_Test.html %>
-    <a  href="#" class="float-btn" id="menu-share">
-      <em class="fa fa-plus float-child" data-target="#buyerModal" data-toggle="modal"></em>
-    </a>
-    <ul id="float-list" ng-show="massLoans.length > 0">
-      
-      <!-- Mass loan delete -->
-      <li>
-        <a href="#" id="float-trash" >
-          <em class="fa fa-trash float-child" data-target="#deleteModal" data-toggle="modal"></em>
-        </a>
-      </li>
-      
-      <!-- Mass loan status change -->
-      <li>
-        <a href="#" id="float-edit" >
-          <em class="fa fa-edit float-child" data-target="#changeModal" data-toggle="modal"></em>
-        </a>
-      </li>
-      
-      <!-- Mass loan archive -->
-      <li>
-        <a href="#" id="float-archive">
-          <em class="fa fa-archive float-child" data-target="#archiveModal" data-toggle="modal"></em>
-        </a>
-      </li>
-    </ul>
+    <div id="google-style-buttons">
+      <!-- Add tooltips to titles for better visibility?? -->
+      <a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal"" title="Add new loan">
+        <em class="fa fa-plus float-child"></em>
+      </a>
+      <ul id="float-list" ng-show="massLoans.length > 0">
+        
+        <!-- Mass loan delete -->
+        <li title="DELETE selected loans">
+          <a href="#" id="float-trash" data-target="#deleteModal" data-toggle="modal">
+            <em class="fa fa-trash float-child"></em>
+          </a>
+        </li>
+        
+        <!-- Mass loan archive -->
+        <li title="Archive selected loans">
+          <a id="float-archive" data-target="#archiveModal" data-toggle="modal">
+            <em class="fa fa-archive float-child"></em>
+          </a>
+        </li>
+        
+        <!-- Mass loan status change -->
+        <li title="Change Status of selected loans">
+          <a id="float-edit" data-target="#changeModal" data-toggle="modal">
+            <em class="fa fa-edit float-child"></em>
+          </a>
+        </li>
+      </ul>
+    </div>
 </div>
 
 

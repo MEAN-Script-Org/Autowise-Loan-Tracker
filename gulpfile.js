@@ -54,11 +54,11 @@ gulp.task('nodemon', function (cb) {
         }
     })
     .on('restart', function() {
-        clear();
+        // clear();
         console.log('-------- Restarting Server --------');
     })
     .on('crash', function() {
-        clear();
+        // clear();
         console.log('-------- APP CRASHED! Make sure you have valid Heroku credentials --------');
         console.log("-------- Type 'rs' [enter] on THIS command line to RESTART server --------");
         load_frontend();

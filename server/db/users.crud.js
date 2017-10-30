@@ -72,7 +72,6 @@ module.exports = {
 
         res.json(user_names) ;
       }
-
     });
   },
 
