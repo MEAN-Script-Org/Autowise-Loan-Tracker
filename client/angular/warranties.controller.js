@@ -112,7 +112,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   //--------------------------------------------------------------------------------------------------------------------
   $scope.init = function() {
     $scope.matchedWarranties = [] ;
-    $scope.query = { age: '', mileage: 0, make: ''} ;
+    $scope.query = { age: '', mileage: 0, make: 'Domestic'} ;
   }
   
   //--------------------------------------------------------------------------------------------------------------------

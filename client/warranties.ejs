@@ -94,31 +94,28 @@
             
             <!-- DROP-DOWN FOR CAR AGE SELECTION -->
             <div class="form-group">
-              <h3 class="page-header-warranties">Car model year</h3>
-              <select ng-model="query.age">
-                <option value="-1">Older than 2007</option>
-                <option value="2007">2007 to 2011</option>
-                <option value="2011">Newer than 2011</option>
+              <h3 class="page-header-warranties">Insurance Type - Car Model Year</h3>
+              <select ng-model="query.age" ng-change="queryWarrantyPlan()">
+                <option value="-1">BASIC - ANY YEAR</option>
+                <option value="2007">DELUXE - 2007 OR NEWER</option>
+                <option value="2011">FACTORY COVERAGE - 2011 OR NEWER</option>
               </select>
             </div>
             
             <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
             <div class="form-group">
-            <h4 class="page-header-warranties">Mileage</h4>
-              <input type="text" name="Mileage" ng-model="query.mileage"><br>
+            <h3 class="page-header-warranties">Mileage</h3>
+              <input type="text" name="Mileage" ng-model="query.mileage" ng-change="queryWarrantyPlan()" > miles<br>
             </div>
             
             <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
             <div class="form-group">
-            <h4 class="page-header-warranties">Car make: Domestic or Asian</h4>
-              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic"> Domestic<br>
-              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Asian"> Asian
+            <h3 class="page-header-warranties">Car make: Domestic or Asian</h3>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Asian" ng-change="queryWarrantyPlan()"> Asian
             </div>
             
-            <!-- SUBMISSION BUTTON -->
-            <div class="form-group">
-              <button type="submit" class="btn btn-default" id="your-id">Submit</button>
-            </div>
+            
           </fieldset>
         </form>
       </div>
@@ -138,7 +135,7 @@
         <div class="container-accordion">
           <div class="accordion">
             <dl>
-              <div ng-repeat="warranty in matchedWarranties | orderBy: 'price'">
+              <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
 
                 <!-- ACCORDION HEADER -->
                 <dt>
