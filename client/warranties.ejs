@@ -138,7 +138,7 @@
         <div class="container-accordion">
           <div class="accordion">
             <dl>
-              <div ng-repeat="warranty in matchedWarranties">
+              <div ng-repeat="warranty in matchedWarranties | orderBy: 'price'">
 
                 <!-- ACCORDION HEADER -->
                 <dt>
