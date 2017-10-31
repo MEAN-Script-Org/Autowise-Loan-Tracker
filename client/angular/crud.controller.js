@@ -125,6 +125,64 @@ angular.module('SWEApp').controller('CRUDController',
     //------------------------------------------------------------------------------------------------------------------
     // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs, 
     //             then iterate for attributes
+    
+    //percentage from status of loan
+    $scope.statusPercentage = function(status){
+        switch(angular.lowercase(status))
+        {
+            case "received":
+                console.log(status + "returned 20");
+                return 20;
+                break;
+            case "submitted":
+                return 40;
+                break;
+            case "pending":
+                return 60;
+                break;
+            case "verified":
+                return 80;
+                break;
+            case "approved":
+                return 100;
+                break;
+            case "denied":
+                return 100;
+                break;
+            default:
+                return 0;
+                break;
+        }
+    }
+    
+    //color from status of loan
+    $scope.statusColor = function(status){
+        switch(angular.lowercase(status))
+        {
+            case "received":
+                return "#6495ed";
+                break;
+            case "submitted":
+                return "#d0c330";
+                break;
+            case "pending":
+                return "#ff8c00";
+                break;
+            case "verified":
+                return "#a5d97f";
+                break;
+            case "approved":
+                return "#38cc70";
+                break;
+            case "denied":
+                return "#cc3838";
+                break;
+            default:
+                return "#F8F8F8";
+                break;
+        }
+    }
+    
     $scope.changeLoanStatus = function(loanID, newStatus, displayAlert) {
       Factory.modifyLoan(loanID, {status: newStatus}).then(
         function(response) {

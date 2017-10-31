@@ -1,9 +1,10 @@
 <div class="row progress-row">
     <div class="col-xs-9" style="">
         <div class = "progress">
-            <div class="progress-bar progress-bar-success progress-bar-striped active" 
-                role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" 
-                style="width:40%">
+            <div class="progress-bar active"
+                 ng-class="{true: 'progress-bar-striped', false: ''}[!(angular.lowercase(loan.status) == approved || angular.lowercase(loan.status) == denied)]"
+                 style="background-color:{{statusColor(loan.status)}}; width:{{statusPercentage(loan.status)}}%"
+                role="progressbar" aria-valuenow="{{statusPercentage(loan.status)}}" aria-valuemin="0" aria-valuemax="100">
                 {{ loan.status }}
             </div>
         </div>

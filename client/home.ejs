@@ -55,7 +55,8 @@
               <input class="sb-search-input sb-search-open" placeholder="Search criteria" ng-model="wanted">
                -->
               <!-- This can be further modularized now... -->
-              <div ng-show="loading" id="loading"><img id="loader" ng-show="loading" src="resources/load.gif">
+              <div ng-show="loading" id="loading">
+                  <img id="loader" ng-show="loading" src="resources/load.gif">
                   <div class="load-txt">Loading</div>
               </div>
               <div ng-hide="loading" class="accordion">
@@ -128,7 +129,7 @@
 
     <!-- Loan CRUD Modals -->
     <% include partials/modals.ejs %>
-
+</div>
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
