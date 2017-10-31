@@ -41,9 +41,9 @@ angular.module('SWEApp').controller('CRUDController',
           if (res.data.length != 0){
             $rootScope.loans = res.data;
             console.log($rootScope.loans);
-
+              
             $timeout(function() {
-              $rootScope.loading = false;
+              $rootScope.loading = false; 
             }, 2000);
           }
           else {
@@ -197,12 +197,6 @@ angular.module('SWEApp').controller('CRUDController',
     $scope.updateCheckList = function(loanID, remove) {
       if (remove) {
         $rootScope.massLoans.push(loanID);
-        $rootScope.massLoans.forEach(
-          function(loanID) {
-            // This will log each loan id in 'massLoans'
-            // But what's the point? 
-            console.log("Loan selected: " + loanID);
-        });
       } else {
         $rootScope.massLoans.forEach(
           function(value, index, loans) {

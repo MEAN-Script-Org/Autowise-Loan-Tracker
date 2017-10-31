@@ -800,7 +800,6 @@ a.label:focus {
 .panel-settings,
 .panel-toggle {
     display: inline-block;
-    margin: -1px -5px 0 15px !important;
     border-radius: 4px;
     text-align: center;
     border: 1px solid #e9ecf2;
@@ -1546,13 +1545,31 @@ p.back-link {
 /* Above are template styles */
 
 /* loading... *animated* */
-#loading {
-    background: #f1f4f7;
-    text-align: center; 
-    font-size: 40px;
+#loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 200px;
 }
 
-#loading:after {
+img#loader{
+-webkit-filter: blur(0px) brightness(1.1) contrast(1.5) grayscale(0.21) hue-rotate(112deg) invert(0.18) opacity(100%) saturate(4.7) sepia(0.44);
+    position: relative;
+}
+
+#loading {
+    background: #f1f4f7;
+    display: flex;
+    font-size: 24px;
+    
+    justify-content: center;
+    align-items: center;
+}
+.load-txt {
+    position: absolute;
+}
+.load-txt:after {
   width: 0px;
   /* ascii code for the ellipsis character */
   content: "\2026"; 
@@ -1835,6 +1852,30 @@ a#menu-share em {
 
 a#menu-share:hover>em {
     animation: rotate-out 0.5s;
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1.0;
+  } to {
+      opacity: 0;
+  }
+}
+
+div.ng-hide {
+  animation: 0.5s fadeOut;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0.0;
+  } to {
+      opacity: 1.0;
+  }
+}
+
+div.ng-show {
+  animation: 0.5s fadeIn;
 }
 
 @keyframes bot-to-top {
