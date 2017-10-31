@@ -59,15 +59,16 @@
             <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" style="text-align: center;">
                             <button type="button" class="close" data-dismiss="modal">
                                 &times;
                             </button>
 
                             <span>
                                 <h3>Change the status of the selected loans to</h3>
-                                <br>
+                                <!-- <br> -->
                                 <select name="Loan Status" ng-model="newStatus">
+                                    <option value="" disabled selected>New Status</option>
                                     <option value="RECEIVED">Received</option>
                                     <option value="SUBMITTED">Submitted</option>
                                     <option value="PENDING">Pending</option>
@@ -99,12 +100,19 @@
                             &times;
                         </button>
 
-                        <form ng-submit="addLoan()">
+                        <form>
                           <h3>New Loan</h3>
                           <input placeholder="Name" type="text" ng-model="newLoan.name" required>
                           <input placeholder="Email" type="email" ng-model="newLoan.user_email">
+                          <select ng-model="newLoan.type">
+                            <option value="" disabled selected>Select loan type</option>
+                            <option value="auto">Auto Loan</option>
+                            <option value="repair">Repair</option>
+                            <option value="admin">Admin</option>
+                          </select>
+
                           <!-- <input type="submit" class="btn btn-default"> -->
-                          <input type="submit" style="display: none">
+                          <!-- <input type="submit" data-dismiss="modal" style="display: none"> -->
                         </form>
                     </div>
                     <div class="modal-footer">

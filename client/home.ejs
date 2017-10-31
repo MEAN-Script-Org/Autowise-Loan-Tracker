@@ -79,8 +79,9 @@
                           </label>
 
                           {{loan.name | limitTo: 18}}
-                          – {{loan.type}}
-                          – {{loan.status}}
+                          <!-- style this somewhat... -->
+                          – {{loan.type | uppercase}}
+                          – {{loan.status | uppercase}}
                           <!-- - total $ -->
                           – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>
@@ -106,7 +107,7 @@
 
                           {{loan.name | limitTo: 18}}
                           – {{loan.type}}
-                          – {{loan.status}}
+                          – {{loan.status | uppercase}}
                           <!-- - total $ -->
                           – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>

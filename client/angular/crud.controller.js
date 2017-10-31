@@ -2,25 +2,25 @@ angular.module('SWEApp').controller('CRUDController',
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
+    // Globals
+    // Essentially, anything that goes into an async (Factory) call
+    $rootScope.loans = [];
+    $rootScope.loading = true;
+    $rootScope.massLoans = [];
+    $rootScope.searchScopes = [];
+    $rootScope.loanWithNewComments = {};
+
     // $rootScope.toggle_input = function() {
     //   $(".sb-search-input").toggleClass("sb-search-open");
     //   console.log("dalee");
     // }
-
     
     Factory.getUserInfo().then(function(response) {
-      // Globals
-      $rootScope.loans = [];
-      $rootScope.loading = true;
-      $rootScope.massLoans = [];
-      $rootScope.searchScopes = [];
-      $rootScope.loanWithNewComments = {};
-    
       $scope.commentAsAdmin = false;
 
-      // ## Filter ~ !them for ascending order
-      $rootScope.reverse = true;
-      $rootScope.reverse_comments = true;
+      // ## Order Filters ~ !them for ascending order
+      $scope.reverse = true;
+      $scope.reverse_comments = true;
 
       // TO Change based on routes~
       // ## User Details
@@ -32,8 +32,6 @@ angular.module('SWEApp').controller('CRUDController',
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
-      // Declared models
-      $scope.state = "Processing";
       $scope.newLoan = {};
 
       Factory.getLoans().then(
@@ -41,10 +39,10 @@ angular.module('SWEApp').controller('CRUDController',
           if (res.data.length != 0){
             $rootScope.loans = res.data;
             console.log($rootScope.loans);
-              
+
             $timeout(function() {
-              $rootScope.loading = false; 
-            }, 2000);
+              $rootScope.loading = false;
+            }, 3000);
           }
           else {
             console.log("DB is empty ~");
@@ -94,7 +92,7 @@ angular.module('SWEApp').controller('CRUDController',
       //        Delete from active DB, Add to 'archieve.json' in server
       if (!sureDeletion)
       {
-        if (!confirm("You sure you want to delete this loan?"))
+        if (confirm("You sure you want to delete this loan?"))
           $scope.removeLoan(loanID, displayAlert, true);
       } else {
         Factory.deleteLoan(loanID).then(
@@ -210,7 +208,10 @@ angular.module('SWEApp').controller('CRUDController',
     // Archives the loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
     $scope.archiveLoan = function(loanID, displayAlert) {
-      $scope.changeLoanStatus(loanID, "Archived", displayAlert);
+      if (confirm("You sure you want to archive this loan?"))
+      {
+        $scope.changeLoanStatus(loanID, "Archived", displayAlert);
+      }
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -236,15 +237,19 @@ angular.module('SWEApp').controller('CRUDController',
     // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
     //------------------------------------------------------------------------------------------------------------------
     $scope.updateStatusEnMass = function(newStatus) {
-      $rootScope.massLoans.forEach(
-        function(loanID) {
-          $scope.changeLoanStatus(loanID, newStatus, false)          
-          $scope.clearCheckbox(loanID);
-      });
-      
-      // Clearing var once done
-      $rootScope.massLoans = [];
-      alert("All selected loans have been '" + newStatus + "'") ;
+      if (newStatus) {
+        $rootScope.massLoans.forEach(
+          function(loanID) {
+            $scope.changeLoanStatus(loanID, newStatus, false)          
+            $scope.clearCheckbox(loanID);
+        });
+        
+        // Clearing var once done
+        $rootScope.massLoans = [];
+        alert("All selected loans have been '" + newStatus + "'") ;
+      } else {
+        alert("Nothing was changed")
+      }
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -255,6 +260,12 @@ angular.module('SWEApp').controller('CRUDController',
     $scope.updateCheckList = function(loanID, remove) {
       if (remove) {
         $rootScope.massLoans.push(loanID);
+        $rootScope.massLoans.forEach(
+          function(loanID) {
+            // This will log each loan id in 'massLoans'
+            // But what's the point? 
+            console.log("Loan selected: " + loanID);
+        });
       } else {
         $rootScope.massLoans.forEach(
           function(value, index, loans) {
