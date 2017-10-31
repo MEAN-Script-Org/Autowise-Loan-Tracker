@@ -1,0 +1,339 @@
+
+
+<!-- The below are not needed -->
+<!-- 
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">       
+            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="deleteModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Delete Loans</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                Delete The Selected Loans:<br> 
+                                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button><br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="archiveModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Archive Loans</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                Archive The Selected Loans:<br> 
+                                <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass('ARCHIVED')">Archive Selected Loans</button><br> </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Change loans</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                Change the status of the selected loans: <br>
+                                <select name="Loan Status" ng-model="newStatus">
+                                    <option value="RECEIVED">Received</option>
+                                    <option value="SUBMITTED">Submitted</option>
+                                    <option value="PENDING">Pending</option>
+                                    <option value="VERIFIED">Verified</option>
+                                    <option value="APPROVED">Approved</option>
+                                    <option value="DENIED">Denied</option>
+                                </select><br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass(newStatus)">Update</button>
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyerModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Buyers Order</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            Please Enter the fields for the Buyers Order<br> 
+                            Form Date: 
+                            <input type="date" name="form-date">
+                            <br>
+                            Car used: <select name="is-car-used">
+                                        <option value = "True">True</option>
+                                        <option value = "False">False</option>
+                                      </select><br>
+                            Email: 
+                            <input type="text" name="E-mail">
+                            <br>
+                            <h3>Purchaser Info</h3><br>
+                            Name: 
+                            <input type="text" name="Purchaser-name">
+                            <br>
+                            DL: 
+                            <input type="text" name="Purchaser-dl">
+                            <br>
+                            Date of Birth: 
+                            <input type="date" name="Purchaser-dob">
+                            <br>
+                            <h3>Co-purchaser Info</h3><br>
+                            Name: 
+                            <input type="text" name="copurchaser-name">
+                            <br>
+                            DL: 
+                            <input type="text" name="copurchaser-dl">
+                            <br>
+                            Date Of Birth: 
+                            <input type="date" name="copurchaser-dob">
+                            <br>
+                            <h3>Contact Address</h3><br>
+                            Street: 
+                            <input type="text" name="contact-street-address">
+                            <br>
+                            City: 
+                            <input type="text" name="contact-city">
+                            <br>
+                            State: 
+                            <input type="text" name="contact-state">
+                            <br>
+                            County: 
+                            <input type="text" name="contact-county">
+                            <br>
+                            Zipcode: 
+                            <input type="text" name="contact-zip">
+                            <br>
+                            <h3>Contact Phone</h3><br>
+                            Home Phone: 
+                            <input type="number" name="contact-home-phone">
+                            <br>
+                            Work Phone: 
+                            <input type="number" name="contact-work-phone">
+                            <br>
+                            Cell Phone: 
+                            <input type="number" name="contact-cell-phone">
+                            <br>
+                            <h3>Car Information</h3><br>
+                            Year: 
+                            <input type="number" name="car-year">
+                            <br>
+                            Make: 
+                            <input type="text" name="car-make">
+                            <br>
+                            Model: 
+                            <input type="text" name="car-model">
+                            <br>
+                            Type: 
+                            <input type="text" name="car-type">
+                            <br>
+                            Color: 
+                            <input type="text" name="car-color">
+                            <br>
+                            Cyl: 
+                            <input type="text" name="car-cyl">
+                            <br>
+                            Serial Number: 
+                            <input type="text" name="car-serial-no">
+                            <br>
+                            Stock Number: 
+                            <input type="text" name="car-stock-num">
+                            <br>
+                            Mileage: 
+                            <input type="number" name="car-mileage">
+                            <br>
+                            Salesperson: 
+                            <input type="text" name="car-salesperson">
+                            <br>
+                            Lender: 
+                            <input type="text" name="car-lender">
+                            <br>
+                            Purchased new tag: 
+                            <input type="text" name="car-purchase-new-tag">
+                            <br>
+                            Transfer: 
+                            <input type="text" name="car-transfer">
+                            <br>
+                            Tag Number: 
+                            <input type="text" name="car-tag-no">
+                            <br>
+                            Plate Number: 
+                            <input type="text" name="car-plate-no">
+                            <br>
+                            Expiration Date: 
+                            <input type="text" name="car-exp-date">
+                            <br>
+                            <h3>Financing</h3><br>
+                            Nada Retail: 
+                            <input type="number" name="nada_retail">
+                            <br>
+                            Accessories: 
+                            <input type="text" name="accessories">
+                            <br>
+                            Total Sale Price: 
+                            <input type="number" name="total-sale-price">
+                            <br>
+                            Trade Allowance: 
+                            <input type="number" name="trade-allowance">
+                            <br>
+                            Trade Difference: 
+                            <input type="number" name="trade-difference">
+                            <br>
+                            Admin Fees: 
+                            <input type="number" name="admin-fees">
+                            <br>
+                            Waste Tire Batt Fee: 
+                            <input type="number" name="waste-tire-batt-fee">
+                            <br>
+                            Sub Total a: 
+                            <input type="number" name="sub-total-a">
+                            <br>
+                            Sales Tax is County: <select name="sales-tax-is-county">
+                                <option value = "True">True</option>
+                                <option value = "False">False</option>
+                            </select><br>
+                            Sales Tax Percentage: 
+                            <input type="number" name="percentage">
+                            <br>
+                            Estimated Fees: 
+                            <input type="number" name="estimated-fees">
+                            <br>
+                            Lemon Law Fee: 
+                            <input type="number" name="lemon-law-fee">
+                            <br>
+                            Sub Total b: 
+                            <input type="number" name="sub-total-b">
+                            <br>
+                            Balance Owed: 
+                            <input type="number" name="bal-owed-on-trade">
+                            <br>
+                            Total Due: 
+                            <input type="number" name="total-due">
+                            <br>
+                            Down Payment: 
+                            <input type="number" name="down-payment">
+                            <br>
+                            Unpaid Due: 
+                            <input type="number" name="unpaid-due">
+                            <br>
+                            <h3>Insurance Information</h3><br>
+                            Policy Number: 
+                            <input type="number" name="ins-policy-num">
+                            <br>
+                            Company: 
+                            <input type="text" name="company">
+                            <br>
+                            Agent: 
+                            <input type="text" name="agent">
+                            <br>
+                            Phone Number: 
+                            <input type="number" name="phone-num">
+                            <br>
+                            Eff Dates: 
+                            <input type="text" name="eff-dates">
+                            <br>
+                            Verified By: 
+                            <input type="text" name="verif-by">
+                            <br>
+                            <h3>Trades Information</h3><br>
+                            Car Year: 
+                            <input type="number" name="car-year">
+                            <br>
+                            Car Make: 
+                            <input type="text" name="car-make">
+                            <br>
+                            Car Model: 
+                            <input type="text" name="car-model">
+                            <br>
+                            Car Type: 
+                            <input type="text" name="car-type">
+                            <br>
+                            Car Color: 
+                            <input type="text" name="car-color">
+                            <br>
+                            Car Cyl: 
+                            <input type="text" name="car-cyl">
+                            <br>
+                            Serial Number: 
+                            <input type="text" name="car-serial-no">
+                            <br>
+                            Account Number: 
+                            <input type="text" name="account-num">
+                            <br>
+                            Mileage: 
+                            <input type="number" name="car-mileage">
+                            <br>
+                            Phone Number: 
+                            <input type="number" name="phone-num">
+                            <br>
+                            Holder: 
+                            <input type="text" name="holder">
+                            <br>
+                            Address: 
+                            <input type="text" name="address">
+                            <br>
+                            Amount: 
+                            <input type="number" name="amount">
+                            <br>
+                            Qualified By: 
+                            <input type="text" name="qualif-by">
+                            <br>
+                            Verified By: 
+                            <input type="text" name="verif-by">
+                            <br>
+                            Good Through: 
+                            <input type="date" name="good-thru">
+                            <br>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

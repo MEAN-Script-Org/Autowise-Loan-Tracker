@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include partials/header.html %>
+  <% include partials/header.ejs %>
 </head>
 <body>
 
@@ -9,13 +9,13 @@
 <!-- as in don't have "style=..." at all on these pages -->
 
 <!-- col-sm-offset-1 col-lg-offset-1 -->
-<div class="col-sm-12 col-lg-12 main"
+<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
      ng-app="SWEApp" ng-controller="CRUDController" ng-init="init()">
 
-    <% include partials/nav.html %>
+    <% include partials/nav.ejs %>
     <!-- This looks bad as of now -->
     <!-- 
-    <% include partials/sidebar.html %>
+     include partials/sidebar.html
      -->
 
     <!-- 
@@ -32,70 +32,7 @@
     <!-- TODO: Delete these and modularize into another partial -->
     <!-- SCOPE FOR SEARCH -->
     <div ng-controller="CheckController">
-      <div class="row">
-  			<div class="col-lg-12">
-  				<h1 class="page-header">Loans</h1>
-            <div class="row">
-              <div class="col-md-12">
-                  <h1 class="heading-primary">Search by...</h1>
-              </div>
-              <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-            </div>
-            <div class="panel panel-container">
-                <div class="row">
-                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                        <div class="panel panel-teal panel-widget border-right">
-                            <div class="row no-padding">
-                                <em class="fa fa-xl fa-user color-blue"></em>
-                                <label class="container">
-                                    <!-- checked="checked" -->
-                                    <input type="checkbox" id="nameCheckbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="text-muted">Customer's Name </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                        <div class="panel panel-teal panel-widget border-right">
-                            <div class="row no-padding">
-                                <em class="fa fa-xl fa-envelope color-blue"></em>
-                                <label class="container">
-                                    <input type="checkbox" id="emailCheckbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="text-muted">Email </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                        <div class="panel panel-teal panel-widget border-right">
-                            <div class="row no-padding">
-                                <em class="fa fa-xl fa-university color-blue"></em>
-                                <label class="container">
-                                    <input type="checkbox" id="lenderCheckbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="text-muted">Lender </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                        <div class="panel panel-teal panel-widget border-right">
-                            <div class="row no-padding">
-                                <em class="fa fa-xl fa-calendar color-blue"></em>
-                                <label class="container">
-                                    <input type="checkbox" id="dateCheckbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="text-muted">Date Posted </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-  	    </div>
-      </div>
+      <% include partials/admin_filters.ejs %>
 
       <!-- End of filters -->
       <!-- Start of accordion content -->
@@ -119,13 +56,12 @@
             </div>
           <div class="container-accordion">
             <div class="accordion">
-              <div ng-show="loading" id="loading"> Loading </div>
-              <dl ng-hide="loading">
-                <!-- specifity for which query needs to be fixed, it is currently referencing improper controller-->
-<!--
+              <dl>
+                <!-- 
                 <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
                        style="width: 100%">
--->
+                 -->
+
                 <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search">
                   <div ng-if="!loan.new">
                     <dt ng-click="clickAccordion(loan._id)">
@@ -145,7 +81,7 @@
                     </dt>
                     <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
                       <% include partials/progress-row.ejs %>
-                      <% include partials/accordion-comments.html %>
+                      <% include partials/accordion-comments.ejs %>
                     </dd>
                   </div>
 
@@ -163,7 +99,7 @@
                     </dt>
                     <dd class="accordion-content accordionItem">
                       <% include partials/progress-row.ejs %>
-                      <% include partials/accordion-comments.html %>
+                      <% include partials/accordion-comments.ejs %>
                     </dd>
                   </div>
                 </div>
@@ -174,54 +110,11 @@
       </div>
     </div>
     
-    <!-- MODALS FOR LOAN CRUD -->
-    <% include partials/Modal_Test.html %>
-    
-    <!--  Tool Tips  -->
-    <div class="label-container fadeTip AddTip" ng-show="AddTip">
-        <div class="label-text">Add New Loan</div>
-        <i class="fa fa-play label-arrow"></i>
-    </div>
-    <div class="label-container fadeTip DelTip" ng-show="DelTip">
-        <div class="label-text">Delete Selected Loans</div>
-        <i class="fa fa-play label-arrow"></i>
-    </div>
-    <div class="label-container fadeTip ArcTip" ng-show="ArcTip">
-        <div class="label-text">Archive Selected Loans</div>
-        <i class="fa fa-play label-arrow"></i>
-    </div>
-    <div class="label-container fadeTip StatTip" ng-show="StatTip">
-        <div class="label-text">Change Selected Loans' Status</div>
-        <i class="fa fa-play label-arrow"></i>
-    </div>
-    <!--  End Tool Tips  -->
-    <a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal" ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
-        <em class="fa fa-plus float-child"></em>
-    </a>
-    <ul id="float-list" ng-show="massLoans.length > 0">
+    <!-- Hover Crud buttons -->
+    <% include partials/google_buttons.ejs %>
 
-        <!-- Mass loan delete -->
-        <li>
-          <a href="#" id="float-trash" data-target="#deleteModal" data-toggle="modal" ng-mouseenter="DelTip=true" ng-mouseleave="DelTip=false">
-            <em class="fa fa-trash float-child"></em>
-          </a>
-        </li>
-
-        <!-- Mass loan archive -->
-        <li>
-          <a id="float-archive" data-target="#archiveModal" data-toggle="modal" ng-mouseenter="ArcTip=true" ng-mouseleave="ArcTip=false">
-            <em class="fa fa-archive float-child"></em>
-          </a>
-        </li>
-
-        <!-- Mass loan status change -->
-        <li>
-          <a id="float-edit" data-target="#changeModal" data-toggle="modal" ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
-            <em class="fa fa-edit float-child"></em>
-          </a>
-        </li>
-    </ul>
-</div>
+    <!-- Loan CRUD Modals -->
+    <% include partials/modals.ejs %>
 
 
 <script src="js/classie.js"></script>
@@ -229,6 +122,6 @@
 <script>
     new UISearch( document.getElementById( 'sb-search' ) );
 </script>
-<% include partials/footer.html %>
+<% include partials/footer.ejs %>
 </body>
 </html>

@@ -119,7 +119,7 @@
                 }
                 // close the search input if body is clicked
                 var bodyFn = function( ev ) {
-                    self.close();
+                    // self.close();
                     this.removeEventListener( 'click', bodyFn );
                     this.removeEventListener( 'touchstart', bodyFn );
                 };

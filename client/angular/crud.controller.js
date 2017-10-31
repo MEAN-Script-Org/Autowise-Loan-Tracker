@@ -2,7 +2,12 @@ angular.module('SWEApp').controller('CRUDController',
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
-    // TODO: Add progress effect like assigment 6 while we wait
+    // $rootScope.toggle_input = function() {
+    //   $(".sb-search-input").toggleClass("sb-search-open");
+    //   console.log("dalee");
+    // }
+
+    
     Factory.getUserInfo().then(function(response) {
       // Globals
       $rootScope.loans = [];
@@ -16,11 +21,6 @@ angular.module('SWEApp').controller('CRUDController',
       // ## Filter ~ !them for ascending order
       $rootScope.reverse = true;
       $rootScope.reverse_comments = true;
-
-
-      // ## Login Details
-      // $rootScope.pwd = "";
-      // $rootScope.username = "";
 
       // TO Change based on routes~
       // ## User Details
@@ -85,12 +85,6 @@ angular.module('SWEApp').controller('CRUDController',
       );
     }
     
-    // TODO: This was meant as a template for status changes...
-    //       No longer needed
-    $scope.futureStateLoan = function(loanID, displayAlert) {
-      $scope.changeLoanStatus(loanID, "future!", displayAlert);
-    }
-    
     //------------------------------------------------------------------------------------------------------------------
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
@@ -100,7 +94,7 @@ angular.module('SWEApp').controller('CRUDController',
       //        Delete from active DB, Add to 'archieve.json' in server
       if (!sureDeletion)
       {
-        if (!confirm("You sure you want to remove this loans?"))
+        if (!confirm("You sure you want to delete this loan?"))
           $scope.removeLoan(loanID, displayAlert, true);
       } else {
         Factory.deleteLoan(loanID).then(

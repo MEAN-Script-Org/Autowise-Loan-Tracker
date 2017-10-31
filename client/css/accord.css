@@ -55,7 +55,7 @@ a:focus {
 .container-accordion {
     max-width: 100%;
     margin: 0 auto;
-    margin-right: 76px;
+    /*margin-right: 76px;*/
     padding: 2em 0 2em 0;
     padding-top: 100px;
 }

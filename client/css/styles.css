@@ -1707,21 +1707,21 @@ div.left-text {
 
 .label-container.AddTip {
     bottom: 28px;
-    right: 78px;
+    right: 82px;
 }
 
 .label-container.DelTip {
-    bottom: 28px;
+    bottom: 216px;
     right: 78px;
 }
 
 .label-container.ArcTip {
-    bottom: 28px;
+    bottom: 155px;
     right: 78px;
 }
 
 .label-container.StatTip {
-    bottom: 28px;
+    bottom: 96px;
     right: 78px;
 }
 
@@ -1740,15 +1740,16 @@ div.left-text {
     color: #333;
     opacity: 0.5;
 }
-    /* NG-ANIMATION */
-    div.label-container.fadeTip.ng-hide {
-        opacity: 0;
-    }
 
-    div.label-container.fadeTip {
-        transition: opacity 0.5s ease;
-        opacity: 1;
-    }
+/* NG-ANIMATION for tooltips */
+div.label-container.fadeTip.ng-hide {
+    opacity: 0;
+}
+
+div.label-container.fadeTip {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
 
 .float-btn {
     display: flex;
