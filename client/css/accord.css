@@ -126,7 +126,7 @@ a:focus {
   text-align: center;
   font-weight: 700;
   padding: 2em;
-  padding-left: 22.5em;
+  /*padding-left: 22.5em;*/
   display: flex;
   justify-content: space-between;
   align-items: center;

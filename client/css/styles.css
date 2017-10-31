@@ -1545,6 +1545,36 @@ p.back-link {
 
 /* Above are template styles */
 
+/* loading... *animated* */
+#loading {
+    background: #f1f4f7;
+    text-align: center; 
+    font-size: 40px;
+}
+
+#loading:after {
+  width: 0px;
+  /* ascii code for the ellipsis character */
+  content: "\2026"; 
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;      
+  animation: ellipsis steps(4, end) 900ms infinite;
+}
+
+@keyframes ellipsis {
+  to {
+    width: .75em;    
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: .75em;    
+  }
+}
+
 /* Login style */
 .login-panel.panel.panel-default > * {
     text-align: center;
@@ -1557,6 +1587,14 @@ div.left-text {
 .inactive {
     pointer-events: none;
 }
+
+/* Warranties Styles */
+.warrantiesQueryText > div > h4, 
+.warrantiesQueryText > div > h2 {
+    /*width: 48%;*/
+    color: white;
+}
+
 
 /*CHECK BOX*/
 

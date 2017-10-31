@@ -40,11 +40,17 @@
             <!-- DROP-DOWN FOR CAR AGE SELECTION -->
             <div class="form-group">
               <!-- <h3 class="page-header-warranties">Insurance Type - Car Model Year</h3> -->
-              <h3>Insurance Type - Car Model Year</h3>
+              <!-- <h3>Insurance Type - Car Model Year</h3> -->
+              <h3>Your desired car's year</h3>
               <select ng-model="query.age" ng-change="queryWarrantyPlan()">
-                <option value="-1">BASIC - ANY YEAR</option>
-                <option value="2007">DELUXE - 2007 OR NEWER</option>
-                <option value="2011">FACTORY COVERAGE - 2011 OR NEWER</option>
+                <!-- <option selected="selected"> Make your selection </option> -->
+                <!-- look into ng-options etc -->
+                <option value="-1">Any year</option>
+                  <!-- BASIC -  -->
+                <option value="2007">2007 or newer</option>
+                  <!-- DELUXE -  -->
+                <option value="2011">2011 or newer</option>
+                  <!-- FACTORY COVERAGE -  -->
               </select>
             </div>
             
@@ -65,31 +71,47 @@
       </div>
 		</div>
     
-
     <!-- ROW - WARRANTIES QUERY RESULTS -->
     <div class="row">
-
+    <!-- <div class="row" ng-show="query.age && query.make"> -->
       <div class="panel-heading">
         <center><h2 class="page-header">Available Warranty Plans:</h2><center>
       </div>
-
       <div class="col-md-12">
         <div class="container-accordion">
           <div class="accordion">
             <dl>
               <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
-
-                <!-- ACCORDION HEADER -->
                 <dt>
-                  <a class="accordionFakeTitle">
-                    <div class="warrantiesQueryText">
+                  <a class="accordionFakeTitle warrantiesQueryText">
+                      <!-- style="display: flex;"> -->
                       <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
+                      <!-- <div class="col-lg-6">&nbsp;</div> -->
 
-                      <h4><strong>Term length of warranty:</strong> {{warranty.term.months}} months</h4>
-                      <h4><strong>Mileage length of warranty:</strong> {{warranty.term.miles}} miles</h4>
-                      <!-- <h4><strong>Max Mileage:</strong> {{warranty.mileage}} miles</h4> -->
-                      <h2><strong>Price:</strong> ${{warranty.price}}.00</h2>
-                    </div>
+                      <div class="pull-right" style="width: 48%; text-align: right;">
+                        <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                        <h4>Mileage: <strong> {{warranty.term.miles * 10000 | number }} miles </strong> </h4>
+                      </div>
+                      <div class="pull-left" style="width: 48%; text-align: left;">
+                        <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                      </div>
+                      <!-- 
+                      <div 
+                        class="col-md-6" 
+                        style="text-align: right; width: 50%">
+                        <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                        <h4>Mileage: <strong> {{warranty.term.miles * 10000 | number }} miles </strong> </h4>
+                      </div>
+                       -->
+                      
+                      <!-- Divive these groups -->
+                      <!-- 
+                      <div 
+                        class="col-md-6" 
+                        style="text-align: left; width: 50%">
+                        <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                      </div>
+                       -->
                   </a>
                 </dt>
               </div>
@@ -98,6 +120,7 @@
         </div>
       </div>
     </div>
+
   </div>
 	
   <!-- JAVASCRIPT FILES -->

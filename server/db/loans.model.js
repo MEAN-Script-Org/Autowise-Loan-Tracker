@@ -14,6 +14,7 @@ var loanSchema = new mongoose.Schema({
 
   // Foreign Key
   user_id:    String,
+  user_email: String,
   name:       String,
   updated_at: Date,
 

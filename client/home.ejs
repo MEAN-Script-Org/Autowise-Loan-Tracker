@@ -118,7 +118,8 @@
         <div class="col-md-12">
           <div class="container-accordion" ng-controller="AccordFuncController">
             <div class="accordion">
-              <dl>
+              <div ng-show="loading" id="loading"> Loading </div>
+              <dl ng-hide="loading">
                 <!-- specifity for which query needs to be fixed, it is currently referencing improper controller-->
                 <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
                        style="width: 100%">

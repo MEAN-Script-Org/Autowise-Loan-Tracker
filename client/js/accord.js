@@ -93,7 +93,7 @@ angular.module('SWEApp').controller('AccordFuncController',
 
 
 
-                ; }, 1000);
+                ; }, 100);
 
         })();
   }]);

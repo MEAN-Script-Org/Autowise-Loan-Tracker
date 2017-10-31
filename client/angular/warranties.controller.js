@@ -3,6 +3,14 @@
 angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location',
   function($rootScope, $scope, $location) {
   
+  //--------------------------------------------------------------------------------------------------------------------
+  // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
+  //--------------------------------------------------------------------------------------------------------------------
+  $scope.init = function() {
+    $scope.matchedWarranties = [] ;
+    $scope.query = { age: '', mileage: 0, make: 'Domestic'} ;
+  }
+  
   // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
   var warranties_table = [
     
@@ -108,14 +116,6 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   */
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
-  //--------------------------------------------------------------------------------------------------------------------
-  $scope.init = function() {
-    $scope.matchedWarranties = [] ;
-    $scope.query = { age: '', mileage: 0, make: 'Domestic'} ;
-  }
-  
-  //--------------------------------------------------------------------------------------------------------------------
   // Called on submission of the warranties selection form. Checks the query against all possible warranties and assigns
   // Matching warranties to the 'matchedWarranties' object
   //--------------------------------------------------------------------------------------------------------------------
@@ -138,7 +138,8 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
       // Refine 'price' field if a country of origin is requried
       if (typeof warranty.price === 'object')
         plan.price = warranty.price[$scope.query.make] ;
-      else plan.price = warranty.price ;
+      else 
+        plan.price = warranty.price ;
       
       plans.push(plan) ;
     });
@@ -151,7 +152,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Filter function for warranty querying
   //--------------------------------------------------------------------------------------------------------------------
   function checkWarrantyAgainstQuery(warranty) {
-      return ($scope.query.age === warranty.age.toString()) && ($scope.query.mileage > warranty.mileage.min * 1000 &&
-             ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;          
+    // ($scope.query.age === warranty.age.toString()) && 
+    // ($scope.query.mileage > warranty.mileage.min * 1000 && 
+    //   ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;
+
+    // break this down...
+    return ($scope.query.age === warranty.age.toString()) && ($scope.query.mileage > warranty.mileage.min * 1000 &&
+           ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;          
   }
 }]);

@@ -1,11 +1,12 @@
 angular.module('SWEApp').controller('CRUDController',
-  ['$rootScope', '$scope', '$location', 'Factory',
-  function($rootScope, $scope, $location, Factory) {
+  ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
+  function($rootScope, $scope, $location, $timeout, Factory) {
 
     // TODO: Add progress effect like assigment 6 while we wait
     Factory.getUserInfo().then(function(response) {
       // Globals
       $rootScope.loans = [];
+      $rootScope.loading = true;
       $rootScope.massLoans = [];
       $rootScope.searchScopes = [];
       $rootScope.loanWithNewComments = {};
@@ -15,6 +16,7 @@ angular.module('SWEApp').controller('CRUDController',
       // ## Filter ~ !them for ascending order
       $rootScope.reverse = true;
       $rootScope.reverse_comments = true;
+
 
       // ## Login Details
       // $rootScope.pwd = "";
@@ -39,6 +41,10 @@ angular.module('SWEApp').controller('CRUDController',
           if (res.data.length != 0){
             $rootScope.loans = res.data;
             console.log($rootScope.loans);
+
+            $timeout(function() {
+              $rootScope.loading = false;
+            }, 2000);
           }
           else {
             console.log("DB is empty ~");
@@ -88,30 +94,36 @@ angular.module('SWEApp').controller('CRUDController',
     //------------------------------------------------------------------------------------------------------------------
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    $scope.removeLoan = function(loanID, displayAlert) {
-      // trigger modal.... THEN this
+    $scope.removeLoan = function(loanID, displayAlert, sureDeletion) {
+      // TODO Sprint 3:
       // Delete should send things to archieve...
-      //        Delete from DB, Add to 'archieve.json'
-      Factory.deleteLoan(loanID).then(
-        function(response) {
-          // update frontend after DB
-          $rootScope.loans.some(function(item, index, loans) {
-            if (item._id) {
-              if (item._id == loanID) {
-                loans.splice(index, 1);
-                return true;
+      //        Delete from active DB, Add to 'archieve.json' in server
+      if (!sureDeletion)
+      {
+        if (!confirm("You sure you want to remove this loans?"))
+          $scope.removeLoan(loanID, displayAlert, true);
+      } else {
+        Factory.deleteLoan(loanID).then(
+          function(response) {
+            // update frontend after DB
+            $rootScope.loans.some(function(item, index, loans) {
+              if (item._id) {
+                if (item._id == loanID) {
+                  loans.splice(index, 1);
+                  return true;
+                }
               }
-            }
-          });
+            });
 
-          if (displayAlert)
-            alert("Successfully deleted loan");
-        },
-        function(err) {
-          alert("Error deleting loan. Perhaps it was already deleted.");
-          console.log(err);
-        }
-      );
+            if (displayAlert)
+              alert("Successfully deleted loan");
+          },
+          function(err) {
+            alert("Error deleting loan. Perhaps it was already deleted.");
+            console.log(err);
+          }
+        );
+      }
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -156,17 +168,16 @@ angular.module('SWEApp').controller('CRUDController',
     // Removal of all selected loans. Called from the modal dialog for mass loan deletion
     //------------------------------------------------------------------------------------------------------------------
     $scope.removeEnMass = function() {
-      // this was the cause of the 'angular is not defined' prob
-      // angular.forEach($rootScope.massLoans, function(loanID) {
-      //   $scope.removeLoan(loanID, false) ;
-      // });
-      $rootScope.massLoans.forEach(
-        function(loanID) {
-          $scope.removeLoan(loanID, false) ;
-      });
-      $rootScope.massLoans = [];
-      
-      alert("All selected loans have been deleted") ;
+      if (confirm("You sure you want to remove these " + $rootScope.massLoans.length + " loans?"))
+      {
+        $rootScope.massLoans.forEach(
+          function(loanID) {
+            $scope.removeLoan(loanID, false, true) ;
+        });
+        $rootScope.massLoans = [];
+        
+        alert("All selected loans have been deleted") ;
+      }
     }
     
     //------------------------------------------------------------------------------------------------------------------
