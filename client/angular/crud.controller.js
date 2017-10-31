@@ -2,24 +2,25 @@ angular.module('SWEApp').controller('CRUDController',
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
+    // Globals
+    // Essentially, anything that goes into an async (Factory) call
+    $rootScope.loans = [];
+    $rootScope.loading = true;
+    $rootScope.massLoans = [];
+    $rootScope.searchScopes = [];
+    $rootScope.loanWithNewComments = {};
+
     // $rootScope.toggle_input = function() {
     //   $(".sb-search-input").toggleClass("sb-search-open");
     //   console.log("dalee");
     // }
     
     Factory.getUserInfo().then(function(response) {
-      // Globals
-      $rootScope.loans = [];
-      $rootScope.loading = true;
-      $rootScope.massLoans = [];
-      $rootScope.searchScopes = [];
-      $rootScope.loanWithNewComments = {};
-    
       $scope.commentAsAdmin = false;
 
-      // ## Filter ~ !them for ascending order
-      $rootScope.reverse = true;
-      $rootScope.reverse_comments = true;
+      // ## Order Filters ~ !them for ascending order
+      $scope.reverse = true;
+      $scope.reverse_comments = true;
 
       // TO Change based on routes~
       // ## User Details
@@ -31,8 +32,6 @@ angular.module('SWEApp').controller('CRUDController',
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
-      // Declared models
-      $scope.state = "Processing";
       $scope.newLoan = {};
 
       Factory.getLoans().then(
@@ -43,7 +42,7 @@ angular.module('SWEApp').controller('CRUDController',
 
             $timeout(function() {
               $rootScope.loading = false;
-            }, 2000);
+            }, 3000);
           }
           else {
             console.log("DB is empty ~");
@@ -152,7 +151,9 @@ angular.module('SWEApp').controller('CRUDController',
     //------------------------------------------------------------------------------------------------------------------
     $scope.archiveLoan = function(loanID, displayAlert) {
       if (confirm("You sure you want to archive this loan?"))
+      {
         $scope.changeLoanStatus(loanID, "Archived", displayAlert);
+      }
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -188,6 +189,8 @@ angular.module('SWEApp').controller('CRUDController',
         // Clearing var once done
         $rootScope.massLoans = [];
         alert("All selected loans have been '" + newStatus + "'") ;
+      } else {
+        alert("Nothing was changed")
       }
     }
     

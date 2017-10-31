@@ -24,30 +24,32 @@
                 </ul>
             </div>
             <div class="panel-footer">
-                <form class="input-group" ng-submit="addComment(loan._id)">
-                  <input type="text" class="form-control"
-                         placeholder="Type your message here..."
-                         id="{{loan._id}}-new-comment" type="submit"/>
-                  <input type="submit" style="display: none">
-                  
-                  <div class="input-group-btn">
-                    <!-- Screw mobile ~ -->
-                    <!-- Attempt to do boostrap layouts here thou~ -->
+              <!-- bug here: when a button is clicked, it submits the comment -->
+              <form class="input-group" ng-submit="addComment(loan._id)">
+                <input type="submit" style="display: none">
 
-                    <button class="btn btn-md"
-                      ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')"
-                      ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
-                      <span ng-if="loan.commentAsAdmin">NOT</span>
-                      Visible To Customer
-                    </button>
+                <input type="text" class="form-control"
+                       placeholder="Type your message here..."
+                       id="{{loan._id}}-new-comment"/>
+                
+                <div class="input-group-btn">
+                  <!-- Screw mobile ~ -->
+                  <!-- Attempt to do boostrap layouts here thou~ -->
 
-                    <button class="btn btn-warning btn-md"
-                      ng-click="emailClient(loan._id, loan.user_email, loan.name)">
-                      Email
-                    </button>
+                  <button class="btn btn-md"
+                    ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')"
+                    ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
+                    <span ng-if="loan.commentAsAdmin">NOT</span>
+                    Visible To Customer
+                  </button>
 
-                  </div>
-                </form>
+                  <button class="btn btn-warning btn-md"
+                    ng-click="emailClient(loan._id, loan.user_email, loan.name)">
+                    Email
+                  </button>
+
+                </div>
+              </form>
             </div>
         </div>
     </div>
