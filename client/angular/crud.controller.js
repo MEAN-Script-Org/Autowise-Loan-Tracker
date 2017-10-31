@@ -129,7 +129,7 @@ angular.module('SWEApp').controller('CRUDController',
         switch(angular.lowercase(status))
         {
             case "received":
-                console.log(status + "returned 20");
+                // console.log(status + "returned 20");
                 return 20;
                 break;
             case "submitted":

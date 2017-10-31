@@ -35,10 +35,13 @@ angular.module('SWEApp').controller('AccordFuncController',
       //         console.log(nameMatch)// + " " + emailMatch + " " + lenderMatch + " " + dateMatch);
         
       //return true (true means return those individual loans that match) if there is nothing in the query (empty) or if there is a SELECTED match
-      if (!$scope.query || (nameCheckbox && nameMatch)) {
-        return true;
-      }
-      return false;
+      // console.log(emailCheckbox, $scope.query);
+
+      return !$scope.query || (nameCheckbox && nameMatch);
+      // if (!$scope.query || (nameCheckbox && nameMatch)) {
+      //   return true;
+      // }
+      // return false;
     };
 
     // IIFE Immediately Invokable Function Expression
