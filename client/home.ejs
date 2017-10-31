@@ -31,7 +31,7 @@
     
     <!-- TODO: Delete these and modularize into another partial -->
     <!-- SCOPE FOR SEARCH -->
-    <div ng-controller="SearchController">
+    <div ng-controller="CheckController">
       <div class="row">
   			<div class="col-lg-12">
   				<h1 class="page-header">Loans</h1>
@@ -94,6 +94,15 @@
                     </div>
                 </div>
             </div>
+  	    </div>
+      </div>
+
+      <!-- End of filters -->
+      <!-- Start of accordion content -->
+
+      <div class="row" ng-controller="AccordFuncController">
+          
+        <div class="col-md-12">
             <div id="sb-search" class="sb-search">
               <!-- Marcial: -->
               <!-- in order for this to work properly you'll need a diff input field per search criteria -->
@@ -102,32 +111,26 @@
               <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
               <form>
                   <input class="sb-search-input" placeholder="Enter search criteria here..." 
-                         type="text" value="" name="search" id="search" ng-model="query2">
+                         type="text" value="" name="search" id="search" ng-model="query">
                   <input class="sb-search-submit" type="submit" value="">
                   <span class="sb-icon-search"></span>
               </form>
               <div class="disabler"></div>
             </div>
-  	    </div>
-      </div>
-
-      <!-- End of filters -->
-      <!-- Start of accordion content -->
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="container-accordion" ng-controller="AccordFuncController">
+          <div class="container-accordion">
             <div class="accordion">
               <div ng-show="loading" id="loading"> Loading </div>
               <dl ng-hide="loading">
                 <!-- specifity for which query needs to be fixed, it is currently referencing improper controller-->
+<!--
                 <input ng-model="wanted" placeholder="KEEP IT SIMPLE, (FOR) STUPID. works for comments too"
                        style="width: 100%">
-                <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter:wanted">
+-->
+                <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search">
                   <div ng-if="!loan.new">
                     <dt ng-click="clickAccordion(loan._id)">
-                      <a href="#accordion{{$index}}" class="accordion-title accordionTitle js-accordionTrigger"
-                         aria-controls="accordion{{$index}}" aria-expanded="false">
+                      <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                         aria-controls="accordion{{loan._id}}" aria-expanded="false">
                          
                         <label class="container-mass container">
                             <input type="checkbox" id="{{loan._id}}-checkbox">
@@ -140,7 +143,7 @@
                         – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                       </a>
                     </dt>
-                    <dd class="accordion-content accordionItem is-collapsed" id="accordion{{$index}}" aria-hidden="true">
+                    <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
                       <% include partials/progress-row.ejs %>
                       <% include partials/accordion-comments.html %>
                     </dd>
@@ -173,35 +176,51 @@
     
     <!-- MODALS FOR LOAN CRUD -->
     <% include partials/Modal_Test.html %>
-    <div id="google-style-buttons">
-      <!-- Add tooltips to titles for better visibility?? -->
-      <a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal"" title="Add new loan">
+    
+    <!--  Tool Tips  -->
+    <div class="label-container fadeTip AddTip" ng-show="AddTip">
+        <div class="label-text">Add New Loan</div>
+        <i class="fa fa-play label-arrow"></i>
+    </div>
+    <div class="label-container fadeTip DelTip" ng-show="DelTip">
+        <div class="label-text">Delete Selected Loans</div>
+        <i class="fa fa-play label-arrow"></i>
+    </div>
+    <div class="label-container fadeTip ArcTip" ng-show="ArcTip">
+        <div class="label-text">Archive Selected Loans</div>
+        <i class="fa fa-play label-arrow"></i>
+    </div>
+    <div class="label-container fadeTip StatTip" ng-show="StatTip">
+        <div class="label-text">Change Selected Loans' Status</div>
+        <i class="fa fa-play label-arrow"></i>
+    </div>
+    <!--  End Tool Tips  -->
+    <a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal" ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
         <em class="fa fa-plus float-child"></em>
-      </a>
-      <ul id="float-list" ng-show="massLoans.length > 0">
-        
+    </a>
+    <ul id="float-list" ng-show="massLoans.length > 0">
+
         <!-- Mass loan delete -->
-        <li title="DELETE selected loans">
-          <a href="#" id="float-trash" data-target="#deleteModal" data-toggle="modal">
+        <li>
+          <a href="#" id="float-trash" data-target="#deleteModal" data-toggle="modal" ng-mouseenter="DelTip=true" ng-mouseleave="DelTip=false">
             <em class="fa fa-trash float-child"></em>
           </a>
         </li>
-        
+
         <!-- Mass loan archive -->
-        <li title="Archive selected loans">
-          <a id="float-archive" data-target="#archiveModal" data-toggle="modal">
+        <li>
+          <a id="float-archive" data-target="#archiveModal" data-toggle="modal" ng-mouseenter="ArcTip=true" ng-mouseleave="ArcTip=false">
             <em class="fa fa-archive float-child"></em>
           </a>
         </li>
-        
+
         <!-- Mass loan status change -->
-        <li title="Change Status of selected loans">
-          <a id="float-edit" data-target="#changeModal" data-toggle="modal">
+        <li>
+          <a id="float-edit" data-target="#changeModal" data-toggle="modal" ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
             <em class="fa fa-edit float-child"></em>
           </a>
         </li>
-      </ul>
-    </div>
+    </ul>
 </div>
 
 

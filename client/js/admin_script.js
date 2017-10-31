@@ -1,4 +1,4 @@
-angular.module('SWEApp').controller('SearchController',
+angular.module('SWEApp').controller('CheckController',
   ['$scope', '$location', 'Factory',
   function($scope, $location, Factory) {      
       
@@ -23,7 +23,8 @@ angular.module('SWEApp').controller('SearchController',
                 {currentCheckCount = currentCheckCount + 1;
                 $('.sb-search').addClass('sb-search-open');
                 $scope.$parent.searchScopes.push(getId);
-                console.log($scope.$parent.searchScopes);}
+
+                }
                 else
                 {currentCheckCount = currentCheckCount - 1;
                 angular.forEach($scope.$parent.searchScopes, function(value, key) {
@@ -35,8 +36,11 @@ angular.module('SWEApp').controller('SearchController',
                 });}
 
                 if(currentCheckCount === 0)
-                {$('.disabler').addClass('disable');
-                $('.sb-search').removeClass('sb-search-open');}
+                {
+                    $('.disabler').addClass('disable');
+                    $('.sb-search').removeClass('sb-search-open');
+                    $('.sb-search-input').val('');
+                }
                 else
                 {$('.disabler').removeClass('disable');}
             });
