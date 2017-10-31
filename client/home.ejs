@@ -42,6 +42,7 @@
               <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
               <!-- Marcial after merging: this is a mess... to change ASAP -->
               <form>
+                <!-- input binded to $scope.query -->
                   <input class="sb-search-input" placeholder="Search criteria"
                          type="text" value="" name="search" id="search" ng-model="query">
                   <input class="sb-search-submit" type="submit">
@@ -54,7 +55,9 @@
               <input class="sb-search-input sb-search-open" placeholder="Search criteria" ng-model="wanted">
                -->
               <!-- This can be further modularized now... -->
-              <div ng-show="loading" id="loading"> Loading </div>
+              <div ng-show="loading" id="loading"><img id="loader" ng-show="loading" src="resources/load.gif">
+                  <div class="load-txt">Loading</div>
+              </div>
               <div ng-hide="loading" class="accordion">
                 <dl>
                   <!--
@@ -62,7 +65,7 @@
                   placeholder="What you want"
                   >
                    -->
-
+                 <!-- we by custom search function that uses binded query to filter by specific attributes-->
                   <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search:wanted">
                     <div ng-if="!loan.new">
                       <dt ng-click="clickAccordion(loan._id)">
@@ -75,8 +78,8 @@
                           </label>
 
                           {{loan.name | limitTo: 18}}
-                          - {{loan.type}}
-                          - {{loan.status}}
+                          – {{loan.type}}
+                          – {{loan.status | uppercase}}
                           <!-- - total $ -->
                           – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>
@@ -90,16 +93,24 @@
                     <!-- Marcial: -->
                     <!-- the accordion logic needs to change to pure CSS IMO -->
                     <div ng-if="loan.new">
-                      <dt>
-                        <a class="accordion-title accordionTitle">
+                      {{reloadAccordion()}}
+                      <dt ng-click="clickAccordion(loan._id)">
+                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                           aria-controls="accordion{{loan._id}}" aria-expanded="true">
+
+                          <label class="container-mass container">
+                              <input type="checkbox" id="{{loan._id}}-checkbox">
+                              <span class="checkmark"></span>
+                          </label>
+
                           {{loan.name | limitTo: 18}}
-                          - {{loan.type}}
-                          - {{loan.status}}
+                          – {{loan.type}}
+                          – {{loan.status | uppercase}}
                           <!-- - total $ -->
                           – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>
                       </dt>
-                      <dd class="accordion-content accordionItem">
+                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
                         <% include partials/progress-row.ejs %>
                         <% include partials/accordion-comments.ejs %>
                       </dd>

@@ -43,7 +43,7 @@ angular.module('SWEApp').controller('CRUDController',
 
             $timeout(function() {
               $rootScope.loading = false;
-            }, 1000);
+            }, 2000);
           }
           else {
             console.log("DB is empty ~");
@@ -93,7 +93,7 @@ angular.module('SWEApp').controller('CRUDController',
       //        Delete from active DB, Add to 'archieve.json' in server
       if (!sureDeletion)
       {
-        if (!confirm("You sure you want to delete this loan?"))
+        if (confirm("You sure you want to delete this loan?"))
           $scope.removeLoan(loanID, displayAlert, true);
       } else {
         Factory.deleteLoan(loanID).then(
@@ -151,7 +151,8 @@ angular.module('SWEApp').controller('CRUDController',
     // Archives the loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
     $scope.archiveLoan = function(loanID, displayAlert) {
-      $scope.changeLoanStatus(loanID, "Archived", displayAlert);
+      if (confirm("You sure you want to archive this loan?"))
+        $scope.changeLoanStatus(loanID, "Archived", displayAlert);
     }
 
     //------------------------------------------------------------------------------------------------------------------
