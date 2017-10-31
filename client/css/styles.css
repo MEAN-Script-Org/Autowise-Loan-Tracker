@@ -1598,9 +1598,7 @@ div.left-text {
 
 /*CHECK BOX*/
 
-
 /* Customize the label (the container) */
-
 .container {
     display: flex;
     position: relative;
@@ -1614,9 +1612,7 @@ div.left-text {
     align-items: center;
 }
 
-
 /* Hide the browser's default checkbox */
-
 .container input {
     position: relative;
     opacity: 0;
@@ -1636,9 +1632,7 @@ div.left-text {
     cursor: not-allowed;
 }
 
-
 /* Create a custom checkbox */
-
 .checkmark {
     position: absolute;
     height: 25px;
@@ -1648,21 +1642,18 @@ div.left-text {
 
 
 /* On mouse-over, add a grey background color */
-
 .container:hover input~.checkmark {
     background-color: #ccc;
 }
 
 
 /* When the checkbox is checked, add a blue background */
-
 .container input:checked~.checkmark {
     background-color: #38cc70;
 }
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
-
 .checkmark:after {
     content: "";
     position: absolute;
@@ -1671,14 +1662,12 @@ div.left-text {
 
 
 /* Show the checkmark when checked */
-
 .container input:checked~.checkmark:after {
     display: block;
 }
 
 
 /* Style the checkmark/indicator */
-
 .container .checkmark:after {
     top: 28%;
     left: 44%;
@@ -1698,7 +1687,6 @@ div.left-text {
 }
 
 /*FLOATING MENU*/
-
 .label-container {
     position: fixed;
     display: table;

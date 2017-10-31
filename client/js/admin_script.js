@@ -1,51 +1,46 @@
-angular.module('SWEApp').controller('CheckController',
+angular.module('SWEApp').controller('CheckController', 
   ['$scope', '$location', 'Factory',
-  function($scope, $location, Factory) {      
-      
-      (function(window) {
+  function($scope, $location, Factory) {
 
-            'use strict';
+    (function(window) {
 
-            ////// FOR FILTER DISABLING //////
-            var currentCheckCount = 0;
-            $(":checkbox").each(function(index) {
-                currentCheckCount = currentCheckCount + 1;
-            });
+      'use strict';
 
-            let totalCheckCount = currentCheckCount;
-            currentCheckCount = 0;
+      ////// FOR FILTER DISABLING //////
+      var currentCheckCount = 0;
+      $(":checkbox").each(function(index) {
+        currentCheckCount = currentCheckCount + 1;
+      });
 
-            $('.disabler').addClass('disable');
-            $(":checkbox").change(function(index) {
-                let getId = this.id;
-                
-                if(this.checked)
-                {currentCheckCount = currentCheckCount + 1;
-                $('.sb-search').addClass('sb-search-open');
-                $scope.$parent.searchScopes.push(getId);
+      let totalCheckCount = currentCheckCount;
+      currentCheckCount = 0;
 
-                }
-                else
-                {currentCheckCount = currentCheckCount - 1;
-                angular.forEach($scope.$parent.searchScopes, function(value, key) {
-                    if(value === getId)
-                    {
-                        $scope.$parent.searchScopes.splice(key, 1);
-                        return;
-                    }
-                });}
+      $('.disabler').addClass('disable');
+      $(":checkbox").change(function(index) {
+        let getId = this.id;
 
-                if(currentCheckCount === 0)
-                {
-                    $('.disabler').addClass('disable');
-                    $('.sb-search').removeClass('sb-search-open');
-                    $('.sb-search-input').val('');
-                }
-                else
-                {$('.disabler').removeClass('disable');}
-            });
-            ////// END FILTER DISABLING //////
+        if (this.checked) {
+          currentCheckCount = currentCheckCount + 1;
+          $('.sb-search').addClass('sb-search-open');
+          $scope.$parent.searchScopes.push(getId);
 
+        } else {
+          currentCheckCount = currentCheckCount - 1;
+          angular.forEach($scope.$parent.searchScopes, function(value, key) {
+            if (value === getId) {
+              $scope.$parent.searchScopes.splice(key, 1);
+              return;
+            }
+          });
+        }
 
-        })();
-  }]);
+        if (currentCheckCount === 0) {
+          $('.disabler').addClass('disable');
+          $('.sb-search').removeClass('sb-search-open');
+          $('.sb-search-input').val('');
+        } else { $('.disabler').removeClass('disable'); }
+      });
+      ////// END FILTER DISABLING //////
+    })();
+  }
+]);

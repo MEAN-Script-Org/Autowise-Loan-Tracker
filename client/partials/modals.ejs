@@ -1,10 +1,10 @@
 
 
 <!-- The below are not needed -->
-<!-- 
+<!--
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">       
+        <div class="col-xs-12">
             <div class="modal fade" data-keyboard="false" data-backdrop="static" id="deleteModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -14,12 +14,12 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                Delete The Selected Loans:<br> 
+                                Delete The Selected Loans:<br>
                                 <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button><br>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -39,18 +39,18 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                Archive The Selected Loans:<br> 
+                                Archive The Selected Loans:<br>
                                 <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass('ARCHIVED')">Archive Selected Loans</button><br> </form>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
 -->
 
 <div class="container">
@@ -60,12 +60,13 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Change loans</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                Change the status of the selected loans: <br>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+
+                            <span>
+                                <h3>Change the status of the selected loans to</h3>
+                                <br>
                                 <select name="Loan Status" ng-model="newStatus">
                                     <option value="RECEIVED">Received</option>
                                     <option value="SUBMITTED">Submitted</option>
@@ -73,13 +74,42 @@
                                     <option value="VERIFIED">Verified</option>
                                     <option value="APPROVED">Approved</option>
                                     <option value="DENIED">Denied</option>
-                                </select><br>
-                            </form>
+                                </select>
+                            </span>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass(newStatus)">Update</button>
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
+        <!-- <div class="modal fade" data-backdrop="static" id="wew" tabindex="-1"> -->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+
+                        <form ng-submit="addLoan()">
+                          <h3>New Loan</h3>
+                          <input placeholder="Name" type="text" ng-model="newLoan.name" required>
+                          <input placeholder="Email" type="email" ng-model="newLoan.user_email">
+                          <!-- <input type="submit" class="btn btn-default"> -->
+                          <input type="submit" style="display: none">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoan()">Create</button>
+                        <button class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +120,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyerModal" tabindex="-1">
+        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="wew" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -99,238 +129,238 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            Please Enter the fields for the Buyers Order<br> 
-                            Form Date: 
+                            Please Enter the fields for the Buyers Order<br>
+                            Form Date:
                             <input type="date" name="form-date">
                             <br>
                             Car used: <select name="is-car-used">
                                         <option value = "True">True</option>
                                         <option value = "False">False</option>
                                       </select><br>
-                            Email: 
+                            Email:
                             <input type="text" name="E-mail">
                             <br>
                             <h3>Purchaser Info</h3><br>
-                            Name: 
+                            Name:
                             <input type="text" name="Purchaser-name">
                             <br>
-                            DL: 
+                            DL:
                             <input type="text" name="Purchaser-dl">
                             <br>
-                            Date of Birth: 
+                            Date of Birth:
                             <input type="date" name="Purchaser-dob">
                             <br>
                             <h3>Co-purchaser Info</h3><br>
-                            Name: 
+                            Name:
                             <input type="text" name="copurchaser-name">
                             <br>
-                            DL: 
+                            DL:
                             <input type="text" name="copurchaser-dl">
                             <br>
-                            Date Of Birth: 
+                            Date Of Birth:
                             <input type="date" name="copurchaser-dob">
                             <br>
                             <h3>Contact Address</h3><br>
-                            Street: 
+                            Street:
                             <input type="text" name="contact-street-address">
                             <br>
-                            City: 
+                            City:
                             <input type="text" name="contact-city">
                             <br>
-                            State: 
+                            State:
                             <input type="text" name="contact-state">
                             <br>
-                            County: 
+                            County:
                             <input type="text" name="contact-county">
                             <br>
-                            Zipcode: 
+                            Zipcode:
                             <input type="text" name="contact-zip">
                             <br>
                             <h3>Contact Phone</h3><br>
-                            Home Phone: 
+                            Home Phone:
                             <input type="number" name="contact-home-phone">
                             <br>
-                            Work Phone: 
+                            Work Phone:
                             <input type="number" name="contact-work-phone">
                             <br>
-                            Cell Phone: 
+                            Cell Phone:
                             <input type="number" name="contact-cell-phone">
                             <br>
                             <h3>Car Information</h3><br>
-                            Year: 
+                            Year:
                             <input type="number" name="car-year">
                             <br>
-                            Make: 
+                            Make:
                             <input type="text" name="car-make">
                             <br>
-                            Model: 
+                            Model:
                             <input type="text" name="car-model">
                             <br>
-                            Type: 
+                            Type:
                             <input type="text" name="car-type">
                             <br>
-                            Color: 
+                            Color:
                             <input type="text" name="car-color">
                             <br>
-                            Cyl: 
+                            Cyl:
                             <input type="text" name="car-cyl">
                             <br>
-                            Serial Number: 
+                            Serial Number:
                             <input type="text" name="car-serial-no">
                             <br>
-                            Stock Number: 
+                            Stock Number:
                             <input type="text" name="car-stock-num">
                             <br>
-                            Mileage: 
+                            Mileage:
                             <input type="number" name="car-mileage">
                             <br>
-                            Salesperson: 
+                            Salesperson:
                             <input type="text" name="car-salesperson">
                             <br>
-                            Lender: 
+                            Lender:
                             <input type="text" name="car-lender">
                             <br>
-                            Purchased new tag: 
+                            Purchased new tag:
                             <input type="text" name="car-purchase-new-tag">
                             <br>
-                            Transfer: 
+                            Transfer:
                             <input type="text" name="car-transfer">
                             <br>
-                            Tag Number: 
+                            Tag Number:
                             <input type="text" name="car-tag-no">
                             <br>
-                            Plate Number: 
+                            Plate Number:
                             <input type="text" name="car-plate-no">
                             <br>
-                            Expiration Date: 
+                            Expiration Date:
                             <input type="text" name="car-exp-date">
                             <br>
                             <h3>Financing</h3><br>
-                            Nada Retail: 
+                            Nada Retail:
                             <input type="number" name="nada_retail">
                             <br>
-                            Accessories: 
+                            Accessories:
                             <input type="text" name="accessories">
                             <br>
-                            Total Sale Price: 
+                            Total Sale Price:
                             <input type="number" name="total-sale-price">
                             <br>
-                            Trade Allowance: 
+                            Trade Allowance:
                             <input type="number" name="trade-allowance">
                             <br>
-                            Trade Difference: 
+                            Trade Difference:
                             <input type="number" name="trade-difference">
                             <br>
-                            Admin Fees: 
+                            Admin Fees:
                             <input type="number" name="admin-fees">
                             <br>
-                            Waste Tire Batt Fee: 
+                            Waste Tire Batt Fee:
                             <input type="number" name="waste-tire-batt-fee">
                             <br>
-                            Sub Total a: 
+                            Sub Total a:
                             <input type="number" name="sub-total-a">
                             <br>
                             Sales Tax is County: <select name="sales-tax-is-county">
                                 <option value = "True">True</option>
                                 <option value = "False">False</option>
                             </select><br>
-                            Sales Tax Percentage: 
+                            Sales Tax Percentage:
                             <input type="number" name="percentage">
                             <br>
-                            Estimated Fees: 
+                            Estimated Fees:
                             <input type="number" name="estimated-fees">
                             <br>
-                            Lemon Law Fee: 
+                            Lemon Law Fee:
                             <input type="number" name="lemon-law-fee">
                             <br>
-                            Sub Total b: 
+                            Sub Total b:
                             <input type="number" name="sub-total-b">
                             <br>
-                            Balance Owed: 
+                            Balance Owed:
                             <input type="number" name="bal-owed-on-trade">
                             <br>
-                            Total Due: 
+                            Total Due:
                             <input type="number" name="total-due">
                             <br>
-                            Down Payment: 
+                            Down Payment:
                             <input type="number" name="down-payment">
                             <br>
-                            Unpaid Due: 
+                            Unpaid Due:
                             <input type="number" name="unpaid-due">
                             <br>
                             <h3>Insurance Information</h3><br>
-                            Policy Number: 
+                            Policy Number:
                             <input type="number" name="ins-policy-num">
                             <br>
-                            Company: 
+                            Company:
                             <input type="text" name="company">
                             <br>
-                            Agent: 
+                            Agent:
                             <input type="text" name="agent">
                             <br>
-                            Phone Number: 
+                            Phone Number:
                             <input type="number" name="phone-num">
                             <br>
-                            Eff Dates: 
+                            Eff Dates:
                             <input type="text" name="eff-dates">
                             <br>
-                            Verified By: 
+                            Verified By:
                             <input type="text" name="verif-by">
                             <br>
                             <h3>Trades Information</h3><br>
-                            Car Year: 
+                            Car Year:
                             <input type="number" name="car-year">
                             <br>
-                            Car Make: 
+                            Car Make:
                             <input type="text" name="car-make">
                             <br>
-                            Car Model: 
+                            Car Model:
                             <input type="text" name="car-model">
                             <br>
-                            Car Type: 
+                            Car Type:
                             <input type="text" name="car-type">
                             <br>
-                            Car Color: 
+                            Car Color:
                             <input type="text" name="car-color">
                             <br>
-                            Car Cyl: 
+                            Car Cyl:
                             <input type="text" name="car-cyl">
                             <br>
-                            Serial Number: 
+                            Serial Number:
                             <input type="text" name="car-serial-no">
                             <br>
-                            Account Number: 
+                            Account Number:
                             <input type="text" name="account-num">
                             <br>
-                            Mileage: 
+                            Mileage:
                             <input type="number" name="car-mileage">
                             <br>
-                            Phone Number: 
+                            Phone Number:
                             <input type="number" name="phone-num">
                             <br>
-                            Holder: 
+                            Holder:
                             <input type="text" name="holder">
                             <br>
-                            Address: 
+                            Address:
                             <input type="text" name="address">
                             <br>
-                            Amount: 
+                            Amount:
                             <input type="number" name="amount">
                             <br>
-                            Qualified By: 
+                            Qualified By:
                             <input type="text" name="qualif-by">
                             <br>
-                            Verified By: 
+                            Verified By:
                             <input type="text" name="verif-by">
                             <br>
-                            Good Through: 
+                            Good Through:
                             <input type="date" name="good-thru">
                             <br>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary">Update</button>
-                        <button class="btn btn-primary" data-dismiss="modal">Close</button>             
+                        <button class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
