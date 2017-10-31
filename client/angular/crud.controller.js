@@ -6,7 +6,6 @@ angular.module('SWEApp').controller('CRUDController',
     //   $(".sb-search-input").toggleClass("sb-search-open");
     //   console.log("dalee");
     // }
-
     
     Factory.getUserInfo().then(function(response) {
       // Globals
@@ -44,7 +43,7 @@ angular.module('SWEApp').controller('CRUDController',
 
             $timeout(function() {
               $rootScope.loading = false;
-            }, 2000);
+            }, 1000);
           }
           else {
             console.log("DB is empty ~");
@@ -178,15 +177,17 @@ angular.module('SWEApp').controller('CRUDController',
     // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
     //------------------------------------------------------------------------------------------------------------------
     $scope.updateStatusEnMass = function(newStatus) {
-      $rootScope.massLoans.forEach(
-        function(loanID) {
-          $scope.changeLoanStatus(loanID, newStatus, false)          
-          $scope.clearCheckbox(loanID);
-      });
-      
-      // Clearing var once done
-      $rootScope.massLoans = [];
-      alert("All selected loans have been '" + newStatus + "'") ;
+      if (newStatus) {
+        $rootScope.massLoans.forEach(
+          function(loanID) {
+            $scope.changeLoanStatus(loanID, newStatus, false)          
+            $scope.clearCheckbox(loanID);
+        });
+        
+        // Clearing var once done
+        $rootScope.massLoans = [];
+        alert("All selected loans have been '" + newStatus + "'") ;
+      }
     }
     
     //------------------------------------------------------------------------------------------------------------------
