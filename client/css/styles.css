@@ -1616,12 +1616,23 @@ div.left-text {
 }
 
 /* Warranties Styles */
+/* . => class */
+/* # => id */
 .warrantiesQueryText > div > h4, 
 .warrantiesQueryText > div > h2 {
     /*width: 48%;*/
     color: white;
 }
 
+.right-right {
+    width: 48%; 
+    text-align: right;
+}
+
+.left-left {
+    width: 48%; 
+    text-align: left;
+}
 
 /*CHECK BOX*/
 
