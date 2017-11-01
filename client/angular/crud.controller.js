@@ -5,7 +5,8 @@ angular.module('SWEApp').controller('CRUDController',
     // Globals
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];
-    $rootScope.loading = true;
+    $rootScope.loading = false;
+    // $rootScope.loading = true;
     $rootScope.massLoans = [];
     $rootScope.searchScopes = [];
     $rootScope.loanWithNewComments = {};
@@ -25,6 +26,7 @@ angular.module('SWEApp').controller('CRUDController',
       // TO Change based on routes~
       // ## User Details
       $rootScope.user_id = response.data._id;
+      $rootScope.user_name = response.data.username;
       // $rootScope.user_email = response.data.email;
       $rootScope.user_isAdmin = response.data.isAdmin;
     });
@@ -39,14 +41,14 @@ angular.module('SWEApp').controller('CRUDController',
           if (res.data.length != 0){
             $rootScope.loans = res.data;
             console.log($rootScope.loans);
-
-            $timeout(function() {
-              $rootScope.loading = false;
-            }, 3000);
           }
           else {
             console.log("DB is empty ~");
           }
+          
+          $timeout(function() {
+            $rootScope.loading = false;
+          }, 3000);
         }
       );
     }
@@ -70,8 +72,9 @@ angular.module('SWEApp').controller('CRUDController',
             newLoad.new = true;
             $rootScope.loans.push(newLoad);
 
-            console.log("Returned new loan: ");
-            console.log(response.data);
+            // Logging
+            // console.log("Returned new loan: ");
+            // console.log(response.data);
 
             // clear form data once done
             $scope.newLoan = {};
@@ -86,14 +89,14 @@ angular.module('SWEApp').controller('CRUDController',
     //------------------------------------------------------------------------------------------------------------------
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    $scope.removeLoan = function(loanID, displayAlert, sureDeletion) {
+    $scope.removeLoan = function(loanID, sureDeletion) {
       // TODO Sprint 3:
       // Delete should send things to archieve...
       //        Delete from active DB, Add to 'archieve.json' in server
       if (!sureDeletion)
       {
-        if (confirm("You sure you want to delete this loan?"))
-          $scope.removeLoan(loanID, displayAlert, true);
+        if (confirm("Are you sure you want to delete this loan? Doing so will delete ALL records of it"))
+          $scope.removeLoan(loanID, true);
       } else {
         Factory.deleteLoan(loanID).then(
           function(response) {
@@ -107,24 +110,19 @@ angular.module('SWEApp').controller('CRUDController',
               }
             });
 
-            if (displayAlert)
-              alert("Successfully deleted loan");
+            // if (displayAlert)
+            //   alert("Successfully deleted loan");
           },
           function(err) {
-            alert("Error deleting loan. Perhaps it was already deleted.");
+            alert("Error deleting loan. Perhaps it was already deleted");
             console.log(err);
           }
         );
       }
     }
     
-    //------------------------------------------------------------------------------------------------------------------
-    // Updates the status of a single loan of the specified ID
-    //------------------------------------------------------------------------------------------------------------------
-    // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs, 
-    //             then iterate for attributes
-    
-    //percentage from status of loan
+    // Marcial: Read the comments on 
+    // percentage from status of loan
     $scope.statusPercentage = function(status){
         switch(angular.lowercase(status))
         {
@@ -153,35 +151,44 @@ angular.module('SWEApp').controller('CRUDController',
         }
     }
     
-    //color from status of loan
-    $scope.statusColor = function(status){
-        switch(angular.lowercase(status))
-        {
-            case "received":
-                return "#6495ed";
-                break;
-            case "submitted":
-                return "#d0c330";
-                break;
-            case "pending":
-                return "#ff8c00";
-                break;
-            case "verified":
-                return "#a5d97f";
-                break;
-            case "approved":
-                return "#38cc70";
-                break;
-            case "denied":
-                return "#cc3838";
-                break;
-            default:
-                return "#F8F8F8";
-                break;
-        }
+    // Color from status of loan
+    // Marcial:
+    //    Ya this is not a good way...
+    //    make it CSS class based
+    //    ALSO, avoid angular.ANYTHING for general javascript/programming actions
+    $scope.statusColor = function(status) {
+      switch(angular.lowercase(status))
+      {
+        case "received":
+          return "#6495ed";
+          break;
+        case "submitted":
+          return "#d0c330";
+          break;
+        case "pending":
+          return "#ff8c00";
+          break;
+        case "verified":
+          return "#a5d97f";
+          break;
+        case "approved":
+          return "#38cc70";
+          break;
+        case "denied":
+          return "#cc3838";
+          break;
+        default:
+          return "#F8F8F8";
+          break;
+      }
     }
     
-    $scope.changeLoanStatus = function(loanID, newStatus, displayAlert) {
+    //------------------------------------------------------------------------------------------------------------------
+    // Updates the status of a single loan of the specified ID
+    //------------------------------------------------------------------------------------------------------------------
+    // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs, 
+    //             then iterate for attributes
+    $scope.changeLoanStatus = function(loanID, newStatus) {
       Factory.modifyLoan(loanID, {status: newStatus}).then(
         function(response) {
           // update frontend after DB
@@ -194,8 +201,8 @@ angular.module('SWEApp').controller('CRUDController',
             }
           });
           
-          if (displayAlert)
-            alert("Successfully updated loan to status '" + newStatus + "'");
+          // if (displayAlert)
+          //   alert("Successfully updated loan to status '" + newStatus + "'");
         },
         function(err) {
           alert("Error updating loan status");
@@ -207,10 +214,10 @@ angular.module('SWEApp').controller('CRUDController',
     //------------------------------------------------------------------------------------------------------------------
     // Archives the loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    $scope.archiveLoan = function(loanID, displayAlert) {
+    $scope.archiveLoan = function(loanID) {
       if (confirm("You sure you want to archive this loan?"))
       {
-        $scope.changeLoanStatus(loanID, "Archived", displayAlert);
+        $scope.changeLoanStatus(loanID, "Archived");
       }
     }
 
@@ -225,7 +232,7 @@ angular.module('SWEApp').controller('CRUDController',
       {
         $rootScope.massLoans.forEach(
           function(loanID) {
-            $scope.removeLoan(loanID, false, true) ;
+            $scope.removeLoan(loanID, true) ;
         });
         $rootScope.massLoans = [];
         
@@ -240,7 +247,7 @@ angular.module('SWEApp').controller('CRUDController',
       if (newStatus) {
         $rootScope.massLoans.forEach(
           function(loanID) {
-            $scope.changeLoanStatus(loanID, newStatus, false)          
+            $scope.changeLoanStatus(loanID, newStatus)          
             $scope.clearCheckbox(loanID);
         });
         
@@ -248,7 +255,7 @@ angular.module('SWEApp').controller('CRUDController',
         $rootScope.massLoans = [];
         alert("All selected loans have been '" + newStatus + "'") ;
       } else {
-        alert("Nothing was changed")
+        alert("Nothing was changed");
       }
     }
     
@@ -284,19 +291,19 @@ angular.module('SWEApp').controller('CRUDController',
       $(checkbox).prop('checked', false);;
     }
 
-    // Helper method for '$scope.addComment'
     function addCommentFrontend(loanID, newCommentContent) {
+      // JS time int to string options... but chose to go with Angular
+      // var time_options = {
+      //     minute: "numeric",
+      //     month: "short",
+      //     day: "numeric",
+      //     hour: "numeric",
+      //     year: "numeric",
+      //     hour12: true,
+      //     timeZone: "America/New_York",
+      //     timeZoneName: "short",
+      // };
       // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
-      var time_options = {
-        minute: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        year: "numeric",
-        hour12: true,
-        timeZone: "America/New_York",
-        timeZoneName: "short",
-      };
 
       return $rootScope.loans.some(function(item, index, loans) {
         if (item._id) {
@@ -304,9 +311,10 @@ angular.module('SWEApp').controller('CRUDController',
             
             var newComment = {
               admin: loans[index].commentAsAdmin,
+              writer: $rootScope.user_name,
               content: newCommentContent,
-              // time: new Date().toLocaleString('en-US', time_options),
               newtime: new Date(),
+              // time: new Date().toLocaleString('en-US', time_options),
             }
 
             loans[index].comments.push(newComment);
@@ -338,6 +346,47 @@ angular.module('SWEApp').controller('CRUDController',
           });
         }
       }
+    }
+
+    // TODO: Clear or figure out why I wrote the 'if (item.id)'s...
+    $scope.removeComment = function(loanID, comments, nonwanted) {
+      comments.some(function(item, index, array) {
+        if (nonwanted.content == item.content && nonwanted.newtime == item.newtime) {
+          array.splice(index, 1);
+          return true;
+        }
+      });
+
+      // update DB after Frontend
+      Factory.modifyLoan(loanID, {comments: comments}).then(
+        function(response) {
+          return;
+        },
+        function(err) {
+          alert("Error deleting comment");
+          console.log(err);
+        }
+      );
+    }
+
+    $scope.emailClient = function(loanID, userEmail, clientName) {
+
+      if (!userEmail) {
+        alert("User has no email associated with their account");
+        return ;
+      }
+
+      var errorMsg = "There was an error sending the email. Please check the logs";
+
+      // Generic message will do for now...
+      var bodyMessage = "You have an update on your loan application.";
+      var email = {
+        id: loanID,
+        to: userEmail,
+        name: clientName,
+        message: bodyMessage,
+      };
+      alert("ehy! not implemented yet ~");
     }
 
     $scope.emailClient = function(loanID, userEmail, clientName) {

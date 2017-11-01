@@ -26,21 +26,21 @@
     <!-- TODO: Delete these and modularize into another partial -->
     <!-- SCOPE FOR SEARCH -->
     <div ng-controller="CheckController">
-      <% include partials/admin_filters.ejs %>
+      <%# include partials/admin_filters.ejs #%>
 
       <!-- End of filters -->
       <!-- Start of accordion content -->
 
       <div class="row" ng-controller="AccordFuncController">
-
         <div class="col-md-12">
             <div id="sb-search" class="sb-search">
-              <!-- Marcial: -->
+              <!-- Marcial old: -->
               <!-- in order for this to work properly you'll need a diff input field per search criteria -->
               <!-- each linked to the desired property as ng-model=query.property_goes_here -->
               <!-- this is a mess, so a general search works best imo -->
               <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
               <!-- Marcial after merging: this is a mess... to change ASAP -->
+              <!-- Marcial now: I'll take care of this... -->
               <form>
                 <!-- input binded to $scope.query -->
                   <input class="sb-search-input" placeholder="Search criteria"
@@ -55,6 +55,7 @@
               <input class="sb-search-input sb-search-open" placeholder="Search criteria" ng-model="wanted">
                -->
               <!-- This can be further modularized now... -->
+
               <div ng-show="loading" id="loading">
                   <img id="loader" ng-show="loading" src="resources/load.gif">
                   <div class="load-txt">Loading</div>
@@ -131,11 +132,13 @@
     <!-- Loan CRUD Modals -->
     <% include partials/modals.ejs %>
 </div>
+
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
     new UISearch( document.getElementById( 'sb-search' ) );
 </script>
 <% include partials/footer.ejs %>
+
 </body>
 </html>

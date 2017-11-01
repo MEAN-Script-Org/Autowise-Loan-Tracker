@@ -8,7 +8,11 @@
                 <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
                     <li class="left clearfix">
                         <div class="chat-body clearfix">
+                            <!-- For amins: username -->
+                            <!-- For users: you vs 'Autowise' -->
                             <span>{{comment.content}}</span>
+
+                            <!-- Comment Data -->
                             <div class="pull-right">
                               <strong class="primary-font"
                                       ng-if="comment.admin && user_isAdmin">
@@ -18,6 +22,14 @@
                                 {{comment.newtime | date: "MMM dd, yyyy"}}
                                 <b>{{comment.newtime | date: "h:mm a"}}</b>
                               </small>
+
+                              <!-- Remove comment -->
+                              <!-- TODO: Don't let the users do this -->
+                              <button class="btn btn-danger btn-xs" 
+                                      title="Delete this comment"
+                                      ng-click="removeComment(loan._id, loan.comments, comment)">
+                                  <em class="fa fa-trash"></em>
+                              </button>
                             </div>
                         </div>
                     </li>
@@ -25,17 +37,24 @@
             </div>
             <div class="panel-footer">
               <!-- bug here: when a button is clicked, it submits the comment -->
-              <form class="input-group" ng-submit="addComment(loan._id)">
-                <input type="submit" style="display: none">
-
-                <input type="text" class="form-control"
+              <div class="input-group">
+                
+                <input type="text" class="form-control col-lg"
                        placeholder="Type your message here..."
                        id="{{loan._id}}-new-comment"/>
-                
+                <input type="hidden">
+
                 <div class="input-group-btn">
                   <!-- Screw mobile ~ -->
                   <!-- Attempt to do boostrap layouts here thou~ -->
 
+                  <button class="btn btn-md btn-primary"
+                    ng-click="addComment(loan._id)">
+                    <!-- Other words: -->
+                        <!-- Attach, plain comment? -->
+                    Publish Comment
+                  </button>
+                  
                   <button class="btn btn-md"
                     ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')"
                     ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
@@ -43,13 +62,15 @@
                     Visible To Customer
                   </button>
 
+                  <!-- Somewhere else? -->
+                  <!-- Have a read/have updates from client -->
                   <button class="btn btn-warning btn-md"
                     ng-click="emailClient(loan._id, loan.user_email, loan.name)">
                     Email
                   </button>
 
                 </div>
-              </form>
+              </div>
             </div>
         </div>
     </div>

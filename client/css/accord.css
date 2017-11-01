@@ -204,8 +204,8 @@ h5.warranty-instruction {
 }
 
 .accordion-content {
+    overflow-y: auto;
     overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 .accordionItem.is-collapsed {

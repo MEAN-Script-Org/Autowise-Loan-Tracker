@@ -820,10 +820,10 @@ a.label:focus {
 }
 
 .dropdown-settings {
-    border: 1px solid #fff;
-    width: 220px;
+    width: 125px;
+    min-width: 125px;
     font-size: 0.9em;
-    padding: 0;
+    border: 1px solid #fff;
 }
 
 .dropdown-settings li {
@@ -1488,7 +1488,7 @@ a.todo-list-item:focus {
 }
 
 .chat .panel-body {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 300px;
 }
 
@@ -1554,21 +1554,31 @@ p.back-link {
 }
 
 img#loader{
--webkit-filter: blur(0px) brightness(1.1) contrast(1.5) grayscale(0.21) hue-rotate(112deg) invert(0.18) opacity(100%) saturate(4.7) sepia(0.44);
     position: relative;
+    -webkit-filter: 
+                    blur(0px)
+                    brightness(1.1)
+                    contrast(1.5)
+                    grayscale(0.21)
+                    hue-rotate(112deg)
+                    invert(0.18)
+                    opacity(100%)
+                    saturate(4.7)
+                    sepia(0.44);
 }
 
 #loading {
-    background: #f1f4f7;
     display: flex;
     font-size: 24px;
-    
-    justify-content: center;
+    background: #f1f4f7;
     align-items: center;
+    justify-content: center;
 }
+
 .load-txt {
     position: absolute;
 }
+
 .load-txt:after {
   width: 0px;
   /* ascii code for the ellipsis character */

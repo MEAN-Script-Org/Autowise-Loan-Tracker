@@ -1,40 +1,71 @@
 <div class="row progress-row">
-    <div class="col-xs-9" style="">
+    <div class="col-xs-12">
         <div class = "progress">
             <div class="progress-bar active"
-                 ng-class="{true: 'progress-bar-striped', false: ''}[!(angular.lowercase(loan.status) == approved || angular.lowercase(loan.status) == denied)]"
+                 ng-class="
+                 {true: 'progress-bar-striped', false: ''}
+                 [!(angular.lowercase(loan.status) == approved || angular.lowercase(loan.status) == denied)]"
+
                  style="background-color:{{statusColor(loan.status)}}; width:{{statusPercentage(loan.status)}}%"
-                role="progressbar" aria-valuenow="{{statusPercentage(loan.status)}}" aria-valuemin="0" aria-valuemax="100">
+
+                role="progressbar" 
+                aria-valuemin="0" aria-valuemax="100"
+                aria-valuenow="{{statusPercentage(loan.status)}}" 
+                >
+                <!-- Marcial: -->
+                <!-- make the style logic into CSS classes since they're always paired with each other -->
+                <!-- posibly: class="{{loan-status}}-progress" -->
+                <!-- Also, there needs to be a cleaner way to do the ng-class logic above... -->
+
                 {{ loan.status }}
             </div>
         </div>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-1">
         <ul class="pull-right panel-settings">
         <li class="dropdown">
-            <a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#" style="display: flex; justify-content: center; align-items: center;">
+            <a class="pull-right dropdown-toggle" data-toggle="dropdown" 
+                style="display: flex; justify-content: center; align-items: center;">
                 <em class="fa fa-cogs"></em>
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu dropdown-menu-right dropdown-settings">
+                <li>
+                    <a class="danger" ng-click="removeLoan(loan._id, false)">
+                        <em class="fa fa-trash"></em> Delete
+                    </a>
+                </li>
+                <hr>
+                <li>
+                    <a ng-click="archiveLoan(loan._id, false)">
+                        <em class="fa fa-archive"></em> Archive
+                    </a>
+                </li>
+
+                <!-- 
                 <li>
                     <ul class="dropdown-settings">
-                        <li><a class="danger" ng-click="removeLoan(loan._id, true)">
-                            <em class="fa fa-trash"></em> Delete
-                        </a></li>
+                        <li>
+                            <a class="danger" ng-click="removeLoan(loan._id, false)">
+                                <em class="fa fa-trash"></em> Delete
+                            </a>
+                        </li>
                         <hr>
-                        <li><a ng-click="archiveLoan(loan._id, true)">
-                            <em class="fa fa-archive"></em> Archive
-                        </a></li>
-                        <!-- 
+                        <li>
+                            <a ng-click="archiveLoan(loan._id, false)">
+                                <em class="fa fa-archive"></em> Archive
+                            </a>
+                        </li>
                         <hr>
                         <li><a href="#">
                             <em class="fa fa-cog"></em> Settings 3
                         </a></li>
                          -->
+                <!-- 
                     </ul>
                 </li>
+                 -->
             </ul>
-          </li>
+        </li>
     </ul>
     </div>
 </div>

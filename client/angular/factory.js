@@ -29,11 +29,11 @@ angular.module('SWEApp').factory('Factory', ['$http',
       getLoan: function(id) {
         return $http.get('/api/loan/' + id);
       },
-      modifyLoan: function(id, updatedLoan) {
-        return $http.put('/api/loan/' + id, updatedLoan);
-      },
       deleteLoan: function(id) {
         return $http.delete('/api/loan/' + id);
+      },
+      modifyLoan: function(id, updatedLoan) {
+        return $http.put('/api/loan/' + id, updatedLoan);
       },
     };
     return methods;

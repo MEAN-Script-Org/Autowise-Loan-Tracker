@@ -22,6 +22,7 @@ angular.module('SWEApp').controller('AccordFuncController',
 
       //find queried value in specified fields, this tests to see if we can match what is in the search box ($scope.query) and to a loan's selected attribute
       let queryVal = angular.lowercase($scope.query);
+      // IE doesn't like this... not like it matters thou ~ unless their customers are OLD DUST
       var nameMatch = loan.name.toLowerCase().includes(queryVal);
 
       //the other fields can work once the loan object has the COMPLETE model information from the buyer order: email, lender info, form_date

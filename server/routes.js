@@ -15,6 +15,7 @@ router.route('/info').get(
     res.json({
       _id: 123456,
       email: "marcial.abrahantes@gmail.com",
+      username: "Marcial1234",
       isAdmin: true,
     });
 });
