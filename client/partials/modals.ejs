@@ -1,58 +1,5 @@
 
-
-<!-- The below are not needed -->
-<!--
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="deleteModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Delete Loans</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                Delete The Selected Loans:<br>
-                                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button><br>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="archiveModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Archive Loans</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                Archive The Selected Loans:<br>
-                                <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass('ARCHIVED')">Archive Selected Loans</button><br> </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
+<!-- MODAL DIALOG: LOAN STATUS CHANGE -->
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
@@ -89,6 +36,7 @@
     </div>
 </div>
 
+<!-- MODAL DIALOG: LOAN CREATION -->
 <div class="row">
     <div class="col-xs-12">
         <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
@@ -125,7 +73,7 @@
     </div>
 </div>
 
-
+<!-- MODAL DIALOG: LOAN CREATION FROM BUYERS ORDER -->
 <div class="row">
     <div class="col-xs-12">
         <div class="modal fade" data-keyboard="false" data-backdrop="static" id="wew" tabindex="-1">
@@ -369,6 +317,31 @@
                     <div class="modal-footer">
                         <button class="btn btn-primary">Update</button>
                         <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DIALOG: LOAN STATUS CHANGE -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantiesModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align: center;">
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                            
+                            <p>Hey, here's some placeholder text</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" ng-click="emailClient(loan._id, loan.user_email, loan.name)">Email</button>
+                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
