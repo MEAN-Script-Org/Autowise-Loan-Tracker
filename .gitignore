@@ -3,13 +3,13 @@ node_modules
 npm-debug.log
 
 # Local development
-.env
-*.dev
+.env*
+.sublime*
+swe-2017/*
 .DS_Store
 
 # Old config file
 server.db_config.js
 
-# Docker
-Dockerfile
-docker-compose.yml
+# THE gulp file
+gulpfile.js

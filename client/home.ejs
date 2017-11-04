@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include partials/header.html %>
+  <% include partials/header.ejs %>
 </head>
 <body>
-<% include partials/nav.html %>
-<% include partials/sidebar.html %>
 
-<!-- styling should not be hardcoded in html... -->
-<!-- as in don't have "style=..." at all on these pages -->
+<!-- col-sm-offset-1 col-lg-offset-1 -->
+<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
+     ng-app="SWEApp" ng-controller="CRUDController" ng-init="init()">
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" 
-     ng-app="SWEApp" ng-controller="SWEAppController" ng-init="init()">
-
-    <!-- TODO: Modularize/fix/implement these -->
+    <% include partials/nav.ejs %>
+    <!-- This looks bad as of now -->
+    <!--
+     include partials/sidebar.ejs
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="#">
@@ -22,217 +21,124 @@
             <li class="active">Active Loans</li>
         </ol>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Active Loans</h1>
+     -->
+
+    <!-- TODO: Delete these and modularize into another partial -->
+    <!-- SCOPE FOR SEARCH -->
+    <div ng-controller="CheckController">
+      <%# include partials/admin_filters.ejs #%>
+
+      <!-- End of filters -->
+      <!-- Start of accordion content -->
+
+      <div class="row" ng-controller="AccordFuncController">
+        <div class="col-md-12">
             <div id="sb-search" class="sb-search">
-                <form>
-                    <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
-                    <input class="sb-search-submit" type="submit" value="">
-                    <span class="sb-icon-search"></span>
-                </form>
+              <!-- Marcial old: -->
+              <!-- in order for this to work properly you'll need a diff input field per search criteria -->
+              <!-- each linked to the desired property as ng-model=query.property_goes_here -->
+              <!-- this is a mess, so a general search works best imo -->
+              <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
+              <!-- Marcial after merging: this is a mess... to change ASAP -->
+              <!-- Marcial now: I'll take care of this... -->
+              <form>
+                <!-- input binded to $scope.query -->
+                  <input class="sb-search-input" placeholder="Search criteria"
+                         type="text" value="" name="search" id="search" ng-model="query">
+                  <input class="sb-search-submit" type="submit">
+                  <span class="sb-icon-search"></span>
+              </form>
+              <div class="disabler"></div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-          <h1 class="heading-primary">Filter by...</h1>
-      </div>
-        <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
-    </div>
-    <div class="panel panel-container">
-        <div class="row">
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 1
-                        </label>
+            <div class="container-accordion">
+              <!--
+              <input class="sb-search-input sb-search-open" placeholder="Search criteria" ng-model="wanted">
+               -->
+              <!-- This can be further modularized now... -->
+
+              <div ng-show="loading" id="loading">
+                  <img id="loader" ng-show="loading" src="resources/load.gif">
+                  <div class="load-txt">Loading</div>
+              </div>
+              <div ng-hide="loading" class="accordion">
+                <dl>
+                  <!--
+                  <input ng-model="wanted"
+                  placeholder="What you want"
+                  >
+                   -->
+                 <!-- we by custom search function that uses binded query to filter by specific attributes-->
+                  <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search:wanted">
+                    <div ng-if="!loan.new">
+                      <dt ng-click="clickAccordion(loan._id)">
+                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                           aria-controls="accordion{{loan._id}}" aria-expanded="false">
+
+                          <label class="container-mass container">
+                              <input type="checkbox" id="{{loan._id}}-checkbox">
+                              <span class="checkmark"></span>
+                          </label>
+
+                          {{loan.name | limitTo: 18}}
+                          <!-- style this somewhat... -->
+                          – {{loan.type | uppercase}}
+                          – {{loan.status | uppercase}}
+                          <!-- - total $ -->
+                          – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                        </a>
+                      </dt>
+                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
+                        <% include partials/progress-row.ejs %>
+                        <% include partials/accordion-comments.ejs %>
+                      </dd>
                     </div>
-                </div>
+
+                    <!-- Marcial: -->
+                    <!-- the accordion logic needs to change to pure CSS IMO -->
+                    <div ng-if="loan.new">
+                      {{reloadAccordion()}}
+                      <dt ng-click="clickAccordion(loan._id)">
+                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                           aria-controls="accordion{{loan._id}}" aria-expanded="true">
+
+                          <label class="container-mass container">
+                              <input type="checkbox" id="{{loan._id}}-checkbox">
+                              <span class="checkmark"></span>
+                          </label>
+
+                          {{loan.name | limitTo: 18}}
+                          – {{loan.type}}
+                          – {{loan.status | uppercase}}
+                          <!-- - total $ -->
+                          – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                        </a>
+                      </dt>
+                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
+                        <% include partials/progress-row.ejs %>
+                        <% include partials/accordion-comments.ejs %>
+                      </dd>
+                    </div>
+                  </div>
+                </dl>
+              </div>
             </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 2
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 3
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel panel-teal panel-widget border-right">
-                    <div class="row no-padding">
-                        <em class="fa fa-xl fa-shopping-cart color-blue"></em>
-                        <label class="container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="text-muted">Filter 4
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- End of filters -->
-    <!-- Start of accodion content -->
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="container-accordion">
-          <div class="accordion">
-            <dl>
-              <dt>
-                <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
-                  SHurtado – Loan #4344431
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
-                <% include partials/progress-row.ejs %>
-
-                <div class="row">
-                    <div class="col-xs-7 no-padding">
-                        <div class="panel panel-default chat">
-                            <div class="panel-heading">
-                                Admin Comments
-                            </div>
-                            <div class="panel-body">
-                                    <ul>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #1</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the first admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #2</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the 2nd admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                                            <img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                                            <!-- <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div> -->
-                                            </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header"><strong class="primary-font">Admin Comment #3</strong> <small class="text-muted">32 mins ago</small></div>
-                                                <p>This is where the 3rd admin comment would go.</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-md" placeholder="Type your message here..." /><span class="input-group-btn">
-                                        <button class="btn btn-primary btn-md" id="btn-chat">Send</button>
-                                        <button type="button" class="btn btn-primary btn-md">Edit the user loan</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-5" style="padding: 0;">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Current Loan Information
-                            </div>
-                            <div class="panel-body timeline-container">
-                                    <ul class="timeline">
-                                        <li>
-                                            <div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <h4 class="timeline-title">Loan Info</h4>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Update on user's registration.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge"><em class="glyphicon glyphicon-warning-sign"></em></div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                    <h4 class="timeline-title">Urgent</h4>
-                                                </div>
-                                                <div class="timeline-body">
-                                                    <p>Immediate action needed.</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                            </div>
-                         </div>
-                    </div>
-                </div>
-              </dd>
-              <dt>
-                <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
-                  HarrisonFord – Loan #4466464
-
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
-                <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
-              </dd>
-              <dt>
-                <a href="#accordion3" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
-                  TerraCruz – Loan #1259345
-
-                </a>
-              </dt>
-              <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu interdum diam. Donec interdum porttitor risus non bibendum. Maecenas sollicitudin eros in quam imperdiet placerat. Cras justo purus, rhoncus nec lobortis ut, iaculis vel ipsum. Donec dignissim arcu nec elit faucibus condimentum. Donec facilisis consectetur enim sit amet varius. Pellentesque justo dui, sodales quis luctus a, iaculis eget mauris. </p>
-                <p>Aliquam dapibus, ante quis fringilla feugiat, mauris risus condimentum massa, at elementum libero quam ac ligula. Pellentesque at rhoncus dolor. Duis porttitor nibh ut lobortis aliquam. Nullam eu dolor venenatis mauris placerat tristique eget id dolor. Quisque blandit adipiscing erat vitae dapibus. Nulla aliquam magna nec elementum tincidunt.</p>
-              </dd>
-            </dl>
-          </div>
         </div>
       </div>
     </div>
+
+    <!-- Hover Crud buttons -->
+    <% include partials/google_buttons.ejs %>
+
+    <!-- Loan CRUD Modals -->
+    <% include partials/modals.ejs %>
 </div>
 
-<% include partials/footer.html %>
-
-<!--
-<script src="js/custom.js"></script>
--->
 <script src="js/classie.js"></script>
 <script src="js/uisearch.js"></script>
 <script>
-new UISearch( document.getElementById( 'sb-search' ) );
+    new UISearch( document.getElementById( 'sb-search' ) );
 </script>
-<script src="js/accord.js"></script>
+<% include partials/footer.ejs %>
 
 </body>
 </html>

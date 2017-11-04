@@ -2,9 +2,10 @@
 angular.module('SWEApp', []);
 
 // register the application and inject all the necessary dependencies 
-var app = angular.module('SWEAppApp', ['ui.router', 'SWEApp']);
+// trial for including ngAnimate as dependency, still fail to get it working, very minor addition to code base
+var app = angular.module('CRUDController', ['ui.router', 'ngAnimate', 'SWEApp']);
 
-// // application configuration 
+// application configuration 
 // app.config(['$urlRouterProvider',
 //   function($urlRouterProvider) {
 //     // go to the '/listings' URL if an invalid route is provided 
@@ -12,7 +13,7 @@ var app = angular.module('SWEAppApp', ['ui.router', 'SWEApp']);
 //     $urlRouterProvider.otherwise('');
 //   }
 // ]);
-
+//
 // // set the initial state of the application 
 // app.run(['$state', 
 //   function($state) {

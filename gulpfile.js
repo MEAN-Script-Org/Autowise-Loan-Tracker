@@ -1,46 +1,66 @@
 'use strict';
 
-var gulp = require('gulp');
 var bs = require('browser-sync');
+var gulp = require('gulp');
 var exec = require('child_process').exec;
+var clear = require('clear');
 var nodemon = require('gulp-nodemon');
+var config_loader = require('dotenv');
 
-gulp.task('default', ['get-config', 'nodemon', 'browser-sync']);
+var locals = config_loader.load();
 
-// gulp.task('install', ['npm', 'default']);
-
-// gulp.task('npm', function(cb) {
-//     exec("npm install -g gulp");
-// });
+gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
 
 gulp.task('get-config', function(cb) {
-    exec("heroku config -s > .env");
+    if (exec("heroku config -s > .env"))
+        cb();
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        proxy: "http://localhost:5000",
         port: "5001",
+        proxy: "http://localhost:5000",
         files: ["client/**/*.*"],
-        browser: "chrome"
+        reloadOnRestart: true,
+        browser: "chrome",
     });
 });
 
+function load_frontend() {
+    console.log('-------- Starting browser-sync (frontend loader) --------');
+    bs.reload();
+}
+
 gulp.task('nodemon', function (cb) {
     var started = false;
-    return nodemon({env: { 'NODE_ENV': 'development' }})
+    var reloaded = false;
+    return nodemon({
+        env: locals,
+        watch: [
+            "server.js",
+            "server/",
+        ],
+
+    })
     .on('start', function () {
         // to avoid nodemon being started multiple times
-        // thanks @matthisk
         if (!started) {
             cb();
             started = true;
         }
+
+        if (!load_frontend()) {
+            load_frontend();
+        }
     })
     .on('restart', function() {
-        setTimeout(function() {
-            console.log('-------- restart BS --------');
-            bs.reload();
-        }, 1000);
+        // clear();
+        console.log('-------- Restarting Server --------');
+    })
+    .on('crash', function() {
+        // clear();
+        console.log('-------- APP CRASHED! Make sure you have valid Heroku credentials --------');
+        console.log("-------- Type 'rs' [enter] on THIS command line to RESTART server --------");
+        load_frontend();
     });
 });

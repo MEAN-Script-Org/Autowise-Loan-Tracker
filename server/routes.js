@@ -5,24 +5,25 @@ var router = express.Router();
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
-router.route('/send').post(emailHandler);
+router.route('/email')
+      .post(emailHandler);
 
-router.route('/people').get(
+router.route('/info').get(
+  // fake funtion
+  // future equivalent of 'users.read'
   function(req, res) {
-    res.json({});
+    res.json({
+      _id: 123456,
+      email: "marcial.abrahantes@gmail.com",
+      username: "Marcial1234",
+      isAdmin: true,
+    });
 });
 
-router.route('/time').get(
-  function(req, res) {
-    // Return current time
-    console.log("sending time!!!" + Date());
-    var server_time = new Date() - 0;
-    res.json({time: server_time});
-});
-
-// > Multiple loans
+// # LOANS
+// > 'Multiple' loans
 router.route('/loans')
-      .get(loans.list)
+      .get(loans.getAll)
       .post(loans.create);
 
 // > Individual loan
@@ -33,16 +34,17 @@ router.route('/loan/:loanID')
 
 router.param('loanID', loans.loanByID) ;
 
-// > Multiple users
-router.route('/users')
-      .get(users.list)
-      .post(users.create) ;
-
+// # USERS
 // > Individual user
 router.route('/user/:userID')
       .get(users.read)
       .put(users.update)
       .delete(users.delete) ;
+
+// > 'Multiple' users
+router.route('/users')
+      .get(users.getAll)
+      .post(users.create) ;
 
 router.param('userID', users.userByID) ;
 

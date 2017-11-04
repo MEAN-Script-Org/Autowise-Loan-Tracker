@@ -9,6 +9,4 @@ module.exports.start = function() {
   app.listen(port, function() {
     console.log('Node app is running on port', port);
   });
-  
-  //test_loan_database(app) ;
 };

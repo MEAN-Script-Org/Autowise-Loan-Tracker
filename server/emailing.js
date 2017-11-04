@@ -9,13 +9,25 @@ var money_formatter = new Intl.NumberFormat('en-US', {
 });
 
 var format_email_html = function (form) {
-  
-  var message = [];
+  // <a href="swe-2017.herokuapp.com/loan/" target="_blank"> </a>
+  var app_link = ["<a href='", process.env.BASE_URL, 
+                  "loan/", form.id, "' target='_blank'>here</a>."].join("");
 
-  var attributes = Object.keys(form);
-  attributes.forEach(function(atr) {
-    message.push(["<b>", atr.toUpperCase(), "</b>: ", form[atr]].join(""));
-  });
+  console.log(app_link);
+
+  var message = [
+    "",
+    "Hi " + form.name + "!",
+    "",
+    form.message,
+    "",
+    "You can check your application by clicking " + app_link,
+    "",
+    "",
+    "Sincerely,",
+    "",
+    "<b>Autowise Buying Service, Inc</b>"
+  ];
 
   return message.join("<br>");
 }
@@ -23,36 +35,30 @@ var format_email_html = function (form) {
 
 module.exports = function (req, res) {
 
+  // console.log(req.body);
   var message = format_email_html(req.body);
-  // TB Changed
-  var subject = "Investment from " + req.body.name; 
+  var subject = "Autowise: Your loan application has been updated";
 
   // Basic Email Settings
+  // console.log(req.body);
   var mailOptions = {
-    // to: [process.env.YAHOO_USERNAME].concat(req.body.to),
-    // from: process.env.YAHOO_USERNAME,
-    to: [process.env.GMAIL_USERNAME].concat(req.body.to),
-    from: process.env.GMAIL_USERNAME,
+    from: process.env.YAHOO_USERNAME,
+    to: req.body.to,
+    generateTextFromHTML: true,
     subject: subject,
-    html: message
+    html: message,
   };
 
   var transporter = nodemailer.createTransport({
-    // yahoo: smtp.mail.yahoo.com
-    // auth: {
-    //   user: process.env.YAHOO_USERNAME,
-    //   pass: atob(process.env.YAHOO_PASSWORD)
-    // }
-
-    // service: 'Gmail',
-    host: 'smtp.gmail.com',
-    clientId: process.env.CLIENT_ID,
-    secure: true,
-    port: 465,
+    service: "Yahoo",
     auth: {
-      user: process.env.GMAIL_USERNAME,
-      pass: atob(process.env.GMAIL_PASSWORD)
+      // Yahoo instructions =>
+      //   Account Security => Two-step => New App => Other App
+      //   Maybe also: Allow less-secure apps
+      user: process.env.YAHOO_USERNAME,
+      pass: process.env.YAHOO_PASSWORD,
     }
+    // Gmail Instructions: Get a Gmail API key, adjust valid urls
   });
   
   // Token generation/retrival
@@ -68,7 +74,7 @@ module.exports = function (req, res) {
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
       console.log(error);
-      res.json({result: 'error'});
+      res.json({error: error});
     } else {
       console.log('Message sent: ' + info.response);
       res.json({result: info.response});

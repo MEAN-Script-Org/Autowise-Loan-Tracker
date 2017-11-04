@@ -1,0 +1,49 @@
+<!--  Tool Tips  -->
+<div class="label-container fadeTip AddTip" ng-show="AddTip">
+    <div class="label-text">Add New Loan</div>
+    <!-- <i class="fa fa-play label-arrow"></i> -->
+</div>
+<div class="label-container fadeTip DelTip" ng-show="DelTip">
+    <div class="label-text">Delete Selected Loans</div>
+    <!-- <i class="fa fa-play label-arrow"></i> -->
+</div>
+<div class="label-container fadeTip ArcTip" ng-show="ArcTip">
+    <div class="label-text">Archive Selected Loans</div>
+    <!-- <i class="fa fa-play label-arrow"></i> -->
+</div>
+<div class="label-container fadeTip StatTip" ng-show="StatTip">
+    <div class="label-text">Change Selected Loans' Status</div>
+    <!-- <i class="fa fa-play label-arrow"></i> -->
+</div>
+
+<!-- Buttons -->
+<a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal" 
+   ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
+    <em class="fa fa-plus float-child"></em>
+</a>
+<ul id="float-list" ng-show="massLoans.length > 0">
+    <!-- data-target="#deleteModal" data-toggle="modal"  -->
+    <li 
+        ng-click="removeEnMass()"
+        ng-mouseenter="DelTip=true" ng-mouseleave="DelTip=false">
+      <a id="float-trash">
+        <em class="fa fa-trash float-child"></em>
+      </a>
+    </li>
+
+    <!-- data-target="#archiveModal" data-toggle="modal"  -->
+    <li 
+        ng-click="updateStatusEnMass('Archived')"
+        ng-mouseenter="ArcTip=true" ng-mouseleave="ArcTip=false">
+      <a id="float-archive">
+        <em class="fa fa-archive float-child"></em>
+      </a>
+    </li>
+
+    <li data-target="#changeModal" data-toggle="modal" 
+        ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
+      <a id="float-edit">
+        <em class="fa fa-edit float-child"></em>
+      </a>
+    </li>
+</ul>

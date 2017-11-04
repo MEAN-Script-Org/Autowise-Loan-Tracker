@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/header.ejs %>
+</head>
+<body>
+
+  <% include partials/nav.ejs %>
+  <!-- 
+  add title before query "available plans"
+  Mileage -> Car Mileage 
+  Add description of "pleaes enter car information" at the top 
+  -->
+  
+  <!-- MAIN PAGE DIV -->
+  <div class="col-sm-12 col-lg-12 main"
+    ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
+		<div class="header row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Active Loans</li>
+				<li class="active">Warranties</li>
+			</ol>
+		</div>
+    
+    <!-- ROW - WARRANTIES QUERY FORM -->
+		<div class="row">
+			<div class="col-md-12">
+        <h1 class="page-header">Warranties</h1>
+
+        <h5 class="warranty-instruction">
+          Enter car information. Qualified warranties will be displayed below
+        </h5>
+
+        <!-- FORM FOR WARRANTY PLAN QUERY -->
+        <form ng-submit="queryWarrantyPlan()">
+          <fieldset>
+            <!-- DROP-DOWN FOR CAR AGE SELECTION -->
+            <div class="form-group">
+              <!-- <h3 class="page-header-warranties">Insurance Type - Car Model Year</h3> -->
+              <!-- <h3>Insurance Type - Car Model Year</h3> -->
+              <h3>Your desired car's year</h3>
+              <select ng-model="query.age" ng-change="queryWarrantyPlan()">
+                <!-- <option selected="selected"> Make your selection </option> -->
+                <!-- look into ng-options etc -->
+                <option value="-1">Any year</option>
+                  <!-- BASIC -  -->
+                <option value="2007">2007 or newer</option>
+                  <!-- DELUXE -  -->
+                <option value="2011">2011 or newer</option>
+                  <!-- FACTORY COVERAGE -  -->
+              </select>
+            </div>
+            
+            <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
+            <div class="form-group">
+            <h3 class="page-header-warranties">Mileage</h3>
+              <input type="text" name="Mileage" ng-model="query.mileage" ng-change="queryWarrantyPlan()" > miles<br>
+            </div>
+            
+            <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
+            <div class="form-group">
+            <h3 class="page-header-warranties">Car make: Domestic or Asian</h3>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
+              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Asian" ng-change="queryWarrantyPlan()"> Asian
+            </div>
+          </fieldset>
+        </form>
+      </div>
+		</div>
+    
+    <!-- ROW - WARRANTIES QUERY RESULTS -->
+    <div class="row">
+    <!-- <div class="row" ng-show="query.age && query.make"> -->
+      <div class="panel-heading">
+        <center><h2 class="page-header">Available Warranty Plans:</h2><center>
+      </div>
+      <div class="col-md-12">
+        <div class="container-accordion">
+          <div class="accordion">
+            <dl>
+              <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
+                <dt>
+                  <a class="accordionFakeTitle warrantiesQueryText">
+                      <!-- style="display: flex;"> -->
+                      <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
+                      <!-- <div class="col-lg-6">&nbsp;</div> -->
+
+                      <div class="pull-right" style="width: 48%; text-align: right;">
+                        <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                        <h4>Mileage: <strong> {{warranty.term.miles * 1000 | number }} miles </strong> </h4>
+                      </div>
+                      <div class="pull-left" style="width: 48%; text-align: left;">
+                        <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                      </div>
+                      <!-- 
+                      <div 
+                        class="col-md-6" 
+                        style="text-align: right; width: 50%">
+                        <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                        <h4>Mileage: <strong> {{warranty.term.miles * 10000 | number }} miles </strong> </h4>
+                      </div>
+                       -->
+                      
+                      <!-- Divive these groups -->
+                      <!-- 
+                      <div 
+                        class="col-md-6" 
+                        style="text-align: left; width: 50%">
+                        <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                      </div>
+                       -->
+                  </a>
+                </dt>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+  <!-- JAVASCRIPT FILES -->
+  <% include partials/footer.ejs %> 
+  <script src="js/classie.js"></script>
+  <script src="js/uisearch.js"></script>
+</body>
+</html>

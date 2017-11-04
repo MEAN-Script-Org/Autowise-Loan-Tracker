@@ -1412,6 +1412,11 @@ a.bg-danger:focus {
   margin: 40px 0 20px;
   border-bottom: 1px solid #eee;
 }
+.page-header-warranties {
+  padding-top: 10px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #D9D4D4;
+}
 ul,
 ol {
   margin-top: 0;

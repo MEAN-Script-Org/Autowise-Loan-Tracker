@@ -2,76 +2,89 @@
 
 // Dependencies
 var mongoose = require('mongoose') ;
+mongoose.Promise = global.Promise;
 var User = require('./users.model.js') ;
 
-// Saves a user to the database
-function save(user, res) {
-  user.save(function(err) {
-    if(err) {
-      console.log(err) ;
-      res.status(400).send(err) ;
-    } else res.status(200) ;
-  });
-}
-
 module.exports = {
-  // User creation
+
   create: function(req, res) {
-    save(new User(req.body), res) ;
+    var newUser = new User(req.body);
+
+    newUser.save(function(err) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      } else res.json(newUser) ;
+    });
   },
 
-  // Loan read
   read: function(req, res) {
     res.json(req.user) ;
   },
 
-  // User update
-  update: function(req, res) {
-    var user = req.user ;
-    
-    // Update individual fields
-    save(user, res) ;
-  },
+  // TODO: Make single view THAT FUCKING TAKES IN PARAMETERS!!
+  // for /crud/:id => render request, then do a factory call for that ID, done!
+  // I want to go to a specific user...
+  // Scrap this thing. needs to be on in the 'express' area
+  // display: function(req, res) {
+  //     res.redirect('/crud/' + req.user._id);
+  // },
 
-  // User deletion
-  delete: function(req, res) {
-    var user = req.user ;
+  update: function(req, res) {
+    var oldUser = req.user;
+    // console.log(req.body);
+
+    // Replace old user's properties with the newly sent ones
+    var userToBeUpdated = Object.assign(oldUser, req.body, function(former, replacement){
+      if (!replacement) return former;
+      else return replacement;
+    });
     
-    User.find(user, function(err, users) {
-      if (err) {
-        console.log(err) ;
-        res.status(404).send(err) ;
-      } else {
-        // TODO: Correctly implement this
-        // since this is wrong, can't use hardcoded index
-        users[0].remove(function(err) {
-          if (err) {
-            console.log(err) ;
-            res.status(404).send(err) ;
-          } else res.json(users[0]) ;
-        });
-      }
+    // {new: true} => Returns the real/actual updated version
+    //             => 'updatedUser'
+    User.findByIdAndUpdate(oldUser._id, userToBeUpdated, {new: true}, 
+      function(err, updatedUser) {
+        if (err) res.status(404).send(err);
+        else res.json(updatedUser);
     });
   },
 
-  // Get all users
-  list: function(req, res) {
+  delete: function(req, res) {
+    User.findByIdAndRemove(req.user._id, function(err) {
+      if (err) res.status(404).send(err);
+      else res.json(req.user);
+    });
+  },
+
+  // Get all usernames
+  getAll: function(req, res) {
+    // add logic here for only usernames
     User.find({}, function(err, users) {
       if (err) {
         console.log(err) ;
         res.status(404).send(err) ;
-      } else res.json(users) ;
-    }) ;
-  },
+      } else {
+        var user_names = [];
+        
+        users.forEach(function(item, index) {
+          user_names.push(item.username);
+        })
 
-  // Get a user by ID
-  userByID: function(req, res, next, id) {
-    User.findById(id).exec(function(err, user) {
-      if(err) { res.status(400).send(err) ; }
-      else {
-        req.user = user ;
-        next() ;
+        res.json(user_names) ;
       }
     });
   },
+
+  userByID: function(req, res, next, id) {
+    User.findById(id).exec(function(err, user) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      }
+      else {
+        req.user = user;
+        next() ;
+      }
+    });
+  }
 };
