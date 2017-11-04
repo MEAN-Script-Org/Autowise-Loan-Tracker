@@ -1,7 +1,7 @@
 // WARRANTIES MODULE ~
 // Provides raw warranty plan data and functions for querying warranty plans based on user-inputted information
-angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location',
-  function($rootScope, $scope, $location) {
+angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location', 'Factory',
+  function($rootScope, $scope, $location, Factory) {
   
   //--------------------------------------------------------------------------------------------------------------------
   // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
@@ -160,4 +160,49 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     return ($scope.query.age === warranty.age.toString()) && ($scope.query.mileage > warranty.mileage.min * 1000 &&
            ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;          
   }
+  
+  $scope.testWarranty = warranties_table[0] ;
+  $scope.testUser = {userID: '0001123', username: 'Slugcat'} ;
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Email Autowise that the current user is interested in the currently selected warranty plan
+  //--------------------------------------------------------------------------------------------------------------------
+  $scope.emailWarrantyInterest = function(warranty, user) {
+      var errorMsg = "There was an error sending the email. Please check the logs";
+      
+      console.log(user) ;
+      console.log(warranty) ;
+      
+      // Generic message will do for now...
+      var bodyMessage = [
+        "Customer " + user.username + " (# " + user.userID + ") is interested in the following warranty plan:",
+        "<b>Type</b>: " + warranty.type,
+        "<b>Plan length</b>: " + warranty.term.months,
+        "<b>Plan mileage</b>: " + warranty.term.miles
+      ].join("<br>");
+      
+      // Email object
+      var email = {
+        type: 'warranty',
+        to: "dunevitz32@gmail.com",
+        userID: user.userID,
+        message: bodyMessage,
+      };
+      
+      // Send email to Autowise
+      Factory.sendEmail(email).then(
+        function(response) {
+          if (response.data.error) {
+            console.log(response.data.error) ;
+            alert(errorMsg) ;
+          } else {
+            alert("Email was sent to Autowise!") ;
+          }
+        },
+        
+        function(error) {
+          console.log(error) ;
+          alert(errorMsg) ;
+      });
+    };
 }]);
