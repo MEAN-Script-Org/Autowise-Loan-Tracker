@@ -84,14 +84,14 @@
             <dl>
               <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
                 <dt>
-                  <a class="accordionFakeTitle warrantiesQueryText">
-                    <div class="pull-right" style="width: 48%; text-align: right;">
-                      <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
-                      <h4>Mileage: <strong> {{warranty.term.miles * 1000 | number }} miles </strong> </h4>
-                    </div>
-                    <div class="pull-left" style="width: 48%; text-align: left;">
-                      <h2> <strong>{{warranty.price | currency}}</strong> </h2>
-                    </div>
+                  <a class="accordionFakeTitle warrantiesQueryText" data-target="#warrantiesModal" data-toggle="modal">
+                      <div class="pull-right" style="width: 48%; text-align: right;">
+                        <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                        <h4>Mileage: <strong> {{warranty.term.miles * 1000 | number }} miles </strong> </h4>
+                      </div>
+                      <div class="pull-left" style="width: 48%; text-align: left;">
+                        <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                      </div>
                   </a>
                 </dt>
               </div>
@@ -100,8 +100,14 @@
         </div>
       </div>
     </div>
+
+      <!-- Loan CRUD Modals -->
+    <% include partials/modals.ejs %>
+  
   </div>
-	
+
+
+
   <!-- JAVASCRIPT FILES -->
   <% include partials/footer.ejs %> 
   <script src="js/classie.js"></script>
