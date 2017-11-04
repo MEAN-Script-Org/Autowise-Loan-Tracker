@@ -83,7 +83,7 @@
             <dl>
               <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
                 <dt>
-                  <a class="accordionFakeTitle warrantiesQueryText">
+                  <a class="accordionFakeTitle warrantiesQueryText" data-target="#warrantiesModal" data-toggle="modal">
                       <!-- style="display: flex;"> -->
                       <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
                       <!-- <div class="col-lg-6">&nbsp;</div> -->
@@ -120,8 +120,18 @@
         </div>
       </div>
     </div>
+
+      <!-- Loan CRUD Modals -->
+    <% include partials/modals.ejs %>
+  
   </div>
-	
+
+  <a class="float-btn" id="menu-share" data-target="#warrantyModal" data-toggle="modal" 
+   ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
+    <em class="fa fa-plus float-child"></em>
+  </a>
+
+
   <!-- JAVASCRIPT FILES -->
   <% include partials/footer.ejs %> 
   <script src="js/classie.js"></script>
