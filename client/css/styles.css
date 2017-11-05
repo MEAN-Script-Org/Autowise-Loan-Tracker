@@ -1602,6 +1602,23 @@ img#loader{
   }
 }
 
+/* Modified Bootstrap Modal style */
+.modal-header .close {
+    margin-top: 15px;
+
+}
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modal-header, .modal-body {
+    padding-bottom: 0px;
+}
+
+.tab-content, .modal-body, .modal-header, .modal-footer {
+    padding-top: 0px;
+}
+
 /* Login style */
 .login-panel.panel.panel-default > * {
     text-align: center;

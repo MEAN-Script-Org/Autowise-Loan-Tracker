@@ -46,7 +46,7 @@
         - Taxes
         - Warranties ? => CHECK PICTURES. NEED MORE DETAILS
     - Types
-        - Auto Loan
+        - Auto Loan => default
         - Repair
         - Admin - need more details on this. Administrative fees?
     - Trades
