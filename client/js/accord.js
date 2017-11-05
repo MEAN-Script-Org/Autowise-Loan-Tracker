@@ -6,7 +6,6 @@ angular.module('SWEApp').controller('AccordFuncController',
   ['$scope', '$location', 'Factory',
   function($scope, $location, Factory) {
 
-    // MARK: Search
     // search function for specifying loan criteria
     $scope.search = function(loan) {
       

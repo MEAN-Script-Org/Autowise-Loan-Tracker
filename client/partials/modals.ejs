@@ -133,11 +133,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Buyers Order</h4>
+                        <h2 class="modal-title">Buyers Order</h2>
                     </div>
                     <div class="modal-body">
                         <form>
-                            Please Enter the fields for the Buyers Order<br>
+                            <!-- Please Enter the fields for the Buyers Order<br> -->
                             Form Date:
                             <input type="date" name="form-date">
                             <br>
@@ -185,11 +185,13 @@
                             <input type="text" name="contact-zip">
                             <br>
                             <h3>Contact Phone</h3><br>
+                            <!-- 
                             Home Phone:
                             <input type="number" name="contact-home-phone">
                             <br>
                             Work Phone:
                             <input type="number" name="contact-work-phone">
+                             -->
                             <br>
                             Cell Phone:
                             <input type="number" name="contact-cell-phone">
@@ -296,6 +298,7 @@
                             Unpaid Due:
                             <input type="number" name="unpaid-due">
                             <br>
+                            <!-- 
                             <h3>Insurance Information</h3><br>
                             Policy Number:
                             <input type="number" name="ins-policy-num">
@@ -315,6 +318,8 @@
                             Verified By:
                             <input type="text" name="verif-by">
                             <br>
+                             -->
+                             <!-- 
                             <h3>Trades Information</h3><br>
                             Car Year:
                             <input type="number" name="car-year">
@@ -337,6 +342,7 @@
                             Serial Number:
                             <input type="text" name="car-serial-no">
                             <br>
+                            
                             Account Number:
                             <input type="text" name="account-num">
                             <br>
@@ -364,10 +370,12 @@
                             Good Through:
                             <input type="date" name="good-thru">
                             <br>
+                              -->
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary">Update</button>
+                        <!-- just ng-click it -->
+                        <button class="btn btn-primary" data-dismiss="modal">Submit</button>
                         <button class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
