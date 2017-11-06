@@ -9,35 +9,62 @@ var money_formatter = new Intl.NumberFormat('en-US', {
 });
 
 var format_email_html = function (form) {
-  // <a href="swe-2017.herokuapp.com/loan/" target="_blank"> </a>
-  var app_link = ["<a href='", process.env.BASE_URL, 
-                  "loan/", form.id, "' target='_blank'>here</a>."].join("");
-
-  console.log(app_link);
-
-  var message = [
-    "",
-    "Hi " + form.name + "!",
-    "",
-    form.message,
-    "",
-    "You can check your application by clicking " + app_link,
-    "",
-    "",
-    "Sincerely,",
-    "",
-    "<b>Autowise Buying Service, Inc</b>"
-  ];
-
-  return message.join("<br>");
+  var subject, message ;
+  
+  // Switch statement based on email type
+  // Types are:
+  // - Warranty plan interest
+  // - Default type
+  switch(form.type) {
+    
+    // Warranty plan interest email
+    case 'warranty':
+      subject = "Warranty plan interest for customer #" + form.userID ;
+      
+      message = [
+        "",
+        form.message,
+        "",
+        "",
+        "This is an automatically generated email message"
+      ];
+      
+      break ;
+      
+    // Default email
+    default:
+      subject = "Autowise: Your loan application has been updated";
+      
+      // Create and insert a link to the user's loan inside the message body
+      var app_link = ["<a href='", process.env.BASE_URL, "loan/", form.id, "' target='_blank'>here</a>."].join("");
+      console.log(app_link);
+      
+      message = [
+        "",
+        "Hi " + form.name + "!",
+        "",
+        form.message,
+        "",
+        "You can check your application by clicking " + app_link,
+        "",
+        "",
+        "Sincerely,",
+        "",
+        "<b>Autowise Buying Service, Inc</b>"
+      ];
+      
+      break ;
+  }
+  
+  // Return object containing email subject and message array joined into a string on line-breaks
+  return {subject: subject, message: message.join("<br>")}
 }
 
 
 module.exports = function (req, res) {
-
-  // console.log(req.body);
-  var message = format_email_html(req.body);
-  var subject = "Autowise: Your loan application has been updated";
+  
+  // Get email info object
+  var email_info = format_email_html(req.body) ;
 
   // Basic Email Settings
   // console.log(req.body);
@@ -45,8 +72,8 @@ module.exports = function (req, res) {
     from: process.env.YAHOO_USERNAME,
     to: req.body.to,
     generateTextFromHTML: true,
-    subject: subject,
-    html: message,
+    subject: email_info.subject,
+    html: email_info.message,
   };
 
   var transporter = nodemailer.createTransport({
