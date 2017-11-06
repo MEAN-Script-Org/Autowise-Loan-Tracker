@@ -161,6 +161,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
            ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;          
   }
   
+  // Test data to email
   $scope.testWarranty = warranties_table[0] ;
   $scope.testUser = {userID: '0001123', username: 'Slugcat'} ;
   
@@ -185,6 +186,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
       var email = {
         type: 'warranty',
         to: "dunevitz32@gmail.com",
+        // to: "marcial.abrahantes@gmail.com",
         userID: user.userID,
         message: bodyMessage,
       };

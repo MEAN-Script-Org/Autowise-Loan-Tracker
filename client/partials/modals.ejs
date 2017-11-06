@@ -93,6 +93,8 @@
             </ul>
           </div>
           <div class="modal-body">
+            <!-- TODO: Figure out how to validate this -->
+            <!-- TODO: Group fields nicely to utilize horizontal space to the max -->
             <!--
               Form Date:
               <input type="date" name="form-date">
@@ -104,14 +106,14 @@
               <div class="tab-pane active" id="customer-info">
                 <h3>Customer Information</h3>
                 <br>
-                Name <input name="customer-name"   placeholder="Required"  type="" required> <br>
-                Email <input name="customer-email" placeholder="Required"  type="" required> <br>
-                DL <input name="customer-dl"       placeholder="Required"  type="" required> <br>
-                DOB <input name="customer-dob"                             type="date" required> <br>
+                Name    <input name="customer-name"   placeholder="Required"> <br>
+                Email   <input name="customer-email" placeholder="Required"> <br>
+                DL      <input name="customer-dl"       placeholder="Required"> <br>
+                DOB     <input name="customer-dob"     type="date"> <br>
                 <br>
-                Phone # <input name="customer-phone" placeholder="Required"  type="tel" required> <br>
-                Home # <input name="customer-home"                            type="tel" > <br>
-                Work # <input name="customer-work"                            type="tel" > <br>
+                Phone # <input name="customer-phone" type="tel" placeholder="Required"> <br>
+                Home #  <input name="customer-home"   type="tel" > <br>
+                Work #  <input name="customer-work"   type="tel" > <br>
                 <br>
 
                 <h4> Adding a Co-Purchaser? </h4>
@@ -125,21 +127,21 @@
                 <br>
 
                 <br>
-                Name <input name="copurchaser-name"   placeholder="Required"  type="" required> <br>
-                Email <input name="copurchaser-email" placeholder="Required"  type="" required> <br>
-                DL <input name="copurchaser-dl"       placeholder="Required"  type="" required> <br>
-                DOB <input name="copurchaser-dob"                             type="date" required> <br>
+                Name    <input name="copurchaser-name"   placeholder="Required"> <br>
+                Email   <input name="copurchaser-email"  placeholder="Required"> <br>
+                DL      <input name="copurchaser-dl"     placeholder="Required"> <br>
+                DOB     <input name="copurchaser-dob"    type="date"> <br>
                 <br>
-                Phone # <input name="copurchaser-phone" placeholder="Required"  type="tel" required> <br>
-                Home # <input name="copurchaser-home"                           type="tel" > <br>
-                Work # <input name="copurchaser-work"                           type="tel" > <br>
+                Phone # <input name="copurchaser-phone"  type="tel" placeholder="Required"> <br>
+                Home #  <input name="copurchaser-home"   type="tel" > <br>
+                Work #  <input name="copurchaser-work"   type="tel" > <br>
                 <br>
 
                 <!-- <h4>Address</h4> -->
-                Street <input type="" name="contact-street-address"> <br>
-                City <input type="" name="contact-city"> <br>
-                State <input type="" name="contact-state"> <br>
-                County <input type="" name="contact-county"> <br>
+                Street  <input type="" name="contact-street-address"> <br>
+                City    <input type="" name="contact-city"> <br>
+                State   <input type="" name="contact-state"> <br>
+                County  <input type="" name="contact-county"> <br>
                 Zipcode <input type="" name="contact-zip"> <br>
                 <br>
               </div>
@@ -147,45 +149,45 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 Car type:
-                <select name="is-car-used">
+                <select   name="is-car-used">
                   <option disabled selected>Choose an option</option>
                   <option value="new">NEW</option>
                   <option value="used">Used</option>
                 </select>
 
                 <br>
-                Year <input type="number" name="car-year"> <br>
-                Make <input type="" name="car-make"> <br>
-                Model <input type="" name="car-model"> <br>
-                Type <input type="" name="car-type"> <br>
-                Color <input type="" name="car-color"> <br>
-                Mileage <input type="number" name="car-mileage"> <br>
+                Year    <input name="car-year"    placeholder="Required" type="number"> <br>
+                Make    <input name="car-make"    placeholder="Required"> <br>
+                Model   <input name="car-model"   placeholder="Required"> <br>
+                Type    <input name="car-type"    placeholder="Required"> <br>
+                Color   <input name="car-color"   placeholder="Required"> <br>
+                Mileage <input name="car-mileage" placeholder="Required" type="number"> <br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Cylinders <input type="" name="car-cyl"> <br>
-                Serial Number <input type="" name="car-serial-no"> <br>
-                Stock Number <input type="" name="car-stock-num"> <br>
-                Salesperson <input type="" name="car-salesperson"> <br>
-                Lender <input type="" name="car-lender"> <br>
-                Purchased new tag <input type="" name="car-purchase-new-tag"> <br>
-                Transfer <input type="" name="car-transfer"> <br>
-                Tag Number <input type="" name="car-tag-no"> <br>
-                Plate Number <input type="" name="car-plate-no"> <br>
-                Expiration Date <input type="" name="car-exp-date"> <br>
+                Cylinders         <input name="car-cyl"       type="number"> <br>
+                Serial Number     <input name="car-serial-no" type="number"> <br>
+                Stock Number      <input name="car-stock-num" type="number"> <br>
+                Salesperson       <input name="car-salesperson"> <br>
+                Lender            <input name="car-lender"> <br>
+                Purchased new tag <input name="car-purchase-new-tag"> <br>
+                Transfer          <input name="car-transfer"> <br>
+                Tag Number        <input name="car-tag-no"> <br>
+                Plate Number      <input name="car-plate-no"> <br>
+                Expiration Date   <input name="car-exp-date"> <br>
                 <br>
               </div>
 
               <div class="tab-pane" id="financing">
                 <h3> Financing </h3>
-                NADA Retail <input type="number" name="nada_retail"> <br>
-                Total Sale Price <input type="number" name="total-sale-price"> <br>
-                Trade Allowance <input type="number" name="trade-allowance"> <br>
-                Trade Difference <input type="number" name="trade-difference"> <br>
-                Admin Fees <input type="number" value="845" name="admin-fees"> <br>
+                NADA Retail       <input placeholder="Required" type="number" name="nada_retail"> <br>
+                Total Sale Price  <input placeholder="Required" type="number" name="total-sale-price"> <br>
+                Trade Allowance   <input placeholder="Required" type="number" name="trade-allowance"> <br>
+                Trade Difference  <input placeholder="Required" type="number" name="trade-difference"> <br>
+                Admin Fees        <input placeholder="Required" type="number" name="admin-fees" value="845"> <br>
                 <!-- 845 by default -->
-                Balance Owed <input type="number" name="bal-owed-on-trade"> <br>
-                Total Due <input type="number" name="total-due"> <br>
+                Balance Owed      <input placeholder="Required" type="number" name="bal-owed-on-trade"> <br>
+                Total Due         <input placeholder="Required" type="number" name="total-due"> <br>
                 <br>
 
                 <h4> Optional Information </h4>
@@ -195,7 +197,7 @@
                 Waste Tire Batt Fee <input type="number" name="waste-tire-batt-fee">
                 <br>
                  -->
-                Sub Total a <input type="number" name="sub-total-a"> <br>
+                Sub Total A <input type="number" name="sub-total-a"> <br>
                 Sales Tax is County: 
                 <select name="sales-tax-is-county">
                   <option value="True">True</option>
@@ -203,55 +205,54 @@
                 </select>
                 <br>
 
-                Sales Tax Percentage <input type="number" name="percentage"> <br>
+                Sales Tax %    <input type="number" name="percentage"> <br>
                 Estimated Fees <input type="number" name="estimated-fees"> <br>
-                Lemon Law Fee <input type="number" name="lemon-law-fee"> <br>
-                Sub Total b <input type="number" name="sub-total-b"> <br>
-                Down Payment <input type="number" name="down-payment"> <br>
-                Unpaid Due <input type="number" name="unpaid-due"> <br>
+                Lemon Law Fee  <input type="number" name="lemon-law-fee"> <br>
+                Sub Total B    <input type="number" name="sub-total-b"> <br>
+                Down Payment   <input type="number" name="down-payment"> <br>
+                Unpaid Due     <input type="number" name="unpaid-due"> <br>
                 <br>
               </div>
 
               <div class="tab-pane" id="trade-info">
                 <h3> Trade Information </h3>
-                Year <input type="number" name="car-year"> <br>
-                Make <input type="" name="car-make"> <br>
-                Model <input type="" name="car-model"> <br>
-                Type <input type="" name="car-type"> <br>
-                Color <input type="" name="car-color"> <br>
-                Mileage <input type="number" name="car-mileage"> <br>
+                Year    <input placeholder="Required" name="car-year" type="number" > <br>
+                Make    <input placeholder="Required" name="car-make"> <br>
+                Model   <input placeholder="Required" name="car-model" type="number" > <br>
+                Type    <input placeholder="Required" name="car-type"> <br>
+                Color   <input placeholder="Required" name="car-color"> <br>
+                Mileage <input placeholder="Required" name="car-mileage" type="number" > <br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Cylinders <input type="" name="car-cyl"> <br>
-                Serial Number <input type="" name="car-serial-no"> <br>
-                Account Number <input type="" name="account-num"> <br>
-                Phone Number <input type="number" name="phone-num"> <br>
-                Holder <input type="" name="holder"> <br>
-                Address <input type="" name="address"> <br>
-                Amount <input type="number" name="amount"> <br>
-                Qualified By <input type="" name="qualif-by"> <br>
-                Verified By <input type="" name="verif-by"> <br>
-                Good Through <input type="date" name="good-thru"> <br>
+                Cylinders      <input name="car-cyl"  type="number"> <br>
+                Serial Number  <input name="car-serial" type="number"> <br>
+                Account Number <input name="account-num" type="number"> <br>
+                <!-- Cars have phones?? huh... -->
+                <!-- Phone Number   <input type="tel" name="phone-num"> <br> -->
+                Holder         <input name="holder"> <br>
+                Address        <input name="address"> <br>
+                Amount         <input name="amount" type="number"> <br>
+                Qualified By   <input name="qualif-by"> <br>
+                Verified By    <input name="verif-by"> <br>
+                Good Through   <input name="good-thru" type="date"> <br>
               </div>
 
               <div class="tab-pane" id="insurance">
                 <h3> Insurance Information </h3>
-                Policy Number <input type="number" name="ins-policy-num"> <br>
-                Company <input type="" name="company"> <br>
+                Policy Number  <input placeholder="Required" name="ins-policy-num" type="number"> <br>
+                Company        <input placeholder="Required" name="company"> <br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Agent <input type="" name="agent"> <br>
-                Phone Number <input type="number" name="phone-num"> <br>
-                Eff Dates <input type="" name="eff-dates"> <br>
-                Verified By <input type="" name="verif-by"> <br>
+                Agent          <input name="agent"> <br>
+                Phone Number   <input name="phone-num" type="number"> <br>
+                Eff Dates      <input name="eff-dates"> <br>
+                Verified By    <input name="verif-by"> <br>
               </div>
-
             </div>
           </div>
           <div class="modal-footer">
-            <!-- just ng-click it -->
             <button class="btn btn-primary" data-dismiss="modal">Submit</button>
             <button class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
