@@ -1544,6 +1544,15 @@ p.back-link {
 
 /* Above are template styles */
 
+/* General Styles */
+.hidden {
+    display: none;
+}
+
+.centered-text {
+    text-align: center;
+}
+
 /* loading... *animated* */
 #loader {
     display: block;
@@ -1640,6 +1649,15 @@ div.left-text {
     /*width: 48%;*/
     color: white;
 }
+
+/* Progress bar styles */
+/* Only need these two fields */
+.received-progress {
+    width: 20%;
+    background-color: #6495ed;
+}
+
+/* now the rest of the pairs... */
 
 .right-right {
     width: 48%; 

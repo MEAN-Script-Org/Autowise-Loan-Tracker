@@ -52,16 +52,12 @@
       </div>
     </div>
 
-    <!-- 
-    <a href="http://swe-2017.herokuapp.com/loan/" target="_blank"> helloooo test </a>
-     -->
-
     <form ng-submit="addLoan()">
       <h3>New Loan</h3>
       <input placeholder="Name" type="text" ng-model="newLoan.name" required>
       <input placeholder="Email" type="email" ng-model="newLoan.user_email">
       <input type="submit" class="btn btn-default">
-      <input type="submit" style="display: none">
+      <input type="submit" class="hidden">
     </form>
 </div>
 
