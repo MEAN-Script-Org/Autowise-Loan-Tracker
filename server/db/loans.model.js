@@ -175,7 +175,7 @@ loanSchema.pre('save', function(next) {
 
   // Fill in fields if missing
   if (!this.status)
-    this.status = "Received";
+    this.status = "RECEIVED";
 
   if (!this.type)
     this.type = "Auto Loan";

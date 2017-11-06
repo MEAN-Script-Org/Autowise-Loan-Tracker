@@ -1,5 +1,6 @@
 body {
     background: #f1f4f7;
+    overflow-x: hidden;
     padding-top: 60px;
     font-size: 14px;
     color: #444444;
@@ -1646,28 +1647,73 @@ div.left-text {
 /* # => id */
 .warrantiesQueryText > div > h4, 
 .warrantiesQueryText > div > h2 {
-    /*width: 48%;*/
     color: white;
 }
 
-/* Progress bar styles */
-/* Only need these two fields */
-.received-progress {
-    width: 20%;
-    background-color: #6495ed;
+.right-right, .left-left {
+    width: 48%; 
 }
 
-/* now the rest of the pairs... */
-
 .right-right {
-    width: 48%; 
     text-align: right;
 }
 
 .left-left {
-    width: 48%; 
     text-align: left;
 }
+
+/* Progress bar styles */
+.received-progress {
+    width: 25%;
+    background-color: #ff8c00;
+}
+
+.submitted-progress {
+    width: 25%;
+    background-color: #d0c330;
+}
+
+.pending-progress {
+    width: 50%;
+    background-color: #6495ed;
+}
+
+/* This color is too light */
+.verified-progress {
+    width: 75%;
+    background-color: #a5d97f;
+}
+
+.received-progress, .submitted-progress, .pending-progress, .verified-progress {
+    /*attributes from bootstrap's progress-bar active */
+    /* Glitches in Windows, check progress-bar.ejs for more */
+    /*
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+         -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+    */
+
+    /*attributes from bootstrap's progress-bar-striped */
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+.approved-progress {
+    width: 100%;
+    background-color: #38cc70;
+}
+
+.denied-progress {
+    width: 100%;
+    background-color: #cc3838;
+}
+
+.archived-progress {
+    width: 100%;
+    background-color: #F8F8F8;
+}
+
 
 /*CHECK BOX*/
 

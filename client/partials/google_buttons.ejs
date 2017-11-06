@@ -1,20 +1,19 @@
 <!--  Tool Tips  -->
-<div class="label-container fadeTip AddTip" ng-show="AddTip">
-    <div class="label-text">Add New Loan</div>
-    <!-- <i class="fa fa-play label-arrow"></i> -->
+<div>
+  <div class="label-container fadeTip label-text AddTip" ng-show="AddTip">
+      Add New Loan
+  </div>
+  <div class="label-container fadeTip label-text DelTip" ng-show="DelTip">
+      Delete Selected Loans
+  </div>
+  <div class="label-container fadeTip label-text ArcTip" ng-show="ArcTip">
+      Archive Selected Loans
+  </div>
+  <div class="label-container fadeTip label-text StatTip" ng-show="StatTip">
+      Change Selected Loans' Status
+  </div>
 </div>
-<div class="label-container fadeTip DelTip" ng-show="DelTip">
-    <div class="label-text">Delete Selected Loans</div>
-    <!-- <i class="fa fa-play label-arrow"></i> -->
-</div>
-<div class="label-container fadeTip ArcTip" ng-show="ArcTip">
-    <div class="label-text">Archive Selected Loans</div>
-    <!-- <i class="fa fa-play label-arrow"></i> -->
-</div>
-<div class="label-container fadeTip StatTip" ng-show="StatTip">
-    <div class="label-text">Change Selected Loans' Status</div>
-    <!-- <i class="fa fa-play label-arrow"></i> -->
-</div>
+  
 
 <!-- Buttons -->
 <a class="float-btn" id="menu-share" data-target="#buyersOrderModal" data-toggle="modal" 
@@ -22,8 +21,7 @@
     <em class="fa fa-plus float-child"></em>
 </a>
 <ul id="float-list" ng-show="massLoans.length > 0">
-    <li data-target="#buyerModal" data-toggle="modal" 
-        ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
+    <li data-target="#buyerModal" data-toggle="modal">
       <a id="float-edit">
         <em class="fa fa-file float-child"></em>
       </a>
@@ -45,9 +43,8 @@
       </a>
     </li>
 
-        <!-- ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false" -->
     <li data-target="#changeModal" data-toggle="modal" 
-        >
+        ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
       <a id="float-edit">
         <em class="fa fa-edit float-child"></em>
       </a>

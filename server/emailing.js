@@ -8,52 +8,48 @@ var money_formatter = new Intl.NumberFormat('en-US', {
   // minimumFractionDigits: 2,
 });
 
-var format_email_html = function (form) {
-  var subject, message ;
+var format_email_html = function (req) {
+  // Variables to be returned later
+  var subject;
+  var message;
   
   // Switch statement based on email type
   // Types are:
   // - Warranty plan interest
   // - Default type
-  switch(form.type) {
+  if (req.type == "warranty") {
     
-    // Warranty plan interest email
-    case 'warranty':
-      subject = "Warranty plan interest for customer #" + form.userID ;
+    subject = "Warranty plan interest for customer #" + req.userID ;
+    
+    message = [
+      "",
+      req.message,
+      "",
+      "",
+      "This is an automatically generated email message"
+    ];
       
-      message = [
-        "",
-        form.message,
-        "",
-        "",
-        "This is an automatically generated email message"
-      ];
-      
-      break ;
-      
-    // Default email
-    default:
-      subject = "Autowise: Your loan application has been updated";
-      
-      // Create and insert a link to the user's loan inside the message body
-      var app_link = ["<a href='", process.env.BASE_URL, "loan/", form.id, "' target='_blank'>here</a>."].join("");
-      console.log(app_link);
-      
-      message = [
-        "",
-        "Hi " + form.name + "!",
-        "",
-        form.message,
-        "",
-        "You can check your application by clicking " + app_link,
-        "",
-        "",
-        "Sincerely,",
-        "",
-        "<b>Autowise Buying Service, Inc</b>"
-      ];
-      
-      break ;
+  } else {
+    // all reqs with no type will go thru here
+    subject = "Autowise: Your loan application has been updated";
+    
+    // Create and insert a link to the user's loan inside the message body
+    var app_link = ["<a href='", process.env.BASE_URL, "loan/", req.id, "' target='_blank'>here</a>."].join("");
+    console.log(app_link);
+    
+    message = [
+      "",
+      "Hi " + req.name + "!",
+      "",
+      req.message,
+      "",
+      "You can check your application by clicking " + app_link,
+      "",
+      "",
+      "Sincerely,",
+      "",
+      "<b>Autowise Buying Service, Inc</b>"
+    ];
   }
   
   // Return object containing email subject and message array joined into a string on line-breaks
