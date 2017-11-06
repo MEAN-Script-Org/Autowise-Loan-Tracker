@@ -82,10 +82,10 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.3.0: Loan 'status' field updated to 'Received' due to unspecified 'status'
+  // Test #1.3.0: Loan 'status' field updated to 'RECEIVED' due to unspecified 'status'
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.3.0: Loan \'status\' field updated to \'Received\' due to unspecified \'status\'', function(done) {
-    test_db_loan.status.should.equal('Received') ;
+  it('Test #1.3.0: Loan \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
+    test_db_loan.status.should.equal('RECEIVED') ;
     
     done() ;
   });

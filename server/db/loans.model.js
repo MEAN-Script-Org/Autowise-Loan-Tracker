@@ -176,7 +176,10 @@ loanSchema.pre('save', function(next) {
   // Fill in fields if missing
   if (!this.status)
     this.status = "RECEIVED";
+  else
+    this.status = this.status.toUpperCase();
 
+  // TODO: Enforce all uppercase in server too
   if (!this.type)
     this.type = "Auto Loan";
 

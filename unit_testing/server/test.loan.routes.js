@@ -68,7 +68,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     agent.get('/api/loan/' + test_loan_id).expect(200).end(function(err, res) {
       should.exist(res) ;
       
-      res.body.status.should.equal('Received') ;
+      res.body.status.should.equal('RECEIVED') ;
       res.body.type.should.equal(test_loan_ok.type) ;
       // TBChanged
       // res.body.taxes.should.equal(test_loan_ok.taxes) ;
