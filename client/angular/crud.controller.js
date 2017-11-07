@@ -9,6 +9,7 @@ angular.module('SWEApp').controller(
     // $rootScope.loading = true;
     $rootScope.massLoans = [];
     $rootScope.searchScopes = [];
+    $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
 
     Factory.getUserInfo().then(function(response) {
@@ -150,8 +151,8 @@ angular.module('SWEApp').controller(
             }
           });
 
-          // if (displayAlert)
-          //   alert("Successfully updated loan to status '" + newStatus + "'");
+          if ($rootScope.singleLoanID.length > 0)
+            $rootScope.singleLoanID = [];
         },
         function(err) {
           alert("Error updating loan status");

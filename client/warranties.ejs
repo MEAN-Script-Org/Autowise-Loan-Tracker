@@ -83,7 +83,7 @@
           <div class="accordion">
             <dl>
               <div ng-repeat="warranty in matchedWarranties | orderBy: ['term.months' , 'term.miles']">
-                <dt>
+                <dt data-target="warrantyModal" data-toggle="modal">
                   <a class="accordionFakeTitle warrantiesQueryText">
                       <div class="pull-right right-right">
                         <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
@@ -102,12 +102,10 @@
       </div>
     </div>
 
-      <!-- Loan CRUD Modals -->
+    <!-- Warranty Modal -->
     <% include partials/modals.ejs %>
   
   </div>
-
-
 
   <!-- JAVASCRIPT FILES -->
   <% include partials/footer.ejs %> 

@@ -1554,6 +1554,11 @@ p.back-link {
     text-align: center;
 }
 
+/* Accordion rows get selectable hand-pointy guy */
+dt {
+    cursor: pointer;
+}
+
 /* loading... *animated* */
 #loader {
     display: block;
@@ -1693,6 +1698,7 @@ div.left-text {
             animation: progress-bar-stripes 2s linear infinite;
     */
 
+    /*TODO: Delete?? too much work~*/
     /*attributes from bootstrap's progress-bar-striped */
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
     background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
