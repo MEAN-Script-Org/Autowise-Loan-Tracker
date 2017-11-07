@@ -1546,8 +1546,13 @@ p.back-link {
 /* Above are template styles */
 
 /* General Styles */
-.hidden {
-    display: none;
+.invisible {
+    /*display: none;*/
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
 }
 
 .centered-text {

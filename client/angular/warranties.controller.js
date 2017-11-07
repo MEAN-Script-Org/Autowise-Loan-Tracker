@@ -7,9 +7,10 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
   //--------------------------------------------------------------------------------------------------------------------
   $scope.init = function() {
-    $scope.matchedWarranties = [] ;
+    $scope.visible = "visible";
     $scope.query = { age: '', mileage: 0, make: 'Domestic'} ;
     $scope.warrantyInfo = "Warranty information will go here" ;
+    $scope.matchedWarranties = [] ;
   }
   
   // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage

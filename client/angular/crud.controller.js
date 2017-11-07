@@ -31,6 +31,7 @@ angular.module('SWEApp').controller(
       console.log("MEAN App on it's way!");
 
       $scope.newLoan = {};
+      $scope.visible = "visible";
 
       Factory.getLoans().then(
         function(res) {
@@ -120,7 +121,7 @@ angular.module('SWEApp').controller(
     // Not needed for now, but leave it
     // $scope.statusPercentage = function(status) {
     //   var safe_status = status.toLowerCase();
-
+    //
     //   if (safe_status == "received")
     //     return 25;
     //   else if (safe_status == "submitted")
