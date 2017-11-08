@@ -175,8 +175,9 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   //--------------------------------------------------------------------------------------------------------------------
   // Email Autowise that the current user is interested in the currently selected warranty plan
   //--------------------------------------------------------------------------------------------------------------------
-  $scope.emailWarrantyInterest = function(warranty, user) {
+  $scope.emailWarrantyInterest = function(user) {
       var errorMsg = "There was an error sending the email. Please check the logs";
+      var warranty = $scope.chosenWarranty ;
       
       console.log(user) ;
       console.log(warranty) ;
@@ -212,6 +213,30 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
         function(error) {
           console.log(error) ;
           alert(errorMsg) ;
+      });
+      
+      // Create comment to add to loan signifying that Warranty interest has been submitted
+      var newComment = {
+        admin: false,
+        writer: user.user_name,
+        content: [
+          "Request for warranty plan: ",
+          warranty.type, ", ",
+          warranty.term.months, " months, ",
+          warranty.term.miles * 1000, " miles. ",
+          "Starting at $", warranty.price, ". ",
+          "Please allow up to 3 business days for Autowise to review your submission"
+        ].join(''),
+        newtime: new Date(),
+      }
+      
+      // Add comment to the user's active loan
+      // TODO: replace test loan ID with actual loan object
+      Factory.getLoan("59fe11a6b12b072490b4796d").then(function(res) {
+        var loan = res.data ;
+        loan.comments.push(newComment) ;
+        
+        Factory.modifyLoan(loan._id, loan) ;
       });
     };
 }]);
