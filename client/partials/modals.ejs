@@ -299,12 +299,11 @@
 </div>
 
 
-<!-- Warranties info -->
-<!-- TODO: implement this -->
+<!-- Warranties info: Any Year -->
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyModal" tabindex="-1">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Any-Year" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header centered-text">
@@ -312,11 +311,73 @@
                 &times;
               </button>
               <span>
-                {{warrantyInfo}}
+                {{chosenWarranty.type}} - {{chosenWarranty.term.months}}
               </span>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testWarranty, testUser)">
+                Confirm this Plan (sends an email to Autowise)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2007 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Deluxe" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <span>
+                {{chosenWarranty.type}} - {{chosenWarranty.term.months}}
+              </span>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testWarranty, testUser)">
+                Confirm this Plan (sends an email to Autowise)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2011 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Factory-Type" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <span>
+                {{chosenWarranty.type}} - {{chosenWarranty.term.months}}
+              </span>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testWarranty, testUser)">
+                Confirm this Plan (sends an email to Autowise)
+              </button>
             </div>
           </div>
         </div>
