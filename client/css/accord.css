@@ -113,11 +113,79 @@ a:focus {
     background-color: #2ba659;
 }
 
+
+input[type=checkbox] + label::after {
+  content: "+";
+}
+input[type=radio] + label::after {
+  content: "\25BC";
+}
+input[type=checkbox]:checked + label::after {
+  transform: rotate(315deg);
+}
+input[type=radio]:checked + label::after {
+  transform: rotateX(180deg);
+}
+
 .accordionTitleActive:after,
 .accordionTitle.is-expanded:after {
     -webkit-transform: rotate(225deg);
     transform: rotate(225deg);
 }
+
+/*
+    ACCORDION TRANSITION
+*/
+/* Acordeon styles */
+/*
+.tab {
+  position: relative;
+  margin-bottom: 1px;
+  width: 100%;
+  color: #fff;
+  overflow: hidden;
+}
+*/
+
+/*
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+*/
+
+.tab-content {
+  max-height: 0;
+  padding: 0;
+  -webkit-transition: max-height .35s, padding .5s;
+  -o-transition: max-height .35s, padding .5s;
+  transition: max-height .35s, padding .5s;
+}
+
+/* :checked */
+input:checked ~ .tab-content {
+  max-height: 50em;
+  padding: 8px;
+}
+/* Icon */
+label::after {
+  position: absolute;
+/*
+  right: 0;
+  top: 0;
+*/
+  display: block;
+  width: 3em;
+  height: 3em;
+  line-height: 3;
+  text-align: center;
+  -webkit-transition: all .35s;
+  -o-transition: all .35s;
+  transition: all .35s;
+}
+/*END TRANSITION*/
+
 
 /*--------------------------------------------------------------------------------------------------------------------*\
 |* FAKE ACCORDION HEADING - Looks like an accordion, doesn't act like one
@@ -160,19 +228,6 @@ h5.warranty-instruction {
 /*--------------------------------------------------------------------------------------------------------------------*\
 |* ACCORDION ITEM
 \*--------------------------------------------------------------------------------------------------------------------*/
-.accordionItem {
-    padding: 0px;
-    height: auto;
-    overflow: hidden;
-    max-height: 50em;
-    -webkit-transition: max-height 1s, padding 1s;
-    transition: max-height 1s, padding 1s;
-}
-
-.is-expanded.accordionItem {
-    padding: 8px;
-}
-
 .progress-row {
     height: 100%;
     display: flex;
@@ -211,10 +266,6 @@ h5.warranty-instruction {
 
 .accordionItem.is-collapsed {
     max-height: 0;
-}
-
-.no-js .accordionItem.is-collapsed {
-    max-height: auto;
 }
 
 .animateIn {

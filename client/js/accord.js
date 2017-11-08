@@ -52,8 +52,6 @@ angular.module('SWEApp').controller('AccordFuncController',
 
         var d = document,
           accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-          setAria,
-          setAccordionAria,
           switchAccordion,
           touchSupported = ('ontouchstart' in window),
           pointerSupported = ('pointerdown' in window);
@@ -65,8 +63,6 @@ angular.module('SWEApp').controller('AccordFuncController',
         $scope.reloadAccordion = function() { 
           d = document,
           accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-          setAria,
-          setAccordionAria,
           switchAccordion,
           touchSupported = ('ontouchstart' in window),
           pointerSupported = ('pointerdown' in window);
@@ -86,24 +82,7 @@ angular.module('SWEApp').controller('AccordFuncController',
           e.preventDefault();
           e.target.click();
         }
-
-        setAriaAttr = function(el, ariaType, newProperty) {
-          el.setAttribute(ariaType, newProperty);
-        };
-        setAccordionAria = function(el1, el2, expanded) {
-          switch (expanded) {
-            case "true":
-              setAriaAttr(el1, 'aria-expanded', 'true');
-              setAriaAttr(el2, 'aria-hidden', 'false');
-              break;
-            case "false":
-              setAriaAttr(el1, 'aria-expanded', 'false');
-              setAriaAttr(el2, 'aria-hidden', 'true');
-              break;
-            default:
-              break;
-          }
-        };
+        
 
         // gets called when accordion is clicked, passes loanID to update checkList if stateUpdate holds that it has checked/or unchecked a checkbox
         $scope.clickAccordion = function(loanID) {
@@ -122,25 +101,16 @@ angular.module('SWEApp').controller('AccordFuncController',
           var thisQuestion = e.target;
 
           if (!(thisAnswer === null)) {
-            if (thisAnswer.classList.contains('is-collapsed')) {
-              setAccordionAria(thisQuestion, thisAnswer, 'true');
-            } else {
-              setAccordionAria(thisQuestion, thisAnswer, 'false');
-            }
-            thisQuestion.classList.toggle('is-collapsed');
-            thisQuestion.classList.toggle('is-expanded');
-            thisAnswer.classList.toggle('is-collapsed');
-            thisAnswer.classList.toggle('is-expanded');
-
-            thisAnswer.classList.toggle('animateIn');
-
             stateUpdate = -1;
-          } else if (thisQuestion.tagName.toLowerCase() === 'span') {
-            var input = e.target.previousElementSibling;
+          } else if (thisQuestion.tagName.toLowerCase() === 'label') {
+            var input = e.target.children[0];
+            console.log(input);
             input.checked = !input.checked;
 
+            console.log("Checked?");
             stateUpdate = input.checked ? 1 : 0;
           }
+            console.log(thisQuestion.tagName.toLowerCase());
         };
 
         //adds event listeners to each accordion item

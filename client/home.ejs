@@ -70,9 +70,8 @@
                  <!-- we by custom search function that uses binded query to filter by specific attributes-->
                   <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search:wanted">
                     <div ng-if="!loan.new">
-                      <dt ng-click="clickAccordion(loan._id)">
-                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
-                           aria-controls="accordion{{loan._id}}" aria-expanded="false">
+                      <div ng-click="clickAccordion(loan._id)" class="tab">
+                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"                    >
 
                           <label class="container-mass container">
                               <input type="checkbox" id="{{loan._id}}-checkbox">
@@ -86,11 +85,11 @@
                           <!-- - total $ -->
                           – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
                         </a>
-                      </dt>
-                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
+                      </div>
+                      <div class="accordion-content accordionItem tab-content" id="accordion{{loan._id}}">
                         <% include partials/progress-row.ejs %>
                         <% include partials/accordion-comments.ejs %>
-                      </dd>
+                      </div>
                     </div>
 
                     <!-- Marcial: -->
