@@ -13,9 +13,8 @@ angular.module('SWEApp').controller(
     $rootScope.loanWithNewComments = {};
     
     // Fields for loan object creation
-    $rootScope.bo = { copurchaser: { invalid: "true" }} ;         // Buyer's Order placeholder
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, car_info: {}} ;         // Buyer's Order placeholder
     $rootScope.temp_user = {} ;  // Temporary User -> attempts to match to database user
-    $rootScope.new_loan = {} ;   // New loan object placeholder
 
     Factory.getUserInfo().then(function(response) {
       $scope.commentAsAdmin = false;
@@ -68,14 +67,14 @@ angular.module('SWEApp').controller(
       // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;
       // $scope.newLoan.user_email = $rootScope.user_email;
-
+      
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
             // Making the loan
-            var newLoad = response.data;
-            newLoad.new = true;
-            $rootScope.loans.push(newLoad);
+            var newLoan = response.data;
+            newLoan.new = true;
+            $rootScope.loans.push(newLoan);
 
             // Logging
             // console.log("Returned new loan: ");
@@ -83,6 +82,43 @@ angular.module('SWEApp').controller(
 
             // clear form data once done
             $scope.newLoan = {};
+          }
+        },
+        function(err) {
+          console.log(err);
+        }
+      );
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Create a new loan with all the fields specified under the Buyer's Order
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.addLoanWithBO = function() {
+      var newLoan = $scope.newLoan ;
+      
+      // TODO: search for existing user via 'temp_user' specifications
+      //       if none found, prompt to add a new user
+      
+      newLoan.name = "TEST" ;
+      newLoan.buyers_order = $rootScope.bo ;  // Assign buyer's order information to loan
+      
+      Factory.newLoan(newLoan).then(
+        function(response) {
+          if (response.data) {
+            
+            // Making the loan
+            newLoan = response.data ;
+            newLoan.new = true ;
+            
+            // Add loan to front-end scope
+            $rootScope.loans.push(newLoan) ;
+            
+            // For testing
+            console.log("Returned new loan: ");
+            console.log(response.data);
+
+            // clear form data once done
+            //$scope.newLoan = {};
           }
         },
         function(err) {

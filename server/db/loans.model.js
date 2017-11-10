@@ -24,41 +24,51 @@ var loanSchema = new mongoose.Schema({
   created_by: String,
 
   //--------------------------------------------------------------------------------------------------------------------
-  // Purchase Order
+  // Buyers Order
   //====================================================================================================================
   // The original "paper copy" of a loan. Majority of fields described here are transcribed from the document
   //--------------------------------------------------------------------------------------------------------------------
-  purchase_order: {
+  buyers_order: {
     form_date:       Date,
     is_car_used:     Boolean,
-    email:           String,
-
+    
     // Purchaser and Co-Purchaser
     purchaser: {
-      name: {type:   String, /*required: false*/},
-      dl:   {type:   String, /*required: false*/},
-      dob:  {type:   Date,   /*required: false*/},
+      name:  {type:   String, /*required: false*/},
+      email: {type:   String, /*required: false*/},
+      dl:    {type:   String, /*required: false*/},
+      dob:   {type:   Date,   /*required: false*/},
+
+      // Contact information
+      address: {
+        street: {type: String, /*required: false*/},
+        city:   {type: String, /*required: false*/},
+        state:  {type: String, /*required: false*/},
+        county: {type: String, /*required: false*/},
+        zip:    {type: Number, /*required: false*/},
+      },
+    
+      phone: {
+        home: Number,
+        work: Number,
+        cell: Number,
+      },
     },
+    
     copurchaser: {
       invalid: {type: Boolean},
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
       dob:     {type:   Date,   /*required: false*/},
-    },
 
-    // Contact information
-    address: {
-      street: {type: String, /*required: false*/},
-      city:   {type: String, /*required: false*/},
-      state:  {type: String, /*required: false*/},
-      county: {type: String, /*required: false*/},
-      zip:    {type: Number, /*required: false*/},
-    },
-    
-    phone: {
-      home: Number,
-      work: Number,
-      cell: Number,
+      // Contact information
+      address: {
+        street: {type: String, /*required: false*/},
+        city:   {type: String, /*required: false*/},
+        state:  {type: String, /*required: false*/},
+        county: {type: String, /*required: false*/},
+        zip:    {type: Number, /*required: false*/},
+      },
     },
 
     // Car information

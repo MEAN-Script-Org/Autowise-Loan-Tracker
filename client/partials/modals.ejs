@@ -114,10 +114,13 @@
       <div class="modal-dialog" style="width: 60%; min-width: 615px;">
       <!-- <div class="modal-dialog" style=""> -->
         <div class="modal-content">
+          
+          <!-- Modal Header -->
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2>Buyers Order</h2>
-            <!-- ["cutomer-info", "car-info", "financing", "trade-info", "insurance"] -->
+            
+            <!-- Navigational Tabs -->
             <ul class="nav nav-tabs" id="tabContent">
               <li class="active">
                 <a href="#customer-info" data-toggle="tab">Customer Info</a>
@@ -128,6 +131,8 @@
               <li> <a href="#insurance" data-toggle="tab">Insurance</a> </li>
             </ul>
           </div>
+          
+          <!-- Modal Body -->
           <div class="modal-body">
             <!-- TODO: Figure out how to validate this -->
             <!-- TODO: Group fields nicely to utilize horizontal space to the max -->
@@ -147,23 +152,23 @@
                 <br>
                 
                 <h5>Basic Info</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Name<span  class="buyers-order-req-asterisk">*</span></span><input name="customer-name"  ng-model="tempUser.name"            ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Email<span class="buyers-order-req-asterisk">*</span></span><input name="customer-email" ng-model="tempUser.email"           ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">DL<span    class="buyers-order-req-asterisk">*</span></span><input name="customer-dl"    ng-model="tempUser.dl"              ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">DOB<span   class="buyers-order-req-asterisk">*</span></span><input name="customer-dob"   ng-model="tempUser.dob"  type="date"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Name<span  class="buyers-order-req-asterisk">*</span></span><input name="customer-name"  ng-model="bo.purchaser.name"            ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Email<span class="buyers-order-req-asterisk">*</span></span><input name="customer-email" ng-model="bo.purchaser.email"           ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DL<span    class="buyers-order-req-asterisk">*</span></span><input name="customer-dl"    ng-model="bo.purchaser.dl"              ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DOB<span   class="buyers-order-req-asterisk">*</span></span><input name="customer-dob"   ng-model="bo.purchaser.dob"  type="date"></div>
                 
                 <h5>Contact Info</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Phone #<span class="buyers-order-req-asterisk">*</span></span><input name="customer-phone" ng-model="bo.phone.cell" type="tel"></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Home #                                                 </span><input name="customer-home"  ng-model="bo.phone.home" type="tel"></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Work #                                                 </span><input name="customer-work"  ng-model="bo.phone.work" type="tel"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Phone #<span class="buyers-order-req-asterisk">*</span></span><input name="customer-phone" ng-model="bo.purchaser.phone.cell" type="tel"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Home #                                                 </span><input name="customer-home"  ng-model="bo.purchaser.phone.home" type="tel"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Work #                                                 </span><input name="customer-work"  ng-model="bo.purchaser.phone.work" type="tel"></div>
                 <br>
                 
                 <h5>Address</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.address.street" ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.address.city"   ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.address.state"  ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.address.country"></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.address.zip"    ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.purchaser.address.street" ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.purchaser.address.city"   ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.purchaser.address.state"  ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.purchaser.address.country"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.purchaser.address.zip"    ></div>
                 <br>
                 
                 <!-- TODO: need to add stylings to all of this... -->
@@ -178,17 +183,17 @@
                 <!--Co-purchaser fields: hidden if the above field is marked "No" -->
                 <div ng-hide="bo.copurchaser.invalid === 'true'">
                   <h5>Basic Info</h5>
-                  Name    <input name="copurchaser-name"   placeholder="Required" ng-model="bo.phone.copurchaser.name"           ><br>
-                  DL      <input name="copurchaser-dl"     placeholder="Required" ng-model="bo.phone.copurchaser.dl"             ><br>
-                  DOB     <input name="copurchaser-dob"                           ng-model="bo.phone.copurchaser.dob" type="date"><br>
+                  Name    <input name="copurchaser-name"   placeholder="Required" ng-model="bo.copurchaser.name"           ><br>
+                  DL      <input name="copurchaser-dl"     placeholder="Required" ng-model="bo.copurchaser.dl"             ><br>
+                  DOB     <input name="copurchaser-dob"                           ng-model="bo.copurchaser.dob" type="date"><br>
                   <br>
                   
-                  <h5>Address</h5>
-                  Street  <input name="contact-street-address" ng-model="bo.address.street" ><br>
-                  City    <input name="contact-city"           ng-model="bo.address.city"   ><br>
-                  State   <input name="contact-state"          ng-model="bo.address.state"  ><br>
-                  County  <input name="contact-county"         ng-model="bo.address.country"><br>
-                  Zipcode <input name="contact-zip"            ng-model="bo.address.zip"    ><br>
+                <h5>Address</h5>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.copurchaser.address.street" ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.copurchaser.address.city"   ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.copurchaser.address.state"  ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.copurchaser.address.country"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.copurchaser.address.zip"    ></div>
                 </div>
               </div>
               
@@ -302,7 +307,7 @@
           </div>
           
           <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal">Submit</button>
+            <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoanWithBO()">Submit</button>
             <button class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
