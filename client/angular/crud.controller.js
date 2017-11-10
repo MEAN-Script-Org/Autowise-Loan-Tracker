@@ -11,6 +11,11 @@ angular.module('SWEApp').controller(
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
+    
+    // Fields for loan object creation
+    $rootScope.bo = { copurchaser: { invalid: "true" }} ;         // Buyer's Order placeholder
+    $rootScope.temp_user = {} ;  // Temporary User -> attempts to match to database user
+    $rootScope.new_loan = {} ;   // New loan object placeholder
 
     Factory.getUserInfo().then(function(response) {
       $scope.commentAsAdmin = false;
@@ -27,6 +32,10 @@ angular.module('SWEApp').controller(
       $rootScope.user_isAdmin = response.data.isAdmin;
     });
 
+    $scope.doTest = function() {
+      console.log($rootScope.bo.copurchaser) ;
+    }
+    
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 

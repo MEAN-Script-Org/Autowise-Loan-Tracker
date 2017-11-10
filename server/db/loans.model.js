@@ -8,26 +8,19 @@ mongoose.Promise = global.Promise;
 // loan is associated with a particular customer
 //----------------------------------------------------------------------------------------------------------------------
 var loanSchema = new mongoose.Schema({
-
-  // DISTANCE TO FIELDS SHOULD NOT WILDLY VARY!!
-  //    MY.EYES . THEY.HURT
-
-  // Foreign Key
+  
+  // Identifier information
   user_id:    String,
   user_email: String,
   name:       String,
+
+  //trades:     Boolean,
+  type:       String,   // Loan type
+  status:     String,   // Loan status
+  warranty:   Number,   // Warranty plan cost, if any
+  comments:   Array,    // List of loan comments
+  
   updated_at: Date,
-
-  // This field is redundant, already as 'status'
-  // archived: {type: Boolean, default: false},
-
-  // Loan type and status
-  type:       String,
-  status:     String,
-  // Warranty plan cost, if any
-  warranty:   Number,
-  trades:     Boolean,
-  comments:   Array,
   created_by: String,
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -35,8 +28,6 @@ var loanSchema = new mongoose.Schema({
   //====================================================================================================================
   // The original "paper copy" of a loan. Majority of fields described here are transcribed from the document
   //--------------------------------------------------------------------------------------------------------------------
-  // TODO: Clean the hell out of this to see what's really needed. 
-  //       otherwise DB is gonna be $$$
   purchase_order: {
     form_date:       Date,
     is_car_used:     Boolean,
@@ -49,9 +40,10 @@ var loanSchema = new mongoose.Schema({
       dob:  {type:   Date,   /*required: false*/},
     },
     copurchaser: {
-      name: {type:   String, /*required: false*/},
-      dl:   {type:   String, /*required: false*/},
-      dob:  {type:   Date,   /*required: false*/},
+      invalid: {type: Boolean},
+      name:    {type:   String, /*required: false*/},
+      dl:      {type:   String, /*required: false*/},
+      dob:     {type:   Date,   /*required: false*/},
     },
 
     // Contact information
@@ -62,9 +54,7 @@ var loanSchema = new mongoose.Schema({
       county: {type: String, /*required: false*/},
       zip:    {type: Number, /*required: false*/},
     },
-
-    // TODO: any of these required?
-    // Only one of these are REALLY needed
+    
     phone: {
       home: Number,
       work: Number,
@@ -72,23 +62,18 @@ var loanSchema = new mongoose.Schema({
     },
 
     // Car information
-    // TODO: what here is required?
     car_info: {   
       year:             Number,
       make:             String,
       model:            String,
       type:             String,
       color:            String,
-      // TODO: what is this?
       cyl:              String,
 
       serial_no:        String,
       stock_no:         String,
       mileage:          Number,
       salesperson:      String,
-      // TODO: can implement as an array -> most recent lender at end of array
-      //   Followup -> This will be a waste of time, leave it for the comments
-      //           If anything changing the lender will trigger a comment, etc
       lender:           String,
 
       tag_no:           String,
@@ -99,7 +84,6 @@ var loanSchema = new mongoose.Schema({
     },
 
     // Financing and fees
-    // TODO: what here is required?
     finances: {
       nada_retail:         Number,
       accessories:         String,
@@ -108,11 +92,9 @@ var loanSchema = new mongoose.Schema({
       trade_allowance:     Number,
       trade_difference:    Number,
       total_sale_price:    Number,
-      waste_tire_batt_fee: Number,
       // TODO: automatic calculation ?
       sub_total_a:         Number,
-
-      // TODO: is this necessary?
+      
       sales_tax: {
         is_county:         Boolean,
         percentage:        Number,
@@ -130,8 +112,7 @@ var loanSchema = new mongoose.Schema({
     },
 
     // Insurance information
-    // TODO: what here is required?
-    insurance_info: {
+    insr: {
       agent:       String,
       company:     String,
       verif_by:    String,
@@ -141,14 +122,12 @@ var loanSchema = new mongoose.Schema({
     },
 
     // Trades information
-    // TODO: what here is required?
     trade_in: {
       year:        Number,
       make:        String,
       model:       String,
       type:        String,
       color:       String,
-      // TODO: what is this?!
       cyl:         String,
 
       holder:      String,
@@ -157,8 +136,6 @@ var loanSchema = new mongoose.Schema({
       phone_no:    Number,
       serial_no:   String,
       account_no:  String,
-
-      // TODO: what is this?!
       amount:      Number,
       verif_by:    String,
       qualif_by:   String,

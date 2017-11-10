@@ -137,93 +137,105 @@
               <br>
               today's should be default
              -->
+             
+            <!-- BUYER'S ORDER TABBED PAGES -->
             <div class="tab-content">
-              <!-- Please Enter the fields for the Buyers Order<br> -->
+            
+              <!-- TAB - Customer Information -->
               <div class="tab-pane active" id="customer-info">
-                <h3>Customer Information</h3>
+                <h3>Purchaser Information</h3>
                 <br>
-                Name    <input name="customer-name"   placeholder="Required"> <br>
-                Email   <input name="customer-email" placeholder="Required"> <br>
-                DL      <input name="customer-dl"       placeholder="Required"> <br>
-                DOB     <input name="customer-dob"     type="date"> <br>
+                
+                <h5>Basic Info</h5>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Name<span  class="buyers-order-req-asterisk">*</span></span><input name="customer-name"  ng-model="tempUser.name"            ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Email<span class="buyers-order-req-asterisk">*</span></span><input name="customer-email" ng-model="tempUser.email"           ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DL<span    class="buyers-order-req-asterisk">*</span></span><input name="customer-dl"    ng-model="tempUser.dl"              ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DOB<span   class="buyers-order-req-asterisk">*</span></span><input name="customer-dob"   ng-model="tempUser.dob"  type="date"></div>
+                
+                <h5>Contact Info</h5>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Phone #<span class="buyers-order-req-asterisk">*</span></span><input name="customer-phone" ng-model="bo.phone.cell" type="tel"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Home #                                                 </span><input name="customer-home"  ng-model="bo.phone.home" type="tel"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Work #                                                 </span><input name="customer-work"  ng-model="bo.phone.work" type="tel"></div>
                 <br>
-                Phone # <input name="customer-phone" type="tel" placeholder="Required"> <br>
-                Home #  <input name="customer-home"   type="tel" > <br>
-                Work #  <input name="customer-work"   type="tel" > <br>
+                
+                <h5>Address</h5>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.address.street" ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.address.city"   ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.address.state"  ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.address.country"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.address.zip"    ></div>
                 <br>
-
-                <h4> Adding a Co-Purchaser? </h4>
-                <!-- These need to be on the same line ... c'mon CSS... -->
-                <!-- ng-value?? need an angular value that's boolean... -->
-                <!-- ng-model="is_cosigning" -->
-                <select >
-                  <option value="true">Yes</option>
-                  <option value="false" selected>No</option>
-                </select>
-                <br>
-
-                <br>
-                Name    <input name="copurchaser-name"   placeholder="Required"> <br>
-                Email   <input name="copurchaser-email"  placeholder="Required"> <br>
-                DL      <input name="copurchaser-dl"     placeholder="Required"> <br>
-                DOB     <input name="copurchaser-dob"    type="date"> <br>
-                <br>
-                Phone # <input name="copurchaser-phone"  type="tel" placeholder="Required"> <br>
-                Home #  <input name="copurchaser-home"   type="tel" > <br>
-                Work #  <input name="copurchaser-work"   type="tel" > <br>
-                <br>
-
-                <!-- <h4>Address</h4> -->
-                Street  <input type="" name="contact-street-address"> <br>
-                City    <input type="" name="contact-city"> <br>
-                State   <input type="" name="contact-state"> <br>
-                County  <input type="" name="contact-county"> <br>
-                Zipcode <input type="" name="contact-zip"> <br>
-                <br>
+                
+                <!-- TODO: need to add stylings to all of this... -->
+                
+                <h4> Adding a Co-Purchaser?
+                  <select ng-model="bo.copurchaser.invalid" ng-change="doTest()">
+                    <option value="false"        >Yes</option>
+                    <option value="true" selected>No </option>
+                  </select>
+                </h4>
+                
+                <!--Co-purchaser fields: hidden if the above field is marked "No" -->
+                <div ng-hide="bo.copurchaser.invalid === 'true'">
+                  <h5>Basic Info</h5>
+                  Name    <input name="copurchaser-name"   placeholder="Required" ng-model="bo.phone.copurchaser.name"           ><br>
+                  DL      <input name="copurchaser-dl"     placeholder="Required" ng-model="bo.phone.copurchaser.dl"             ><br>
+                  DOB     <input name="copurchaser-dob"                           ng-model="bo.phone.copurchaser.dob" type="date"><br>
+                  <br>
+                  
+                  <h5>Address</h5>
+                  Street  <input name="contact-street-address" ng-model="bo.address.street" ><br>
+                  City    <input name="contact-city"           ng-model="bo.address.city"   ><br>
+                  State   <input name="contact-state"          ng-model="bo.address.state"  ><br>
+                  County  <input name="contact-county"         ng-model="bo.address.country"><br>
+                  Zipcode <input name="contact-zip"            ng-model="bo.address.zip"    ><br>
+                </div>
               </div>
-
+              
+              <!-- TAB - Car Information -->
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 Car type:
-                <select   name="is-car-used">
+                <select   name="is-car-used" ng-model="bo.is_car_used">
                   <option disabled selected>Choose an option</option>
-                  <option value="new">NEW</option>
-                  <option value="used">Used</option>
+                  <option value="false">NEW</option>
+                  <option value="true">Used</option>
                 </select>
 
                 <br>
-                Year    <input name="car-year"    placeholder="Required" type="number"> <br>
-                Make    <input name="car-make"    placeholder="Required"> <br>
-                Model   <input name="car-model"   placeholder="Required"> <br>
-                Type    <input name="car-type"    placeholder="Required"> <br>
-                Color   <input name="car-color"   placeholder="Required"> <br>
-                Mileage <input name="car-mileage" placeholder="Required" type="number"> <br>
+                Year    <input name="car-year"    placeholder="Required" type="number" ng-model="bo.car_info.year"> <br>
+                Make    <input name="car-make"    placeholder="Required" ng-model="bo.car_info.make"> <br>
+                Model   <input name="car-model"   placeholder="Required" ng-model="bo.car_info.model"> <br>
+                Type    <input name="car-type"    placeholder="Required" ng-model="bo.car_info.type"> <br>
+                Color   <input name="car-color"   placeholder="Required" ng-model="bo.car_info.color"> <br>
+                Mileage <input name="car-mileage" placeholder="Required" type="number" ng-model="bo.car_info.mileage"> <br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Cylinders         <input name="car-cyl"       type="number"> <br>
-                Serial Number     <input name="car-serial-no" type="number"> <br>
-                Stock Number      <input name="car-stock-num" type="number"> <br>
-                Salesperson       <input name="car-salesperson"> <br>
-                Lender            <input name="car-lender"> <br>
-                Purchased new tag <input name="car-purchase-new-tag"> <br>
-                Transfer          <input name="car-transfer"> <br>
-                Tag Number        <input name="car-tag-no"> <br>
-                Plate Number      <input name="car-plate-no"> <br>
-                Expiration Date   <input name="car-exp-date"> <br>
+                Cylinders         <input name="car-cyl"       type="number" ng-model="bo.car_info.cyl"> <br>
+                Serial Number     <input name="car-serial-no" type="number" ng-model="bo.car_info.serial_no"> <br>
+                Stock Number      <input name="car-stock-num" type="number" ng-model="bo.car_info.stock_no"> <br>
+                Salesperson       <input name="car-salesperson" ng-model="bo.car_info.salesperson"> <br>
+                Lender            <input name="car-lender" ng-model="bo.car_info.lender"> <br>
+                Purchased new tag <input name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag"> <br>
+                Transfer          <input name="car-transfer" ng-model="bo.car_info.transfer"> <br>
+                Tag Number        <input name="car-tag-no" ng-model="bo.car_info.tag_no"> <br>
+                Plate Number      <input name="car-plate-no" ng-model="bo.car_info.plate_no"> <br>
+                Expiration Date   <input name="car-exp-date" ng-model="bo.car_info.exp_date"> <br>
                 <br>
               </div>
-
+              
+              <!-- TAB - Financing -->
               <div class="tab-pane" id="financing">
                 <h3> Financing </h3>
-                NADA Retail       <input placeholder="Required" type="number" name="nada_retail"> <br>
-                Total Sale Price  <input placeholder="Required" type="number" name="total-sale-price"> <br>
-                Trade Allowance   <input placeholder="Required" type="number" name="trade-allowance"> <br>
-                Trade Difference  <input placeholder="Required" type="number" name="trade-difference"> <br>
-                Admin Fees        <input placeholder="Required" type="number" name="admin-fees" value="845"> <br>
+                NADA Retail       <input placeholder="Required" name="nada_retail"      ng-model="bo.finances.nada_retail"      type="number"            ><br>
+                Total Sale Price  <input placeholder="Required" name="total-sale-price" ng-model="bo.finances.total_sale_price" type="number"            ><br>
+                Trade Allowance   <input placeholder="Required" name="trade-allowance"  ng-model="bo.finances.trade_allowance"  type="number"            ><br>
+                Trade Difference  <input placeholder="Required" name="trade-difference" ng-model="bo.finances.trade_difference" type="number"            ><br>
+                Admin Fees        <input placeholder="Required" name="admin-fees"       ng-model="bo.finances.admin_fees"       type="number" value="845"><br>
                 <!-- 845 by default -->
-                Balance Owed      <input placeholder="Required" type="number" name="bal-owed-on-trade"> <br>
-                Total Due         <input placeholder="Required" type="number" name="total-due"> <br>
+                Balance Owed      <input placeholder="Required" name="bal-owed-on-trade" ng-model="bo.finances.bal_owed_on_trade"><br>
+                Total Due         <input placeholder="Required" name="total-due"         ng-model="bo.finances.total_due"        ><br>
                 <br>
 
                 <h4> Optional Information </h4>
@@ -233,61 +245,62 @@
                 Waste Tire Batt Fee <input type="number" name="waste-tire-batt-fee">
                 <br>
                  -->
-                Sub Total A <input type="number" name="sub-total-a"> <br>
+                Sub Total A<input type="number" name="sub-total-a" ng-model="bo.finances.sub_total_a"><br>
                 Sales Tax is County: 
-                <select name="sales-tax-is-county">
+                <select name="sales-tax-is-county" ng-model="bo.finances.sales_tax.is_county">
                   <option value="True">True</option>
                   <option value="False">False</option>
                 </select>
                 <br>
 
-                Sales Tax %    <input type="number" name="percentage"> <br>
-                Estimated Fees <input type="number" name="estimated-fees"> <br>
-                Lemon Law Fee  <input type="number" name="lemon-law-fee"> <br>
-                Sub Total B    <input type="number" name="sub-total-b"> <br>
-                Down Payment   <input type="number" name="down-payment"> <br>
-                Unpaid Due     <input type="number" name="unpaid-due"> <br>
+                Sales Tax %    <input name="percentage"     ng-model="bo.finances.sales_tax.percentage" type="number"><br>
+                Estimated Fees <input name="estimated-fees" ng-model="bo.finances.estimated_fees"       type="number"><br>
+                Lemon Law Fee  <input name="lemon-law-fee"  ng-model="bo.finances.lemon_law_fee"        type="number"><br>
+                Sub Total B    <input name="sub-total-b"    ng-model="bo.finances.sub_total_b"          type="number"><br>
+                Down Payment   <input name="down-payment"   ng-model="bo.finances.down_payment"         type="number"><br>
+                Unpaid Due     <input name="unpaid-due"     ng-model="bo.finances.unpaid_due"           type="number"><br>
                 <br>
               </div>
-
+              
+              <!-- TAB - Trades Information -->
               <div class="tab-pane" id="trade-info">
                 <h3> Trade Information </h3>
-                Year    <input placeholder="Required" name="car-year" type="number" > <br>
-                Make    <input placeholder="Required" name="car-make"> <br>
-                Model   <input placeholder="Required" name="car-model" type="number" > <br>
-                Type    <input placeholder="Required" name="car-type"> <br>
-                Color   <input placeholder="Required" name="car-color"> <br>
-                Mileage <input placeholder="Required" name="car-mileage" type="number" > <br>
+                Year    <input placeholder="Required" name="car-year"    ng-model="bo.trade_in.year" type="number"   ><br>
+                Make    <input placeholder="Required" name="car-make"    ng-model="bo.trade_in.make"                 ><br>
+                Model   <input placeholder="Required" name="car-model"   ng-model="bo.trade_in.model" type="number"  ><br>
+                Type    <input placeholder="Required" name="car-type"    ng-model="bo.trade_in.type"                 ><br>
+                Color   <input placeholder="Required" name="car-color"   ng-model="bo.trade_in.color"                ><br>
+                Mileage <input placeholder="Required" name="car-mileage" ng-model="bo.trade_in.mileage" type="number"><br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Cylinders      <input name="car-cyl"  type="number"> <br>
-                Serial Number  <input name="car-serial" type="number"> <br>
-                Account Number <input name="account-num" type="number"> <br>
-                <!-- Cars have phones?? huh... -->
-                <!-- Phone Number   <input type="tel" name="phone-num"> <br> -->
-                Holder         <input name="holder"> <br>
-                Address        <input name="address"> <br>
-                Amount         <input name="amount" type="number"> <br>
-                Qualified By   <input name="qualif-by"> <br>
-                Verified By    <input name="verif-by"> <br>
-                Good Through   <input name="good-thru" type="date"> <br>
+                Cylinders      <input name="car-cyl"     ng-model="bo.trade_in.cyl"        type="number"><br>
+                Serial Number  <input name="car-serial"  ng-model="bo.trade_in.serial_no"  type="number"><br>
+                Account Number <input name="account-num" ng-model="bo.trade_in.account_no" type="number"><br>
+                Holder         <input name="holder"      ng-model="bo.trade_in.holder"                  ><br>
+                Address        <input name="address"     ng-model="bo.trade_in.address"                 ><br>
+                Amount         <input name="amount"      ng-model="bo.trade_in.amount"     type="number"><br>
+                Qualified By   <input name="qualif-by"   ng-model="bo.trade_in.qualif_by"               ><br>
+                Verified By    <input name="verif-by"    ng-model="bo.trade_in.verif_by"                ><br>
+                Good Through   <input name="good-thru"   ng-model="bo.trade_in.good_thru"  type="date"  ><br>
               </div>
-
+              
+              <!-- TAB - Insurance -->
               <div class="tab-pane" id="insurance">
                 <h3> Insurance Information </h3>
-                Policy Number  <input placeholder="Required" name="ins-policy-num" type="number"> <br>
-                Company        <input placeholder="Required" name="company"> <br>
+                Policy Number  <input placeholder="Required" name="ins-policy-num" ng-model="bo.insr.policy_no"  type="number"><br>
+                Company        <input placeholder="Required" name="company"        ng-model="bo.insr.company"                 ><br>
                 <br>
 
                 <h4> Optional Information </h4>
-                Agent          <input name="agent"> <br>
-                Phone Number   <input name="phone-num" type="number"> <br>
-                Eff Dates      <input name="eff-dates"> <br>
-                Verified By    <input name="verif-by"> <br>
+                Agent          <input name="agent"      ng-model="bo.insr.agent"                 ><br>
+                Phone Number   <input name="phone-num"  ng-model="bo.insr.phone_no" type="number"><br>
+                Eff Dates      <input name="eff-dates"  ng-model="bo.insr.eff_dtaes"             ><br>
+                Verified By    <input name="verif-by"   ng-model="bo.insr.verif_by"              ><br>
               </div>
             </div>
           </div>
+          
           <div class="modal-footer">
             <button class="btn btn-primary" data-dismiss="modal">Submit</button>
             <button class="btn btn-primary" data-dismiss="modal">Close</button>
