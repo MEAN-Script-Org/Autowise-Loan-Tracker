@@ -76,7 +76,7 @@ var loanSchema = new mongoose.Schema({
       year:             Number,
       make:             String,
       model:            String,
-      type:             String,
+      type_t:           String, // 'type' is a reserved word, lol
       color:            String,
       cyl:              String,
 
@@ -136,7 +136,7 @@ var loanSchema = new mongoose.Schema({
       year:        Number,
       make:        String,
       model:       String,
-      type:        String,
+      type_t:      String,
       color:       String,
       cyl:         String,
 
