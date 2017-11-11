@@ -13,8 +13,7 @@ angular.module('SWEApp').controller(
     $rootScope.loanWithNewComments = {};
     
     // Fields for loan object creation
-    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, car_info: {}} ;         // Buyer's Order placeholder
-    $rootScope.temp_user = {} ;  // Temporary User -> attempts to match to database user
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; // Buyer's Order placeholder
 
     Factory.getUserInfo().then(function(response) {
       $scope.commentAsAdmin = false;
@@ -30,10 +29,6 @@ angular.module('SWEApp').controller(
       // $rootScope.user_email = response.data.email;
       $rootScope.user_isAdmin = response.data.isAdmin;
     });
-
-    $scope.doTest = function() {
-      console.log($rootScope.bo.copurchaser) ;
-    }
     
     $scope.init = function() {
       console.log("MEAN App on it's way!");
@@ -96,12 +91,23 @@ angular.module('SWEApp').controller(
     $scope.addLoanWithBO = function() {
       var newLoan = $scope.newLoan ;
       
-      // TODO: search for existing user via 'temp_user' specifications
+      newLoan.buyers_order = $rootScope.bo ;                  // Assign buyer's order information to loan
+      newLoan.name = newLoan.buyers_order.purchaser.name ;    // Copy Purchaser name to Loan name field
+      
+      // Checks if insurance has been specifeid
+      // If not, asks the User if they would like to continue
+      var insurance = newLoan.buyers_order.insr ;
+      if (!(insurance.company && insurance.policy_no)) {
+        var confirmation = confirm("Insurance company and/or policy number has not been specified. Submit this Loan anyway?") ;
+        
+        if (!confirmation)
+          return ;
+      }
+      
+      // TODO: search for existing user via 'newLoan.buyers_order.purchaser' specifications
       //       if none found, prompt to add a new user
       
-      newLoan.name = "TEST" ;
-      newLoan.buyers_order = $rootScope.bo ;  // Assign buyer's order information to loan
-      
+      // Use factory to create new loan and upload it to the database
       Factory.newLoan(newLoan).then(
         function(response) {
           if (response.data) {
@@ -113,15 +119,20 @@ angular.module('SWEApp').controller(
             // Add loan to front-end scope
             $rootScope.loans.push(newLoan) ;
             
-            // For testing
-            console.log("Returned new loan: ");
-            console.log(response.data);
-
             // clear form data once done
-            //$scope.newLoan = {};
+            $scope.newLoan = {} ;
+            $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ;
+            
+            // TODO: Close modal
+            //modal.hide
+            //data-dismiss="modal"
+            
+            alert("Loan was created successfully!") ;
           }
         },
         function(err) {
+          alert("There was an error submitting the form. Ensure all required fields are filled") ;
+          
           console.log(err);
         }
       );

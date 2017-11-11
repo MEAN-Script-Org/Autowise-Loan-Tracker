@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<!-- Simple New Loan modal -->
+<!-- Simple New Loan modal - UNUSED MODAL -->
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
@@ -105,14 +105,14 @@
   </div>
 </div>
 
-<!-- Buyers order -->
+<!-- Buyers order and Loan creation -->
+<!-- TODO: Form validation -->
+<!-- Marcial: Need better Modal CSS -->
+<!--          Doesn't need to be mobile friendly -->
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyersOrderModal" tabindex="-1">
-      <!-- Marcial: Need better Modal CSS -->
-      <!--          Doesn't need to be mobile friendly -->
       <div class="modal-dialog" style="width: 60%; min-width: 615px;">
-      <!-- <div class="modal-dialog" style=""> -->
         <div class="modal-content">
           
           <!-- Modal Header -->
@@ -134,14 +134,6 @@
           
           <!-- Modal Body -->
           <div class="modal-body">
-            <!-- TODO: Figure out how to validate this -->
-            <!-- TODO: Group fields nicely to utilize horizontal space to the max -->
-            <!--
-              Form Date:
-              <input type="date" name="form-date">
-              <br>
-              today's should be default
-             -->
              
             <!-- BUYER'S ORDER TABBED PAGES -->
             <div class="tab-content">
@@ -149,13 +141,14 @@
               <!-- TAB - Customer Information -->
               <div class="tab-pane active" id="customer-info">
                 <h3>Purchaser Information</h3>
+                <div class="buyers-order-req-asterisk">* Required</div>
                 <br>
                 
                 <h5>Basic Info</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Name<span  class="buyers-order-req-asterisk">*</span></span><input name="customer-name"  ng-model="bo.purchaser.name"            ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Email<span class="buyers-order-req-asterisk">*</span></span><input name="customer-email" ng-model="bo.purchaser.email"           ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">DL<span    class="buyers-order-req-asterisk">*</span></span><input name="customer-dl"    ng-model="bo.purchaser.dl"              ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">DOB<span   class="buyers-order-req-asterisk">*</span></span><input name="customer-dob"   ng-model="bo.purchaser.dob"  type="date"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Name<span  class="buyers-order-req-asterisk">*</span></span><input name="customer-name"  ng-model="bo.purchaser.name"              ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DL<span    class="buyers-order-req-asterisk">*</span></span><input name="customer-dl"    ng-model="bo.purchaser.dl"                ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">DOB<span   class="buyers-order-req-asterisk">*</span></span><input name="customer-dob"   ng-model="bo.purchaser.dob"   type="date" ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Email</span><input name="customer-email" ng-model="bo.purchaser.email" type="email"></div>
                 
                 <h5>Contact Info</h5>
                 <div class="buyers-order-row"><span class="buyers-order-field-name">Phone #<span class="buyers-order-req-asterisk">*</span></span><input name="customer-phone" ng-model="bo.purchaser.phone.cell" type="tel"></div>
@@ -164,17 +157,17 @@
                 <br>
                 
                 <h5>Address</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.purchaser.address.street" ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.purchaser.address.city"   ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.purchaser.address.state"  ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.purchaser.address.country"></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.purchaser.address.zip"    ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.purchaser.address.street"               ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.purchaser.address.city"                 ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.purchaser.address.state"                ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.purchaser.address.county"               ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.purchaser.address.zip"     type="number"></div>
                 <br>
                 
                 <!-- TODO: need to add stylings to all of this... -->
                 
                 <h4> Adding a Co-Purchaser?
-                  <select ng-model="bo.copurchaser.invalid" ng-change="doTest()">
+                  <select ng-model="bo.copurchaser.invalid">
                     <option value="false"        >Yes</option>
                     <option value="true" selected>No </option>
                   </select>
@@ -183,73 +176,70 @@
                 <!--Co-purchaser fields: hidden if the above field is marked "No" -->
                 <div ng-hide="bo.copurchaser.invalid === 'true'">
                   <h5>Basic Info</h5>
-                  Name    <input name="copurchaser-name"   placeholder="Required" ng-model="bo.copurchaser.name"           ><br>
-                  DL      <input name="copurchaser-dl"     placeholder="Required" ng-model="bo.copurchaser.dl"             ><br>
-                  DOB     <input name="copurchaser-dob"                           ng-model="bo.copurchaser.dob" type="date"><br>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">Name</span><input name="copurchaser-name" ng-model="bo.copurchaser.name"           ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">DL</span><input name="copurchaser-dl"     ng-model="bo.copurchaser.dl"             ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">DOB</span><input name="copurchaser-dob"   ng-model="bo.copurchaser.dob" type="date"></div>
                   <br>
                   
-                <h5>Address</h5>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Street<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-street-address" ng-model="bo.copurchaser.address.street" ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">City<span class="buyers-order-req-asterisk">*</span></span><input    name="contact-city"           ng-model="bo.copurchaser.address.city"   ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">State<span class="buyers-order-req-asterisk">*</span></span><input   name="contact-state"          ng-model="bo.copurchaser.address.state"  ></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">County<span class="buyers-order-req-asterisk">*</span></span><input  name="contact-county"         ng-model="bo.copurchaser.address.country"></div>
-                <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode<span class="buyers-order-req-asterisk">*</span></span><input name="contact-zip"            ng-model="bo.copurchaser.address.zip"    ></div>
+                  <h5>Address</h5>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">Street</span><input  name="contact-street-address" ng-model="bo.copurchaser.address.street"               ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">City</span><input    name="contact-city"           ng-model="bo.copurchaser.address.city"                 ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">State</span><input   name="contact-state"          ng-model="bo.copurchaser.address.state"                ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">County</span><input  name="contact-county"         ng-model="bo.copurchaser.address.country"              ></div>
+                  <div class="buyers-order-row"><span class="buyers-order-field-name">Zipcode</span><input name="contact-zip"            ng-model="bo.copurchaser.address.zip"     type="number"></div>
                 </div>
               </div>
               
               <!-- TAB - Car Information -->
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
-                Car type:
-                <select   name="is-car-used" ng-model="bo.is_car_used">
-                  <option disabled selected>Choose an option</option>
-                  <option value="false">NEW</option>
-                  <option value="true">Used</option>
-                </select>
-
+                <div class="buyers-order-req-asterisk">* Required</div>
                 <br>
-                Year    <input name="car-year"    placeholder="Required" type="number" ng-model="bo.car_info.year"> <br>
-                Make    <input name="car-make"    placeholder="Required" ng-model="bo.car_info.make"> <br>
-                Model   <input name="car-model"   placeholder="Required" ng-model="bo.car_info.model"> <br>
-                Type    <input name="car-type"    placeholder="Required" ng-model="bo.car_info.type"> <br>
-                Color   <input name="car-color"   placeholder="Required" ng-model="bo.car_info.color"> <br>
-                Mileage <input name="car-mileage" placeholder="Required" type="number" ng-model="bo.car_info.mileage"> <br>
+                
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Car type<span class="buyers-order-req-asterisk">*</span></span>
+                  <select name="is-car-used" ng-model="bo.is_car_used">
+                    <option disabled selected>Choose an option</option>
+                    <option value="false">New</option>
+                    <option value="true">Used</option>
+                  </select>
+                </div>
                 <br>
-
-                <h4> Optional Information </h4>
-                Cylinders         <input name="car-cyl"       type="number" ng-model="bo.car_info.cyl"> <br>
-                Serial Number     <input name="car-serial-no" type="number" ng-model="bo.car_info.serial_no"> <br>
-                Stock Number      <input name="car-stock-num" type="number" ng-model="bo.car_info.stock_no"> <br>
-                Salesperson       <input name="car-salesperson" ng-model="bo.car_info.salesperson"> <br>
-                Lender            <input name="car-lender" ng-model="bo.car_info.lender"> <br>
-                Purchased new tag <input name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag"> <br>
-                Transfer          <input name="car-transfer" ng-model="bo.car_info.transfer"> <br>
-                Tag Number        <input name="car-tag-no" ng-model="bo.car_info.tag_no"> <br>
-                Plate Number      <input name="car-plate-no" ng-model="bo.car_info.plate_no"> <br>
-                Expiration Date   <input name="car-exp-date" ng-model="bo.car_info.exp_date"> <br>
+                
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Year<span class="buyers-order-req-asterisk">*</span></span><input name="car-year"       ng-model="bo.car_info.year"    type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Make<span class="buyers-order-req-asterisk">*</span></span><input name="car-make"       ng-model="bo.car_info.make"                 ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Model<span class="buyers-order-req-asterisk">*</span></span><input name="car-model"     ng-model="bo.car_info.model"                ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Type<span class="buyers-order-req-asterisk">*</span></span><input name="car-type"       ng-model="bo.car_info.type_t"               ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Color<span class="buyers-order-req-asterisk">*</span></span><input name="car-color"     ng-model="bo.car_info.color"                ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Mileage<span class="buyers-order-req-asterisk">*</span></span><input name="car-mileage" ng-model="bo.car_info.mileage" type="number"></div>
                 <br>
+                
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Cylinders</span><input name="car-cyl"                      ng-model="bo.car_info.cyl"         type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Serial Number</span><input name="car-serial-no"            ng-model="bo.car_info.serial_no"   type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Stock Number</span><input name="car-stock-num"             ng-model="bo.car_info.stock_no"    type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Salesperson</span><input name="car-salesperson"            ng-model="bo.car_info.salesperson"              ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Lender</span><input name="car-lender"                      ng-model="bo.car_info.lender"                   ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Purchased new tag</span><input name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag"         ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Transfer</span><input name="car-transfer"                  ng-model="bo.car_info.transfer"                 ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Tag Number</span><input name="car-tag-no"                  ng-model="bo.car_info.tag_no"                   ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Plate Number</span><input name="car-plate-no"              ng-model="bo.car_info.plate_no"                 ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Expiration Date</span><input name="car-exp-date"           ng-model="bo.car_info.exp_date"    type="date"  ></div>
               </div>
               
               <!-- TAB - Financing -->
               <div class="tab-pane" id="financing">
                 <h3> Financing </h3>
-                NADA Retail       <input placeholder="Required" name="nada_retail"      ng-model="bo.finances.nada_retail"      type="number"            ><br>
-                Total Sale Price  <input placeholder="Required" name="total-sale-price" ng-model="bo.finances.total_sale_price" type="number"            ><br>
-                Trade Allowance   <input placeholder="Required" name="trade-allowance"  ng-model="bo.finances.trade_allowance"  type="number"            ><br>
-                Trade Difference  <input placeholder="Required" name="trade-difference" ng-model="bo.finances.trade_difference" type="number"            ><br>
-                Admin Fees        <input placeholder="Required" name="admin-fees"       ng-model="bo.finances.admin_fees"       type="number" value="845"><br>
-                <!-- 845 by default -->
-                Balance Owed      <input placeholder="Required" name="bal-owed-on-trade" ng-model="bo.finances.bal_owed_on_trade"><br>
-                Total Due         <input placeholder="Required" name="total-due"         ng-model="bo.finances.total_due"        ><br>
+                <div class="buyers-order-req-asterisk">* Required</div>
                 <br>
-
-                <h4> Optional Information </h4>
-                <!-- bye bye??
-                Accessories <input type="" name="accessories">
+                
+                <div class="buyers-order-row"><span class="buyers-order-field-name">NADA Retail<span class="buyers-order-req-asterisk">*</span></span><input name="nada_retail"           ng-model="bo.finances.nada_retail"       type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Total Sale Price<span class="buyers-order-req-asterisk">*</span></span><input name="total-sale-price" ng-model="bo.finances.total_sale_price"  type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Trade Allowance<span class="buyers-order-req-asterisk">*</span></span><input name="trade-allowance"   ng-model="bo.finances.trade_allowance"   type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Trade Difference<span class="buyers-order-req-asterisk">*</span></span><input name="trade-difference" ng-model="bo.finances.trade_difference"  type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Admin Fees<span class="buyers-order-req-asterisk">*</span></span><input name="admin-fees" value="845" ng-model="bo.finances.admin_fees"        type="number"></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Balance Owed<span class="buyers-order-req-asterisk">*</span></span><input name="bal-owed-on-trade"    ng-model="bo.finances.bal_owed_on_trade"              ></div>
+                <div class="buyers-order-row"><span class="buyers-order-field-name">Total Due<span class="buyers-order-req-asterisk">*</span></span><input name="total-due"               ng-model="bo.finances.total_due"                      ></div>
                 <br>
-                Waste Tire Batt Fee <input type="number" name="waste-tire-batt-fee">
-                <br>
-                 -->
+                
                 Sub Total A<input type="number" name="sub-total-a" ng-model="bo.finances.sub_total_a"><br>
                 Sales Tax is County: 
                 <select name="sales-tax-is-county" ng-model="bo.finances.sales_tax.is_county">
@@ -270,10 +260,13 @@
               <!-- TAB - Trades Information -->
               <div class="tab-pane" id="trade-info">
                 <h3> Trade Information </h3>
+                <div class="buyers-order-req-asterisk">* Required</div>
+                <br>
+                
                 Year    <input placeholder="Required" name="car-year"    ng-model="bo.trade_in.year" type="number"   ><br>
                 Make    <input placeholder="Required" name="car-make"    ng-model="bo.trade_in.make"                 ><br>
                 Model   <input placeholder="Required" name="car-model"   ng-model="bo.trade_in.model" type="number"  ><br>
-                Type    <input placeholder="Required" name="car-type"    ng-model="bo.trade_in.type"                 ><br>
+                Type    <input placeholder="Required" name="car-type"    ng-model="bo.trade_in.type_t"               ><br>
                 Color   <input placeholder="Required" name="car-color"   ng-model="bo.trade_in.color"                ><br>
                 Mileage <input placeholder="Required" name="car-mileage" ng-model="bo.trade_in.mileage" type="number"><br>
                 <br>
@@ -292,7 +285,10 @@
               
               <!-- TAB - Insurance -->
               <div class="tab-pane" id="insurance">
-                <h3> Insurance Information </h3>
+                <h3> Insurance </h3>
+                <div class="buyers-order-req-asterisk">* Required</div>
+                <br>
+                
                 Policy Number  <input placeholder="Required" name="ins-policy-num" ng-model="bo.insr.policy_no"  type="number"><br>
                 Company        <input placeholder="Required" name="company"        ng-model="bo.insr.company"                 ><br>
                 <br>
@@ -306,9 +302,10 @@
             </div>
           </div>
           
+          <!-- Modal Footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoanWithBO()">Submit</button>
-            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" ng-click="addLoanWithBO()">Submit</button>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

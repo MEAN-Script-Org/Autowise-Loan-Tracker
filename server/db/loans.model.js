@@ -12,7 +12,7 @@ var loanSchema = new mongoose.Schema({
   // Identifier information
   user_id:    String,
   user_email: String,
-  name:       String,
+  name:       {type: String, required: true},
 
   //trades:     Boolean,
   type:       String,   // Loan type
@@ -34,24 +34,24 @@ var loanSchema = new mongoose.Schema({
     
     // Purchaser and Co-Purchaser
     purchaser: {
-      name:  {type:   String, /*required: false*/},
-      email: {type:   String, /*required: false*/},
-      dl:    {type:   String, /*required: false*/},
-      dob:   {type:   Date,   /*required: false*/},
+      name:  {type:   String, required: true},
+      email: {type:   String, required: false},
+      dl:    {type:   String, required: true},
+      dob:   {type:   Date,   required: true},
 
       // Contact information
       address: {
-        street: {type: String, /*required: false*/},
-        city:   {type: String, /*required: false*/},
-        state:  {type: String, /*required: false*/},
-        county: {type: String, /*required: false*/},
-        zip:    {type: Number, /*required: false*/},
+        street: {type: String, required: true},
+        city:   {type: String, required: true},
+        state:  {type: String, required: true},
+        county: {type: String, required: true},
+        zip:    {type: Number, required: true},
       },
     
       phone: {
-        home: Number,
-        work: Number,
-        cell: Number,
+        home: {type: Number},
+        work: {type: Number},
+        cell: {type: Number, required: true},
       },
     },
     
@@ -73,12 +73,12 @@ var loanSchema = new mongoose.Schema({
 
     // Car information
     car_info: {   
-      year:             Number,
-      make:             String,
-      model:            String,
-      type_t:           String, // 'type' is a reserved word, lol
-      color:            String,
-      cyl:              String,
+      year:             {type: Number, required: true},
+      make:             {type: String, required: true},
+      model:            {type: String, required: true},
+      type_t:           {type: String, required: true}, // 'type' is a reserved word, lol
+      color:            {type: String, required: true},
+      cyl:              Number,
 
       serial_no:        String,
       stock_no:         String,
@@ -95,13 +95,12 @@ var loanSchema = new mongoose.Schema({
 
     // Financing and fees
     finances: {
-      nada_retail:         Number,
-      accessories:         String,
+      nada_retail:         {type: Number, required: true},
 
-      admin_fees:          Number,
-      trade_allowance:     Number,
-      trade_difference:    Number,
-      total_sale_price:    Number,
+      admin_fees:          {type: Number, required: true},
+      trade_allowance:     {type: Number, required: true},
+      trade_difference:    {type: Number, required: true},
+      total_sale_price:    {type: Number, required: true},
       // TODO: automatic calculation ?
       sub_total_a:         Number,
       
@@ -115,10 +114,10 @@ var loanSchema = new mongoose.Schema({
       // TODO: automatic calculation
       sub_total_b:         Number,
 
-      bal_owed_on_trade:   Number,
+      bal_owed_on_trade:   {type: Number, required: true},
+      total_due:           {type: Number, required: true},
       down_payment:        Number,
       unpaid_due:          Number,
-      total_due:           Number,
     },
 
     // Insurance information
