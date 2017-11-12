@@ -748,6 +748,10 @@ a.label:focus {
 }
 
 .input-group-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
 }
 
 .panel-footer .input-group-btn:last-child>.btn,
