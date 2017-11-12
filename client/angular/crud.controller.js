@@ -4,11 +4,11 @@ angular.module('SWEApp').controller(
 
     // Globals
     // Essentially, anything that goes into an async (Factory) call
-    $rootScope.loans = [
-        {"name" : "Steven", "_id" : 1}, 
-        {"name" : "Marcial", "_id" : 2}, 
-        {"name" : "Max", "_id" : 3}
-    ];
+    $rootScope.loans = [];
+//        {"name" : "Steven", "_id" : 1}, 
+//        {"name" : "Marcial", "_id" : 2}, 
+//        {"name" : "Max", "_id" : 3}
+//    ];
     $rootScope.loading = false;
     // $rootScope.loading = true;
     $rootScope.massLoans = [];
@@ -40,8 +40,8 @@ angular.module('SWEApp').controller(
       Factory.getLoans().then(
         function(res) {
           if (res.data.length != 0) {
-//            $rootScope.loans = res.data;
-//            console.log($rootScope.loans);
+            $rootScope.loans = res.data;
+            console.log($rootScope.loans);
           } else {
             console.log("DB is empty ~");
           }

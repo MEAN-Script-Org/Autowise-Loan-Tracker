@@ -742,16 +742,44 @@ a.label:focus {
 }
 
 .input-group {
+/*
     display: flex;
     justify-content: space-between;
     align-items: center;
+*/
 }
 
 .input-group-btn {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
+
+}
+span.btn-group-icon {display:none}
+span.btn-group-text {display:inline-block}
+
+@media (max-width: 700px) {
+    .input-group-btn, .input-group .form-control {
+        display: block;
+        margin-bottom: 8px;
+        clear: both;
+    }
+    .input-group {
+        position: relative;
+        display: block;
+        border-collapse: separate;
+    }
+    .input-group-btn {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+    }
+    .input-group-btn:last-child > .btn-primary {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+ }
+@media (max-width: 600px) {
+    span.btn-group-icon {display:inline-block}
+    span.btn-group-text {display:none}
 }
 
 .panel-footer .input-group-btn:last-child>.btn,
