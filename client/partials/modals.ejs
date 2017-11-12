@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<!-- Simple New Loan modal -->
+<!-- Simple New Loan modal - UNUSED MODAL -->
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
@@ -105,19 +105,17 @@
   </div>
 </div>
 
-<!-- Buyers order -->
+<!-- Marcial: Need better Modal CSS -->
+<!--          Doesn't need to be mobile friendly -->
+<!-- TODO:  VALIDATION AND CLEANING (no need for 'name fields') -->
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyersOrderModal" tabindex="-1">
-      <!-- Marcial: Need better Modal CSS -->
-      <!--          Doesn't need to be mobile friendly -->
       <div class="modal-dialog" style="width: 60%; min-width: 615px;">
-      <!-- <div class="modal-dialog" style=""> -->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2>Buyers Order</h2>
-            <!-- ["cutomer-info", "car-info", "financing", "trade-info", "insurance"] -->
             <ul class="nav nav-tabs" id="tabContent">
               <li class="active">
                 <a href="#customer-info" data-toggle="tab">Customer Info</a>
@@ -128,169 +126,379 @@
               <li> <a href="#insurance" data-toggle="tab">Insurance</a> </li>
             </ul>
           </div>
+
           <div class="modal-body">
-            <!-- TODO: Figure out how to validate this -->
-            <!-- TODO: Group fields nicely to utilize horizontal space to the max -->
-            <!--
-              Form Date:
-              <input type="date" name="form-date">
-              <br>
-              today's should be default
-             -->
+            <!-- BUYER'S ORDER TABBED PAGES -->
             <div class="tab-content">
-              <!-- Please Enter the fields for the Buyers Order<br> -->
+              
+              <!-- TAB - Customer Information -->
               <div class="tab-pane active" id="customer-info">
-                <h3>Customer Information</h3>
+                <h3>Purchaser Information</h3>
                 <br>
-                Name    <input name="customer-name"   placeholder="Required"> <br>
-                Email   <input name="customer-email" placeholder="Required"> <br>
-                DL      <input name="customer-dl"       placeholder="Required"> <br>
-                DOB     <input name="customer-dob"     type="date"> <br>
+                <!-- <h5>Basic Info</h5> -->
+                <div>
+                  <span class="required">Name</span>
+                  <input name="customer-name" ng-model="bo.purchaser.name">
+                </div>
+                <div>
+                  <span class="required">DL</span>
+                  <input name="customer-dl" ng-model="bo.purchaser.dl">
+                </div>
+                <div>
+                  <span class="required">DOB</span>
+                  <input name="customer-dob" ng-model="bo.purchaser.dob" type="date">
+                </div>
+                <div>
+                  <span>Email</span>
+                  <input name="customer-email" ng-model="bo.purchaser.email" type="email">
+                </div>
+                <!-- <h5>Contact Info</h5> -->
                 <br>
-                Phone # <input name="customer-phone" type="tel" placeholder="Required"> <br>
-                Home #  <input name="customer-home"   type="tel" > <br>
-                Work #  <input name="customer-work"   type="tel" > <br>
+                <div>
+                  <span class="required">Phone #</span>
+                  <input name="customer-phone" ng-model="bo.purchaser.phone.cell" type="tel">
+                </div>
+                <div>
+                  <span>Home #</span>
+                  <input name="customer-home" ng-model="bo.purchaser.phone.home" type="tel">
+                </div>
+                <div>
+                  <span>Work #</span>
+                  <input name="customer-work" ng-model="bo.purchaser.phone.work" type="tel">
+                </div>
                 <br>
-
-                <h4> Adding a Co-Purchaser? </h4>
-                <!-- These need to be on the same line ... c'mon CSS... -->
-                <!-- ng-value?? need an angular value that's boolean... -->
-                <!-- ng-model="is_cosigning" -->
-                <select >
-                  <option value="true">Yes</option>
-                  <option value="false" selected>No</option>
-                </select>
+                <!-- <h5>Address</h5> -->
+                <div>
+                  <span class="required">Street</span>
+                  <input name="contact-street-address" ng-model="bo.purchaser.address.street">
+                </div>
+                <div>
+                  <span class="required">City</span>
+                  <input name="contact-city" ng-model="bo.purchaser.address.city">
+                </div>
+                <div>
+                  <span class="required">State</span>
+                  <input name="contact-state" ng-model="bo.purchaser.address.state">
+                </div>
+                <div>
+                  <span class="required">County</span>
+                  <input name="contact-county" ng-model="bo.purchaser.address.county">
+                </div>
+                <div>
+                  <span class="required">Zipcode</span>
+                  <input name="contact-zip" ng-model="bo.purchaser.address.zip" type="number">
+                </div>
                 <br>
-
-                <br>
-                Name    <input name="copurchaser-name"   placeholder="Required"> <br>
-                Email   <input name="copurchaser-email"  placeholder="Required"> <br>
-                DL      <input name="copurchaser-dl"     placeholder="Required"> <br>
-                DOB     <input name="copurchaser-dob"    type="date"> <br>
-                <br>
-                Phone # <input name="copurchaser-phone"  type="tel" placeholder="Required"> <br>
-                Home #  <input name="copurchaser-home"   type="tel" > <br>
-                Work #  <input name="copurchaser-work"   type="tel" > <br>
-                <br>
-
-                <!-- <h4>Address</h4> -->
-                Street  <input type="" name="contact-street-address"> <br>
-                City    <input type="" name="contact-city"> <br>
-                State   <input type="" name="contact-state"> <br>
-                County  <input type="" name="contact-county"> <br>
-                Zipcode <input type="" name="contact-zip"> <br>
-                <br>
+                <!-- TODO: need to add stylings to all of this... -->
+                <h4> Adding a Co-Purchaser?
+                  <select ng-model="bo.copurchaser.invalid">
+                    <option value="false"        >Yes</option>
+                    <option value="true" selected>No </option>
+                  </select>
+                </h4>
+                <!--Co-purchaser fields: hidden if the above field is marked "No" -->
+                <div ng-show="bo.copurchaser">
+                  <!-- <h5>Basic Info</h5> -->
+                  <div>
+                    <span>Name</span>
+                    <input name="copurchaser-name" ng-model="bo.copurchaser.name">
+                  </div>
+                  <div>
+                    <span>DL</span>
+                    <input name="copurchaser-dl" ng-model="bo.copurchaser.dl">
+                  </div>
+                  <div>
+                    <span>DOB</span>
+                    <input name="copurchaser-dob" ng-model="bo.copurchaser.dob" type="date">
+                  </div>
+                  <br>
+                  <div>
+                    <span class="required">Phone #</span>
+                    <input name="customer-phone" ng-model="bo.copurchaser.phone.cell" type="tel">
+                  </div>
+                  <div>
+                    <span>Home #</span>
+                    <input name="customer-home" ng-model="bo.copurchaser.phone.home" type="tel">
+                  </div>
+                  <div>
+                    <span>Work #</span>
+                    <input name="customer-work" ng-model="bo.copurchaser.phone.work" type="tel">
+                  </div>
+                  <br>
+                  <!-- <h5>Address</h5> -->
+                  <div>
+                    <span>Street</span>
+                    <input name="contact-street-address" ng-model="bo.copurchaser.address.street">
+                  </div>
+                  <div>
+                    <span>City</span>
+                    <input name="contact-city" ng-model="bo.copurchaser.address.city">
+                  </div>
+                  <div>
+                    <span>State</span>
+                    <input name="contact-state" ng-model="bo.copurchaser.address.state">
+                  </div>
+                  <div>
+                    <span>County</span>
+                    <input name="contact-county" ng-model="bo.copurchaser.address.country">
+                  </div>
+                  <div>
+                    <span>Zipcode</span>
+                    <input name="contact-zip" ng-model="bo.copurchaser.address.zip" type="number">
+                  </div>
+                </div>
               </div>
 
+              <!-- TAB - Car Information -->
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
-                Car type:
-                <select   name="is-car-used">
-                  <option disabled selected>Choose an option</option>
-                  <option value="new">NEW</option>
-                  <option value="used">Used</option>
-                </select>
-
                 <br>
-                Year    <input name="car-year"    placeholder="Required" type="number"> <br>
-                Make    <input name="car-make"    placeholder="Required"> <br>
-                Model   <input name="car-model"   placeholder="Required"> <br>
-                Type    <input name="car-type"    placeholder="Required"> <br>
-                Color   <input name="car-color"   placeholder="Required"> <br>
-                Mileage <input name="car-mileage" placeholder="Required" type="number"> <br>
-                <br>
-
-                <h4> Optional Information </h4>
-                Cylinders         <input name="car-cyl"       type="number"> <br>
-                Serial Number     <input name="car-serial-no" type="number"> <br>
-                Stock Number      <input name="car-stock-num" type="number"> <br>
-                Salesperson       <input name="car-salesperson"> <br>
-                Lender            <input name="car-lender"> <br>
-                Purchased new tag <input name="car-purchase-new-tag"> <br>
-                Transfer          <input name="car-transfer"> <br>
-                Tag Number        <input name="car-tag-no"> <br>
-                Plate Number      <input name="car-plate-no"> <br>
-                Expiration Date   <input name="car-exp-date"> <br>
-                <br>
+                <div>
+                  <span class="required">Car type</span>
+                  <select name="is-car-used" ng-model="bo.is_car_used">
+                    <option disabled selected>Choose an option</option>
+                    <option value="false">New</option>
+                    <option value="true">Used</option>
+                  </select>
+                </div>
+                <!-- <br> -->
+                <div>
+                  <span class="required">Year</span>
+                  <input name="car-year" ng-model="bo.car_info.year" type="number">
+                </div>
+                <div>
+                  <span class="required">Make</span>
+                  <input name="car-make" ng-model="bo.car_info.make">
+                </div>
+                <div>
+                  <span class="required">Model</span>
+                  <input name="car-model" ng-model="bo.car_info.model">
+                </div>
+                <div>
+                  <span class="required">Type</span>
+                  <input name="car-type" ng-model="bo.car_info.type_t">
+                </div>
+                <div>
+                  <span class="required">Color</span>
+                  <input name="car-color" ng-model="bo.car_info.color">
+                </div>
+                <div>
+                  <span class="required">Mileage</span>
+                  <input name="car-mileage" ng-model="bo.car_info.mileage" type="number">
+                </div>
+                <div>
+                  <span>Cylinders</span>
+                  <input name="car-cyl" ng-model="bo.car_info.cyl" type="number">
+                </div>
+                <div>
+                  <span>Serial Number</span>
+                  <input name="car-serial-no" ng-model="bo.car_info.serial_no" type="number">
+                </div>
+                <div>
+                  <span>Stock Number</span>
+                  <input name="car-stock-num" ng-model="bo.car_info.stock_no" type="number">
+                </div>
+                <div>
+                  <span>Salesperson</span>
+                  <input name="car-salesperson" ng-model="bo.car_info.salesperson">
+                </div>
+                <div>
+                  <span>Lender</span>
+                  <input name="car-lender" ng-model="bo.car_info.lender">
+                </div>
+                <div>
+                  <span>License Plate</span>
+                  <input name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
+                </div>
+                <div>
+                  <span>Plate Number</span>
+                  <input name="car-plate-no" ng-model="bo.car_info.plate_no">
+                </div>
+                <div>
+                  <span>Transfer</span>
+                  <input name="car-transfer" ng-model="bo.car_info.transfer">
+                </div>
+                <div>
+                  <span>Tag Number</span>
+                  <input name="car-tag-no" ng-model="bo.car_info.tag_no">
+                </div>
+                <div>
+                  <span>Expiration Date</span>
+                  <input name="car-exp-date" ng-model="bo.car_info.exp_date" type="date">
+                </div>
               </div>
 
+              <!-- TAB - Financing -->
               <div class="tab-pane" id="financing">
                 <h3> Financing </h3>
-                NADA Retail       <input placeholder="Required" type="number" name="nada_retail"> <br>
-                Total Sale Price  <input placeholder="Required" type="number" name="total-sale-price"> <br>
-                Trade Allowance   <input placeholder="Required" type="number" name="trade-allowance"> <br>
-                Trade Difference  <input placeholder="Required" type="number" name="trade-difference"> <br>
-                Admin Fees        <input placeholder="Required" type="number" name="admin-fees" value="845"> <br>
-                <!-- 845 by default -->
-                Balance Owed      <input placeholder="Required" type="number" name="bal-owed-on-trade"> <br>
-                Total Due         <input placeholder="Required" type="number" name="total-due"> <br>
                 <br>
-
-                <h4> Optional Information </h4>
-                <!-- bye bye??
-                Accessories <input type="" name="accessories">
-                <br>
-                Waste Tire Batt Fee <input type="number" name="waste-tire-batt-fee">
-                <br>
-                 -->
-                Sub Total A <input type="number" name="sub-total-a"> <br>
-                Sales Tax is County: 
-                <select name="sales-tax-is-county">
-                  <option value="True">True</option>
-                  <option value="False">False</option>
-                </select>
-                <br>
-
-                Sales Tax %    <input type="number" name="percentage"> <br>
-                Estimated Fees <input type="number" name="estimated-fees"> <br>
-                Lemon Law Fee  <input type="number" name="lemon-law-fee"> <br>
-                Sub Total B    <input type="number" name="sub-total-b"> <br>
-                Down Payment   <input type="number" name="down-payment"> <br>
-                Unpaid Due     <input type="number" name="unpaid-due"> <br>
-                <br>
+                <div>
+                  <span class="required">NADA Retail</span>
+                  <input name="nada_retail" ng-model="bo.finances.nada_retail" type="number">
+                </div>
+                <div>
+                  <span class="required">Total Sale Price</span>
+                  <input name="total-sale-price" ng-model="bo.finances.total_sale_price" type="number">
+                </div>
+                <div>
+                  <span class="required">Trade Allowance</span>
+                  <input name="trade-allowance" ng-model="bo.finances.trade_allowance" type="number">
+                </div>
+                <div>
+                  <span class="required">Trade Difference</span>
+                  <input name="trade-difference" ng-model="bo.finances.trade_difference" type="number">
+                </div>
+                <div>
+                  <span class="required">Admin Fees</span>
+                  <input name="admin-fees" value="489" ng-model="bo.finances.admin_fees" type="number">
+                </div>
+                <div>
+                  <span class="required">Balance Owed</span>
+                  <input name="bal-owed-on-trade" ng-model="bo.finances.bal_owed_on_trade">
+                </div>
+                <div>
+                  <span class="required">Total Due</span>
+                  <input name="total-due" ng-model="bo.finances.total_due">
+                </div>
+                <div>
+                <span> Sub Total A</span>
+                  <input type="number" name="sub-total-a" ng-model="bo.finances.sub_total_a">
+                </div>
+                <div>
+                <span> Sales Tax is County:</span>
+                  <select name="sales-tax-is-county" ng-model="bo.finances.sales_tax.is_county">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                  </select>
+                  </div>
+                <div>
+                <span> Sales Tax %</span>
+                  <input name="percentage" ng-model="bo.finances.sales_tax.percentage" type="number">
+                </div>
+                <div>
+                <span> Estimated Fees</span>
+                  <input name="estimated-fees" ng-model="bo.finances.estimated_fees" type="number">
+                </div>
+                <div>
+                <span> Lemon Law Fee</span>
+                  <input name="lemon-law-fee" ng-model="bo.finances.lemon_law_fee" type="number">
+                </div>
+                <div>
+                <span> Sub Total B</span>
+                  <input name="sub-total-b" ng-model="bo.finances.sub_total_b" type="number">
+                </div>
+                <div>
+                <span> Down Payment</span>
+                  <input name="down-payment" ng-model="bo.finances.down_payment" type="number">
+                </div>
+                <div>
+                <span> Unpaid Due</span>
+                  <input name="unpaid-due" ng-model="bo.finances.unpaid_due" type="number">
+                </div>
               </div>
 
+              <!-- TAB - Trades Information -->
               <div class="tab-pane" id="trade-info">
                 <h3> Trade Information </h3>
-                Year    <input placeholder="Required" name="car-year" type="number" > <br>
-                Make    <input placeholder="Required" name="car-make"> <br>
-                Model   <input placeholder="Required" name="car-model" type="number" > <br>
-                Type    <input placeholder="Required" name="car-type"> <br>
-                Color   <input placeholder="Required" name="car-color"> <br>
-                Mileage <input placeholder="Required" name="car-mileage" type="number" > <br>
                 <br>
-
-                <h4> Optional Information </h4>
-                Cylinders      <input name="car-cyl"  type="number"> <br>
-                Serial Number  <input name="car-serial" type="number"> <br>
-                Account Number <input name="account-num" type="number"> <br>
-                <!-- Cars have phones?? huh... -->
-                <!-- Phone Number   <input type="tel" name="phone-num"> <br> -->
-                Holder         <input name="holder"> <br>
-                Address        <input name="address"> <br>
-                Amount         <input name="amount" type="number"> <br>
-                Qualified By   <input name="qualif-by"> <br>
-                Verified By    <input name="verif-by"> <br>
-                Good Through   <input name="good-thru" type="date"> <br>
+                <div>
+                  <span class="required">Year</span>
+                  <input name="car-year" ng-model="bo.trade_in.year" type="number">
+                </div>
+                <div>
+                  <span class="required">Make</span>
+                  <input name="car-make" ng-model="bo.trade_in.make">
+                </div>
+                <div>
+                  <span class="required">Model</span>
+                  <input name="car-model" ng-model="bo.trade_in.model" type="number">
+                </div>
+                <div>
+                  <span class="required">Type</span>
+                  <input name="car-type" ng-model="bo.trade_in.type_t">
+                </div>
+                <div>
+                  <span class="required">Color</span>
+                  <input name="car-color" ng-model="bo.trade_in.color">
+                </div>
+                <div>
+                  <span class="required">Mileage</span>
+                  <input name="car-mileage" ng-model="bo.trade_in.mileage" type="number">
+                </div>
+                <div>
+                  <span class="required"> Pay off ammount </span>
+                  <input name="amount" ng-model="bo.trade_in.payoff" type="number">
+                </div>
+                <div>
+                  <span> Cylinders </span>
+                  <input name="car-cyl" ng-model="bo.trade_in.cyl" type="number">
+                </div>
+                <div>
+                  <span> Serial Number </span>
+                  <input name="car-serial" ng-model="bo.trade_in.serial_no" type="number">
+                </div>
+                <div>
+                  <span> Account Number </span>
+                  <input name="account-num" ng-model="bo.trade_in.account_no" type="number">
+                </div>
+                <div>
+                  <span> Holder </span>
+                  <input name="holder" ng-model="bo.trade_in.holder">
+                </div>
+                <div>
+                  <span> Address </span>
+                  <input name="address" ng-model="bo.trade_in.address">
+                </div>
+                <div>
+                  <span> Qualified By </span>
+                  <input name="qualif-by" ng-model="bo.trade_in.qualif_by">
+                </div>
+                <div>
+                  <span> Verified By </span>
+                  <input name="verif-by" ng-model="bo.trade_in.verif_by">
+                </div>
+                <div>
+                  <span> Good Through </span>
+                  <input name="good-thru" ng-model="bo.trade_in.good_thru" type="date">
+                </div>
               </div>
 
+              <!-- TAB - Insurance -->
               <div class="tab-pane" id="insurance">
-                <h3> Insurance Information </h3>
-                Policy Number  <input placeholder="Required" name="ins-policy-num" type="number"> <br>
-                Company        <input placeholder="Required" name="company"> <br>
+                <h3> Insurance </h3>
                 <br>
-
-                <h4> Optional Information </h4>
-                Agent          <input name="agent"> <br>
-                Phone Number   <input name="phone-num" type="number"> <br>
-                Eff Dates      <input name="eff-dates"> <br>
-                Verified By    <input name="verif-by"> <br>
+                <div>
+                  <span class="required"> Policy Number </span>
+                  <input name="ins-policy-num" ng-model="bo.insr.policy_no" type="number">
+                </div>
+                <div>
+                  <span class="required"> Company </span>
+                  <input name="company" ng-model="bo.insr.company">
+                </div>
+                <div>
+                  <span> Agent </span>
+                  <input name="agent" ng-model="bo.insr.agent">
+                </div>
+                <div>
+                  <span> Phone Number </span>
+                  <input name="phone-num" ng-model="bo.insr.phone_no" type="number">
+                </div>
+                <div>
+                  <span> Eff Dates </span>
+                  <input name="eff-dates" ng-model="bo.insr.eff_dtaes">
+                </div>
+                <div>
+                  <span> Verified By </span>
+                  <input name="verif-by" ng-model="bo.insr.verif_by">
+                </div>
+                <br>
               </div>
             </div>
           </div>
+
           <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal">Submit</button>
-            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" ng-click="addLoanWithBO()">Submit</button>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -298,25 +506,178 @@
   </div>
 </div>
 
-
-<!-- Warranties info -->
-<!-- TODO: implement this -->
+<!-- Warranties info: Any Year -->
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyModal" tabindex="-1">
-        <div class="modal-dialog">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Any-Year" tabindex="-1">
+        <div class="modal-dialog" style="width: 60%; min-width: 700px;">
           <div class="modal-content">
             <div class="modal-header centered-text">
               <button type="button" class="close" data-dismiss="modal">
                 &times;
               </button>
-              <span>
-                {{warrantyInfo}}
-              </span>
+              <h3> <b> <u> Drivetrain "Plus" Coverage </u> </b> </h3>
+              <br>
+              <div class="warrantyDescription">
+                <h4> <b> ENGINE </b>  </h4> Engine parts consisting of: Crankshaft and bearings, oil pump pickup/screen and tube, piston rings, wrist pins, connecting rods and rod bearings, timing gears and chain or belt, timing tensioners/guides, balance shafts, camshaft and camshaft bearings, push rods, rocker arms, rocker arm shaft and hydaulic lifters, intake and exhaust valves, valve springs, cylinder head gaskets. Engine blocks are also covered if mechanical failure was caused by the above-listed parts.
+                <br />
+                <br />
+                <h4> <b> AUTOMATIC TRANSMISSION </b> </h4> Gears, inputs and output shafts, bearings, front pump, planetary assembly, sprags, governor assembly, valve body, torque converter, transmission case, overdrive carrier, reaction carrier, center support, parking lock actuator, stator and stator shaft, separator plate, pressure regulator valve, dipstick and filler tube.
+                <br />
+                <br />
+                <h4> <b> STANDARD TRANSMISSION </b> </h4> Transmission parts consisting of: Gears, input and output shaft, bearings, overdrive housing and transmission case if malfunction was caused by the listed parts.
+                <br />
+                <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (FRONT OF REAR WHEEL DRIVE) </b> </h4> Consisting of: Drive shaft, ring and pinion gears, pinion gears, pinion bearings, side carrier bearings, carrier assembly, thrust washers, axle, axle bearings, and limited slip clutch park assembly. Universal and CV joints.
+                <br />
+                <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (4 WHEEL AND ALL-WHEEL DRIVE) </b> </h4> Transfer case including gears, main shaft, drive chain, thrust washer and shims, bearings. Front drive shaft, differential, axles, u-joints and CV joints.
+                <br />
+                <br />
+                <h4> <b> SEALS AND GASKETS </b> </h4> Cylinder head gaskets, all other seals and gaskets are covered in conjunction with repair of above-listed components
+                <br />
+                <br />
+                <h4> <b> COOLING </b> </h4> Water pump (limited to one-half parts and labor costs).
+                <br />
+                <br />
+                <h4> <b> ELECTRICAL </b> </h4> Alternator, starter and voltage regulator (limited to one-half of parts and labor costs)
+                <br />
+                <br />
+                <h4> <b> 24-HOUR ROADSIDE ASSISTANCE </b> </h4> Towing, flat tire changing, fuel delivery, lock-out service, jump starting, and Safe and Secure Package.
+                <br />
+                <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4> Provided on all plans to get you back on the road quickly.
+                <br />
+                <br />
+              </div>
             </div>
+            <br>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary " data-dismiss="modal" ng-click="emailWarrantyInterest(testUser)">
+                <!-- Confirm this Plan -->
+                I want this plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2007 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Deluxe" tabindex="-1">
+        <div class="modal-dialog" style="width: 60%; min-width: 700px;">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <h3> <b> <u> Deluxe Coverage </u> </b> </h3>
+              <br>
+              <div class="warrantyDescription">
+                <h4> <b> ENGINE </b>  </h4> Engine parts consisting of: Crankshaft and bearings, oil pump pickup/screen and tube, piston rings, wrist pins, connecting rods and rod bearings, timing gears and chain or belt, timing tensioners/guides, balance shafts, camshaft and camshaft bearings, push rods, rocker arms, rocker arm shaft and hydaulic lifters, intake and exhaust valves, valve springs, cylinder head gaskets. Engine blocks are also covered if mechanical failure was caused by the above-listed parts.
+                <br />
+                <br />
+                <h4> <b> AUTOMATIC TRANSMISSION </b> </h4> Gears, inputs and output shafts, bearings, front pump, planetary assembly, sprags, governor assembly, valve body, torque converter, transmission case, overdrive carrier, reaction carrier, center support, parking lock actuator, stator and stator shaft, separator plate, pressure regulator valve, dipstick and filler tube.
+                <br />
+                <br />
+                <h4> <b> STANDARD TRANSMISSION </b> </h4> Transmission parts consisting of: Gears, input and output shaft, bearings, overdrive housing and transmission case if malfunction was caused by the listed parts.
+                <br />
+                <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (FRONT OF REAR WHEEL DRIVE) </b> </h4> Consisting of: Drive shaft, ring and pinion gears, pinion gears, pinion bearings, side carrier bearings, carrier assembly, thrust washers, axle, axle bearings, and limited slip clutch park assembly. Universal and CV joints.
+                <br />
+                <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (4 WHEEL AND ALL-WHEEL DRIVE) </b> </h4> Transfer case including gears, main shaft, drive chain, thrust washer and shims, bearings. Front drive shaft, differential, axles, u-joints and CV joints.
+                <br />
+                <br />
+                <h4> <b> FRONT SUSPENSION </b> </h4> Upper and lower control arms, upper and lower ball joints, steering knuckle, wheel bearings, control arm shaft and bushings.
+                <br />
+                <br />
+                <h4> <b> STEERING </b> </h4> Power steering pump, electronic steering motor, steering gear housing and its internal parts and rack and pinion assembly.
+                <br />
+                <br />
+                <h4> <b> BRAKES </b> </h4> Master cylinder, ABS master cylinder, brake booster, wheel cylinders, disc brake caplipers, hydraulic lines and fittings.
+                <br />
+                <br />
+                <h4> <b> SEALS AND GASKETS </b> </h4> Cylinder head gaskets, all other seals and gaskets are covered in conjunction with repair of above-listed components
+                <br />
+                <br />
+                <h4> <b> COOLING </b> </h4> Radiator, fan clutch, cooling fan motor, and water pump
+                <br />
+                <br />
+                <h4> <b> AIR CONDITIONING </b> </h4> (Factory installed only) Compressor, clutch and coil assembly, evaporator, accumulator, condenser, evacuation and recharge in conjunction with the replacement of listed components.
+                <br />
+                <br />
+                <h4> <b> FUEL DELIVERY </b> </h4> Fuel pump, fuel sending unit, fuel tank, fuel injectors and metal fuel lines.
+                <br />
+                <br />
+                <h4> <b> ELECTRICAL </b> </h4> Battery, engine operation computer, voltage regulator, alternator, front/rear wiper motors, wiper module, window motors, window regulators, seat motors, ignition module, ignition coil, distributor, starter, starter solenoid and door lock actuators. Manually operated switches for above listed parts.
+                <br />
+                <br />
+                <h4> <b> 24-HOUR ROADSIDE ASSISTANCE </b> </h4> Towing, flat tire changing, fuel delivery, lock-out service, jump starting, and Safe and Secure Package.
+                <br />
+                <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4> Provided on all plans to get you back on the road quickly.
+                <br />
+                <br />
+              </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary " data-dismiss="modal" ng-click="emailWarrantyInterest(testUser)">
+                <!-- Confirm this Plan -->
+                I want this plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2011 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Factory-Type" tabindex="-1">
+        <div class="modal-dialog" style="width: 60%; min-width: 700px;">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <h3> <b> <u> Factory Type Coverage </u> </b> </h3>
+              <br />
+              <div class="warrantyDescription">
+                <h4> <b> WHAT'S COVERED </b> </h4> Includes all items coverered under the car manufacturer's original coverage, <u> EXCEPT</u> for those items listed under "items not covered" on <u>Service Agreement</u>.
+                <br />
+                <br />
+                <h4> <b> BECAUSE WE COVER SO MANY PARTS - </b> </h4> We could not possibly list all the components. Instead we list the small number of things that are not covered. For example: oil, brake shoes, belts, hoses, tires, tune-up items, etc. Please read Service Agreement for complete details.
+                <br />
+                <br />
+                <h4> <b> WITH ALL OF OUR COVERAGES, YOU HAVE 24-HOUR EMERGENCY ROAD SERVICE! </b> </h4> Including towing, flat tire assistane, fuel delivery, jump-starting, lock-out and more for the entire length of the Agreement!
+                <br />
+                <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4> Provided on all plans to get you back on the road quickly.
+                <br />
+                <br />
+              </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary " data-dismiss="modal" ng-click="emailWarrantyInterest(testUser)">
+                <!-- Confirm this Plan -->
+                I want this plan
+              </button>
             </div>
           </div>
         </div>

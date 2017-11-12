@@ -21,7 +21,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
         port: "5001",
         proxy: "http://localhost:5000",
         files: ["client/**/*.*"],
-        reloadOnRestart: true,
+        // reloadOnRestart: true,
         browser: "chrome",
     });
 });

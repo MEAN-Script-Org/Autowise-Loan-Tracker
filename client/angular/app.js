@@ -1,10 +1,6 @@
 // register the modules the application depends upon here
 angular.module('SWEApp', []);
 
-// register the application and inject all the necessary dependencies 
-// trial for including ngAnimate as dependency, still fail to get it working, very minor addition to code base
-var app = angular.module('CRUDController', ['ui.router', 'ngAnimate', 'SWEApp']);
-
 // application configuration 
 // app.config(['$urlRouterProvider',
 //   function($urlRouterProvider) {
