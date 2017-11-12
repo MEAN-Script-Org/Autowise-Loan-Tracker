@@ -10,11 +10,11 @@ module.exports = {
   create: function(req, res) {
     var newLoan = new Loan(req.body);
 
-    newLoan.save(function(err) {
+    newLoan.save(function(err, realNewLoan) {
       if (err) {
         console.log(err) ;
         res.status(400).send(err) ;
-      } else res.json(newLoan) ;
+      } else res.json(realNewLoan) ;
     });
   },
 
