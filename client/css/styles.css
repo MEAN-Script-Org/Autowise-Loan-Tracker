@@ -1176,6 +1176,8 @@ span.btn-group-text {display:inline-block}
 
 .navbar {
   border: 0;
+  display: flex;
+  
 }
 
 .navbar input {
@@ -1190,6 +1192,18 @@ span.btn-group-text {display:inline-block}
   border: 1px solid #38cc70;
   outline: 0;
   box-shadow: inset 0px 0px 0px 1px #38cc70;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border: 0;
+}
+
+.nav-tabs>li>a {
+    margin: 0;
+    border-radius: 0;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #38cc70;
 }
 
 .user-menu {
@@ -1673,7 +1687,9 @@ img#loader {
 /* Modified Bootstrap Modal style */
 
 .modal-header .close {
-  margin-top: 15px;
+    font-size: 28px;
+    margin-top: 22px;
+    margin-right: 16px;
 }
 
 .modal-header,
