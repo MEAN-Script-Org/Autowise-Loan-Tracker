@@ -134,11 +134,22 @@
               <!-- TAB - Customer Information -->
               <div class="tab-pane active" id="customer-info">
                 <h3>Purchaser Information</h3>
-                <br>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="required row">Name</span>
+                        <input class="row" name="customer-name" ng-model="bo.purchaser.name">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                
                 <!-- <h5>Basic Info</h5> -->
                 <div>
-                  <span class="required">Name</span>
-                  <input name="customer-name" ng-model="bo.purchaser.name">
+                  <span class="required row">Name</span>
+                  <input class="row" name="customer-name" ng-model="bo.purchaser.name">
                 </div>
                 <div>
                   <span class="required">DL</span>
