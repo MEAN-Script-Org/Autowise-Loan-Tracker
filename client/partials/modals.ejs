@@ -299,24 +299,188 @@
 </div>
 
 
-<!-- Warranties info -->
-<!-- TODO: implement this -->
+<!-- Warranties info: Any Year -->
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyModal" tabindex="-1">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Any-Year" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header centered-text">
               <button type="button" class="close" data-dismiss="modal">
                 &times;
               </button>
-              <span>
-                {{warrantyInfo}}
-              </span>
+
+                <h3> <b> <u> Drivetrain "Plus" Coverage </u> </b> </h3>
+
+                <div class = "warrantyDescription">
+                <h4> <b> ENGINE </b>  </h4>
+                Engine parts consisting of: Crankshaft and bearings, oil pump pickup/screen and tube, piston rings, wrist pins, connecting rods and rod bearings, timing gears and chain or belt, timing tensioners/guides, balance shafts, camshaft and camshaft bearings, push rods, rocker arms, rocker arm shaft and hydaulic lifters, intake and exhaust valves, valve springs, cylinder head gaskets. Engine blocks are also covered if mechanical failure was caused by the above-listed parts.
+                <br /> <br />
+                <h4> <b> AUTOMATIC TRANSMISSION </b> </h4>
+                Gears, inputs and output shafts, bearings, front pump, planetary assembly, sprags, governor assembly, valve body, torque converter, transmission case, overdrive carrier, reaction carrier, center support, parking lock actuator, stator and stator shaft, separator plate, pressure regulator valve, dipstick and filler tube.
+                <br /> <br />
+                <h4> <b> STANDARD TRANSMISSION </b> </h4>
+                Transmission parts consisting of: Gears, input and output shaft, bearings, overdrive housing and transmission case if malfunction was caused by the listed parts.
+                <br /> <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (FRONT OF REAR WHEEL DRIVE) </b> </h4>
+                Consisting of: Drive shaft, ring and pinion gears, pinion gears, pinion bearings, side carrier bearings, carrier assembly, thrust washers, axle, axle bearings, and limited slip clutch park assembly. Universal and CV joints.
+                <br /> <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (4 WHEEL AND ALL-WHEEL DRIVE) </b> </h4>
+                Transfer case including gears, main shaft, drive chain, thrust washer and shims, bearings. Front drive shaft, differential, axles, u-joints and CV joints.
+                <br /> <br />
+                <h4> <b> SEALS AND GASKETS </b> </h4>
+                Cylinder head gaskets, all other seals and gaskets are covered in conjunction with repair of above-listed components
+                <br /> <br />
+                <h4> <b> COOLING </b> </h4>
+                Water pump (limited to one-half parts and labor costs).
+                <br /> <br />
+                <h4> <b> ELECTRICAL </b> </h4>
+                Alternator, starter and voltage regulator (limited to one-half of parts and labor costs)
+                <br /> <br />
+                <h4> <b> 24-HOUR ROADSIDE ASSISTANCE </b> </h4>
+                Towing, flat tire changing, fuel delivery, lock-out service, jump starting, and Safe and Secure Package.
+                <br /> <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4>
+                Provided on all plans to get you back on the road quickly. 
+                <br /> <br />
+
+                </div>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testUser)">
+                Confirm this Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2007 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Deluxe" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              
+
+                <h3> <b> <u> Deluxe Coverage </u> </b> </h3>
+
+                <div class = "warrantyDescription">
+                <h4> <b> ENGINE </b>  </h4>
+                Engine parts consisting of: Crankshaft and bearings, oil pump pickup/screen and tube, piston rings, wrist pins, connecting rods and rod bearings, timing gears and chain or belt, timing tensioners/guides, balance shafts, camshaft and camshaft bearings, push rods, rocker arms, rocker arm shaft and hydaulic lifters, intake and exhaust valves, valve springs, cylinder head gaskets. Engine blocks are also covered if mechanical failure was caused by the above-listed parts.
+                <br /> <br />
+                <h4> <b> AUTOMATIC TRANSMISSION </b> </h4>
+                Gears, inputs and output shafts, bearings, front pump, planetary assembly, sprags, governor assembly, valve body, torque converter, transmission case, overdrive carrier, reaction carrier, center support, parking lock actuator, stator and stator shaft, separator plate, pressure regulator valve, dipstick and filler tube.
+                <br /> <br />
+                <h4> <b> STANDARD TRANSMISSION </b> </h4>
+                Transmission parts consisting of: Gears, input and output shaft, bearings, overdrive housing and transmission case if malfunction was caused by the listed parts.
+                <br /> <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (FRONT OF REAR WHEEL DRIVE) </b> </h4>
+                Consisting of: Drive shaft, ring and pinion gears, pinion gears, pinion bearings, side carrier bearings, carrier assembly, thrust washers, axle, axle bearings, and limited slip clutch park assembly. Universal and CV joints.
+                <br /> <br />
+                <h4> <b> DRIVE AXLE ASSEMBLY (4 WHEEL AND ALL-WHEEL DRIVE) </b> </h4>
+                Transfer case including gears, main shaft, drive chain, thrust washer and shims, bearings. Front drive shaft, differential, axles, u-joints and CV joints.
+                <br /> <br />
+                <h4> <b> FRONT SUSPENSION </b> </h4>
+                Upper and lower control arms, upper and lower ball joints, steering knuckle, wheel bearings, control arm shaft and bushings.
+                <br /> <br />
+                <h4> <b> STEERING </b> </h4>
+                Power steering pump, electronic steering motor, steering gear housing and its internal parts and rack and pinion assembly.
+                <br /> <br />
+                <h4> <b> BRAKES </b> </h4>
+                Master cylinder, ABS master cylinder, brake booster, wheel cylinders, disc brake caplipers, hydraulic lines and fittings.
+                <br /> <br />
+                <h4> <b> SEALS AND GASKETS </b> </h4>
+                Cylinder head gaskets, all other seals and gaskets are covered in conjunction with repair of above-listed components
+                <br /> <br />
+                <h4> <b> COOLING </b> </h4>
+                Radiator, fan clutch, cooling fan motor, and water pump
+                <br /> <br />
+                <h4> <b> AIR CONDITIONING </b> </h4>
+                (Factory installed only) Compressor, clutch and coil assembly, evaporator, accumulator, condenser, evacuation and recharge in conjunction with the replacement of listed components.
+                <br /> <br />
+                <h4> <b> FUEL DELIVERY </b> </h4>
+                Fuel pump, fuel sending unit, fuel tank, fuel injectors and metal fuel lines.
+                <br /> <br />
+                <h4> <b> ELECTRICAL </b> </h4>
+                Battery, engine operation computer, voltage regulator, alternator, front/rear wiper motors, wiper module, window motors, window regulators, seat motors, ignition module, ignition coil, distributor, starter, starter solenoid and door lock actuators. Manually operated switches for above listed parts.
+                <br /> <br />
+                <h4> <b> 24-HOUR ROADSIDE ASSISTANCE </b> </h4>
+                Towing, flat tire changing, fuel delivery, lock-out service, jump starting, and Safe and Secure Package.
+                <br /> <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4>
+                Provided on all plans to get you back on the road quickly. 
+                <br /> <br />
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testUser)">
+                Confirm this Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties info: 2011 or Newer -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="Factory-Type" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header centered-text">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+
+              <h3> <b> <u> Factory Type Coverage </u> </b> </h3> <br />
+
+                <div class = "warrantyDescription">
+                
+                <h4> <b> WHAT'S COVERED </b> </h4>
+                Includes all items coverered under the car manufacturer's original coverage, <u> EXCEPT</u>  for those items listed under "items not covered" on <u>Service Agreement</u>.
+                <br /> <br />
+                <h4> <b> BECAUSE WE COVER SO MANY PARTS - </b> </h4>
+                We could not possibly list all the components. Instead we list the small number of things that are not covered. For example: oil, brake shoes, belts, hoses, tires, tune-up items, etc. Please read Service Agreement for complete details.
+                <br /> <br />
+                <h4> <b> WITH ALL OF OUR COVERAGES, YOU HAVE 24-HOUR EMERGENCY ROAD SERVICE! </b> </h4>
+                Including towing, flat tire assistane, fuel delivery, jump-starting, lock-out and more for the entire length of the Agreement!
+                <br /> <br />
+                <h4> <b> RENTAL CAR ALLOWANCE </b> </h4>
+                Provided on all plans to get you back on the road quickly.
+                <br /> <br />
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal">Close</button>    
+              <button class="btn btn-primary " data-dismiss="modal"
+                ng-click="emailWarrantyInterest(testUser)">
+                Confirm this Plan
+              </button>
             </div>
           </div>
         </div>

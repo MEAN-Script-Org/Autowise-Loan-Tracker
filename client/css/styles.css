@@ -41,6 +41,13 @@ h4 {
     font-weight: 300;
 }
 
+.warrantyDescription {
+    font-size: 78%;
+    line-height: 105%;
+    font-weight: 500;
+    text-align: justify;
+}
+
 .large {
     font-size: 2em;
 }
