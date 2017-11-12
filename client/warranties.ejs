@@ -41,12 +41,12 @@
             <div class="form-group">
               <h3>Your desired car's year</h3>
               <select ng-model="query.age" ng-change="queryWarrantyPlan()">
-                <option value="-1">Any year</option>
                   <!-- BASIC -  -->
-                <option value="2007">2007 or newer</option>
+                <option value="-1">Any year</option>
                   <!-- DELUXE -  -->
-                <option value="2011">2011 or newer</option>
+                <option value="2007">2007 or newer</option>
                   <!-- FACTORY COVERAGE -  -->
+                <option value="2011">2011 or newer</option>
               </select>
             </div>
             
@@ -57,6 +57,7 @@
             </div>
             
             <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
+            <!-- TODO: Make this prettier -->
             <div class="form-group">
             <h3 class="page-header-warranties">Car make: Domestic or Foreign</h3>
               <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
@@ -87,8 +88,11 @@
                       <h4>Mileage: <strong> {{warranty.term.miles * 1000 | number }} miles </strong> </h4>
                     </div>
                     
-                    <div class="pull-left left-left">
-                      <h2>starting at <strong> {{warranty.price | currency}}</strong> </h2>
+                    <div class="pull-left left-left" title="Starting price">
+                      <h2>
+                        <strong> {{warranty.price | currency}}</strong><span>*</span>
+                        <!-- starting -->
+                      </h2>
                     </div>
                   </a>
                 </dt>
