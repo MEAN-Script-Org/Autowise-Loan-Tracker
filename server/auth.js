@@ -76,8 +76,9 @@ module.exports = {
     // "/profile"
   },
 
+  // res.redirect(/putComment?message=dale)
+  // this is why you implement view routes on the frontend...
   authenticate: function(req, res, next) {
-
     var token = req.body.token;
 
     if (token) {
@@ -88,6 +89,8 @@ module.exports = {
           res.json({ 
             error: 'Token invalid' 
           });
+          // res.redirect(/login');
+          next();
         }
         // REAL next
         else {
@@ -98,8 +101,8 @@ module.exports = {
       });
     } else  {
       console.log("No token at all");
-      next();
       // res.redirect('/login');
+      next();
     }
   },
 }

@@ -16,7 +16,6 @@ var userSchema = new mongoose.Schema({
   // DL: drivers licence
   dl: {
     type: String,
-    unique: true,
     // required: true
   },
   // DOB: dath of birth
@@ -59,6 +58,8 @@ userSchema.methods.comparePassword = function(password) {
 };
 
 // need to add reset password server side ~
+//      just another token thing?
+// if you KNOW that you did not enter an email when creating this account, [contact us]mailto wrapper etc
 userSchema.methods.reset = function(new_password) {
   this.password = bcrypt.hashSync(new_password, bcrypt.genSaltSync());
 }

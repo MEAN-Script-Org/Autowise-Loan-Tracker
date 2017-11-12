@@ -99,13 +99,14 @@ module.exports = {
           next();
         }
         else {
-          console.log("something's off! check get all users");
+          console.log("something's off! check users.getAll");
         }
       }
     });
   },
 
   // Get all user names
+  // TODO: maybe leave to frontend
   getAllUsernames: function(req, res, data) {
     var users = req.users;
     var user_names = [];

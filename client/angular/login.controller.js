@@ -8,6 +8,8 @@ angular.module('SWEApp').controller('LoginController',
     $rootScope.newUser = {};
     $rootScope.usernames = [];
 
+    // I could easily get BOTH, just usernames and all their data...
+    // Maybe the username conversion should be a frontend thing... backend logic is screwed up
     Factory.getUsernames().then(
       function(res) {
         $rootScope.usernames = res.data;
@@ -24,6 +26,9 @@ angular.module('SWEApp').controller('LoginController',
     //   function(err) {
     //     alert(err);
     // });
+    $scope.init = function(message, type) {
+      console.log(message, type);
+    }
 
     $scope.addUser = function() {
       if (!$rootScope.usernames.includes($rootScope.newUser.username))

@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 module.exports.init = function() {
 
+  var ejs_msg = '';
+  var ejs_class = '';
+
   // Connect to database
   mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
 
@@ -28,7 +31,18 @@ module.exports.init = function() {
 
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', function(req, res) {
-    res.render('login');
+    // have these values yes or yes
+    console.log(ejs_msg, ejs_class);
+    if (!(ejs_msg && ejs_class))
+    {
+      ejs_msg = '';
+      ejs_class = '';
+    }
+
+    res.render('login', {
+        message: ejs_msg, 
+        type: ejs_class
+    });
   });
 
   // Main CRUD funtionality
@@ -36,10 +50,10 @@ module.exports.init = function() {
     res.render('crud-email-test');
   });
 
-  // General Auth
+  // Token-Based Auth
   app.all('/*', auth.authenticate);
 
-  // use this router for requests to the api
+  // Backend routes
   app.use('/api', routes);
 
   // TODO: Should Default if logged in as admin
@@ -52,30 +66,37 @@ module.exports.init = function() {
     res.render('warranties');
   });
 
-  // TODO: Should Default if NOT logged in as user
   // Wildcard for everything else
   // Default if not logged in
-  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
-  app.use('/', function(req, res) {
-    // go to login LOGIN if no token
+
+  // gonna have to check for tokens in login.controller, and pass them to the next state...
+  app.use('/*', function(req, res) {
     console.log("going inside general desicion");
-    if (req.data){
-      if (req.data.token) {
+
+    // console.log(req._parsedOriginalUrl.path);
+    if (req._parsedOriginalUrl.path == "/") {
+      if (req.data && req.data.token) {
         console.log(req.data.token);
         auth.contact(req, res, null);
       }
-      else
+      else {
+        // Go to login LOGIN if no VALID token data
+        ejs_msg = "Your session expired. Please log in again";
+        ejs_class = "alert bg-warning";
         res.redirect('/login');
+      }
     }
-    else 
-      res.redirect('/login');
+    else {
+      // Go to login LOGIN if no token data EVER
+      if (true)
+      {
+        ejs_msg = "Please enter a valid url";
+        ejs_class = "alert bg-danger";
+        if (true)
+          res.redirect('/login');
+      }
+    }
   });
-
-  // app.use(['/', '/*'], function(req, res) {
-  // app.use('/*', function(req, res) {
-  //   with params: "invalid page"
-  //   res.redirect('/login');
-  // });
 
   return app;
 };
