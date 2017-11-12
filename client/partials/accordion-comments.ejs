@@ -37,14 +37,15 @@
             </div>
             <div class="panel-footer">
               <!-- bug here: when a button is clicked, it submits the comment -->
-              <div class="input-group">
-                
-                <input type="text" class="form-control col-lg"
+              <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control"
                        placeholder="Type your message here..."
                        id="{{loan._id}}-new-comment"/>
+                </div>
                 <input type="hidden">
 
-                <div class="input-group-btn">
+                <div class="input-group-btn col-md-6">
                   <!-- Screw mobile ~ -->
                   <!-- Attempt to do boostrap layouts here thou~ -->
 

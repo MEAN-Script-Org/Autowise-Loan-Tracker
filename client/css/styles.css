@@ -738,6 +738,16 @@ a.label:focus {
 .panel-footer .input-group {
     padding: 0px;
     margin: 0 -5px;
+    overflow: hidden;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group-btn {
 }
 
 .panel-footer .input-group-btn:last-child>.btn,

@@ -11,7 +11,7 @@
     margin: 0;
 }
 
-.accoordion {
+.accordion {
     width: 100%;
 }
 
@@ -43,8 +43,49 @@ a:focus {
     line-height: 1.5em;
 }
 
-.accordion p {
-    padding: 1em 2em 1em 2em;
+/*
+    ACCORDION TRANSITION
+*/
+
+/* Accordion styles */
+.tab {
+  position: relative;
+  width: 100%;
+  color: #fff;
+  overflow: hidden;
+}
+.checkSelector {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.tab-header {
+  background-color: #38cc70;
+  text-align: center;
+  font-weight: 700;
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  -webkit-transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out;
+  margin: 0;
+}
+
+.tab-header:hover {
+    background-color: #2ba659;
+}
+
+.tab-content {
+  max-height: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-transition: max-height .5s, padding .5s;
+  -o-transition: max-height .5s, padding .5s;
+  transition: max-height .5s, padding .5s;
 }
 
 .accordion {
@@ -60,36 +101,15 @@ a:focus {
     padding-top: 100px;
 }
 
-.accordionTitle,
-.accordion__Heading {
-    background-color: #38cc70;
-    text-align: center;
-    font-weight: 700;
-    padding: 2em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    -webkit-transition: background-color 0.5s ease-in-out;
-    transition: background-color 0.5s ease-in-out;
-    border-bottom: 1px solid #30bb64;
+
+/* :checked */
+.checkSelector:checked ~ .tab-content {
+  max-height: 50em;
+  padding: 8px;
 }
-
-
-/*
-.accordionTitle:before,
-.accordion__Heading:before {
-  content: " ";
-  font-size: 1.5em;
-  line-height: 0.5em;
-  float: left;
-}
-*/
-
-.accordionTitle:after,
-.accordion__Heading:after {
-    content: "+";
+/* Icon */
+.tab-header::after {
+    content: "+"; /*content: "\25BC";*/
     font-size: 1.5em;
     line-height: 0.5em;
     float: right;
@@ -99,91 +119,17 @@ a:focus {
     transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
-.header-settings {
-    position: relative;
-}
-
-.accordionTitle:hover,
-.accordion__Heading:hover {
-    background-color: #2ba659;
-}
-
-.accordionTitleActive,
-.accordionTitle.is-expanded {
-    background-color: #2ba659;
-}
-
-
-input[type=checkbox] + label::after {
-  content: "+";
-}
 input[type=radio] + label::after {
   content: "\25BC";
 }
 input[type=checkbox]:checked + label::after {
-  transform: rotate(315deg);
+  transform: rotate(225deg);
 }
 input[type=radio]:checked + label::after {
-  transform: rotateX(180deg);
+  transform: rotateX(225deg);
 }
 
-.accordionTitleActive:after,
-.accordionTitle.is-expanded:after {
-    -webkit-transform: rotate(225deg);
-    transform: rotate(225deg);
-}
 
-/*
-    ACCORDION TRANSITION
-*/
-/* Acordeon styles */
-/*
-.tab {
-  position: relative;
-  margin-bottom: 1px;
-  width: 100%;
-  color: #fff;
-  overflow: hidden;
-}
-*/
-
-/*
-input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-*/
-
-.tab-content {
-  max-height: 0;
-  padding: 0;
-  -webkit-transition: max-height .35s, padding .5s;
-  -o-transition: max-height .35s, padding .5s;
-  transition: max-height .35s, padding .5s;
-}
-
-/* :checked */
-input:checked ~ .tab-content {
-  max-height: 50em;
-  padding: 8px;
-}
-/* Icon */
-label::after {
-  position: absolute;
-/*
-  right: 0;
-  top: 0;
-*/
-  display: block;
-  width: 3em;
-  height: 3em;
-  line-height: 3;
-  text-align: center;
-  -webkit-transition: all .35s;
-  -o-transition: all .35s;
-  transition: all .35s;
-}
 /*END TRANSITION*/
 
 
@@ -249,23 +195,6 @@ h5.warranty-instruction {
 
 .dropdown-menu {
     padding: 8px;
-}
-
-@media screen and (min-width: 48em) {
-    .accordionItem {
-        max-height: 50em;
-        -webkit-transition: max-height 0.5s, padding 0.5s;
-        transition: max-height 0.5s, padding 0.5s;
-    }
-}
-
-.accordion-content {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.accordionItem.is-collapsed {
-    max-height: 0;
 }
 
 .animateIn {

@@ -4,7 +4,11 @@ angular.module('SWEApp').controller(
 
     // Globals
     // Essentially, anything that goes into an async (Factory) call
-    $rootScope.loans = [];
+    $rootScope.loans = [
+        {"name" : "Steven", "_id" : 1}, 
+        {"name" : "Marcial", "_id" : 2}, 
+        {"name" : "Max", "_id" : 3}
+    ];
     $rootScope.loading = false;
     // $rootScope.loading = true;
     $rootScope.massLoans = [];
@@ -36,8 +40,8 @@ angular.module('SWEApp').controller(
       Factory.getLoans().then(
         function(res) {
           if (res.data.length != 0) {
-            $rootScope.loans = res.data;
-            console.log($rootScope.loans);
+//            $rootScope.loans = res.data;
+//            console.log($rootScope.loans);
           } else {
             console.log("DB is empty ~");
           }
@@ -212,16 +216,10 @@ angular.module('SWEApp').controller(
     // OTHER FUNCTIONS
     //------------------------------------------------------------------------------------------------------------------
     // MARK: CHECK LIST
-    // Marcial: *explination* This is being called by the accordion controller on checkbox selection
+    // Marcial: *explanation* This is being called by the accordion controller on checkbox selection
     $rootScope.updateCheckList = function(loanID, add) {
       if (add) {
         $rootScope.massLoans.push(loanID);
-        $rootScope.massLoans.forEach(
-          function(loanID) {
-            // This will log each loan id in 'massLoans'
-            // But what's the point?
-            console.log("Loan selected: " + loanID);
-          });
       } else {
         $rootScope.massLoans.forEach(
           function(value, index, loans) {

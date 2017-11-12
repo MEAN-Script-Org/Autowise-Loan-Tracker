@@ -69,54 +69,30 @@
                    -->
                  <!-- we by custom search function that uses binded query to filter by specific attributes-->
                   <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search:wanted">
-                    <div ng-if="!loan.new">
-                      <div ng-click="clickAccordion(loan._id)" class="tab">
-                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"                    >
-
-                          <label class="container-mass container">
-                              <input type="checkbox" id="{{loan._id}}-checkbox">
+                        <div ng-if="loan.new">
+                            {{reloadAccordion()}}s
+                        </div>
+                        
+                        <div class="tab">
+                          <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
+                          <label for="tab-{{loan._id}}" class="tab-header">
+                            <label class="container-mass container">
+                              <input type="checkbox" id="{{loan._id}}-checkbox" ng-click="checkTrigger(loan._id)">
                               <span class="checkmark"></span>
-                          </label>
-
-                          {{loan.name | limitTo: 18}}
+                            </label>
+                              
+                            {{loan.name | limitTo: 18}}
                           <!-- style this somewhat... -->
                           – {{loan.type | uppercase}}
                           – {{loan.status | uppercase}}
                           <!-- - total $ -->
-                          – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
-                        </a>
-                      </div>
-                      <div class="accordion-content accordionItem tab-content" id="accordion{{loan._id}}">
-                        <% include partials/progress-row.ejs %>
+                          – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}  
+                            </label>
+                          <div class="tab-content">
+                              <% include partials/progress-row.ejs %>
                         <% include partials/accordion-comments.ejs %>
-                      </div>
-                    </div>
-
-                    <!-- Marcial: -->
-                    <!-- the accordion logic needs to change to pure CSS IMO -->
-                    <div ng-if="loan.new">
-                      {{reloadAccordion()}}
-                      <dt ng-click="clickAccordion(loan._id)">
-                        <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
-                           aria-controls="accordion{{loan._id}}" aria-expanded="true">
-
-                          <label class="container-mass container">
-                              <input type="checkbox" id="{{loan._id}}-checkbox">
-                              <span class="checkmark"></span>
-                          </label>
-
-                          {{loan.name | limitTo: 18}}
-                          – {{loan.type}}
-                          – {{loan.status | uppercase}}
-                          <!-- - total $ -->
-                          – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
-                        </a>
-                      </dt>
-                      <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
-                        <% include partials/progress-row.ejs %>
-                        <% include partials/accordion-comments.ejs %>
-                      </dd>
-                    </div>
+                          </div>
+                        </div>
                   </div>
                 </dl>
               </div>
