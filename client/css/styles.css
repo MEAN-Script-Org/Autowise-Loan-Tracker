@@ -897,6 +897,19 @@ a.label:focus {
     border-color: #e9ecf2;
 }
 
+.buyers-order-field-name {
+  padding: 0 10px 0 0 ;
+}
+
+.buyers-order-row {
+  padding: 0 10px 5px 5px ;
+}
+
+.buyers-order-req-asterisk {
+  padding: 0 0 0 2px ;
+  color: #f9243f ;
+}
+
 .article {
     padding: 10px 0;
 }
