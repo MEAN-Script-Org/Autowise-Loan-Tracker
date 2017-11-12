@@ -8,14 +8,40 @@ var User = require('./users.model.js') ;
 module.exports = {
 
   create: function(req, res) {
-    var newUser = new User(req.body);
-
-    newUser.save(function(err) {
-      if (err) {
-        console.log(err) ;
-        res.status(400).send(err) ;
-      } else res.json(newUser) ;
+    var newUser = new User({
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
     });
+
+    if (req.body.username && req.body.password) {
+      newUser.save(function(err, realNewUser) {
+        // console.log(err, realNewUser);
+
+        if (err) {
+          // non-unique
+          if (err.toJSON().code == 11000) {
+            res.json({ 
+              err,
+              message: 'Username or email already exist!' ,
+            });
+          }
+          else {
+            res.json({ 
+              message: err
+            });
+          } 
+        } else {
+          res.redirect("/crud");
+          // res.json(newUser);
+          // res.json({ message: 'User created!' });
+          // TODO: user_decision route... either admin or general user
+          // Also add frontend and f(x)ity
+        }
+      });
+    } else {
+      res.json({ error: 'Ensure username, email or password was provided' });
+    }
   },
 
   read: function(req, res) {
@@ -56,25 +82,39 @@ module.exports = {
     });
   },
 
-  // Get all usernames
-  getAll: function(req, res) {
+  returnUsers: function(req, res) {
+    res.json(req.users);
+  },
+
+  // Get all user data
+  getAll: function(req, res, next) {
     // add logic here for only usernames
     User.find({}, function(err, users) {
       if (err) {
         console.log(err) ;
         res.status(404).send(err) ;
       } else {
-        var user_names = [];
-        
-        users.forEach(function(item, index) {
-          user_names.push(item.username);
-        })
-
-        res.json(user_names) ;
+        if (typeof next === "function") {
+          req.users = users;
+          next();
+        }
+        else {
+          console.log("something's off! check get all users");
+        }
       }
     });
   },
 
+  // Get all user names
+  getAllUsernames: function(req, res, data) {
+    var users = req.users;
+    var user_names = [];
+    users.forEach(function(item, index) {
+      user_names.push(item.username);
+    })
+    res.json(user_names) ;
+  },
+  
   userByID: function(req, res, next, id) {
     User.findById(id).exec(function(err, user) {
       if (err) {

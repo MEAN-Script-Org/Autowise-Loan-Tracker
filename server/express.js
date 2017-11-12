@@ -1,15 +1,9 @@
 var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+var auth = require("./auth.js");
 var routes = require('./routes.js');
-
-// WORKING ON THIS
-// var api_routes = require('./api_routes.js');
-// var display_routes = require('./display_routes.js');
-// This var needs to go asap
-// This was replaced by .env variable 'MONGO_URI' in Heroku
-// var db_config = require('./server.db_config.js') ;
+var bodyParser = require('body-parser');
 
 module.exports.init = function() {
 
@@ -18,8 +12,6 @@ module.exports.init = function() {
 
   // initialize app
   var app = express();
-  // app.all('/api/*', requireAuthentication);
-  // app.all('/admin/*', requireAuthentication, requireAdminStatus);
 
   // enable request logging for development debugging
   app.use(morgan('dev'));
@@ -34,21 +26,24 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // use this router for requests to the api
-  app.use('/api', routes);
+  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
+  app.use('/login', function(req, res) {
+    res.render('login');
+  });
 
   // Main CRUD funtionality
   app.use('/crud', function(req, res) {
     res.render('crud-email-test');
   });
 
-  // Default if not logged in
-  app.use('/login', function(req, res) {
-    res.render('login');
-  });
+  // General Auth
+  app.all('/*', auth.authenticate);
+
+  // use this router for requests to the api
+  app.use('/api', routes);
 
   // TODO: Should Default if logged in as admin
-  app.use('/admin', function(req, res) {
+  app.use(['/admin', "/profile"], function(req, res) {
     res.render('home');
   });
 
@@ -57,15 +52,30 @@ module.exports.init = function() {
     res.render('warranties');
   });
 
-  // TODO: Should Default if logged in as user
-  // app.use('/', function(req, res) {
-  //   res.render('user');
-  // });
-
+  // TODO: Should Default if NOT logged in as user
   // Wildcard for everything else
-  app.use('/*', function(req, res) {
-    res.redirect('/login');
+  // Default if not logged in
+  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
+  app.use('/', function(req, res) {
+    // go to login LOGIN if no token
+    console.log("going inside general desicion");
+    if (req.data){
+      if (req.data.token) {
+        console.log(req.data.token);
+        auth.contact(req, res, null);
+      }
+      else
+        res.redirect('/login');
+    }
+    else 
+      res.redirect('/login');
   });
+
+  // app.use(['/', '/*'], function(req, res) {
+  // app.use('/*', function(req, res) {
+  //   with params: "invalid page"
+  //   res.redirect('/login');
+  // });
 
   return app;
 };

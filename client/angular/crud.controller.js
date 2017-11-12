@@ -2,7 +2,7 @@ angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
-    // Globals
+    // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];
     $rootScope.loading = false;
@@ -11,10 +11,10 @@ angular.module('SWEApp').controller(
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
-    
-    // Fields for loan object creation
-    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; // Buyer's Order placeholder
+    // Buyer's Order placeholder
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; 
 
+    // Get Fields for loan object creation
     Factory.getUserInfo().then(function(response) {
       $scope.commentAsAdmin = false;
 
@@ -174,21 +174,6 @@ angular.module('SWEApp').controller(
 
     // Marcial:
     //    AVOID angular.ANYTHING for general javascript/programming actions
-    // Not needed for now, but leave it
-    // $scope.statusPercentage = function(status) {
-    //   var safe_status = status.toLowerCase();
-    //
-    //   if (safe_status == "received")
-    //     return 25;
-    //   else if (safe_status == "submitted")
-    //     return 25;
-    //   else if (safe_status == "pending")
-    //     return 50;
-    //   else if (safe_status == "verified")
-    //     return 75;
-    //   else 
-    //     return 100;
-    // }
 
     //------------------------------------------------------------------------------------------------------------------
     // Updates the status of a single loan of the specified ID
