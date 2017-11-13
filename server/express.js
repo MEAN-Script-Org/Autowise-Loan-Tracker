@@ -61,7 +61,13 @@ module.exports.init = function() {
     res.render('home');
   });
 
-  // Warranties plan view for a client
+  // Customer hub
+  // I don't know what magic Marcial is working, but for some reason I feel something this simple is not gonna' work
+  app.use('/home', function(req, res) {
+    res.render('customerHub');
+  });
+
+  // Warranties plan view for a customer
   app.use('/warranties', function(req, res) {
     res.render('warranties');
   });

@@ -26,6 +26,10 @@ router.route('/info').get(
 router.route('/loans')
       .get(loans.getAll)
       .post(loans.create);
+      
+// > 'Multiple' loans under the specified user
+router.route('/loans/:userID')
+      .get(loans.loansByUserID);
 
 // > Individual loan
 router.route('/loan/:loanID')

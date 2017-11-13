@@ -65,7 +65,17 @@ module.exports = {
       } else res.json(loans) ;
     });
   },
-
+  
+  // Get all loans belonging to a particular user
+  loansByUserID: function(req, res) {
+    Loan.find({ user_id: req.users[0].user_id }, function(err, loans) {
+      if (err) {
+        console.log(err) ;
+        res.status(404).send(err) ;
+      } else res.json(loans) ;
+    });
+  },
+  
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {
