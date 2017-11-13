@@ -56,6 +56,10 @@ module.exports.init = function() {
   app.use('/warranties', function(req, res) {
     res.render('warranties');
   });
+    
+    app.use('/permission', function(req, res) {
+    res.render('changePermissions');
+  });
 
   // TODO: Should Default if logged in as user
   // app.use('/', function(req, res) {
