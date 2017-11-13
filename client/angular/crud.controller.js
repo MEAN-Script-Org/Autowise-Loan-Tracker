@@ -2,7 +2,7 @@ angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
-    // Globals
+    // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];
     $rootScope.loading = false;
@@ -11,7 +11,10 @@ angular.module('SWEApp').controller(
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
+    // Buyer's Order placeholder
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; 
 
+    // Get Fields for loan object creation
     Factory.getUserInfo().then(function(response) {
       $scope.commentAsAdmin = false;
 
@@ -26,7 +29,7 @@ angular.module('SWEApp').controller(
       // $rootScope.user_email = response.data.email;
       $rootScope.user_isAdmin = response.data.isAdmin;
     });
-
+    
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
@@ -59,14 +62,14 @@ angular.module('SWEApp').controller(
       // Assigning foreign elements
       $scope.newLoan.user_id = $rootScope.user_id;
       // $scope.newLoan.user_email = $rootScope.user_email;
-
+      
       Factory.newLoan($scope.newLoan).then(
         function(response) {
           if (response.data) {
             // Making the loan
-            var newLoad = response.data;
-            newLoad.new = true;
-            $rootScope.loans.push(newLoad);
+            var newLoan = response.data;
+            newLoan.new = true;
+            $rootScope.loans.push(newLoan);
 
             // Logging
             // console.log("Returned new loan: ");
@@ -77,6 +80,59 @@ angular.module('SWEApp').controller(
           }
         },
         function(err) {
+          console.log(err);
+        }
+      );
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Create a new loan with all the fields specified under the Buyer's Order
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.addLoanWithBO = function() {
+      var newLoan = $scope.newLoan ;
+      
+      newLoan.buyers_order = $rootScope.bo ;                  // Assign buyer's order information to loan
+      newLoan.name = newLoan.buyers_order.purchaser.name ;    // Copy Purchaser name to Loan name field
+      
+      // Checks if insurance has been specifeid
+      // If not, asks the User if they would like to continue
+      var insurance = newLoan.buyers_order.insr ;
+      if (!(insurance.company && insurance.policy_no)) {
+        var confirmation = confirm("Insurance company and/or policy number has not been specified. Submit this Loan anyway?") ;
+        
+        if (!confirmation)
+          return ;
+      }
+      
+      // TODO: search for existing user via 'newLoan.buyers_order.purchaser' specifications
+      //       if none found, prompt to add a new user
+      
+      // Use factory to create new loan and upload it to the database
+      Factory.newLoan(newLoan).then(
+        function(response) {
+          if (response.data) {
+            
+            // Making the loan
+            newLoan = response.data ;
+            newLoan.new = true ;
+            
+            // Add loan to front-end scope
+            $rootScope.loans.push(newLoan) ;
+            
+            // clear form data once done
+            $scope.newLoan = {} ;
+            $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ;
+            
+            // TODO: Close modal
+            //modal.hide
+            //data-dismiss="modal"
+            
+            alert("Loan was created successfully!") ;
+          }
+        },
+        function(err) {
+          alert("There was an error submitting the form. Ensure all required fields are filled") ;
+          
           console.log(err);
         }
       );
@@ -118,21 +174,6 @@ angular.module('SWEApp').controller(
 
     // Marcial:
     //    AVOID angular.ANYTHING for general javascript/programming actions
-    // Not needed for now, but leave it
-    // $scope.statusPercentage = function(status) {
-    //   var safe_status = status.toLowerCase();
-    //
-    //   if (safe_status == "received")
-    //     return 25;
-    //   else if (safe_status == "submitted")
-    //     return 25;
-    //   else if (safe_status == "pending")
-    //     return 50;
-    //   else if (safe_status == "verified")
-    //     return 75;
-    //   else 
-    //     return 100;
-    // }
 
     //------------------------------------------------------------------------------------------------------------------
     // Updates the status of a single loan of the specified ID

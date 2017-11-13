@@ -14,6 +14,21 @@
              ];
          }
 
+         /* Factory.getAllUsers().then(
+              function(res){
+                  $rootScope.users = res.data;
+              }
+              function(err){
+                  alert(err);
+              }
+              });
+
+          $scope.init = getAllUsers() {
+              $scope.visible = "visible";
+              $scope.query = "";
+              $scope.users = [res.data];
+          }*/
+
          // make fake f(x)s here
          //here
          /*$scope.removeUser = function(username) {

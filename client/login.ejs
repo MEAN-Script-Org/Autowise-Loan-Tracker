@@ -4,7 +4,8 @@
   <% include partials/header.ejs %>
 </head>
 
-<body ng-app="SWEApp" ng-controller="LoginController">
+<!-- <OP!!></OP!!> -->
+<body ng-app="SWEApp" ng-controller="LoginController" ng-init="init('<%- message -%>', '<%- type -%>')">
   <% include partials/nav.ejs %>
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
@@ -37,7 +38,11 @@
               </a>
             </fieldset>
           </form>
+
         </div>
+      </div>
+      <div ng-show="'<%- message -%>'" class="<%- type -%> centered-text" style="color: white;">
+        <%- message -%>
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ var emailHandler = require("./emailing");
 var express = require('express');
 var router = express.Router();
 
+var auth  = require("./auth.js") ;
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
@@ -43,8 +44,11 @@ router.route('/user/:userID')
 
 // > 'Multiple' users
 router.route('/users')
-      .get(users.getAll)
+      .get(users.getAll, users.returnUsers)
       .post(users.create) ;
+
+router.route('/usernames')
+      .get(users.getAll, users.getAllUsernames) ;
 
 router.param('userID', users.userByID) ;
 

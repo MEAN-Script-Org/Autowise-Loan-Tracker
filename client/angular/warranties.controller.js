@@ -16,12 +16,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
   var warranties_table = [
     
-    // Any year warranties
-    {age: -1, type: 'Any Year', term : {months: 3,  miles: 3},  mileage: {min: -1, max: -1}, price: 180},
-    {age: -1, type: 'Any Year', term : {months: 6,  miles: 6},  mileage: {min: -1, max: -1}, price: 390},
-    {age: -1, type: 'Any Year', term : {months: 12, miles: 12}, mileage: {min: -1, max: -1}, price: 1025},
-    {age: -1, type: 'Any Year', term : {months: 24, miles: 24}, mileage: {min: -1, max: -1}, price: 1350},
-    {age: -1, type: 'Any Year', term : {months: 36, miles: 36}, mileage: {min: -1, max: -1}, price: 1455},
+    // Any-Year warranties
+    {age: -1, type: 'Any-Year', term : {months: 3,  miles: 3},  mileage: {min: -1, max: -1}, price: 180},
+    {age: -1, type: 'Any-Year', term : {months: 6,  miles: 6},  mileage: {min: -1, max: -1}, price: 390},
+    {age: -1, type: 'Any-Year', term : {months: 12, miles: 12}, mileage: {min: -1, max: -1}, price: 1025},
+    {age: -1, type: 'Any-Year', term : {months: 24, miles: 24}, mileage: {min: -1, max: -1}, price: 1350},
+    {age: -1, type: 'Any-Year', term : {months: 36, miles: 36}, mileage: {min: -1, max: -1}, price: 1455},
     
     // Deluxe warranties (> 2007)
     {age: 2007, type: 'Deluxe', term : {months: 3,  miles: 3},  mileage: {min: 125, max: 150}, price: 390},
@@ -41,71 +41,71 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     {age: 2007, type: 'Deluxe', term : {months: 48, miles: 48}, mileage: {min: 80,  max: 125}, price: 2350},
     {age: 2007, type: 'Deluxe', term : {months: 48, miles: 48}, mileage: {min: 000, max: 80},  price: 2220},
     
-    // Factory type warranties (> 2011)
-    {age: 2011, type: 'Factory Type', term : {months: 3,   miles: 3},  mileage: {min: 65, max: 85}, price: 440},
-    {age: 2011, type: 'Factory Type', term : {months: 3,   miles: 3},  mileage: {min: 00, max: 65}, price: 410},
-    {age: 2011, type: 'Factory Type', term : {months: 6,   miles: 6},  mileage: {min: 65, max: 85}, price: 695},
-    {age: 2011, type: 'Factory Type', term : {months: 6,   miles: 6},  mileage: {min: 00, max: 65}, price: 630},
-    {age: 2011, type: 'Factory Type', term : {months: 12,  miles: 12}, mileage: {min: 65, max: 85}, price: 1410},
-    {age: 2011, type: 'Factory Type', term : {months: 12,  miles: 12}, mileage: {min: 00, max: 65}, price: 1335},
-    {age: 2011, type: 'Factory Type', term : {months: 24,  miles: 24}, mileage: {min: 65, max: 85}, price: 1810},
-    {age: 2011, type: 'Factory Type', term : {months: 24,  miles: 24}, mileage: {min: 00, max: 65}, price: 1740},
-    {age: 2011, type: 'Factory Type', term : {months: 36,  miles: 36}, mileage: {min: 65, max: 85}, price: 2185},
-    {age: 2011, type: 'Factory Type', term : {months: 36,  miles: 36}, mileage: {min: 00, max: 65}, price: 2060},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 48}, mileage: {min: 65, max: 85}, price: 2430},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 48}, mileage: {min: 00, max: 65}, price: 2310},
+    // Factory-Type warranties (> 2011)
+    {age: 2011, type: 'Factory-Type', term : {months: 3,   miles: 3},  mileage: {min: 65, max: 85}, price: 440},
+    {age: 2011, type: 'Factory-Type', term : {months: 3,   miles: 3},  mileage: {min: 00, max: 65}, price: 410},
+    {age: 2011, type: 'Factory-Type', term : {months: 6,   miles: 6},  mileage: {min: 65, max: 85}, price: 695},
+    {age: 2011, type: 'Factory-Type', term : {months: 6,   miles: 6},  mileage: {min: 00, max: 65}, price: 630},
+    {age: 2011, type: 'Factory-Type', term : {months: 12,  miles: 12}, mileage: {min: 65, max: 85}, price: 1410},
+    {age: 2011, type: 'Factory-Type', term : {months: 12,  miles: 12}, mileage: {min: 00, max: 65}, price: 1335},
+    {age: 2011, type: 'Factory-Type', term : {months: 24,  miles: 24}, mileage: {min: 65, max: 85}, price: 1810},
+    {age: 2011, type: 'Factory-Type', term : {months: 24,  miles: 24}, mileage: {min: 00, max: 65}, price: 1740},
+    {age: 2011, type: 'Factory-Type', term : {months: 36,  miles: 36}, mileage: {min: 65, max: 85}, price: 2185},
+    {age: 2011, type: 'Factory-Type', term : {months: 36,  miles: 36}, mileage: {min: 00, max: 65}, price: 2060},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 48}, mileage: {min: 65, max: 85}, price: 2430},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 48}, mileage: {min: 00, max: 65}, price: 2310},
     
-    // Factory type warranties - Extensive use (> 2011, term >= 4 years or mileage >= 75,000)
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 1970, Domestic: 2300}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1840, Domestic: 2070}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1720, Domestic: 1960}},
+    // Factory-Type warranties - Extensive use (> 2011, term >= 4 years or mileage >= 75,000)
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 1970, Domestic: 2300}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1840, Domestic: 2070}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1720, Domestic: 1960}},
     
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 1865, Domestic: 2100}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1760, Domestic: 1940}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1650, Domestic: 1850}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1795, Domestic: 2050}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1695, Domestic: 1855}},
-    {age: 2011, type: 'Factory Type', term : {months: 48,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1595, Domestic: 1775}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 1865, Domestic: 2100}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1760, Domestic: 1940}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1650, Domestic: 1850}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1795, Domestic: 2050}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1695, Domestic: 1855}},
+    {age: 2011, type: 'Factory-Type', term : {months: 48,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1595, Domestic: 1775}},
     
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2020, Domestic: 2390}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1930, Domestic: 2170}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1795, Domestic: 2090}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 1960, Domestic: 2275}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1850, Domestic: 2010}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1740, Domestic: 1915}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1850, Domestic: 2080}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1740, Domestic: 1930}},
-    {age: 2011, type: 'Factory Type', term : {months: 60,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1635, Domestic: 1840}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2020, Domestic: 2390}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1930, Domestic: 2170}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1795, Domestic: 2090}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 1960, Domestic: 2275}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1850, Domestic: 2010}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1740, Domestic: 1915}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1850, Domestic: 2080}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1740, Domestic: 1930}},
+    {age: 2011, type: 'Factory-Type', term : {months: 60,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1635, Domestic: 1840}},
     
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 1910, Domestic: 2475}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1800, Domestic: 2230}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1690, Domestic: 2150}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2020, Domestic: 2350}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1900, Domestic: 2090}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1795, Domestic: 1990}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1880, Domestic: 2140}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1770, Domestic: 1990}},
-    {age: 2011, type: 'Factory Type', term : {months: 72,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1660, Domestic: 1875}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 1910, Domestic: 2475}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 1800, Domestic: 2230}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1690, Domestic: 2150}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2020, Domestic: 2350}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1900, Domestic: 2090}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1795, Domestic: 1990}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1880, Domestic: 2140}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1770, Domestic: 1990}},
+    {age: 2011, type: 'Factory-Type', term : {months: 72,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1660, Domestic: 1875}},
     
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2160, Domestic: 2540}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 2040, Domestic: 2280}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1950, Domestic: 2200}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2050, Domestic: 2395}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1925, Domestic: 2110}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1850, Domestic: 2020}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1910, Domestic: 2190}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1800, Domestic: 2010}},
-    {age: 2011, type: 'Factory Type', term : {months: 84,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1690, Domestic: 1895}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2160, Domestic: 2540}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 2040, Domestic: 2280}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 1950, Domestic: 2200}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2050, Domestic: 2395}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1925, Domestic: 2110}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1850, Domestic: 2020}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1910, Domestic: 2190}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1800, Domestic: 2010}},
+    {age: 2011, type: 'Factory-Type', term : {months: 84,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1690, Domestic: 1895}},
     
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2195, Domestic: 2590}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 2090, Domestic: 2340}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 2000, Domestic: 2270}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2050, Domestic: 2420}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1945, Domestic: 2140}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1835, Domestic: 2075}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1925, Domestic: 2250}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1830, Domestic: 2035}},
-    {age: 2011, type: 'Factory Type', term : {months: 96,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1730, Domestic: 1920}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 120}, mileage: {min: 40, max: -1}, price: {Foreign: 2195, Domestic: 2590}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 120}, mileage: {min: 15, max: 40}, price: {Foreign: 2090, Domestic: 2340}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 120}, mileage: {min: 00, max: 15}, price: {Foreign: 2000, Domestic: 2270}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 100}, mileage: {min: 40, max: -1}, price: {Foreign: 2050, Domestic: 2420}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 100}, mileage: {min: 15, max: 40}, price: {Foreign: 1945, Domestic: 2140}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 100}, mileage: {min: 00, max: 15}, price: {Foreign: 1835, Domestic: 2075}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 75},  mileage: {min: 40, max: -1}, price: {Foreign: 1925, Domestic: 2250}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 75},  mileage: {min: 15, max: 40}, price: {Foreign: 1830, Domestic: 2035}},
+    {age: 2011, type: 'Factory-Type', term : {months: 96,  miles: 75},  mileage: {min: 00, max: 15}, price: {Foreign: 1730, Domestic: 1920}},
   ]
   
   /* WARRANTY QUERYING -
@@ -134,6 +134,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     warranties.forEach(function(warranty) {
       var plan = {term: {}} ;
       
+      plan.type = warranty.type ;
       plan.term.months = warranty.term.months ;
       plan.term.miles = warranty.term.miles ;
       
@@ -164,14 +165,19 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   }
   
   // Test data to email
-  $scope.testWarranty = warranties_table[0] ;
+  //$scope.chosenWarranty = warranties_table[0] ;
   $scope.testUser = {userID: '0001123', username: 'Slugcat'} ;
+  
+  $scope.setChosenWarranty = function(warranty) {
+    $scope.chosenWarranty = warranty ;
+  }
   
   //--------------------------------------------------------------------------------------------------------------------
   // Email Autowise that the current user is interested in the currently selected warranty plan
   //--------------------------------------------------------------------------------------------------------------------
-  $scope.emailWarrantyInterest = function(warranty, user) {
+  $scope.emailWarrantyInterest = function(user) {
       var errorMsg = "There was an error sending the email. Please check the logs";
+      var warranty = $scope.chosenWarranty ;
       
       console.log(user) ;
       console.log(warranty) ;
@@ -181,7 +187,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
         "Customer " + user.username + " (# " + user.userID + ") is interested in the following warranty plan:",
         "<b>Type</b>: " + warranty.type,
         "<b>Plan length</b>: " + warranty.term.months,
-        "<b>Plan mileage</b>: " + warranty.term.miles
+        "<b>Plan mileage</b>: " + warranty.term.miles * 1000
       ].join("<br>");
       
       // Email object
@@ -200,13 +206,37 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
             console.log(response.data.error) ;
             alert(errorMsg) ;
           } else {
-            alert("Email was sent to Autowise!") ;
+            alert("Email was sent to Autowise! Please allow up to 3 days for an update on your loan application") ;
           }
         },
         
         function(error) {
           console.log(error) ;
           alert(errorMsg) ;
+      });
+      
+      // Create comment to add to loan signifying that Warranty interest has been submitted
+      var newComment = {
+        admin: false,
+        writer: user.user_name,
+        content: [
+          "Request for warranty plan: ",
+          warranty.type, ", ",
+          warranty.term.months, " months, ",
+          warranty.term.miles * 1000, " miles. ",
+          "Starting at $", warranty.price, ". ",
+          "Please allow up to 3 business days for Autowise to review your submission"
+        ].join(''),
+        newtime: new Date(),
+      }
+      
+      // Add comment to the user's active loan
+      // TODO: replace test loan ID with actual loan object
+      Factory.getLoan("59fe11a6b12b072490b4796d").then(function(res) {
+        var loan = res.data ;
+        loan.comments.push(newComment) ;
+        
+        Factory.modifyLoan(loan._id, loan) ;
       });
     };
 }]);
