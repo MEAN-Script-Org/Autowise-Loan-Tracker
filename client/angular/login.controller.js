@@ -35,12 +35,32 @@ angular.module('SWEApp').controller('LoginController',
         Factory.newUser($rootScope.newUser).then(
           function(realUser) {
             $rootScope.usernames.push(realUser);
+            
+            affixLoans(realUser) ;  // Affix any dangling loans in the database to this user
           },
           function(err) {
             alert(err);
         });
       else
         alert("Please change your username to one that hasn't been taken");
+    }
+    
+    // Search loans database for loans with matching contact information
+    // Affixes these loans to this User
+    function affixLoans(user) {
+      Factory.getLoansByUserInfo(user).then(
+        function(loans) {
+          
+          // Affix this user's ID to each found loan
+          res.loans.forEach(
+            function(loan) {
+              loan.user_id = user._id ;
+              loan.save() ;
+            }
+          );
+        },
+        function(err) { console.log(err) ; }
+      );
     }
   }
 ]);

@@ -29,7 +29,7 @@ angular.module('SWEApp').controller(
       $scope.visible = "visible";
       
       // TODO: pull all loans associated with a particular session user ID
-      var id = "5a07d6ec2419b6401c503c60" ;
+      var id = "5a09f3ef17b72328ec7750f6" ;
       
       // Loads all loans belonging to the specified user
       Factory.getLoansOfUser(id).then(
@@ -42,6 +42,9 @@ angular.module('SWEApp').controller(
           $timeout(function() {
             $rootScope.loading = false;
           }, 3000);
+        },
+        function(err) {
+          console.log(err) ;
         }
       );
     }

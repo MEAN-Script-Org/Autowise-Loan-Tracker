@@ -13,14 +13,16 @@ module.exports = {
       username: req.body.username,
       password: req.body.password,
     });
-
+    
+    console.log(newUser) ;
+    
     if (req.body.username && req.body.password) {
       newUser.save(function(err, realNewUser) {
         // console.log(err, realNewUser);
 
         if (err) {
           // non-unique
-          if (err.toJSON().code == 11000) {
+          if (err.toJSON().code === 11000) {
             res.json({ 
               err,
               message: 'Username or email already exist!' ,
@@ -43,7 +45,7 @@ module.exports = {
       res.json({ error: 'Ensure username, email or password was provided' });
     }
   },
-
+  
   read: function(req, res) {
     res.json(req.user) ;
   },
@@ -128,4 +130,6 @@ module.exports = {
       }
     });
   }
+  
+  
 };
