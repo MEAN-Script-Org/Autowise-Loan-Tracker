@@ -28,10 +28,8 @@ angular.module('SWEApp').controller(
     $scope.init = function() {
       $scope.visible = "visible";
       
-      console.log("TEST!") ;
-      
-      // TODO: pull all loans associated with a particular user ID
-      var id = "12345" ;
+      // TODO: pull all loans associated with a particular session user ID
+      var id = "5a07d6ec2419b6401c503c60" ;
       
       // Loads all loans belonging to the specified user
       Factory.getLoansOfUser(id).then(

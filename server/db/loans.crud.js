@@ -70,7 +70,7 @@ module.exports = {
   loansByUserID: function(req, res) {
     console.log("USER: " + req.user) ;
     
-    Loan.find({ user_id: req.user.user_id }, function(err, loans) {
+    Loan.find({ user_id: req.user._id }, function(err, loans) {
       if (err) {
         console.log(err) ;
         res.status(404).send(err) ;
