@@ -117,6 +117,12 @@ module.exports = {
   },
   
   userByID: function(req, res, next, id) {
+    
+    // TEST: replace with database query once Users are implemented properly
+    req.user = {user_id: id} ;
+    next() ;
+    return ;
+    
     User.findById(id).exec(function(err, user) {
       if (err) {
         console.log(err) ;

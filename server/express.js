@@ -62,7 +62,6 @@ module.exports.init = function() {
   });
 
   // Customer hub
-  // I don't know what magic Marcial is working, but for some reason I feel something this simple is not gonna' work
   app.use('/home', function(req, res) {
     res.render('customerHub');
   });
