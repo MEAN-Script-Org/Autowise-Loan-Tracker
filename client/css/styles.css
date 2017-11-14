@@ -2142,18 +2142,21 @@ div.ng-show {
   width:100%;
   border:none;
   border-bottom:1px solid #757575;
-  color: #FFFFFF;
+/*  color: #FFFFFF;*/
+    color: rgb(68, 68, 68);
 }
 .inputMODAL:focus
 { 
     outline:none; 
-    color: rgb(68, 68, 68);
+/*    color: rgb(68, 68, 68);*/
 }
 
+/*
 .ng-valid-date {
     outline:none; 
     color: rgb(68, 68, 68);
 }
+*/
 
 /* LABEL ======================================= */
 .modal-body label {
@@ -2164,6 +2167,8 @@ div.ng-show {
   pointer-events:none;
   left:5px;
   top:10px;
+  background-color: #FFFFFF;
+  width: 80%;
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
