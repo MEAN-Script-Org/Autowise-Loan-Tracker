@@ -20,12 +20,12 @@ var userSchema = new mongoose.Schema({
   // DL: drivers licence
   dl: {
     type: String,
-    // required: true
+    required: true
   },
   // DOB: dath of birth
   dob: {
-    type: Number,
-    // required: true
+    type: Date,
+    required: true
   },
   email: {
     type: String,
@@ -40,6 +40,8 @@ var userSchema = new mongoose.Schema({
   created_by: String,
   // Assign it to the token user?? idk yet
 });
+
+// TODO: Add trigger to auto link loans to new users on the fly
 
 // Pre-processing on saving a user document
 userSchema.pre('save', function(next) {

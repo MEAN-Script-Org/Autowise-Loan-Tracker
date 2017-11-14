@@ -16,7 +16,6 @@
     "dotenv": "4.0.0",
     "ejs": "2.5.6",
     "express": "4.15.2",
-    "express-jwt": "5.3.0",
     "gulp": "3.9.1",
     "gulp-nodemon": "2.2.1",
     "jsonwebtoken": "8.1.0",

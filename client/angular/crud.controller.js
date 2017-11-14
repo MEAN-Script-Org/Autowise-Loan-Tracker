@@ -2,38 +2,35 @@ angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
+    // $rootScope.loans = [
+    //    {"name" : "Steven", "_id" : 1}, 
+    //    {"name" : "Marcial", "_id" : 2}, 
+    //    {"name" : "Max", "_id" : 3}
+    // ];
     // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];
-    $rootScope.loading = false;
-    // $rootScope.loading = true;
+    $rootScope.loading = true;
     $rootScope.massLoans = [];
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
-    // Buyer's Order placeholder
-    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; 
-
-    // Get Fields for loan object creation
-    Factory.getUserInfo().then(function(response) {
-      $scope.commentAsAdmin = false;
-
-      // ## Order Filters ~ !them for ascending order
-      $scope.reverse = true;
-      $scope.reverse_comments = true;
-
-      // TO Change based on routes~
-      // ## User Details
-      $rootScope.user_id = response.data._id;
-      $rootScope.user_name = response.data.username;
-      // $rootScope.user_email = response.data.email;
-      $rootScope.user_isAdmin = response.data.isAdmin;
-    });
     
+    // Buyer's Order placeholder
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: true }, insr: {}} ; 
+
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
+      $scope.commentAsAdmin = false;
+      
+      // ## Order Filters ~ !them for ascending order
+      // not doing much with this rn...
+      $scope.reverse = true;
+      $scope.reverse_comments = true;
+
       $scope.newLoan = {};
+      $scope.isAdmin = true;
       $scope.visible = "visible";
 
       Factory.getLoans().then(
@@ -47,9 +44,13 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 3000);
+          }, 1000);
         }
       );
+    }
+
+    $scope.logout = function() {
+      Factory.logout();
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -253,16 +254,10 @@ angular.module('SWEApp').controller(
     // OTHER FUNCTIONS
     //------------------------------------------------------------------------------------------------------------------
     // MARK: CHECK LIST
-    // Marcial: *explination* This is being called by the accordion controller on checkbox selection
+    // Marcial: *explanation* This is being called by the accordion controller on checkbox selection
     $rootScope.updateCheckList = function(loanID, add) {
       if (add) {
         $rootScope.massLoans.push(loanID);
-        $rootScope.massLoans.forEach(
-          function(loanID) {
-            // This will log each loan id in 'massLoans'
-            // But what's the point?
-            console.log("Loan selected: " + loanID);
-          });
       } else {
         $rootScope.massLoans.forEach(
           function(value, index, loans) {
@@ -272,6 +267,13 @@ angular.module('SWEApp').controller(
           });
       }
     }
+
+    $scope.checkTrigger = function(loanID) {
+      let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
+      if (stateUpdate != -1) {
+        $scope.updateCheckList(loanID, stateUpdate);
+      }
+    };
 
     // TODO LATER: Same comment as 'changeLoanStatus' ~
     // Clearing frontend checkboxes

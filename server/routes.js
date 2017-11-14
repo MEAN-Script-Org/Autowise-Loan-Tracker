@@ -6,6 +6,9 @@ var auth  = require("./auth.js") ;
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
+router.route('/auth')
+      .get(auth.authenticate);
+
 router.route('/email')
       .post(emailHandler);
 
@@ -27,19 +30,19 @@ router.route('/loans')
       .get(loans.getAll)
       .post(loans.create);
       
-// > 'Multiple' loans under the specified user
-router.route('/loans/:userID')
-      .get(loans.loansByUserID);
-      
-// > 'Multiple' loans under the specified user info (dob, dl, etc.)
-router.route('/loansByUserInfo/:userInfo')
-      .get(loans.loansByUserInfo);
-
 // > Individual loan
 router.route('/loan/:loanID')
       .get(loans.read)
       .put(loans.update)
       .delete(loans.delete) ;
+
+// > 'Multiple' loans under the specified user
+router.route('/loans/:userID')
+      .get(loans.loansByUserID);
+      
+// > 'Multiple' loans under the specified user
+router.route('/loansByUserInfo/:token')
+      .get(users.userByID, loans.loansByUserID);
 
 router.param('loanID', loans.loanByID) ;
 
@@ -53,12 +56,13 @@ router.route('/user/:userID')
 // > 'Multiple' users
 router.route('/users')
       .get(users.getAll, users.returnUsers)
-      .post(users.create) ;
+      .post(users.create, auth.login) ;
 
 router.route('/usernames')
       .get(users.getAll, users.getAllUsernames) ;
 
 router.param('userID', users.userByID) ;
-router.param('userInfo', function(req, res, next, userInfo) { req.userInfo = userInfo; next(); }) ;
+router.param('token', auth.decodeToken);
+// router.param('userInfo', function(req, res, next, userInfo) { req.userInfo = userInfo; next(); }) ;
 
 module.exports = router;

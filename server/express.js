@@ -5,10 +5,76 @@ var auth = require("./auth.js");
 var routes = require('./routes.js');
 var bodyParser = require('body-parser');
 
-module.exports.init = function() {
+var ejs_msg = '';
+var ejs_class = '';
 
-  var ejs_msg = '';
-  var ejs_class = '';
+// Reroute logic *nessesarily ugly&
+var profile_routes = express.Router();
+
+profile_routes.route('/:token')
+.get(function(req, res) {
+  // next page routing based on token status and admin
+  var token = req.token;
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+
+  if (!token) {
+    ejs_msg = "Your session expired. Please log in again";
+    ejs_class = "alert bg-warning";
+    res.redirect('/login');
+  }
+  else if (token == "nothing ever") {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+
+    res.redirect("/login");
+  }
+  // else if (Object.keys(req.query).length < 1) {
+  //   //// Technically not secure as of now... but figure out an intermediate view in the frontend for it
+  //   // here render an angular view where you call the http with token and etc, 
+  //   console.log(req.query);
+  //   console.log(req.body);
+  //   // res.render("secure", {path: ""});
+  //   res.json({what: "no work"});
+  // }
+  else if (token.isAdmin)
+    res.render("admin", {path: "../"});
+  else
+    res.render("customerHub", {path: "../"});
+});
+
+profile_routes.param('token', auth.decodeToken);
+
+// profile_routes.route('/:token/warranty')
+//               .get()
+//               .post()
+//               ;
+
+var login_routes = express.Router();
+login_routes.route("/")
+.get(function(req, res) {
+  // console.log(ejs_msg, ejs_class);
+
+  // have these values yes or yes
+  console.log("rendering...");
+  res.render('login', {
+      message: ejs_msg,
+      type: ejs_class,
+      path: ''
+  });
+
+  ejs_msg = '';
+  ejs_class = '';
+})
+.post(auth.login);
+
+// End of ugly (but needed) routes
+
+module.exports.init = function() {
 
   // Connect to database
   mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
@@ -21,6 +87,7 @@ module.exports.init = function() {
 
   // body parsing middleware
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}));
 
   // views is directory for all template files
   app.set('views', __dirname + '/../client');
@@ -29,78 +96,46 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
-  app.use('/login', function(req, res) {
-    // have these values yes or yes
-    console.log(ejs_msg, ejs_class);
-    if (!(ejs_msg && ejs_class))
-    {
-      ejs_msg = '';
-      ejs_class = '';
-    }
-
-    res.render('login', {
-        message: ejs_msg, 
-        type: ejs_class
-    });
-  });
-
-  // Main CRUD funtionality
+  // User CRUD funtionality
   app.use('/crud', function(req, res) {
-    res.render('crud-email-test');
-  });
-
-  // Token-Based Auth
-  app.all('/*', auth.authenticate);
-
-  // Backend routes
-  app.use('/api', routes);
-
-  // TODO: Should Default if logged in as admin
-  app.use(['/admin', "/profile"], function(req, res) {
-    res.render('home');
+    res.render('crud-email-test', {path: ''});
   });
 
   // Customer hub
   app.use('/home', function(req, res) {
-    res.render('customerHub');
+    res.render('customerHub', {path: ''});
+  });
+
+  // Customer hub
+  app.use('/perm', function(req, res) {
+    res.render('changePermissions', {path: ''});
   });
 
   // Warranties plan view for a customer
+  // why the hell does it take 4 reqs to do this??
   app.use('/warranties', function(req, res) {
-    res.render('warranties');
+    res.render('warranties', {path: ''});
   });
 
+  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
+  app.use('/login', login_routes);
+
+  // automatic reroute here
+  app.use('/profile', profile_routes);
+
+  // TODO: Add master admin hardcoded link (Harrisons work)
+
+  // Token-Based Auth
+  // Backend API routes
+  app.use('/api', auth.authenticate, routes);
+
   // Wildcard for everything else
-  // Default if not logged in
-
-  // gonna have to check for tokens in login.controller, and pass them to the next state...
   app.use('/*', function(req, res) {
-    console.log("going inside general desicion");
-
-    // console.log(req._parsedOriginalUrl.path);
-    if (req._parsedOriginalUrl.path == "/") {
-      if (req.data && req.data.token) {
-        console.log(req.data.token);
-        auth.contact(req, res, null);
-      }
-      else {
-        // Go to login LOGIN if no VALID token data
-        ejs_msg = "Your session expired. Please log in again";
-        ejs_class = "alert bg-warning";
-        res.redirect('/login');
-      }
-    }
-    else {
-      // Go to login LOGIN if no token data EVER
-      if (true)
-      {
-        ejs_msg = "Please enter a valid url";
+      if (req._parsedOriginalUrl && req._parsedOriginalUrl.path != "/") {
+        ejs_msg = "Please enter a valid URL";
         ejs_class = "alert bg-danger";
-        if (true)
-          res.redirect('/login');
       }
-    }
+      res.redirect('/login');
   });
 
   return app;

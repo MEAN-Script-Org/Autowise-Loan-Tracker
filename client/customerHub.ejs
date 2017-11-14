@@ -10,19 +10,20 @@
     ng-app="SWEApp" ng-controller="CustomerController" ng-init="init()">
     
     <% include partials/nav.ejs %>
-    
-    <p>(I assume this will be in the customer navigation bar)</p>
+    <button ng-click="logout()" class="btn btn-danger pull-right"> Log out </button>
+
+    <!-- <p>(I assume this will be in the customer navigation bar)</p> -->
     <div><a href="/editAccount">Edit your account information</a></div>
     <div><a href="/warranties">View some cool warranties!</a></div>
     <div><a href="/customerHub">Check out your loans</a></div>
     
-    <div class="row" ng-controller="AccordFuncController">
+    <div class="row">
       <div class="col-md-12">
         <div class="container-accordion">
           
           <!-- Loading text -->
           <div ng-show="loading" id="loading">
-              <img id="loader" ng-show="loading" src="resources/load.gif">
+              <img id="loader" ng-show="loading" src="<%- path -%>resources/load.gif">
               <div class="load-txt">Loading</div>
           </div>
           

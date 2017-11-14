@@ -72,48 +72,22 @@ module.exports = {
   },
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Get all loans belonging to a particular user
+  // Get all loans belonging to a particular user (based on ID)
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserID: function(req, res) {
-    
-    // Sanity check
-    if (!req.user) {
-      res.status(500).send() ;
-      return ;
-    }
-    
-    Loan.find({ user_id: req.user._id }, function(err, loans) {
-      if (err) {
-        console.log(err) ;
-        res.status(404).send(err) ;
-      } else res.json(loans) ;
-    });
-  },
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // Get all loans belonging to a particular user described by their user info (name, DL, etc.)
-  //--------------------------------------------------------------------------------------------------------------------
-  loansByUserInfo: function(req, res) {
-    
-    // Assemble a query that will search the buyer's order field of loans
-    var query = {
-      buyers_order: {
-        purchaser: {
-          name:  req.body.userInfo.name,
-          dl:    req.body.userInfo.dl,
-          dob:   req.body.userInfo.dob,
-          email: req.body.userInfo.email,
-        }
-      }
-    }
-    
+    // console.log(req.user, req.body, req.token);
+
     // Query loans with matching information and send them in a JSON response
-    Loan.find(query, function(err, loans) {
+    // TODO: figure out how the return looks like
+    Loan.find({user_id : {$in: req.token.id}}, function(err, loans) {
       if (err) {
         console.log(err) ;
         res.status(400).send(err) ;
       }
-      else res.json([]) ;
+      else {
+        console.log("found loans:", loans);
+        res.json(loans) ;
+      }
     });
   },
   
@@ -121,6 +95,8 @@ module.exports = {
   // Get a loan of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   loanByID: function(req, res, next, id) {
+    if (id) {
+
     Loan.findById(id).exec(function(err, loan) {
       if (err) {
         console.log(err) ;
@@ -131,5 +107,11 @@ module.exports = {
         next() ;
       }
     });
+
+    }
+    else {
+      console.log("NO IDDDD");
+      console.log(req.body, req.token);
+    }
   }
 };

@@ -1,60 +1,115 @@
 angular.module('SWEApp').controller('LoginController',
-  ['$rootScope', '$scope', '$location', 'Factory',
-  function($rootScope, $scope, $location, Factory) {
+  ['$rootScope', '$scope', '$location', '$window', '$http', 'Factory',
+  function($rootScope, $scope, $location, $window, $http, Factory) {
 
     // GLOBALS
-    // $rootScope.users = ['hello'];
+    $scope.newUser = {isAdmin: false};
     $rootScope.users = [];
-    $rootScope.newUser = {};
-    $rootScope.usernames = [];
+    // $scope.newUser = {email: "dale", username: "dale"};
+    $rootScope.usernames = {};
 
-    // I could easily get BOTH, just usernames and all their data...
-    // Maybe the username conversion should be a frontend thing... backend logic is screwed up
-    Factory.getUsernames().then(
-      function(res) {
-        $rootScope.usernames = res.data;
-      },
-      function(err) {
-        alert(err);
-    });
+    $scope.init = function(error_message, type) {
+      // Atempt to reroute ASAP
+      Factory.isLoggedIn().then(
+        function(res) {
 
-    // This works
-    // Factory.getAllUsers().then(
-    //   function(res) {
-    //     $rootScope.users = res.data;
-    //   },
-    //   function(err) {
-    //     alert(err);
-    // });
-    $scope.init = function(message, type) {
-      console.log(message, type);
-      
-      // FOR TESTING PURPOSES ONLY
-      $rootScope.newUser = {
-        username: "Somebody once told me...",
-        password: "Allstar",
-        name: "Max",
-        email: "m@l.com",
-        dl: "09876",
-        dob: "1996-05-15T04:00:00.000Z"
-      }
-      $scope.addUser() ;
+          if (res.data.error || error_message || type) {
+            // useless error..
+            // console.log(res.data.error);
+            Factory.removeToken();
+          } 
+          
+          if (Factory.getToken()) {
+            $window.location.href = '/profile/' + Factory.getToken();
+          }
+        },
+        function(err, error) {
+          alert("whaaat");
+          alert(JSON.stringify(err) + JSON.stringify(error));
+        }
+      );
+
+      // I could easily get BOTH, just usernames and all their data...
+      // Maybe the username conversion should be a frontend thing... backend logic is screwed up
+      Factory.getUsernames().then(
+        function(res) {
+          // $rootScope.usernames = res.data;
+          // console.log(res.data);
+          res.data.forEach(function(item) {
+            $rootScope.usernames[item] = true;
+          });
+        },
+        function(err) {
+          alert("oink");
+          alert(err);
+      });
+
+      // This works
+      // Factory.getAllUsers().then(
+      //   function(res) {
+      //     $rootScope.users = res.data;
+      //   },
+      //   function(err) {
+      //     alert(err);
+      // });
     }
 
-    $scope.addUser = function() {
-      if (!$rootScope.usernames.includes($rootScope.newUser.username))
-        Factory.newUser($rootScope.newUser).then(
-          function(realUser) {
-            $rootScope.usernames.push(realUser);
+    $scope.login = function() {
+
+      var loginData = {
+        username: $scope.username, 
+        password: $scope.password,
+      };
+
+      Factory.login(loginData).then(
+        function(res) {
+          if (!res.data.error) {
+            // console.log(res.data);
+            // console.log(JSON.stringify(res.data));
             
-            affixLoans(realUser) ;  // Affix any dangling loans in the database to this user
-          },
-          function(err) {
-            alert(err);
-        });
+            // check that this works
+            Factory.addToken(res.data);
+            console.log(Factory.getToken());
+            $window.location.href = '/login';
+          } else alert(res.data.error);
+        },
+        function(err) {
+          return alert(err);
+      });
+    }
+
+    $scope.register = function() {
+      // TODO: Correctly implement this
+      // Affix any dangling loans in the database to this user
+      // This should be done in the backend...
+      // affixLoans(realUser);
+
+      if (!$rootScope.usernames[$scope.newUser.username])
+        Factory.newUser($scope.newUser);
       else
         alert("Please change your username to one that hasn't been taken");
     }
+
+    // // don't waste time on this...
+    // $scope.makeUsernameTheEmail = function() {
+    //   // make the user email to be username while nothing is types as username, or the email is still the username
+    //   console.log($scope.newUser.username);
+    //   console.log($scope.newUser.email);
+
+    //   var email = $scope.newUser.email;
+    //   var username = $scope.newUser.username;
+
+    //   email.substring(0, Math.min(email.length - 1, username.length - 1));
+
+    //   if (!email || username == email) {
+    //     console.log($scope.newUser.username);
+    //     console.log($scope.newUser.email);
+
+    //     $scope.newUser.username = $scope.newUser.email;
+    //   }
+    //   else
+    //     console.log("NOPE");
+    // }
     
     // Search loans database for loans with matching contact information
     // Affixes these loans to this User
@@ -62,10 +117,8 @@ angular.module('SWEApp').controller('LoginController',
       Factory.getLoansByUserInfo(user).then(
         function(loans) {
           
-          console.log(loans) ;
-          
           // Affix this user's ID to each found loan
-          loans.forEach(
+          res.loans.forEach(
             function(loan) {
               loan.user_id = user._id ;
               loan.save() ;
