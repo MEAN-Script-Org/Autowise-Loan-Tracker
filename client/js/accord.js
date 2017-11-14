@@ -6,6 +6,14 @@ angular.module('SWEApp').controller('AccordFuncController',
   ['$scope', '$location', 'Factory',
   function($scope, $location, Factory) {
 
+    // gets called when accordion is clicked, passes loanID to update checkList if stateUpdate holds that it has checked/or unchecked a checkbox
+    $scope.checkTrigger = function(loanID) {
+      let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
+      if (stateUpdate != -1) {
+        $scope.$parent.updateCheckList(loanID, stateUpdate);
+      }
+    };
+      
     // search function for specifying loan criteria
     $scope.search = function(loan) {
       
@@ -46,114 +54,6 @@ angular.module('SWEApp').controller('AccordFuncController',
 
     // IIFE Immediately Invokable Function Expression
     // calls function immediately when the javascript is rendered.
-    (function() {
-      // time out to handle delay while angular loads resources properly
-      setTimeout(function() {
 
-        var d = document,
-          accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-          setAria,
-          setAccordionAria,
-          switchAccordion,
-          touchSupported = ('ontouchstart' in window),
-          pointerSupported = ('pointerdown' in window);
-
-        // this handles state of updating, -1 for a state where the checkbox is not pressed, 1 for checked checkbox, 0 for unchecked checkbox
-        var stateUpdate = -1;
-
-        // reloads accordions for expandable functionality
-        $scope.reloadAccordion = function() { 
-          d = document,
-          accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-          setAria,
-          setAccordionAria,
-          switchAccordion,
-          touchSupported = ('ontouchstart' in window),
-          pointerSupported = ('pointerdown' in window);
-            
-          for (var i = 0, len = accordionToggles.length; i < len; i++) {
-              if (touchSupported) {
-                accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
-              }
-              if (pointerSupported) {
-                accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
-              }
-              accordionToggles[i].addEventListener('click', switchAccordion, false);
-            }
-        };
-        
-        skipClickDelay = function(e) {
-          e.preventDefault();
-          e.target.click();
-        }
-
-        setAriaAttr = function(el, ariaType, newProperty) {
-          el.setAttribute(ariaType, newProperty);
-        };
-        setAccordionAria = function(el1, el2, expanded) {
-          switch (expanded) {
-            case "true":
-              setAriaAttr(el1, 'aria-expanded', 'true');
-              setAriaAttr(el2, 'aria-hidden', 'false');
-              break;
-            case "false":
-              setAriaAttr(el1, 'aria-expanded', 'false');
-              setAriaAttr(el2, 'aria-hidden', 'true');
-              break;
-            default:
-              break;
-          }
-        };
-
-        // gets called when accordion is clicked, passes loanID to update checkList if stateUpdate holds that it has checked/or unchecked a checkbox
-        $scope.clickAccordion = function(loanID) {
-          if (stateUpdate != -1) {
-            $scope.$parent.updateCheckList(loanID, stateUpdate);
-          }
-        };
-
-          
-        //function for if an accordion has been triggered, handles expansion and collapsing of accordion
-        switchAccordion = function(e) {
-          console.log("triggered");
-          e.preventDefault();
-
-          var thisAnswer = e.target.parentNode.nextElementSibling;
-          var thisQuestion = e.target;
-
-          if (!(thisAnswer === null)) {
-            if (thisAnswer.classList.contains('is-collapsed')) {
-              setAccordionAria(thisQuestion, thisAnswer, 'true');
-            } else {
-              setAccordionAria(thisQuestion, thisAnswer, 'false');
-            }
-            thisQuestion.classList.toggle('is-collapsed');
-            thisQuestion.classList.toggle('is-expanded');
-            thisAnswer.classList.toggle('is-collapsed');
-            thisAnswer.classList.toggle('is-expanded');
-
-            thisAnswer.classList.toggle('animateIn');
-
-            stateUpdate = -1;
-          } else if (thisQuestion.tagName.toLowerCase() === 'span') {
-            var input = e.target.previousElementSibling;
-            input.checked = !input.checked;
-
-            stateUpdate = input.checked ? 1 : 0;
-          }
-        };
-
-        //adds event listeners to each accordion item
-        for (var i = 0, len = accordionToggles.length; i < len; i++) {
-          if (touchSupported) {
-            accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
-          }
-          if (pointerSupported) {
-            accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
-          }
-          accordionToggles[i].addEventListener('click', switchAccordion, false);
-        }
-      }, 1000);
-    })();
   }
 ]);
