@@ -276,6 +276,13 @@ angular.module('SWEApp').controller(
       }
     }
 
+    $scope.checkTrigger = function(loanID) {
+      let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
+      if (stateUpdate != -1) {
+        $scope.updateCheckList(loanID, stateUpdate);
+      }
+    };
+
     // TODO LATER: Same comment as 'changeLoanStatus' ~
     // Clearing frontend checkboxes
     $scope.clearCheckbox = function(loanID) {

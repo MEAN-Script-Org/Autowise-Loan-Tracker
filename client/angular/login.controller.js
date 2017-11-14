@@ -8,17 +8,18 @@ angular.module('SWEApp').controller('LoginController',
     // $scope.newUser = {email: "dale", username: "dale"};
     $rootScope.usernames = {};
 
-    $scope.init = function(message, type) {
+    $scope.init = function(error_message, type) {
       // Atempt to reroute ASAP
       Factory.isLoggedIn().then(
         function(res) {
 
-          if (res.data.error) {
+          if (res.data.error || error_message || type) {
             // useless error..
             // console.log(res.data.error);
             Factory.removeToken();
           } 
-          else {
+          
+          if (Factory.getToken()) {
             $window.location.href = '/profile/' + Factory.getToken();
           }
         },

@@ -36,20 +36,26 @@ module.exports = {
   },
 
   decodeToken: function(req, res, next, token) {
-    jwt.verify(token, secret, function(err, decodedToken) {
-      if (err) {
-        console.log("INVALID TOKEN!!!");
-        console.log(token, err, decodedToken);
-        req.token = false;
-        next();
-      }
-      else {
-        console.log(token);
-        console.log(decodedToken);
-        req.token = decodedToken;
-        next();
-      }
-    });
+    if (!token) {
+      req.token = "nothing ever";
+      next();
+    }
+    else {
+      jwt.verify(token, secret, function(err, decodedToken) {
+        if (err) {
+          console.log("INVALID TOKEN!!!");
+          console.log(token, err, decodedToken);
+          req.token = false;
+          next();
+        }
+        else {
+          console.log(token);
+          console.log(decodedToken);
+          req.token = decodedToken;
+          next();
+        }
+      });
+    }
   },
 
   // Auth middleware *mess warning*
@@ -72,6 +78,7 @@ module.exports = {
             ejs_msg = "Your session expired. Please log in again";
             ejs_class = "alert bg-warning";
 
+            // this creates an infinite loopy...
             res.render('login', {
                 message: ejs_msg,
                 type: ejs_class,

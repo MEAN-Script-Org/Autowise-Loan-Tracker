@@ -132,7 +132,7 @@
                 // clear out input
                 this.inputEl.blur();
 			     classie.remove( this.el, 'sb-search-open' );
-                this.inputEl.val('');
+                // this.inputEl.val('');
             }
 		},
         // clear out input on close

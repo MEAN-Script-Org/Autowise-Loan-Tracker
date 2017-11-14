@@ -9,9 +9,6 @@
 <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
      ng-app="SWEApp" ng-controller="CRUDController" ng-init="init()">
 
-    <!-- pass this to angular... then turn into JSON and etc... -->
-    <%- token -%>
-
     <% include partials/nav.ejs %>
     <!-- This looks bad as of now -->
     <!--
@@ -28,50 +25,32 @@
 
     <!-- TODO: Delete these and modularize into another partial -->
     <!-- SCOPE FOR SEARCH -->
-    <div ng-controller="CheckController">
+    <div>
       <% include partials/admin_filters.ejs %>
 
       <!-- End of filters -->
       <!-- Start of accordion content -->
 
-      <div class="row" ng-controller="AccordFuncController">
+      <div class="row">
         <div class="col-md-12">
             <div id="sb-search" class="sb-search">
-              <!-- Marcial old: -->
-              <!-- in order for this to work properly you'll need a diff input field per search criteria -->
-              <!-- each linked to the desired property as ng-model=query.property_goes_here -->
-              <!-- this is a mess, so a general search works best imo -->
-              <!-- BUT when pagination comes into the picture this COULD be useful. TBD -->
-              <!-- Marcial after merging: this is a mess... to change ASAP -->
-              <!-- Marcial now: I'll take care of this... -->
               <form>
-                <!-- input binded to $scope.query -->
-                  <input class="sb-search-input" placeholder="Search criteria"
-                         type="text" value="" name="search" id="search" ng-model="query">
-                  <input class="sb-search-submit" type="submit">
-                  <span class="sb-icon-search"></span>
+                <input class="sb-search-input" placeholder="Search criteria"
+                       type="text" value="" name="search" id="search" ng-model="query">
+                <input class="sb-search-submit" type="submit">
+                <span class="sb-icon-search"></span>
               </form>
               <div class="disabler"></div>
             </div>
             <div class="container-accordion">
-              <!--
-              <input class="sb-search-input sb-search-open" placeholder="Search criteria" ng-model="wanted">
-               -->
-              <!-- This can be further modularized now... -->
-
               <div ng-show="loading" id="loading">
                   <img id="loader" ng-show="loading" src="resources/load.gif">
                   <div class="load-txt">Loading</div>
               </div>
               <div ng-hide="loading" class="accordion invisible {{visible}}">
                 <dl>
-                  <!--
-                  <input ng-model="wanted"
-                  placeholder="What you want"
-                  >
-                   -->
-                 <!-- we by custom search function that uses binded query to filter by specific attributes-->
-                  <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: search:wanted">
+                 <!-- we by custom search function that uses binded query to filter by specific attributes -->
+                  <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: query:wanted">
                         <div ng-if="loan.new">
                             {{reloadAccordion()}}s
                         </div>
@@ -111,11 +90,15 @@
     <% include partials/modals.ejs %>
 </div>
 
-<script src="js/classie.js"></script>
-<script src="js/uisearch.js"></script>
+<!-- GONE GONE BYE BYE -->
+<!-- 
+<script src="<%- path -%>js/classie.js"></script>
+<script src="<%- path -%>js/uisearch.js"></script>
 <script>
     new UISearch( document.getElementById( 'sb-search' ) );
 </script>
+ -->
+
 <% include partials/footer.ejs %>
 
 </body>
