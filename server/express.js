@@ -66,6 +66,11 @@ module.exports.init = function() {
     res.render('customerHub');
   });
 
+  //customer account info
+   app.use('/account', function(req, res) {
+    res.render('userInfo');
+  });
+
   // Warranties plan view for a customer
   app.use('/warranties', function(req, res) {
     res.render('warranties');
