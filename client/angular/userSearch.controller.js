@@ -4,7 +4,7 @@ angular.module('SWEApp').controller('userSearch',
 
     Factory.getUsernames().then(
         function(res){
-            // the user names are in res.data
+        // the user names are in res.data
         $rootScope.userNames = res.data;
         console.log(res.data);
         
