@@ -1685,7 +1685,6 @@ img#loader {
 
 
 /* Modified Bootstrap Modal style */
-
 .modal-header .close {
     font-size: 28px;
     margin-top: 22px;
@@ -1821,8 +1820,9 @@ div.left-text {
 
 .required:after {
   padding: 0 0 0 2px;
+  margin-left: -8px;
   color: #f9243f;
-  content: " *"
+  content: "*";
 }
 
 .tab-pane>div {
@@ -2118,6 +2118,122 @@ div.ng-hide {
 
 div.ng-show {
   animation: 0.5s fadeIn;
+}
+
+/* INPUT FORM */
+/* form starting stylings ------------------------------- */
+.group 			  { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+.inputMODAL
+{
+  font-size:12px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+  color: #FFFFFF;
+}
+.inputMODAL:focus
+{ 
+    outline:none; 
+    color: rgb(68, 68, 68);
+}
+
+.ng-valid-date {
+    outline:none; 
+    color: rgb(68, 68, 68);
+}
+
+/* LABEL ======================================= */
+.modal-body label {
+  color:#999; 
+  font-size:12px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.inputMODAL:focus ~ label, .inputMODAL:valid ~ label 		{
+  top:-30%;
+  font-size:10px;
+  color:#38cc70;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ 
+    position:relative; 
+    display:block; 
+/*    width:300px; */
+    top: 1px;
+}
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#38cc70; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.inputMODAL:focus ~ .bar:before, .inputMODAL:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:30%; 
+  left:0;
+  pointer-events:none;
+/*
+  -webkit-transition:opacity 0.3s ease;
+  -moz-transition:opacity 0.3s ease;
+  transition:opacity 0.3s ease;
+*/
+}
+
+/* active state */
+.inputMODAL:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* END INPUT FORM */
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+	from { background:#38cc70; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#38cc70; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#38cc70; }
+  to 	{ width:0; background:transparent; }
 }
 
 @keyframes bot-to-top {
