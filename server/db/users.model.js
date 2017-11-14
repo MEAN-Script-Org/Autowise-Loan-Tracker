@@ -12,6 +12,10 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
+  // NEED TO ADD THE FOLLOWING FIELDS:
+  // -> name: { type: String, required: true }
+  
   // Next to fix tests to account for the required fields
   // DL: drivers licence
   dl: {

@@ -86,7 +86,12 @@ module.exports.init = function() {
     res.render('crud-email-test', {path: ''});
   });
 
-  // Warranties plan view for a client
+  // Customer hub
+  app.use('/home', function(req, res) {
+    res.render('customerHub');
+  });
+
+  // Warranties plan view for a customer
   app.use('/warranties', function(req, res) {
     res.render('warranties', {path: ''});
   });

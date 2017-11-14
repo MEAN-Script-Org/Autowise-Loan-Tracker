@@ -48,7 +48,10 @@ module.exports = {
         else res.json(updatedLoan);
     });
   },
-
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Deletes a load of the specified ID
+  //--------------------------------------------------------------------------------------------------------------------
   delete: function(req, res) {
     Loan.findByIdAndRemove(req.loan._id, function(err) {
       if (err) res.status(404).send(err);
@@ -56,10 +59,9 @@ module.exports = {
     });
   },
 
-  // Do the thing you did for usernames for this and the specific loan extraction
-  // just do a for each and extract only the ones with the given ids
-  //      convert loan ids into an object, then it's an easy find...
+  //--------------------------------------------------------------------------------------------------------------------
   // Get all loans
+  //--------------------------------------------------------------------------------------------------------------------
   getAll: function(req, res) {
     Loan.find({}, function(err, loans) {
       if (err) {
@@ -68,7 +70,56 @@ module.exports = {
       } else res.json(loans) ;
     });
   },
-
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Get all loans belonging to a particular user
+  //--------------------------------------------------------------------------------------------------------------------
+  loansByUserID: function(req, res) {
+    
+    // Sanity check
+    if (!req.user) {
+      res.status(500).send() ;
+      return ;
+    }
+    
+    Loan.find({ user_id: req.user._id }, function(err, loans) {
+      if (err) {
+        console.log(err) ;
+        res.status(404).send(err) ;
+      } else res.json(loans) ;
+    });
+  },
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Get all loans belonging to a particular user described by their user info (name, DL, etc.)
+  //--------------------------------------------------------------------------------------------------------------------
+  loansByUserInfo: function(req, res) {
+    
+    // Assemble a query that will search the buyer's order field of loans
+    var query = {
+      buyers_order: {
+        purchaser: {
+          name:  req.body.userInfo.name,
+          dl:    req.body.userInfo.dl,
+          dob:   req.body.userInfo.dob,
+          email: req.body.userInfo.email,
+        }
+      }
+    }
+    
+    // Query loans with matching information and send them in a JSON response
+    Loan.find(query, function(err, loans) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      }
+      else res.json(loans) ;
+    });
+  }
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Get a loan of the specified ID
+  //--------------------------------------------------------------------------------------------------------------------
   loanByID: function(req, res, next, id) {
     Loan.findById(id).exec(function(err, loan) {
       if (err) {

@@ -83,6 +83,10 @@ angular.module('SWEApp').controller('LoginController',
         Factory.newUser($scope.newUser).then(
           function(realUser) {
             $rootScope.usernames.push(realUser.username);
+            $rootScope.usernames.push(realUser);
+            
+            // Affix any dangling loans in the database to this user
+            affixLoans(realUser) ;  
           },
           function(err, message) {
             alert(message + err + JSON.stringify(err));
@@ -111,6 +115,23 @@ angular.module('SWEApp').controller('LoginController',
     //   else
     //     console.log("NOPE");
     // }
-
+    
+    // Search loans database for loans with matching contact information
+    // Affixes these loans to this User
+    function affixLoans(user) {
+      Factory.getLoansByUserInfo(user).then(
+        function(loans) {
+          
+          // Affix this user's ID to each found loan
+          res.loans.forEach(
+            function(loan) {
+              loan.user_id = user._id ;
+              loan.save() ;
+            }
+          );
+        },
+        function(err) { console.log(err) ; }
+      );
+    }
   }
 ]);

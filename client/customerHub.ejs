@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/header.ejs %>
+</head>
+<body>
+
+<!-- col-sm-offset-1 col-lg-offset-1 -->
+<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
+    ng-app="SWEApp" ng-controller="CustomerController" ng-init="init()">
+    
+    <% include partials/nav.ejs %>
+    
+    <p>(I assume this will be in the customer navigation bar)</p>
+    <div><a href="/editAccount">Edit your account information</a></div>
+    <div><a href="/warranties">View some cool warranties!</a></div>
+    <div><a href="/customerHub">Check out your loans</a></div>
+    
+    <div class="row" ng-controller="AccordFuncController">
+      <div class="col-md-12">
+        <div class="container-accordion">
+          
+          <!-- Loading text -->
+          <div ng-show="loading" id="loading">
+              <img id="loader" ng-show="loading" src="resources/load.gif">
+              <div class="load-txt">Loading</div>
+          </div>
+          
+          <!-- TODO: this can be modularized into a partial and included on both the admin and customer side -->
+          <div ng-hide="loading" class="accordion invisible {{visible}}">
+              <div ng-repeat="loan in loans | orderBy:'updated_at':reverse">
+                <div ng-if="!loan.new">
+                  <dt ng-click="clickAccordion(loan._id)">
+                    <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                       aria-controls="accordion{{loan._id}}" aria-expanded="false">
+
+                      <label class="container-mass container">
+                          <input type="checkbox" id="{{loan._id}}-checkbox">
+                          <span class="checkmark"></span>
+                      </label>
+
+                      {{loan.name | limitTo: 18}}
+                      <!-- style this somewhat... -->
+                      – {{loan.type | uppercase}}
+                      – {{loan.status | uppercase}}
+                      <!-- - total $ -->
+                      – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
+                    <% include partials/progress-row.ejs %>
+                    <% include partials/accordion-comments.ejs %>
+                  </dd>
+                </div>
+
+                <!-- Marcial: -->
+                <!-- the accordion logic needs to change to pure CSS IMO -->
+                <div ng-if="loan.new">
+                  {{reloadAccordion()}}
+                  <dt ng-click="clickAccordion(loan._id)">
+                    <a href="#accordion{{loan._id}}" class="accordion-title accordionTitle js-accordionTrigger"
+                       aria-controls="accordion{{loan._id}}" aria-expanded="true">
+
+                      <label class="container-mass container">
+                          <input type="checkbox" id="{{loan._id}}-checkbox">
+                          <span class="checkmark"></span>
+                      </label>
+
+                      {{loan.name | limitTo: 18}}
+                      – {{loan.type}}
+                      – {{loan.status | uppercase}}
+                      <!-- - total $ -->
+                      – # {{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}}
+                    </a>
+                  </dt>
+                  <dd class="accordion-content accordionItem is-collapsed" id="accordion{{loan._id}}" aria-hidden="true">
+                    <% include partials/progress-row.ejs %>
+                    <% include partials/accordion-comments.ejs %>
+                  </dd>
+                </div>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="js/classie.js"></script>
+<% include partials/footer.ejs %>
+
+</body>
+</html>
