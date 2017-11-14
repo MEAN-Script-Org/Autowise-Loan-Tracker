@@ -1685,6 +1685,14 @@ img#loader {
 
 
 /* Modified Bootstrap Modal style */
+@media (min-width: 768px)
+{
+    .modal-dialog {
+        width: 60%;
+        margin: 30px auto;
+    }
+}
+
 .modal-header .close {
     font-size: 28px;
     margin-top: 22px;
