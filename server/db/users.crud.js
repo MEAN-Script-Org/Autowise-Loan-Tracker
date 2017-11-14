@@ -8,7 +8,6 @@ var User = require('./users.model.js') ;
 module.exports = {
 
   create: function(req, res, next) {
-    // change to required dl, dob...
     var newUser = new User({
       dl: req.body.dl,
       dob: req.body.dob,
@@ -16,7 +15,6 @@ module.exports = {
       username: req.body.username,
       password: req.body.password,
     });
-    
     // console.log("WHAT", newUser);
 
     if (req.body.username && req.body.password) {
@@ -39,9 +37,6 @@ module.exports = {
         } else {
           console.log(realNewUser);
           next();
-          // res.json(realNewUser);
-          // res.json({ message: 'User created!' });
-          // res.redirect("/crud");
         }
       });
     } else {
