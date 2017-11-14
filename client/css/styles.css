@@ -46,6 +46,7 @@ h4 {
   line-height: 105%;
   font-weight: 500;
   text-align: justify;
+  overflow: scroll;
 }
 
 .large {
@@ -1704,10 +1705,6 @@ img#loader {
 .modal-header,
 .modal-footer {
   border: none;
-}
-
-.modal-header,
-.modal-body {
   padding-bottom: 0px;
 }
 
@@ -1718,6 +1715,11 @@ img#loader {
   padding-top: 0px;
 }
 
+.button-header {
+  margin-left: 850px;
+  margin-top: 50px;
+  position: fixed;
+}
 
 /* Login style */
 
