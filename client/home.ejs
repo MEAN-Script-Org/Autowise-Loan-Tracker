@@ -9,6 +9,9 @@
 <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
      ng-app="SWEApp" ng-controller="CRUDController" ng-init="init()">
 
+    <!-- pass this to angular... then turn into JSON and etc... -->
+    <%- token -%>
+
     <% include partials/nav.ejs %>
     <!-- This looks bad as of now -->
     <!--

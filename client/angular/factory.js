@@ -1,96 +1,111 @@
 angular.module('SWEApp').factory('Factory', ['$http', '$window',
   function($http, $window) {
+    
+    var addToken = function(token) {
+        $window.localStorage.setItem('token', token);
+    }
+
+    var getToken = function() {
+      var token = $window.localStorage.getItem('token');
+      return token;
+    }
+
+    var removeToken = function() {
+      $window.localStorage.removeItem('token');
+    }
+
     var methods = {
       
       // Emailing
       sendEmail: function(updates) {
-        return $http.post('/api/email', updates);
+        return $http.post('/api/email', Object.assign(updates, token));
       },
       // Uers CRUD
       newUser: function(User) {
-        return $http.post('/api/users', User);
+        console.log(User);
+        return $http.post('/api/users', Object.assign(User, {token: getToken()}));
       },
       getUsernames: function() {
-        return $http.get('/api/usernames');
+        return $http.get('/api/usernames', {token: getToken()});
       },
       getAllUsers: function() {
-        return $http.get('/api/users');
+        return $http.get('/api/users', {token: getToken()});
       },
       getUser: function(id) {
-        return $http.get('/api/user/' + id);
+        return $http.get('/api/user/' + id, {token: getToken()});
       },
       getUserInfo: function() {
-        return $http.get('/api/info');
+        return $http.get('/api/info', {token: getToken()});
       },
 
       // Loans CRUD
       newLoan: function(loan) {
-        return $http.post('/api/loans', loan);
+        return $http.post('/api/loans', Object.assign(loan, {token: getToken()}));
       },
       getLoans: function() {
-        return $http.get('/api/loans');
+        return $http.get('/api/loans', {token: getToken()});
       },
       getLoan: function(id) {
-        return $http.get('/api/loan/' + id);
+        return $http.get('/api/loan/' + id, {token: getToken()});
       },
       deleteLoan: function(id) {
-        return $http.delete('/api/loan/' + id);
+        return $http.delete('/api/loan/' + id, {token: getToken()});
       },
       modifyLoan: function(id, updatedLoan) {
-        return $http.put('/api/loan/' + id, updatedLoan);
+        return $http.put('/api/loan/' + id, Object.assign(updatedLoan, {token: getToken()}));
       },
 
       // AUTH METHODS
       // Adds token to local storage
       addToken: function(token) {
-        $window.localStorage.setItem('token', token);
-      },
-
-      removeToken: function() {
-        $window.localStorage.removeItem('token');
-      },
-
-      logout: function() {
-        this.removeToken();
-        $http.get('/');
+        addToken(token);
       },
 
       getToken: function() {
-        var token = $window.localStorage.getItem('token');
-        console.log(token);
-        return token;
+        return getToken();
       },
 
-      isLoggedIn: function() {
-        return true ? this.getToken() : false;
+      removeToken: function() {
+        removeToken();
+      },
+
+      register: function(loginData) {
+        return $http.post('/api/users', loginData);
       },
 
       login: function(loginData) {
-        return $http.post('/api/authenticate', loginData).then(function(res) {
-          if (res.data.token) {
-            console.log(res.data.token);
-            this.addToken(res.data.token);
-            return res;
-          } else alert(res.data.err);
-        });
+        return $http.post('/login', loginData);
       },
 
-      getUser: function() {
-        var token = this.getToken();
+      isLoggedIn: function() {
+        var token = getToken();
+        // console.log(token);
 
-        if (token) {
-          return $http.post('/api/me', { token });
-        } else {
-          $q.reject({ message: 'USer has no token' });
-        }
+        return $http.get('/api/auth', {token, no_next: true});
       },
 
-      request: function(config) {
-        var token = this.getToken();
-        if (token) config.headers['x-access-token'] = token;
-        return config;
+      logout: function() {
+        removeToken();
+        $window.location.href = '/login';
       },
 
+      // no idea why these are used for....
+      // getUser: function() {
+      //   var token = this.getToken();
+
+      //   if (token) {
+      //     return $http.get('/api/users' + token.id, { token });
+      //   } else {
+      //     $q.reject({ message: 'User has no token' });
+      //   }
+      // },
+
+      // no idea what was the use of this...
+      // request: function(config) {
+      //   // var token = this.getToken();
+      //   if (token) config.headers['x-access-token'] = token;
+      //   return config;
+      // },
     };
     
     return methods;

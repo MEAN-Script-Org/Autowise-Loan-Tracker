@@ -1086,6 +1086,8 @@ a.label:focus {
 }
 
 .nav-tabs {
+  float: none;
+  display: inline-block;  
   background: #f2f3f2;
   border: 0;
 }
@@ -1666,13 +1668,23 @@ div.left-text {
   pointer-events: none;
 }
 
+/* This will force placeholders to show in type 'dates' */
+input[type="date"]:before {
+  content: attr(placeholder) !important;
+  color: #aaa;
+  margin-right: 0.5em;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
+}
+
+/* some login styles reuse buyer's order required etc */
 
 /* Warranties Styles */
 
-
 /* . => class */
-
-
 /* # => id */
 
 .warrantiesQueryText>div>h4,
@@ -1752,13 +1764,16 @@ div.left-text {
   background-color: #F8F8F8;
 }
 
-#buyersOrderModal .modal-footer:before {
+#required:after,
+#buyersOrderModal .modal-footer:before{
   color: #f9243f;
   font-size: 15px;
-  padding: 0 0 0 20px;
   content: " * = Required";
 }
 
+#buyersOrderModal .modal-footer:before{
+  padding: 0 0 0 20px;
+}
 /* Buyers order styles */
 
 .required:after {

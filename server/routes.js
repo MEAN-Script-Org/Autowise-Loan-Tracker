@@ -6,6 +6,9 @@ var auth  = require("./auth.js") ;
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
+router.route('/auth')
+      .get(auth.authenticate);
+
 router.route('/email')
       .post(emailHandler);
 
@@ -45,7 +48,7 @@ router.route('/user/:userID')
 // > 'Multiple' users
 router.route('/users')
       .get(users.getAll, users.returnUsers)
-      .post(users.create) ;
+      .post(users.create, auth.login) ;
 
 router.route('/usernames')
       .get(users.getAll, users.getAllUsernames) ;

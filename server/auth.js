@@ -1,108 +1,103 @@
-// var mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
-// TODO: add this to env vars
+var jwt = require('jsonwebtoken');
+var User = require('./db/users.model.js') ;
 var secret = "Lean MEAN Client Machine";
 
-// User Registration route
-// back end logic of on create??
-// router.post('/users', function(req, res) {
-//   var user = new User({
-//     email: req.body.email,
-//     username: req.body.username,
-//     password: req.body.password,
-//   });
-
-//   if (req.body.username && req.body.password) {
-//     user.save(function(err, new_object) {
-//       console.log(err, new_object);
-
-//       if (err) {
-//         if (err.toJSON().code == 11000) {
-//           res.json({ 
-//             err,
-//             message: 'Username or email already exist!' ,
-//           });
-//         }
-//         else {
-//           res.json({ 
-//             message: err
-//           });
-//         } 
-//       } else {
-//         res.json({ message: 'User created!' });
-//       }
-//     });
-//   } else {
-//     res.json({ error: 'Ensure username, email or password was provided' });
-//   }
-// });
-
-// User Login Route
-// router.post('/authenticate',
-//   function(req, res) {
-//     User.findOne({ username: req.body.username }).select('email username password').exec(
-//       function(err, user) {
-//         if (err) throw err;
-//         if (!user) {
-//           console.log("NOPE USER", err, user);
-//           console.log(req.body);
-//           res.json({ error: 'Could not authenticate user' });
-//         } else if (!req.body.password)
-//           res.json({ error: 'No password provided!' });
-//         else {
-//           var validPassword = user.comparePassword(req.body.password);
-//           if (validPassword) {
-//             var user_details = {
-//               username: user.username,
-//               email: user.email,
-//             }
-//             var token = jwt.sign(user_details, secret, { expiresIn: '1m' });
-//             res.json({ success: true, message: 'User Authenicated!', token });
-//           } else res.json({ error: 'Could not authenticate password' });
-//         }
-//       });
-//   });
-
 module.exports = {
-  // Auth middleware
+  // User Login Route
+  login: function(req, res) {
+    User.findOne({ username: req.body.username }).exec(
+      function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          res.json({ error: 'Invalid Username and password combination' });
+        } 
+        else if (!req.body.password) {
+          res.json({ error: 'No password provided!' });
+        } 
+        else {
+          var validPassword = user.comparePassword(req.body.password);
+
+          if (validPassword) {
+            var user_details = {
+              id: user._id,
+              email: user.email,
+              isAdmin: user.isAdmin,
+              username: user.username,
+            }
+
+            var token = jwt.sign(user_details, secret, { expiresIn: '10h' });
+            res.json(token);
+          } 
+          else
+            res.json({ error: 'Invalid Username and password combination' });
+        }
+    });
+  },
+
+  decodeToken: function(req, res, next, token) {
+    jwt.verify(token, secret, function(err, decodedToken) {
+      if (err) {
+        console.log("INVALID TOKEN!!!");
+        console.log(token, err, decodedToken);
+        req.token = false;
+        next();
+      }
+      else {
+        console.log(token);
+        console.log(decodedToken);
+        req.token = decodedToken;
+        next();
+      }
+    });
+  },
+
+  // Auth middleware *mess warning*
   //      Send to login if no token with no message
   //      IF not valid, display you need to log in again
   //      If valid, continue to next callback
-
-  contact: function(req, res, next) {
-    console.log("THERE'S A TOKEN ON THE CLIENT!!!");
-    // res.redirect('/login');
-    // figure out which route to go...
-    // "/profile"
-  },
-
-  // res.redirect(/putComment?message=dale)
-  // this is why you implement view routes on the frontend...
   authenticate: function(req, res, next) {
     var token = req.body.token;
 
     if (token) {
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err) {
-          // res.redirect with params
           console.log("Bad Token");
-          res.json({ 
-            error: 'Token invalid' 
-          });
-          // res.redirect(/login');
-          next();
+
+          if (req.body.no_next) {
+            res.json({ 
+              error: 'Token invalid' 
+            });
+          } else {
+            ejs_msg = "Your session expired. Please log in again";
+            ejs_class = "alert bg-warning";
+
+            res.render('login', {
+                message: ejs_msg,
+                type: ejs_class,
+            });
+          }
         }
+
         // REAL next
         else {
           console.log("GUUUD Token");
-          req.body.token = decodedToken;
-          next();
+          // console.log(decodedToken);
+
+          if (!req.body.no_nextext)
+            res.json(token);
+          else {
+            req.body.token = decodedToken;
+            next();
+          }
         }
       });
-    } else  {
-      console.log("No token at all");
-      // res.redirect('/login');
-      next();
+    } else {
+      if (req.body.no_next) {
+        res.json({ 
+          error: "No token at all" 
+        });
+      } else res.redirect('/login');
     }
   },
 }

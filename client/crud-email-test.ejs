@@ -31,12 +31,12 @@
     {{usernames}}
     {{newUser.username}}
     {{usernames.includes(newUser.username)}}
+    {{newUser.dob}}
   
-    <form ng-submit="addUser()">
+    <form ng-submit="register()">
       <h3>New Loan</h3>
       <div>
         <input placeholder="Username" type="text" ng-model="newUser.username" required>
-      <span style="color:red" ng-show="usernames.includes(newUser.username)"> Username already taken </span>
       </div>
       <div>
         <input placeholder="Legal Full Name" type="text" ng-model="newUser.name" required>

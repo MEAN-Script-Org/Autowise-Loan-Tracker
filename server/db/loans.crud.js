@@ -56,6 +56,9 @@ module.exports = {
     });
   },
 
+  // Do the thing you did for usernames for this and the specific loan extraction
+  // just do a for each and extract only the ones with the given ids
+  //      convert loan ids into an object, then it's an easy find...
   // Get all loans
   getAll: function(req, res) {
     Loan.find({}, function(err, loans) {

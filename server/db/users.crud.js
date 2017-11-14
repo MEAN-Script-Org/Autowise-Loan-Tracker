@@ -7,36 +7,41 @@ var User = require('./users.model.js') ;
 
 module.exports = {
 
-  create: function(req, res) {
+  create: function(req, res, next) {
+    // change to required dl, dob...
     var newUser = new User({
+      dl: req.body.dl,
+      dob: req.body.dob,
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
     });
+    
+    // console.log("WHAT", newUser);
 
     if (req.body.username && req.body.password) {
       newUser.save(function(err, realNewUser) {
-        // console.log(err, realNewUser);
 
         if (err) {
-          // non-unique
           if (err.toJSON().code == 11000) {
+            console.log("oink same shit..", err);
             res.json({ 
               err,
               message: 'Username or email already exist!' ,
-            });
+            }); 
           }
           else {
+            console.log(err);
             res.json({ 
               message: err
             });
           } 
         } else {
-          res.redirect("/crud");
-          // res.json(newUser);
+          console.log(realNewUser);
+          next();
+          // res.json(realNewUser);
           // res.json({ message: 'User created!' });
-          // TODO: user_decision route... either admin or general user
-          // Also add frontend and f(x)ity
+          // res.redirect("/crud");
         }
       });
     } else {
@@ -47,14 +52,6 @@ module.exports = {
   read: function(req, res) {
     res.json(req.user) ;
   },
-
-  // TODO: Make single view THAT FUCKING TAKES IN PARAMETERS!!
-  // for /crud/:id => render request, then do a factory call for that ID, done!
-  // I want to go to a specific user...
-  // Scrap this thing. needs to be on in the 'express' area
-  // display: function(req, res) {
-  //     res.redirect('/crud/' + req.user._id);
-  // },
 
   update: function(req, res) {
     var oldUser = req.user;
