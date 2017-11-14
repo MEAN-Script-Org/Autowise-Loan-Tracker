@@ -37,7 +37,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         return $http.get('/api/loans/' + user_id);
       },
       getLoansByUserInfo: function(user) {
-        return $http.get('/api/loansByUserInfo', user);
+        return $http.get('/api/loansByUserInfo/', user);
       },
       deleteLoan: function(id) {
         return $http.delete('/api/loan/' + id);

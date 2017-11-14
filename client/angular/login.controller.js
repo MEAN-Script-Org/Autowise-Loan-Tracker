@@ -28,6 +28,17 @@ angular.module('SWEApp').controller('LoginController',
     // });
     $scope.init = function(message, type) {
       console.log(message, type);
+      
+      // FOR TESTING PURPOSES ONLY
+      $rootScope.newUser = {
+        username: "Somebody once told me...",
+        password: "Allstar",
+        name: "Max",
+        email: "m@l.com",
+        dl: "09876",
+        dob: "1996-05-15T04:00:00.000Z"
+      }
+      $scope.addUser() ;
     }
 
     $scope.addUser = function() {
@@ -51,8 +62,10 @@ angular.module('SWEApp').controller('LoginController',
       Factory.getLoansByUserInfo(user).then(
         function(loans) {
           
+          console.log(loans) ;
+          
           // Affix this user's ID to each found loan
-          res.loans.forEach(
+          loans.forEach(
             function(loan) {
               loan.user_id = user._id ;
               loan.save() ;

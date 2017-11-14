@@ -113,9 +113,9 @@ module.exports = {
         console.log(err) ;
         res.status(400).send(err) ;
       }
-      else res.json(loans) ;
+      else res.json([]) ;
     });
-  }
+  },
   
   //--------------------------------------------------------------------------------------------------------------------
   // Get a loan of the specified ID
