@@ -5,15 +5,14 @@ var auth = require("./auth.js");
 var routes = require('./routes.js');
 var bodyParser = require('body-parser');
 
-
 var ejs_msg = '';
 var ejs_class = '';
 
-// Reroute controller
+// Reroute logic *nessesarily ugly&
 var profile_routes = express.Router();
 
 profile_routes.route('/:token')
-              .get(function(req, res) {
+.get(function(req, res) {
   var token = req.token;
   
   // next page routing based on token status and admin

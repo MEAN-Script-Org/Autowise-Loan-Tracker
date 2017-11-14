@@ -33,11 +33,11 @@ angular.module('SWEApp').controller('LoginController',
       // Maybe the username conversion should be a frontend thing... backend logic is screwed up
       Factory.getUsernames().then(
         function(res) {
-          $rootScope.usernames = res.data;
+          // $rootScope.usernames = res.data;
           // console.log(res.data);
-          // res.data.forEach(function(item, index) {
-          //   $rootScope.usernames[item] = index;
-          // });
+          res.data.forEach(function(item) {
+            $rootScope.usernames[item] = true;
+          });
         },
         function(err) {
           alert("oink");
