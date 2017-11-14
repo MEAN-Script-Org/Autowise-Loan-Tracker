@@ -49,7 +49,7 @@ module.exports = {
           next();
         }
         else {
-          console.log(token);
+          // console.log(token);
           console.log(decodedToken);
           req.token = decodedToken;
           next();
@@ -107,7 +107,7 @@ module.exports = {
         });
       } 
       else {
-        console.log(req._parsedOriginalUrl.path, req.body, req.token, req.query);
+        // console.log(req._parsedOriginalUrl, req.body, req.token, req.query);
         next();
         // res.redirect('/login');
       }

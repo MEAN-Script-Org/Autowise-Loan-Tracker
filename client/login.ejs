@@ -57,6 +57,10 @@
                 <input ng-model="newUser.password" placeholder="Password *" class="form-group form-control"  type="password">
                 <input ng-model="newUser.dl"  placeholder="Driver's License #*" class="form-group form-control" type="text">
                 <input ng-model="newUser.dob" placeholder="Date of Birth*" class="form-group form-control"   type="date">
+                <div class="form-group">
+                  <span>Admin?</span>
+                  <input ng-model="newUser.isAdmin" type="checkbox">
+                </div>
 
                 <div class="left-text" id="required"></div>
                 <button class="btn btn-primary" type="submit"> Register </button>

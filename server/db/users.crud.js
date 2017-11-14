@@ -14,6 +14,8 @@ module.exports = {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
+      
+      isAdmin: req.body.isAdmin,
     });
     // console.log("WHAT", newUser);
 
@@ -108,6 +110,12 @@ module.exports = {
   },
   
   userByID: function(req, res, next, id) {
+    if (!id && req.token)
+      id = req.token.id;
+
+    console.log(id, req.body, req.token);
+
+    if (id) {
     User.findById(id).exec(function(err, user) {
       if (err) {
         console.log(err) ;
@@ -118,5 +126,6 @@ module.exports = {
         next() ;
       }
     });
+    }
   }
 };

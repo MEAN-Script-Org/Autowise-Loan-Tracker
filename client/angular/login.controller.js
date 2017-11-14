@@ -3,7 +3,7 @@ angular.module('SWEApp').controller('LoginController',
   function($rootScope, $scope, $location, $window, $http, Factory) {
 
     // GLOBALS
-    $scope.newUser = {};
+    $scope.newUser = {isAdmin: false};
     $rootScope.users = [];
     // $scope.newUser = {email: "dale", username: "dale"};
     $rootScope.usernames = {};
@@ -79,18 +79,13 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-      if (!$rootScope.usernames.includes($scope.newUser.username))
-        Factory.newUser($scope.newUser).then(
-          function(realUser) {
-            $rootScope.usernames.push(realUser.username);
-            $rootScope.usernames.push(realUser);
-            
-            // Affix any dangling loans in the database to this user
-            affixLoans(realUser) ;  
-          },
-          function(err, message) {
-            alert(message + err + JSON.stringify(err));
-        });
+      // TODO: Correctly implement this
+      // Affix any dangling loans in the database to this user
+      // This should be done in the backend...
+      // affixLoans(realUser);
+
+      if (!$rootScope.usernames[$scope.newUser.username])
+        Factory.newUser($scope.newUser);
       else
         alert("Please change your username to one that hasn't been taken");
     }

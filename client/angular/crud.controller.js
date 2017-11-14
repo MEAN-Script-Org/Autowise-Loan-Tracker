@@ -2,42 +2,35 @@ angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
+    // $rootScope.loans = [
+    //    {"name" : "Steven", "_id" : 1}, 
+    //    {"name" : "Marcial", "_id" : 2}, 
+    //    {"name" : "Max", "_id" : 3}
+    // ];
     // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];
-//        {"name" : "Steven", "_id" : 1}, 
-//        {"name" : "Marcial", "_id" : 2}, 
-//        {"name" : "Max", "_id" : 3}
-//    ];
-    $rootScope.loading = false;
-    // $rootScope.loading = true;
+    $rootScope.loading = true;
     $rootScope.massLoans = [];
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
-    // Buyer's Order placeholder
-    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ; 
-
-    // Get Fields for loan object creation
-    Factory.getUserInfo().then(function(response) {
-      $scope.commentAsAdmin = false;
-
-      // ## Order Filters ~ !them for ascending order
-      $scope.reverse = true;
-      $scope.reverse_comments = true;
-
-      // TO Change based on routes~
-      // ## User Details
-      $rootScope.user_id = response.data._id;
-      $rootScope.user_name = response.data.username;
-      // $rootScope.user_email = response.data.email;
-      $rootScope.user_isAdmin = response.data.isAdmin;
-    });
     
+    // Buyer's Order placeholder
+    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: true }, insr: {}} ; 
+
     $scope.init = function() {
       console.log("MEAN App on it's way!");
 
+      $scope.commentAsAdmin = false;
+      
+      // ## Order Filters ~ !them for ascending order
+      // not doing much with this rn...
+      $scope.reverse = true;
+      $scope.reverse_comments = true;
+
       $scope.newLoan = {};
+      $scope.isAdmin = true;
       $scope.visible = "visible";
 
       Factory.getLoans().then(
@@ -51,7 +44,7 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 3000);
+          }, 1000);
         }
       );
     }
@@ -59,7 +52,6 @@ angular.module('SWEApp').controller(
     $scope.logout = function() {
       Factory.logout();
     }
-
 
     //------------------------------------------------------------------------------------------------------------------
     // LOAN CRUD FUNCTIONS - SINGLE

@@ -11,8 +11,9 @@ var loanSchema = new mongoose.Schema({
   
   // Identifier information
   user_id:    String,
+  user_dob:   String,
   user_email: String,
-  name:       {type: String, required: true},
+  user_name:  { type: String, required: true},
 
   //trades:     Boolean,
   type:       String,   // Loan type

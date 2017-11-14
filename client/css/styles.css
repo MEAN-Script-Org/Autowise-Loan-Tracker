@@ -1853,11 +1853,15 @@ input[type="date"]:valid:before {
 /* Buyers order styles */
 
 .required:after {
-  padding: 0 0 0 2px;
-  margin-left: -8px;
+  /*This looks bad on windows*/
+  /*margin-left: -8px;*/
+  /*ahh... so it's for the material design ones..*/
   color: #f9243f;
+  padding: 0 0 0 2px;
   content: "*";
 }
+
+/*can't get this to work yet*/
 
 .tab-pane>div {
   padding: 0 10px 5px 5px;
@@ -1910,7 +1914,6 @@ input[type="date"]:valid:before {
 }
 
 
-
 /* Create a custom checkbox */
 
 .checkmark {
@@ -1921,24 +1924,17 @@ input[type="date"]:valid:before {
 }
 
 
-
-
 /* On mouse-over, add a grey background color */
 
 .container:hover input~.checkmark {
   background-color: #ccc;
 }
 
-
-
-
 /* When the checkbox is checked, add a blue background */
 
 .container input:checked~.checkmark {
   background-color: #38cc70;
 }
-
-
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1951,14 +1947,11 @@ input[type="date"]:valid:before {
 
 
 
-
 /* Show the checkmark when checked */
 
 .container input:checked~.checkmark:after {
   display: block;
 }
-
-
 
 
 /* Style the checkmark/indicator */
@@ -2188,6 +2181,13 @@ div.ng-show {
 .inputMODAL:focus {
   outline: none;
   /*color: rgb(68, 68, 68);*/
+}
+
+.inputMODAL:after {
+  margin-left: -8px;
+  color: #f9243f;
+  padding: 0 0 0 2px;
+  content: "*";
 }
 
 

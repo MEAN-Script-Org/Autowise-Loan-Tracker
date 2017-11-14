@@ -26,7 +26,15 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       newUser: function(User) {
         console.log(User);
         var args = Object.assign(User, {token: getToken()});
-        return $http.post('/api/users', args);
+        
+        return $http.post('/api/users', args).then(
+          function(res) {
+            addToken(res.data);
+            $window.location.href = '/login';
+          },
+          function(err, message) {
+            alert(message + err + JSON.stringify(err));
+        });
       },
       getUsernames: function() {
         var args = {token: getToken()};
@@ -40,10 +48,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/user/' + id, args);
       },
-      getUserInfo: function() {
-        var args = {token: getToken()};
-        return $http.get('/api/info', args);
-      },
+      // getUserInfo: function() {
+      //   var args = {token: getToken()};
+      //   return $http.get('/api/info', args);
+      // },
 
       // Loans CRUD
       newLoan: function(loan) {
@@ -58,13 +66,16 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/loan/' + id, args);
       },
-      getLoansOfUser: function(user_id) {
-        var args = {token: getToken()};
-        return $http.get('/api/loans/' + user_id, args);
-      },
-      getLoansByUserInfo: function(User) {
-        var args = Object.assign(User, {token: getToken()});
-        return $http.get('/api/loansByUserInfo', args);
+
+      // getLoansOfUser: function(user_id) {
+      //   var args = {token: getToken()};
+      //   return $http.get('/api/loans/' + user_id, args);
+      // },
+      
+      getLoansOfUser: function() {
+        // var args = Object.assign();
+        // var args = {token: getToken()};
+        return $http.get('/api/loansByUserInfo/' + getToken());
       },
       deleteLoan: function(id) {
         var args = {token: getToken()};

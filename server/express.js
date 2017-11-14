@@ -13,14 +13,19 @@ var profile_routes = express.Router();
 
 profile_routes.route('/:token')
 .get(function(req, res) {
-  var token = req.token;
-  
   // next page routing based on token status and admin
+  var token = req.token;
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+  console.log(req.query);
+
   if (!token) {
     ejs_msg = "Your session expired. Please log in again";
     ejs_class = "alert bg-warning";
     res.redirect('/login');
-    
   }
   else if (token == "nothing ever") {
     ejs_msg = "Please log in to access your profile";
@@ -28,10 +33,18 @@ profile_routes.route('/:token')
 
     res.redirect("/login");
   }
+  // else if (Object.keys(req.query).length < 1) {
+  //   //// Technically not secure as of now... but figure out an intermediate view in the frontend for it
+  //   // here render an angular view where you call the http with token and etc, 
+  //   console.log(req.query);
+  //   console.log(req.body);
+  //   // res.render("secure", {path: ""});
+  //   res.json({what: "no work"});
+  // }
   else if (token.isAdmin)
     res.render("admin", {path: "../"});
   else
-    res.render("admin", {path: "../"});
+    res.render("customerHub", {path: "../"});
 });
 
 profile_routes.param('token', auth.decodeToken);
@@ -40,6 +53,25 @@ profile_routes.param('token', auth.decodeToken);
 //               .get()
 //               .post()
 //               ;
+
+var login_routes = express.Router();
+login_routes.route("/")
+.get(function(req, res) {
+  // console.log(ejs_msg, ejs_class);
+
+  // have these values yes or yes
+  console.log("rendering...");
+  res.render('login', {
+      message: ejs_msg,
+      type: ejs_class,
+      path: ''
+  });
+
+  ejs_msg = '';
+  ejs_class = '';
+})
+.post(auth.login);
+
 // End of ugly (but needed) routes
 
 module.exports.init = function() {
@@ -55,6 +87,7 @@ module.exports.init = function() {
 
   // body parsing middleware
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}));
 
   // views is directory for all template files
   app.set('views', __dirname + '/../client');
@@ -63,24 +96,7 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
-  app.get('/login', function(req, res) {
-    // console.log(ejs_msg, ejs_class);
-
-    // have these values yes or yes
-    res.render('login', {
-        message: ejs_msg,
-        type: ejs_class,
-        path: ''
-    });
-
-    ejs_msg = '';
-    ejs_class = '';
-  });
-
-  app.post('/login', auth.login);
-
-  // Main CRUD funtionality
+  // User CRUD funtionality
   app.use('/crud', function(req, res) {
     res.render('crud-email-test', {path: ''});
   });
@@ -90,10 +106,19 @@ module.exports.init = function() {
     res.render('customerHub', {path: ''});
   });
 
+  // Customer hub
+  app.use('/perm', function(req, res) {
+    res.render('changePermissions', {path: ''});
+  });
+
   // Warranties plan view for a customer
+  // why the hell does it take 4 reqs to do this??
   app.use('/warranties', function(req, res) {
     res.render('warranties', {path: ''});
   });
+
+  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
+  app.use('/login', login_routes);
 
   // automatic reroute here
   app.use('/profile', profile_routes);
