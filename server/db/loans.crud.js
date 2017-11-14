@@ -75,12 +75,11 @@ module.exports = {
   // Get all loans belonging to a particular user
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserID: function(req, res) {
-    
     // Sanity check
-    if (!req.user) {
-      res.status(500).send() ;
-      return ;
-    }
+    // if (!req.user) {
+    //   res.status(500).send() ;
+    //   return ;
+    // }
     
     Loan.find({ user_id: req.user._id }, function(err, loans) {
       if (err) {
@@ -94,7 +93,6 @@ module.exports = {
   // Get all loans belonging to a particular user described by their user info (name, DL, etc.)
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserInfo: function(req, res) {
-    
     // Assemble a query that will search the buyer's order field of loans
     var query = {
       buyers_order: {
@@ -102,7 +100,7 @@ module.exports = {
           name:  req.body.userInfo.name,
           dl:    req.body.userInfo.dl,
           dob:   req.body.userInfo.dob,
-          email: req.body.userInfo.email,
+          // email: req.body.userInfo.email,
         }
       }
     }
@@ -115,7 +113,7 @@ module.exports = {
       }
       else res.json(loans) ;
     });
-  }
+  },
   
   //--------------------------------------------------------------------------------------------------------------------
   // Get a loan of the specified ID

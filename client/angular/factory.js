@@ -20,7 +20,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       sendEmail: function(updates) {
         return $http.post('/api/email', Object.assign(updates, token));
       },
-      // Uers CRUD
+
+      // Users CRUD
       newUser: function(User) {
         console.log(User);
         return $http.post('/api/users', Object.assign(User, {token: getToken()}));
@@ -49,10 +50,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         return $http.get('/api/loan/' + id, {token: getToken()});
       },
       getLoansOfUser: function(user_id) {
-        return $http.get('/api/loans/' + user_id);
+        return $http.get('/api/loans/' + user_id, {token: getToken()});
       },
-      getLoansByUserInfo: function(user) {
-        return $http.get('/api/loansByUserInfo', user);
+      getLoansByUserInfo: function(User) {
+        return $http.get('/api/loansByUserInfo', Object.assign(User, {token: getToken()}));
       },
       deleteLoan: function(id) {
         return $http.delete('/api/loan/' + id, {token: getToken()});
@@ -61,57 +62,31 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         return $http.put('/api/loan/' + id, Object.assign(updatedLoan, {token: getToken()}));
       },
 
-      // AUTH METHODS
-      // Adds token to local storage
+      // Authentication
       addToken: function(token) {
         addToken(token);
       },
-
       getToken: function() {
         return getToken();
       },
-
       removeToken: function() {
         removeToken();
       },
-
       register: function(loginData) {
         return $http.post('/api/users', loginData);
       },
-
       login: function(loginData) {
         return $http.post('/login', loginData);
       },
-
       isLoggedIn: function() {
         var token = getToken();
         // console.log(token);
-
         return $http.get('/api/auth', {token, no_next: true});
       },
-
       logout: function() {
         removeToken();
         $window.location.href = '/login';
       },
-
-      // no idea why these are used for....
-      // getUser: function() {
-      //   var token = this.getToken();
-
-      //   if (token) {
-      //     return $http.get('/api/users' + token.id, { token });
-      //   } else {
-      //     $q.reject({ message: 'User has no token' });
-      //   }
-      // },
-
-      // no idea what was the use of this...
-      // request: function(config) {
-      //   // var token = this.getToken();
-      //   if (token) config.headers['x-access-token'] = token;
-      //   return config;
-      // },
     };
     
     return methods;

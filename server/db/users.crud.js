@@ -85,7 +85,6 @@ module.exports = {
 
   // Get all user data
   getAll: function(req, res, next) {
-    // add logic here for only usernames
     User.find({}, function(err, users) {
       if (err) {
         console.log(err) ;
