@@ -4,7 +4,7 @@ angular.module('SWEApp').controller(
 
     // GLOBALS
     $rootScope.loans = [];
-    $rootScope.loading = false;
+    $rootScope.loading = true;
 
     // Get Fields for loan object creation
     Factory.getUserInfo().then(function(response) {
@@ -36,7 +36,7 @@ angular.module('SWEApp').controller(
         function(res) {
           if (res.data.length != 0) {
             $rootScope.loans = res.data;
-            console.log($rootScope.loans);
+            // console.log($rootScope.loans);
           }
           
           $timeout(function() {
@@ -52,7 +52,7 @@ angular.module('SWEApp').controller(
     $scope.emailClient = function(loanID, userEmail, clientName) {
 
       if (!userEmail) {
-        alert("User has no email associated with their account");
+        alert("You don't have an email associated with your account.\nPlease add one");
         return;
       }
 

@@ -99,12 +99,18 @@ module.exports = {
           }
         }
       });
-    } else {
+    } 
+    else {
       if (req.body.no_next) {
         res.json({ 
           error: "No token at all" 
         });
-      } else res.redirect('/login');
+      } 
+      else {
+        console.log(req._parsedOriginalUrl.path, req.body, req.token, req.query);
+        next();
+        // res.redirect('/login');
+      }
     }
   },
 }

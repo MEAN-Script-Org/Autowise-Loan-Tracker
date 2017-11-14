@@ -41,47 +41,6 @@ h4 {
   font-weight: 300;
 }
 
-.warrantyDescription {
-  font-size: 78%;
-  line-height: 105%;
-  font-weight: 500;
-  text-align: justify;
-}
-
-.large {
-  font-size: 2em;
-}
-
-.text-muted {
-  color: #c5c7cc;
-}
-
-.color-gray {
-  color: #444444;
-}
-
-.color-blue {
-  /*    actually green*/
-  color: #38cc70;
-}
-
-.color-teal {
-  color: #1ebfae;
-}
-
-.color-orange {
-  color: #ffb53e;
-}
-
-.color-red {
-  color: #f9243f;
-}
-
-.no-padding {
-  padding: 0;
-  margin: 0;
-}
-
 .fa-xl {
   font-size: 2em;
 }
@@ -237,6 +196,7 @@ input.form-control {
   text-decoration: none;
   background: none;
 }
+
 
 
 
@@ -744,50 +704,60 @@ a.label:focus {
 }
 
 .panel-footer .input-group {
-    padding: 0px;
-    margin: 0 -5px;
-    overflow: hidden;
+  padding: 0px;
+  margin: 0 -5px;
+  overflow: hidden;
 }
 
 .input-group {
-/*
+  /*
     display: flex;
     justify-content: space-between;
     align-items: center;
 */
 }
 
-.input-group-btn {
+.input-group-btn {}
 
+span.btn-group-icon {
+  display: none
 }
-span.btn-group-icon {display:none}
-span.btn-group-text {display:inline-block}
+
+span.btn-group-text {
+  display: inline-block
+}
 
 @media (max-width: 700px) {
-    .input-group-btn, .input-group .form-control {
-        display: block;
-        margin-bottom: 8px;
-        clear: both;
-    }
-    .input-group {
-        position: relative;
-        display: block;
-        border-collapse: separate;
-    }
-    .input-group-btn {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-    }
-    .input-group-btn:last-child > .btn-primary {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
- }
+  .input-group-btn,
+  .input-group .form-control {
+    display: block;
+    margin-bottom: 8px;
+    clear: both;
+  }
+  .input-group {
+    position: relative;
+    display: block;
+    border-collapse: separate;
+  }
+  .input-group-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+  .input-group-btn:last-child>.btn-primary {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+}
+
 @media (max-width: 500px) {
-    span.btn-group-icon {display:inline-block}
-    span.btn-group-text {display:none}
+  span.btn-group-icon {
+    display: inline-block
+  }
+  span.btn-group-text {
+    display: none
+  }
 }
 
 .panel-footer .input-group-btn:last-child>.btn,
@@ -1129,7 +1099,7 @@ span.btn-group-text {display:inline-block}
 
 .nav-tabs {
   float: none;
-  display: inline-block;  
+  display: inline-block;
   background: #f2f3f2;
   border: 0;
 }
@@ -1179,7 +1149,6 @@ span.btn-group-text {display:inline-block}
 .navbar {
   border: 0;
   display: flex;
-  
 }
 
 .navbar input {
@@ -1196,16 +1165,21 @@ span.btn-group-text {display:inline-block}
   box-shadow: inset 0px 0px 0px 1px #38cc70;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    border: 0;
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+  border: 0;
 }
 
 .nav-tabs>li>a {
-    margin: 0;
-    border-radius: 0;
+  margin: 0;
+  border-radius: 0;
 }
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    color: #38cc70;
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  color: #38cc70;
 }
 
 .user-menu {
@@ -1610,6 +1584,7 @@ p.back-link {
 }
 
 
+
 /* Above are template styles */
 
 
@@ -1627,16 +1602,48 @@ p.back-link {
   text-align: center;
 }
 
+.large {
+  font-size: 2em;
+}
+
+.text-muted {
+  color: #c5c7cc;
+}
+
+.color-gray {
+  color: #444444;
+}
+
+.color-blue {
+  /*    actually green*/
+  color: #38cc70;
+}
+
+.color-teal {
+  color: #1ebfae;
+}
+
+.color-orange {
+  color: #ffb53e;
+}
+
+.color-red {
+  color: #f9243f;
+}
+
+.no-padding {
+  padding: 0;
+  margin: 0;
+}
+
 
 /* Accordion rows get selectable hand-pointy guy */
-
 dt {
   cursor: pointer;
 }
 
 
 /* loading... *animated* */
-
 #loader {
   display: block;
   margin-left: auto;
@@ -1687,29 +1694,26 @@ img#loader {
 
 
 /* Modified Bootstrap Modal style */
-@media (min-width: 768px)
-{
-    .modal-dialog {
-        width: 60%;
-        margin: 30px auto;
-    }
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 60%;
+    margin: 30px auto;
+  }
 }
 
 .modal-header .close {
-    font-size: 28px;
-    margin-top: 22px;
-    margin-right: 16px;
+  font-size: 28px;
+  margin-top: 22px;
+  margin-right: 16px;
 }
 
 .modal-header,
 .modal-footer {
   border: none;
-}
-
-.modal-header,
-.modal-body {
   padding-bottom: 0px;
 }
+
 
 .tab-content,
 .modal-body,
@@ -1718,9 +1722,7 @@ img#loader {
   padding-top: 0px;
 }
 
-
 /* Login style */
-
 .login-panel.panel.panel-default>* {
   text-align: center;
 }
@@ -1732,6 +1734,7 @@ div.left-text {
 .inactive {
   pointer-events: none;
 }
+
 
 /* This will force placeholders to show in type 'dates' */
 input[type="date"]:before {
@@ -1745,12 +1748,16 @@ input[type="date"]:valid:before {
   content: "";
 }
 
+
 /* some login styles reuse buyer's order required etc */
 
 /* Warranties Styles */
-
-/* . => class */
-/* # => id */
+.warrantyDescription {
+  font-size: 78%;
+  line-height: 105%;
+  font-weight: 500;
+  text-align: justify;
+}
 
 .warrantiesQueryText>div>h4,
 .warrantiesQueryText>div>h2 {
@@ -1771,6 +1778,7 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* Progress bar styles */
 
 .received-progress {
@@ -1787,6 +1795,7 @@ input[type="date"]:valid:before {
   width: 50%;
   background-color: #6495ed;
 }
+
 
 
 /* This color is too light */
@@ -1830,15 +1839,17 @@ input[type="date"]:valid:before {
 }
 
 #required:after,
-#buyersOrderModal .modal-footer:before{
+#buyersOrderModal .modal-footer:before {
   color: #f9243f;
   font-size: 15px;
   content: " * = Required";
 }
 
-#buyersOrderModal .modal-footer:before{
+#buyersOrderModal .modal-footer:before {
   padding: 0 0 0 20px;
 }
+
+
 /* Buyers order styles */
 
 .required:after {
@@ -1852,12 +1863,14 @@ input[type="date"]:valid:before {
   padding: 0 10px 5px 5px;
 }
 
-.tab-pane> div > span,
-.tab-pane> div > div > span {
+.tab-pane>div>span,
+.tab-pane>div>div>span {
   padding: 0 10px 0 0;
 }
 
+
 /*CHECK BOX*/
+
 
 /* Customize the label (the container) */
 
@@ -1872,6 +1885,7 @@ input[type="date"]:valid:before {
   justify-content: center;
   -webkit-user-select: none;
 }
+
 
 
 /* Hide the browser's default checkbox */
@@ -1896,6 +1910,7 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* Create a custom checkbox */
 
 .checkmark {
@@ -1907,6 +1922,7 @@ input[type="date"]:valid:before {
 
 
 
+
 /* On mouse-over, add a grey background color */
 
 .container:hover input~.checkmark {
@@ -1915,11 +1931,13 @@ input[type="date"]:valid:before {
 
 
 
+
 /* When the checkbox is checked, add a blue background */
 
 .container input:checked~.checkmark {
   background-color: #38cc70;
 }
+
 
 
 
@@ -1933,11 +1951,13 @@ input[type="date"]:valid:before {
 
 
 
+
 /* Show the checkmark when checked */
 
 .container input:checked~.checkmark:after {
   display: block;
 }
+
 
 
 
@@ -1961,6 +1981,7 @@ input[type="date"]:valid:before {
   padding: 0;
   margin: 0;
 }
+
 
 
 /*FLOATING MENU*/
@@ -2006,6 +2027,7 @@ input[type="date"]:valid:before {
   color: #333;
   opacity: 0.5;
 }
+
 
 
 /* NG-ANIMATION for tooltips */
@@ -2143,125 +2165,171 @@ div.ng-show {
   animation: 0.5s fadeIn;
 }
 
+
 /* INPUT FORM */
+
 /* form starting stylings ------------------------------- */
-.group 			  { 
-  position:relative; 
-  margin-bottom:45px; 
+.group {
+  position: relative;
+  margin-bottom: 45px;
 }
-.inputMODAL
-{
-  font-size:12px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  width:100%;
-  border:none;
-  border-bottom:1px solid #757575;
-/*  color: #FFFFFF;*/
-    color: rgb(68, 68, 68);
+
+.inputMODAL {
+  font-size: 12px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+  color: rgb(68, 68, 68);
+  /*color: #FFFFFF;*/
 }
-.inputMODAL:focus
-{ 
-    outline:none; 
-/*    color: rgb(68, 68, 68);*/
+
+.inputMODAL:focus {
+  outline: none;
+  /*color: rgb(68, 68, 68);*/
 }
+
 
 /*
 .ng-valid-date {
-    outline:none; 
-    color: rgb(68, 68, 68);
+  outline:none; 
+  color: rgb(68, 68, 68);
 }
 */
 
+
 /* LABEL ======================================= */
+
 .modal-body label {
-  color:#999; 
-  font-size:12px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
   background-color: #FFFFFF;
   width: 80%;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
+  
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  
 }
 
+
 /* active state */
-.inputMODAL:focus ~ label, .inputMODAL:valid ~ label 		{
-  top:-30%;
-  font-size:10px;
-  color:#38cc70;
+
+.inputMODAL:focus~label,
+.inputMODAL:valid~label {
+  top: -30%;
+  font-size: 10px;
+  color: #38cc70;
 }
+
 
 /* BOTTOM BARS ================================= */
-.bar 	{ 
-    position:relative; 
-    display:block; 
-/*    width:300px; */
-    top: 1px;
+
+.bar {
+  position: relative;
+  display: block;
+  /*    width:300px; */
+  top: 1px;
 }
-.bar:before, .bar:after 	{
-  content:'';
-  height:2px; 
-  width:0;
-  bottom:1px; 
-  position:absolute;
-  background:#38cc70; 
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
-}
-.bar:before {
-  left:50%;
-}
+
+.bar:before,
 .bar:after {
-  right:50%; 
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #38cc70;
+  
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  
 }
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
 
 /* active state */
-.inputMODAL:focus ~ .bar:before, .inputMODAL:focus ~ .bar:after {
-  width:50%;
+
+.inputMODAL:focus~.bar:before,
+.inputMODAL:focus~.bar:after {
+  width: 50%;
 }
 
+
 /* HIGHLIGHTER ================================== */
+
 .highlight {
-  position:absolute;
-  height:60%; 
-  width:100px; 
-  top:30%; 
-  left:0;
-  pointer-events:none;
-/*
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 30%;
+  left: 0;
+  pointer-events: none;
+  /*
   -webkit-transition:opacity 0.3s ease;
   -moz-transition:opacity 0.3s ease;
   transition:opacity 0.3s ease;
 */
 }
 
-/* active state */
-.inputMODAL:focus ~ .highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
+
+/* active state => this looks bad on Windows */
+/*
+.inputMODAL:focus~.highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
 }
+*/
+
 
 /* END INPUT FORM */
+
+
 /* ANIMATIONS ================ */
 
 @-webkit-keyframes inputHighlighter {
-	from { background:#38cc70; }
-  to 	{ width:0; background:transparent; }
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
+
 @-moz-keyframes inputHighlighter {
-	from { background:#38cc70; }
-  to 	{ width:0; background:transparent; }
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
+
 @keyframes inputHighlighter {
-	from { background:#38cc70; }
-  to 	{ width:0; background:transparent; }
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
 
 @keyframes bot-to-top {

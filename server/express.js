@@ -29,9 +29,9 @@ profile_routes.route('/:token')
     res.redirect("/login");
   }
   else if (token.isAdmin)
-    res.render("home", {path: "../"});
+    res.render("admin", {path: "../"});
   else
-    res.render("home", {path: "../"});
+    res.render("admin", {path: "../"});
 });
 
 profile_routes.param('token', auth.decodeToken);
@@ -65,9 +65,9 @@ module.exports.init = function() {
 
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.get('/login', function(req, res) {
-    // have these values yes or yes
-    console.log(ejs_msg, ejs_class);
+    // console.log(ejs_msg, ejs_class);
 
+    // have these values yes or yes
     res.render('login', {
         message: ejs_msg,
         type: ejs_class,
@@ -87,7 +87,7 @@ module.exports.init = function() {
 
   // Customer hub
   app.use('/home', function(req, res) {
-    res.render('customerHub');
+    res.render('customerHub', {path: ''});
   });
 
   // Warranties plan view for a customer
@@ -102,8 +102,7 @@ module.exports.init = function() {
 
   // Token-Based Auth
   // Backend API routes
-  // auth.authenticate
-  app.use('/api', routes);
+  app.use('/api', auth.authenticate, routes);
 
   // Wildcard for everything else
   app.use('/*', function(req, res) {

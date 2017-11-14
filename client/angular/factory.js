@@ -18,49 +18,64 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       
       // Emailing
       sendEmail: function(updates) {
-        return $http.post('/api/email', Object.assign(updates, token));
+        var args = Object.assign(updates, {token: getToken()});
+        return $http.post('/api/email', args);
       },
 
       // Users CRUD
       newUser: function(User) {
         console.log(User);
-        return $http.post('/api/users', Object.assign(User, {token: getToken()}));
+        var args = Object.assign(User, {token: getToken()});
+        return $http.post('/api/users', args);
       },
       getUsernames: function() {
-        return $http.get('/api/usernames', {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/usernames', args);
       },
       getAllUsers: function() {
-        return $http.get('/api/users', {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/users', args);
       },
       getUser: function(id) {
-        return $http.get('/api/user/' + id, {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/user/' + id, args);
       },
       getUserInfo: function() {
-        return $http.get('/api/info', {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/info', args);
       },
 
       // Loans CRUD
       newLoan: function(loan) {
-        return $http.post('/api/loans', Object.assign(loan, {token: getToken()}));
+        var args = Object.assign(loan, {token: getToken()});
+        return $http.post('/api/loans', args);
       },
       getLoans: function() {
-        return $http.get('/api/loans', {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/loans', args);
       },
       getLoan: function(id) {
-        return $http.get('/api/loan/' + id, {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/loan/' + id, args);
       },
       getLoansOfUser: function(user_id) {
-        return $http.get('/api/loans/' + user_id, {token: getToken()});
+        var args = {token: getToken()};
+        return $http.get('/api/loans/' + user_id, args);
       },
       getLoansByUserInfo: function(User) {
-        return $http.get('/api/loansByUserInfo', Object.assign(User, {token: getToken()}));
+        var args = Object.assign(User, {token: getToken()});
+        return $http.get('/api/loansByUserInfo', args);
       },
       deleteLoan: function(id) {
-        return $http.delete('/api/loan/' + id, {token: getToken()});
+        var args = {token: getToken()};
+        return $http.delete('/api/loan/' + id, args);
       },
       modifyLoan: function(id, updatedLoan) {
-        return $http.put('/api/loan/' + id, Object.assign(updatedLoan, {token: getToken()}));
+        var args = {token: getToken()};
+        var args = Object.assign(updatedLoan, {token: getToken()});
+        return $http.put('/api/loan/' + id, args);
       },
+      // Bug => get requests don't seem to be accepting args.... interesting
 
       // Authentication
       addToken: function(token) {

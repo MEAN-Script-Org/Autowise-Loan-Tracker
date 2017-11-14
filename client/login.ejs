@@ -29,12 +29,9 @@
             <!-- login -->
             <form role="form" ng-submit="login()">
               <fieldset>
-                <div class="form-group">
-                  <input ng-model="username" class="form-control" placeholder="Username (this could be your email)" type="text">
-                </div>
-                <div class="form-group">
-                  <input ng-model="password" class="form-control" placeholder="Password" type="password">
-                </div>
+                <!-- inputMODAL -->
+                <input ng-model="username" class="form-group form-control" placeholder="Username (this could be your email)" type="text">
+                <input ng-model="password" class="form-group form-control" placeholder="Password" type="password">
                 <!-- if someone wants to do the remember me... go ahead -->
                 <div class="left-text" id="required"></div>
                 <!-- <span class="required"></span> -->
