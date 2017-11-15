@@ -17,11 +17,41 @@ var ejs_class = '';
 var profile_routes = express.Router();
 
 //----------------------------------------------------------------------------------------------------------------------
-// Customer warranties routing
+// User (admin and customer) home/hub routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/warranties/:token')
-.get(function(req, res) {
-  var token = req.token;
+profile_routes.route('/:token')
+.all(function(req, res) {
+  var token = req.body.token;
+  
+  console.log("LOGIN ROUTER: ");
+  console.log(req.query) ;
+  
+  // Missing or invalid token
+  if (!token) {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+    res.redirect("/login");
+  } else if (token == "nothing ever") {
+    ejs_msg = "Your session expired. Please log in again";
+    ejs_class = "alert bg-warning";
+    res.redirect('/login');
+  
+  // Admin user
+  } else if (token.isAdmin) {
+    res.render("admin", {path: "../"});
+  
+  // Customer user
+  } else {
+    res.render("customerHub", {path: "../"});
+  }
+});
+
+//----------------------------------------------------------------------------------------------------------------------
+// Customer warranty plans routing
+//----------------------------------------------------------------------------------------------------------------------
+profile_routes.route('/warranties/:loadin/:token')
+.all(function(req, res) {
+  var token = req.body.token;
   
   console.log("WARRANTIES ROUTER: ");
   console.log(req.query) ;
@@ -35,44 +65,11 @@ profile_routes.route('/warranties/:token')
     ejs_msg = "Please log in to access your profile";
     ejs_class = 'alert bg-danger';
     res.redirect("/login");
-  }
   
   // Render warranties page
-  res.render("warranties", {path: "../../"});
-});
-
-//----------------------------------------------------------------------------------------------------------------------
-// User (admin and customer) home/hub routing
-//----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/:token')
-.all(function(req, res) {
-  // next page routing based on token status and admin
-  var token = req.token;
-  console.log("LOGIN ROUTER: " + req.query) ;
-  console.log(req.query) ;
-
-  if (!token) {
-    ejs_msg = "Please log in to access your profile";
-    ejs_class = 'alert bg-danger';
-    res.redirect("/login");
+  } else {
+    res.render("warranties", {path: "../../"});
   }
-  else if (token == "nothing ever") {
-    ejs_msg = "Your session expired. Please log in again";
-    ejs_class = "alert bg-warning";
-    res.redirect('/login');
-  }
-  // else if (Object.keys(req.query).length < 1) {
-  //   //// Technically not secure as of now... but figure out an intermediate view in the frontend for it
-  //   // here render an angular view where you call the http with token and etc, 
-  //   console.log(req.query);
-  //   console.log(req.body);
-  //   // res.render("secure", {path: ""});
-  //   res.json({what: "no work"});
-  // }
-  else if (token.isAdmin)
-    res.render("admin", {path: "../"});
-  else
-    res.render("customerHub", {path: "../"});
 });
 
 profile_routes.param('token', auth.decodeToken);
@@ -138,21 +135,19 @@ module.exports.init = function() {
   app.use('/home', function(req, res) {
     res.render('customerHub', {path: ''});
   });
+
   // Warranties plan view for a customer
   // why the hell does it take 4 reqs to do this??
-  app.use('/warranties', function(req, res) {
-    res.render('warranties', {path: ''});
-  });
+  
 
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', login_routes);
 
-  // Warranties plan view for a customer
-  // why the hell does it take 4 reqs to do this??
-  app.use('/warranties', profile_routes);
-
   // automatic reroute here
   app.use('/profile', profile_routes);
+  
+  // automatic reroute here
+  // app.use('/warranties', profile_routes);
 
   // TODO: Add master admin hardcoded link (Harrisons work)
   app.use('/perm', function(req, res) {
