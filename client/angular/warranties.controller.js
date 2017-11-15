@@ -3,6 +3,10 @@
 angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location', 'Factory',
   function($rootScope, $scope, $location, Factory) {
   
+  // GLOBAL
+  $scope.loan = null ;  // Current loan to have a warranty added
+  $scope.user = null ;  // Current logged-in user
+  
   //--------------------------------------------------------------------------------------------------------------------
   // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
   //--------------------------------------------------------------------------------------------------------------------
@@ -11,6 +15,9 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
     $scope.query = { age: '', mileage: 0, make: 'Domestic'} ;
     $scope.warrantyInfo = "Warranty information will go here" ;
     $scope.matchedWarranties = [] ;
+    
+    // FOR TESTING PURPOSES ONLY
+    $scope.user = { _id: '0001123', username: 'Slugcat' } ;
   }
   
   // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
@@ -155,18 +162,9 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Filter function for warranty querying
   //--------------------------------------------------------------------------------------------------------------------
   function checkWarrantyAgainstQuery(warranty) {
-    // ($scope.query.age === warranty.age.toString()) && 
-    // ($scope.query.mileage > warranty.mileage.min * 1000 && 
-    //   ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;
-
-    // break this down...
     return ($scope.query.age === warranty.age.toString()) && ($scope.query.mileage > warranty.mileage.min * 1000 &&
            ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)) ;          
   }
-  
-  // Test data to email
-  //$scope.chosenWarranty = warranties_table[0] ;
-  $scope.testUser = {userID: '0001123', username: 'Slugcat'} ;
   
   $scope.setChosenWarranty = function(warranty) {
     $scope.chosenWarranty = warranty ;
@@ -178,9 +176,6 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   $scope.emailWarrantyInterest = function(user) {
       var errorMsg = "There was an error sending the email. Please check the logs";
       var warranty = $scope.chosenWarranty ;
-      
-      console.log(user) ;
-      console.log(warranty) ;
       
       // Generic message will do for now...
       var bodyMessage = [
@@ -230,15 +225,8 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
         newtime: new Date(),
       }
       
-      // Add comment to the user's active loan
-      // TODO: replace test loan ID with actual loan object
-      // DOOOOOOO it
-      // Factory.getLoan("59fe11a6b12b072490b4796d").then(function(res) {
-      //   var loan = res.data ;
-      //   loan.comments.push(newComment) ;
-        
-      //   Factory.modifyLoan(loan._id, loan) ;
-      // });
-
+      // Add comment to the user's current loan
+      $scope.loan.comments.push(newComment) ;
+      Factory.modifyLoan($scope.loan._id, $scope.loan) ;
     };
 }]);

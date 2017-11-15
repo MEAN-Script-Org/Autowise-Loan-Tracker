@@ -8,19 +8,47 @@ var bodyParser = require('body-parser');
 var ejs_msg = '';
 var ejs_class = '';
 
+//----------------------------------------------------------------------------------------------------------------------
+// PROFILE ROUTING
+//======================================================================================================================
+
 // Reroute logic *nessesarily ugly&
 var profile_routes = express.Router();
 
+//----------------------------------------------------------------------------------------------------------------------
+// Customer warranties routing
+//----------------------------------------------------------------------------------------------------------------------
+profile_routes.route('/warranties/:token')
+.get(function(req, res) {
+  var token = req.token;
+  
+  console.log("WARRANTIES ROUTER: ");
+  console.log(req.query) ;
+  
+  // Missing/invalid token handling => redirect to login page
+  if (!token) {
+    ejs_msg = "Your session expired. Please log in again";
+    ejs_class = "alert bg-warning";
+    res.redirect('/login');
+  } else if (token == "nothing ever") {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+    res.redirect("/login");
+  }
+  
+  // Render warranties page
+  res.render("warranties", {path: "../../"});
+});
+
+//----------------------------------------------------------------------------------------------------------------------
+// User (admin and customer) home/hub routing
+//----------------------------------------------------------------------------------------------------------------------
 profile_routes.route('/:token')
 .get(function(req, res) {
   // next page routing based on token status and admin
   var token = req.token;
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
+  console.log("LOGIN ROUTER: " + req.query) ;
+  console.log(req.query) ;
 
   if (!token) {
     ejs_msg = "Your session expired. Please log in again";
@@ -49,12 +77,14 @@ profile_routes.route('/:token')
 
 profile_routes.param('token', auth.decodeToken);
 
-// profile_routes.route('/:token/warranty')
-//               .get()
-//               .post()
-//               ;
-
+//----------------------------------------------------------------------------------------------------------------------
+// LOGIN ROUTING
+//======================================================================================================================
 var login_routes = express.Router();
+
+//----------------------------------------------------------------------------------------------------------------------
+// Login page routing
+//----------------------------------------------------------------------------------------------------------------------
 login_routes.route("/")
 .get(function(req, res) {
   // console.log(ejs_msg, ejs_class);
@@ -74,6 +104,9 @@ login_routes.route("/")
 
 // End of ugly (but needed) routes
 
+//----------------------------------------------------------------------------------------------------------------------
+// MIDDLEWARE
+//======================================================================================================================
 module.exports.init = function() {
 
   // Connect to database
@@ -111,14 +144,12 @@ module.exports.init = function() {
     res.render('changePermissions', {path: ''});
   });
 
-  // Warranties plan view for a customer
-  // why the hell does it take 4 reqs to do this??
-  app.use('/warranties', function(req, res) {
-    res.render('warranties', {path: ''});
-  });
-
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', login_routes);
+
+  // Warranties plan view for a customer
+  // why the hell does it take 4 reqs to do this??
+  app.use('/warranties', profile_routes);
 
   // automatic reroute here
   app.use('/profile', profile_routes);

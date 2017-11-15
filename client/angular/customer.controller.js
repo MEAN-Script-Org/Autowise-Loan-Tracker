@@ -1,6 +1,6 @@
 angular.module('SWEApp').controller(
-  'CustomerController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-  function($rootScope, $scope, $location, $timeout, Factory) {
+  'CustomerController', ['$rootScope', '$scope', '$location', '$window', '$timeout', 'Factory',
+  function($rootScope, $scope, $location, $window, $timeout, Factory) {
 
     // GLOBALS
     $rootScope.loans = [];
@@ -40,7 +40,14 @@ angular.module('SWEApp').controller(
         }
       );
     }
-
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Sets the path to the warranty plans view
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.goToWarranties = function() {
+      $window.location.href = '/warranties/' + Factory.getToken();
+    }
+    
     $scope.logout = function() {
       Factory.logout();
     }
