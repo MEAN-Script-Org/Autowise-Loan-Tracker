@@ -17,9 +17,9 @@
       <!-- <div class="panel-heading">Log in</div> -->
       <div class="panel-body">
         <div style="background: #f2f3f2;">
-          <ul class="nav nav-tabs" id="tabContent">
-            <li class="active"> <a href="#login" data-toggle="tab">Login</a> </li>
-            <li> <a href="#register" data-toggle="tab">Register</a> </li>
+          <ul class="nav nav-tabs login" id="tabContent">
+            <li class="active login"> <a href="#login" class="login" data-toggle="tab">Login</a> </li>
+            <li class="register"> <a href="#register" class="register" data-toggle="tab">Register</a> </li>
           </ul>
         </div>
         <br>
@@ -50,8 +50,8 @@
 
                 <div class="form-group">
                 <span style="color:red" ng-show="usernames[newUser.username]"> Username already taken </span>
-                <!-- {{usernames[newUser.username] ? 'has-error' : ''}} ?? -->
-                <input ng-model="newUser.username" placeholder="Username *" class=" form-control"  type="text">
+                <!--  ?? -->
+                <input ng-model="newUser.username" placeholder="Username *" class="{{usernames[newUser.username] ? 'has-error' : ''}} form-control"  type="text">
                 </div>
 
                 <input ng-model="newUser.password" placeholder="Password *" class="form-group form-control"  type="password">
