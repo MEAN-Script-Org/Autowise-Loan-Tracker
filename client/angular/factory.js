@@ -6,7 +6,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     }
 
     var getToken = function() {
+
       var token = $window.localStorage.getItem('token');
+      if (token)
+        token = [token, $window.fingerprint.md5hash];
       return token;
     }
 
@@ -14,6 +17,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       $window.localStorage.removeItem('token');
     }
 
+    // READ:
+    //      DO NOT MAKE 'GET' METHODS THAT HANDLE TOKENS!!!! THEY DON'T WORK!
     var methods = {
       
       // Emailing
@@ -37,8 +42,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         });
       },
       getUsernames: function() {
-        var args = {token: getToken()};
-        return $http.get('/api/usernames', args);
+        return $http.get('/usernames');
       },
       getAllUsers: function() {
         var args = {token: getToken()};
@@ -48,6 +52,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/user/' + id, args);
       },
+      // TODO: Implement this
       // getUserInfo: function() {
       //   var args = {token: getToken()};
       //   return $http.get('/api/info', args);
@@ -55,12 +60,12 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
 
       // Loans CRUD
       newLoan: function(loan) {
-        var args = Object.assign(loan, {token: getToken()});
+        var args = Object.assign(loan,   {token: getToken()});
         return $http.post('/api/loans', args);
       },
       getLoans: function() {
         var args = {token: getToken()};
-        return $http.get('/api/loans', args);
+        return $http.put('/api/loans', args);
       },
       getLoan: function(id) {
         var args = {token: getToken()};
@@ -74,15 +79,15 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       
       getLoansOfUser: function() {
         // var args = Object.assign();
-        // var args = {token: getToken()};
-        return $http.get('/api/loansByUserInfo/' + getToken());
+        var args = {token: getToken()};
+        return $http.post('/api/loansByUserInfo/', args);
       },
       deleteLoan: function(id) {
         var args = {token: getToken()};
         return $http.delete('/api/loan/' + id, args);
       },
       modifyLoan: function(id, updatedLoan) {
-        var args = {token: getToken()};
+        // var args = {token: getToken()};
         var args = Object.assign(updatedLoan, {token: getToken()});
         return $http.put('/api/loan/' + id, args);
       },
@@ -99,15 +104,19 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         removeToken();
       },
       register: function(loginData) {
-        return $http.post('/api/users', loginData);
+        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
+        console.log(args);
+        return $http.post('/api/users', args);
       },
       login: function(loginData) {
-        return $http.post('/login', loginData);
+        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
+        console.log(args);
+        return $http.post('/login', args);
       },
       isLoggedIn: function() {
         var token = getToken();
         // console.log(token);
-        return $http.get('/api/auth', {token, no_next: true});
+        return $http.post('/api/auth', {token});
       },
       logout: function() {
         removeToken();

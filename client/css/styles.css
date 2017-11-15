@@ -68,16 +68,21 @@ input.form-control {
 .has-success .form-control,
 .has-success .form-control:focus {
   border: 1px solid #8ad919;
+  box-shadow: inset 0px 0px 0px 1px #8ad919;
 }
 
 .has-warning .form-control,
 .has-warning .form-control:focus {
   border: 1px solid #ffb53e;
+  box-shadow: inset 0px 0px 0px 1px #ffb53e;
 }
 
 .has-error .form-control,
-.has-error .form-control:focus {
+.has-error .form-control:focus,
+.has-error.form-control,
+.has-error.form-control:focus {
   border: 1px solid #f9243f;
+  box-shadow: inset 0px 0px 0px 1px #f9243f;
 }
 
 .navbar-custom {
@@ -1098,8 +1103,10 @@ span.btn-group-text {
 }
 
 .nav-tabs {
+  /*
   float: none;
   display: inline-block;
+  */
   background: #f2f3f2;
   border: 0;
 }
@@ -1517,7 +1524,7 @@ a.todo-list-item:focus {
 }
 
 .chat ul li.left .chat-body {
-  margin-left: 80px;
+  margin-left: 45px;
 }
 
 .chat ul li.right .chat-body {
@@ -1631,11 +1638,6 @@ p.back-link {
   color: #f9243f;
 }
 
-.no-padding {
-  padding: 0;
-  margin: 0;
-}
-
 
 /* Accordion rows get selectable hand-pointy guy */
 dt {
@@ -1711,9 +1713,15 @@ img#loader {
 .modal-header,
 .modal-footer {
   border: none;
+}
+
+.modal-header {
   padding-bottom: 0px;
 }
 
+.modal-footer {
+  padding-bottom: 5px;
+}
 
 .tab-content,
 .modal-body,
@@ -1731,8 +1739,28 @@ div.left-text {
   text-align: left;
 }
 
+div.right-text {
+  text-align: right;
+}
+
 .inactive {
   pointer-events: none;
+}
+
+.login {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.register {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+#tabContent.nav-tabs {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 2fr;
 }
 
 
@@ -2200,7 +2228,8 @@ div.ng-show {
 
 
 /* LABEL ======================================= */
-
+/* Conflict stuff ~
+< HEAD
 .modal-body label {
   color: #999;
   font-size: 12px;
@@ -2209,6 +2238,18 @@ div.ng-show {
   pointer-events: none;
   left: 5px;
   top: 10px;
+=======
+> origin/buyer-order-design
+*/
+
+.modal-body .group label {
+  color:#999; 
+  font-size:12px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
   background-color: #FFFFFF;
   width: 80%;
   
@@ -2299,6 +2340,161 @@ div.ng-show {
 
 /* END INPUT FORM */
 
+/* Switch Slide
+==========================*/
+.co-purchase-add {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	height: 30px;
+	padding: 3px;
+	margin: 0 10px 10px 0;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+	border-radius: 18px;
+/*	box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.switch-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	box-sizing:content-box;
+}
+.switch-label {
+	position: relative;
+	display: block;
+	height: inherit;
+	font-size: 10px;
+	text-transform: uppercase;
+	background: #eceeef;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+	box-sizing:content-box;
+}
+.switch-label:before, .switch-label:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+	box-sizing:content-box;
+}
+.switch-label:before {
+	content: attr(data-off);
+	right: 11px;
+	color: #aaaaaa;
+}
+.switch-label:after {
+	content: attr(data-on);
+	left: 11px;
+	color: #FFFFFF;
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label {
+	background: #E1B42B;
+}
+.switch-input:checked ~ .switch-label:before {
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label:after {
+	opacity: 1;
+}
+.switch-handle {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+	background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+	border-radius: 100%;
+/*	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
+}
+.switch-handle:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -6px;
+	width: 12px;
+	height: 12px;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+	border-radius: 6px;
+	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+.switch-input:checked ~ .switch-handle {
+	left: 74px;
+	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+ 
+/* Transition
+========================== */
+.switch-label, .switch-handle {
+	transition: All 0.3s ease;
+	-webkit-transition: All 0.3s ease;
+	-moz-transition: All 0.3s ease;
+	-o-transition: All 0.3s ease;
+}
+
+.switch-slide {
+	padding: 16px;
+	margin: 0;
+	background: #FFF;
+	border-radius: 0;
+	background-image: none;
+}
+.switch-slide .switch-label {
+	box-shadow: none;
+	background: none;
+	overflow: hidden;
+}
+.switch-slide .switch-label:after, .switch-slide .switch-label:before {
+	width: 100%;
+	height: 65%;
+	top: 5px;
+	left: 0;
+	text-align: center;
+	padding-top: 10%;
+    font-weight: 500;
+/*	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
+}
+.switch-slide .switch-label:after {
+	color: #FFFFFF;
+	background: #38cc70;
+	left: -100px;
+}
+.switch-slide .switch-label:before {
+	background: #eceeef;
+}
+.switch-slide .switch-handle {
+	display: none;
+}
+.switch-slide .switch-input:checked ~ .switch-label {
+	background: #FFF;
+	border-color: #38cc70;
+}
+.switch-slide .switch-input:checked ~ .switch-label:before {
+	left: 100px;
+}
+.switch-slide .switch-input:checked ~ .switch-label:after {
+	left: 0;
+}
+
+/*END SWITCH*/
 
 /* ANIMATIONS ================ */
 
@@ -2368,4 +2564,10 @@ div.ng-show {
   to {
     transform: rotate(0deg);
   }
+}
+
+/* For presedence */
+.no-padding {
+  padding: 0;
+  margin: 0;
 }
