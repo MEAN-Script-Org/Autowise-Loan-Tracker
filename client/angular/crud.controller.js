@@ -254,7 +254,6 @@ angular.module('SWEApp').controller(
     // OTHER FUNCTIONS
     //------------------------------------------------------------------------------------------------------------------
     // MARK: CHECK LIST
-    // Marcial: *explanation* This is being called by the accordion controller on checkbox selection
     $rootScope.updateCheckList = function(loanID, add) {
       if (add) {
         $rootScope.massLoans.push(loanID);
@@ -274,6 +273,10 @@ angular.module('SWEApp').controller(
         $scope.updateCheckList(loanID, stateUpdate);
       }
     };
+
+    $scope.clearMassLoans = function() {
+        $rootScope.massLoans = [];
+    }
 
     // TODO LATER: Same comment as 'changeLoanStatus' ~
     // Clearing frontend checkboxes
