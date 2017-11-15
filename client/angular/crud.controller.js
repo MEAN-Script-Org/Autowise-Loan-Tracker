@@ -304,7 +304,10 @@ angular.module('SWEApp').controller(
 
             var newComment = {
               admin: loans[index].commentAsAdmin,
-              writer: $rootScope.user_name,
+              writer: {
+                id   : $rootScope.id,
+                name : $rootScope.user_name,
+              },
               content: newCommentContent,
               newtime: new Date(),
               // time: new Date().toLocaleString('en-US', time_options),
@@ -326,6 +329,7 @@ angular.module('SWEApp').controller(
       var wantedInputField = ["#", loanID, "-new-comment"].join("");
       var newCommentContent = $(wantedInputField).val();
       $(wantedInputField).val("");
+      console.log(newCommentContent);
       // saving text message content, clearing input field
 
       if (newCommentContent) {
@@ -365,7 +369,7 @@ angular.module('SWEApp').controller(
     $scope.emailClient = function(loanID, userEmail, clientName) {
 
       if (!userEmail) {
-        alert("User has no email associated with their account");
+        alert("Customer has no email associated with their account");
         return;
       }
 

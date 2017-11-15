@@ -20,7 +20,8 @@ angular.module('SWEApp').controller('LoginController',
           } 
           
           if (Factory.getToken()) {
-            // token formation is off... welp
+            // alert("Redirecting to profile.. please wait");
+            // setTimeout(function(){$('.alert').alert('close')}, 400);
             window.location.href = '/profile/' + Factory.getToken();
           }
         },

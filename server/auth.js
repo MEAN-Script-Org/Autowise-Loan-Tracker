@@ -37,7 +37,7 @@ module.exports = {
             }
 
             // turn token into a two peace deal
-            var token = jwt.sign(user_details, secret, { expiresIn: '10h' });
+            var token = jwt.sign(user_details, secret, { expiresIn: '3h' });
             res.json(token);
           } 
           else

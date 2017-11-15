@@ -52,6 +52,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/user/' + id, args);
       },
+      // TODO: Implement this
       // getUserInfo: function() {
       //   var args = {token: getToken()};
       //   return $http.get('/api/info', args);
@@ -59,7 +60,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
 
       // Loans CRUD
       newLoan: function(loan) {
-        var args = Object.assign(loan, {token: getToken()});
+        var args = Object.assign(loan,   {token: getToken()});
         return $http.post('/api/loans', args);
       },
       getLoans: function() {
