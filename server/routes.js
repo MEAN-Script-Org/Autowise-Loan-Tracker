@@ -7,7 +7,7 @@ var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
 router.route('/auth')
-      .get(auth.authenticate);
+      .post(auth.authenticate);
 
 router.route('/email')
       .post(emailHandler);
@@ -27,7 +27,7 @@ router.route('/info').get(
 // # LOANS
 // > 'Multiple' loans
 router.route('/loans')
-      .get(loans.getAll)
+      .put(loans.getAll)
       .post(loans.create);
       
 // > Individual loan
@@ -57,9 +57,6 @@ router.route('/user/:userID')
 router.route('/users')
       .get(users.getAll, users.returnUsers)
       .post(users.create, auth.login) ;
-
-router.route('/usernames')
-      .get(users.getAll, users.getAllUsernames) ;
 
 router.param('userID', users.userByID) ;
 router.param('token', auth.decodeToken);

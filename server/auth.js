@@ -2,7 +2,16 @@ var jwt = require('jsonwebtoken');
 var User = require('./db/users.model.js') ;
 var secret = "Lean MEAN Client Machine";
 
+function invalid(req, res, next) {
+  req.body.token = false;
+  res.redirect("/profile");
+  // next();
+}
+
 module.exports = {
+  // split by ","
+  // only do a check in the front end... can't be the most secure thing ever
+
   // User Login Route
   login: function(req, res) {
     User.findOne({ username: req.body.username }).exec(
@@ -24,8 +33,10 @@ module.exports = {
               email: user.email,
               isAdmin: user.isAdmin,
               username: user.username,
+              md5hash: req.body.md5hash,
             }
 
+            // turn token into a two peace deal
             var token = jwt.sign(user_details, secret, { expiresIn: '10h' });
             res.json(token);
           } 
@@ -35,23 +46,34 @@ module.exports = {
     });
   },
 
-  decodeToken: function(req, res, next, token) {
-    if (!token) {
-      req.token = "nothing ever";
+  decodeToken: function(req, res, next, token_array) {
+    console.log(req.body, token);
+
+    if (!token_array) {
+      req.body.token = "nothing ever";
       next();
     }
     else {
+      if (typeof token_array == 'string')
+        token_array = token_array.split(",");
+      var token = token_array[0];
+      var md5hash = token_array[1];
+
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err) {
-          console.log("INVALID TOKEN!!!");
           console.log(token, err, decodedToken);
-          req.token = false;
-          next();
+          console.log("INVALID TOKEN!!!");
+          invalid(req, res, next);
+        }
+        else if (decodedToken.md5hash != md5hash) {
+          console.log(decodedToken, md5hash);
+          console.log("GOOD TRY");
+          invalid(req, res, next);
         }
         else {
-          // console.log(token);
+          // REAL NEXT
           console.log(decodedToken);
-          req.token = decodedToken;
+          req.body.token = decodedToken;
           next();
         }
       });
@@ -63,54 +85,45 @@ module.exports = {
   //      IF not valid, display you need to log in again
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
-    var token = req.body.token;
+    var token_array = req.body.token;
 
-    if (token) {
+    if (token_array) {
+      // console.log(token_array);
+      if (typeof token_array == 'string')
+        token_array = token_array.split(",");
+      var token = token_array[0];
+      var md5hash = token_array[1];
+
       jwt.verify(token, secret, function(err, decodedToken) {
-        if (err) {
+        if (err || decodedToken.md5hash != md5hash) {
           console.log("Bad Token");
+          console.log(decodedToken, md5hash);
 
-          if (req.body.no_next) {
-            res.json({ 
-              error: 'Token invalid' 
-            });
-          } else {
-            ejs_msg = "Your session expired. Please log in again";
-            ejs_class = "alert bg-warning";
+          ejs_msg = "Your session expired. Please log in again";
+          ejs_class = "alert bg-warning";
 
-            // this creates an infinite loopy...
-            res.render('login', {
-                message: ejs_msg,
-                type: ejs_class,
-            });
-          }
+          // this creates an infinite loopy...
+          res.render('login', {
+              message: ejs_msg,
+              type: ejs_class,
+              path: '',
+          });
         }
 
         // REAL next
         else {
           console.log("GUUUD Token");
           // console.log(decodedToken);
-
-          if (!req.body.no_nextext)
-            res.json(token);
-          else {
-            req.body.token = decodedToken;
-            next();
-          }
+          req.body.token = decodedToken;
+          next();
         }
       });
     } 
     else {
-      if (req.body.no_next) {
-        res.json({ 
-          error: "No token at all" 
-        });
-      } 
-      else {
-        // console.log(req._parsedOriginalUrl, req.body, req.token, req.query);
-        next();
-        // res.redirect('/login');
-      }
+      console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
+      res.json({});
+      // next();
+      // res.redirect('/login');
     }
   },
 }

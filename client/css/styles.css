@@ -68,16 +68,19 @@ input.form-control {
 .has-success .form-control,
 .has-success .form-control:focus {
   border: 1px solid #8ad919;
+  box-shadow: inset 0px 0px 0px 1px #8ad919;
 }
 
 .has-warning .form-control,
 .has-warning .form-control:focus {
   border: 1px solid #ffb53e;
+  box-shadow: inset 0px 0px 0px 1px #ffb53e;
 }
 
 .has-error .form-control,
 .has-error .form-control:focus {
   border: 1px solid #f9243f;
+  box-shadow: inset 0px 0px 0px 1px #f9243f;
 }
 
 .navbar-custom {
