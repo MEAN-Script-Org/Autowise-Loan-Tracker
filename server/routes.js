@@ -56,8 +56,7 @@ router.route('/user/:userID')
 // > 'Multiple' users
 router.route('/users')
       .get(users.getAll, users.returnUsers)
-      .post(users.create, auth.login, users.makeSuperAdmin, users.makeAdmin, users.makeUser) ;
-      .delete(users.removeUser);
+      .post(users.create, auth.login) ;
 
 router.route('/usernames')
       .get(users.getAll, users.getAllUsernames) ;

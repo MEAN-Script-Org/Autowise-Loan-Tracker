@@ -24,19 +24,19 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       },
       removeUser: function(userId){
         //var token = getToken();
-        return $http.delete('/api/users'+userId);
+        return $http.delete('/api/user/'+userId);
       },
       makeSuperAdmin: function(userId){
         //var token = getToken();
-        return $http.post('/api/users'+userId);
+        return $http.post('/api/user/'+userId);
       },
       makeAdmin: function(userId){
         //var token = getToken();
-        return $http.post('/api/users'+userId);
+        return $http.post('/api/user/'+userId);
       },
       makeUser: function(userId){
         //var token = getToken();
-        return $http.post('/api/users'+userId);
+        return $http.post('/api/user/'+userId);
       },
 
       // Loans CRUD
@@ -55,10 +55,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       modifyLoan: function(id, updatedLoan) {
         return $http.put('/api/loan/' + id, updatedLoan);
       },
-      removeUser: function(userId){
-        var token = getToken();
-        return $http.delete('/api/users/'+ userId, {token});
-      }
 
       // AUTH METHODS
       // Adds token to local storage
