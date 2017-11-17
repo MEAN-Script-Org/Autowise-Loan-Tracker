@@ -44,8 +44,8 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     // Sets the path to the warranty plans view
     //------------------------------------------------------------------------------------------------------------------
-    $scope.goToWarranties = function() {
-      $window.location.href = '/profile/warranties/' + Factory.getToken() ;
+    $scope.goToWarranties = function(loan_id) {
+      $window.location.href = '/profile/warranties/' + loan_id + '/' + Factory.getToken() ;
     }
     
     $scope.logout = function() {

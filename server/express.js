@@ -2,9 +2,12 @@ var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+
 var api_routes = require('./routes.js');
-var users = require("./db/users.crud.js") ;
 var auth = require("./auth.js");
+
+var users = require("./db/users.crud.js") ;
+var loans = require('./db/loans.crud.js') ;
 
 var ejs_msg = '';
 var ejs_class = '';
@@ -49,12 +52,14 @@ profile_routes.route('/:token')
 //----------------------------------------------------------------------------------------------------------------------
 // Customer warranty plans routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/warranties/:token')
+profile_routes.route('/warranties/:loan_id/:token')
 .all(function(req, res) {
   var token = req.body.token;
+  var loan = req.loan;
   
   console.log("WARRANTIES ROUTER: ");
-  console.log(req.query) ;
+  console.log(token) ;
+  console.log(loan) ;
   
   // Missing/invalid token handling => redirect to login page
   if (!token) {
@@ -68,10 +73,11 @@ profile_routes.route('/warranties/:token')
   
   // Render warranties page
   } else {
-    res.render("warranties", {path: "../../"});
+    res.render("warranties", {path: "../../../"});
   }
 });
 
+profile_routes.param('loan_id', loans.loanByID);
 profile_routes.param('token', auth.decodeToken);
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // WARRANTIES MODULE ~
 // Provides raw warranty plan data and functions for querying warranty plans based on user-inputted information
-angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location', 'Factory',
-  function($rootScope, $scope, $location, Factory) {
+angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$location', '$window', 'Factory',
+  function($rootScope, $scope, $location, $window, Factory) {
   
   // GLOBAL
   $scope.loan = null ;  // Current loan to have a warranty added
@@ -129,6 +129,10 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
   // Matching warranties to the 'matchedWarranties' object
   //--------------------------------------------------------------------------------------------------------------------
   $scope.queryWarrantyPlan = function() {
+    
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~HEY!") ;
+    console.log($window.localStorage.getItem('token')) ;
+    
     console.log("Query age:         " + $scope.query.age) ;
     console.log("Query max milegae: " + $scope.query.mileage) ;
     console.log("Query make:        " + $scope.query.make) ;
