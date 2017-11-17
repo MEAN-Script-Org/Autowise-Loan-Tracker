@@ -20,10 +20,11 @@
                 <br>
                 {{user.username}} {{user.dob}}
                 <!-- TODO: Add ng-click to these -->
-                <!--<dt ng-click="makeSuperAdmin(user.username)"> --><button class="btn btn-primary">Super Admin</button><!--</dt>-->
-                <!--<dt ng-click="makeAdmin(user.username)">--><button class="btn btn-warning">Admin</button><!--</dt>-->
-                <!--<dt ng-click="makeUser(user.username)">--><button class="btn btn-danger">User</button><!--</dt>-->
-                <!--<dt ng-click="removeUser(user.username)">--><button class="btn btn-primary">Delete User</button><!--</dt>-->
+                <dt ng-click="makeSuperAdmin(user.username, user.isAdmin)"><button class="btn btn-primary">Super Admin</button></dt>
+                <dt ng-click="makeAdmin(user.username, user.isAdmin)"><button class="btn btn-warning">Admin</button></dt>
+                <dt ng-click="makeUser(user.username, user.isAdmin)"><button class="btn btn-danger">User</button></dt>
+                <dt ng-click="removeUser(user.username)"><button class="btn btn-primary">
+                <em class="fa fa-trash"></em></button></dt>
 
             </div>
         </div>

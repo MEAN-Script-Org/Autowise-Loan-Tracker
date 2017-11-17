@@ -1,118 +1,116 @@
 angular.module('SWEApp').factory('Factory', ['$http', '$window',
   function($http, $window) {
-    
-    var addToken = function(token) {
-        $window.localStorage.setItem('token', token);
-    }
-
-    var getToken = function() {
-      var token = $window.localStorage.getItem('token');
-      return token;
-    }
-
-    var removeToken = function() {
-      $window.localStorage.removeItem('token');
-    }
-
     var methods = {
       
       // Emailing
       sendEmail: function(updates) {
-        var args = Object.assign(updates, {token: getToken()});
-        return $http.post('/api/email', args);
+        return $http.post('/api/email', updates);
       },
-
-      // Users CRUD
+      // Uers CRUD
       newUser: function(User) {
-        console.log(User);
-        var args = Object.assign(User, {token: getToken()});
-        
-        return $http.post('/api/users', args).then(
-          function(res) {
-            addToken(res.data);
-            $window.location.href = '/login';
-          },
-          function(err, message) {
-            alert(message + err + JSON.stringify(err));
-        });
+        return $http.post('/api/users', User);
       },
       getUsernames: function() {
-        var args = {token: getToken()};
-        return $http.get('/api/usernames', args);
+        return $http.get('/api/usernames');
       },
       getAllUsers: function() {
-        var args = {token: getToken()};
-        return $http.get('/api/users', args);
+        return $http.get('/api/users');
       },
       getUser: function(id) {
-        var args = {token: getToken()};
-        return $http.get('/api/user/' + id, args);
+        return $http.get('/api/user/' + id);
       },
-      // getUserInfo: function() {
-      //   var args = {token: getToken()};
-      //   return $http.get('/api/info', args);
-      // },
+      getUserInfo: function() {
+        return $http.get('/api/info');
+      },
+      removeUser: function(userId){
+        //var token = getToken();
+        return $http.delete('/api/users'+userId);
+      },
+      makeSuperAdmin: function(userId){
+        //var token = getToken();
+        return $http.post('/api/users'+userId);
+      },
+      makeAdmin: function(userId){
+        //var token = getToken();
+        return $http.post('/api/users'+userId);
+      },
+      makeUser: function(userId){
+        //var token = getToken();
+        return $http.post('/api/users'+userId);
+      },
 
       // Loans CRUD
       newLoan: function(loan) {
-        var args = Object.assign(loan, {token: getToken()});
-        return $http.post('/api/loans', args);
+        return $http.post('/api/loans', loan);
       },
       getLoans: function() {
-        var args = {token: getToken()};
-        return $http.get('/api/loans', args);
+        return $http.get('/api/loans');
       },
       getLoan: function(id) {
-        var args = {token: getToken()};
-        return $http.get('/api/loan/' + id, args);
-      },
-
-      // getLoansOfUser: function(user_id) {
-      //   var args = {token: getToken()};
-      //   return $http.get('/api/loans/' + user_id, args);
-      // },
-      
-      getLoansOfUser: function() {
-        // var args = Object.assign();
-        // var args = {token: getToken()};
-        return $http.get('/api/loansByUserInfo/' + getToken());
+        return $http.get('/api/loan/' + id);
       },
       deleteLoan: function(id) {
-        var args = {token: getToken()};
-        return $http.delete('/api/loan/' + id, args);
+        return $http.delete('/api/loan/' + id);
       },
       modifyLoan: function(id, updatedLoan) {
-        var args = {token: getToken()};
-        var args = Object.assign(updatedLoan, {token: getToken()});
-        return $http.put('/api/loan/' + id, args);
+        return $http.put('/api/loan/' + id, updatedLoan);
       },
-      // Bug => get requests don't seem to be accepting args.... interesting
-
-      // Authentication
-      addToken: function(token) {
-        addToken(token);
-      },
-      getToken: function() {
-        return getToken();
-      },
-      removeToken: function() {
-        removeToken();
-      },
-      register: function(loginData) {
-        return $http.post('/api/users', loginData);
-      },
-      login: function(loginData) {
-        return $http.post('/login', loginData);
-      },
-      isLoggedIn: function() {
+      removeUser: function(userId){
         var token = getToken();
-        // console.log(token);
-        return $http.get('/api/auth', {token, no_next: true});
+        return $http.delete('/api/users/'+ userId, {token});
+      }
+
+      // AUTH METHODS
+      // Adds token to local storage
+      addToken: function(token) {
+        $window.localStorage.setItem('token', token);
       },
+
+      removeToken: function() {
+        $window.localStorage.removeItem('token');
+      },
+
       logout: function() {
-        removeToken();
-        $window.location.href = '/login';
+        this.removeToken();
+        $http.get('/');
       },
+
+      getToken: function() {
+        var token = $window.localStorage.getItem('token');
+        console.log(token);
+        return token;
+      },
+
+      isLoggedIn: function() {
+        return true ? this.getToken() : false;
+      },
+
+      login: function(loginData) {
+        return $http.post('/api/authenticate', loginData).then(function(res) {
+          if (res.data.token) {
+            console.log(res.data.token);
+            this.addToken(res.data.token);
+            return res;
+          } else alert(res.data.err);
+        });
+      },
+
+      getUser: function() {
+        var token = this.getToken();
+
+        if (token) {
+          return $http.post('/api/me', { token });
+        } else {
+          $q.reject({ message: 'USer has no token' });
+        }
+      },
+
+      request: function(config) {
+        var token = this.getToken();
+        if (token) config.headers['x-access-token'] = token;
+        return config;
+      },
+
     };
     
     return methods;
