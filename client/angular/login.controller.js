@@ -20,12 +20,14 @@ angular.module('SWEApp').controller('LoginController',
           } 
           
           if (Factory.getToken()) {
-            $window.location.href = '/profile/' + Factory.getToken();
+            // alert("Redirecting to profile.. please wait");
+            // setTimeout(function(){$('.alert').alert('close')}, 400);
+            window.location.href = '/profile/' + Factory.getToken();
           }
         },
         function(err, error) {
-          alert("whaaat");
-          alert(JSON.stringify(err) + JSON.stringify(error));
+          alert("error when loging in...");
+          // alert(JSON.stringify(err) + JSON.stringify(error));
         }
       );
 
@@ -38,11 +40,12 @@ angular.module('SWEApp').controller('LoginController',
           res.data.forEach(function(item) {
             $rootScope.usernames[item] = true;
           });
-        },
-        function(err) {
-          alert("oink");
-          alert(err);
-      });
+        }
+      //   ,
+      //   function(err) {
+      //     alert("can't get usernames..");
+      // }
+      );
 
       // This works
       // Factory.getAllUsers().then(

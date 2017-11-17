@@ -35,12 +35,15 @@
         <div class="col-md-12">
             <div id="sb-search" class="sb-search">
               <form>
+                <!-- TODO: get this to work ... ng-change="clearMassLoans()... -->
                 <input class="sb-search-input" placeholder="Search criteria"
-                       type="text" value="" name="search" id="search" ng-model="query">
+                       ng-model="query" type="text" id="search">
                 <input class="sb-search-submit" type="submit">
+                
+                <!-- 
                 <span class="sb-icon-search"></span>
+                 -->
               </form>
-              <div class="disabler"></div>
             </div>
             <div class="container-accordion">
               <div ng-show="loading" id="loading">

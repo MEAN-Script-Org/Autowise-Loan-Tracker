@@ -1,54 +1,54 @@
 <!-- TODO: really figure out how the controller works cuts is a mess -->
 <div class="row">
-    <div class="col-lg-12">
-        <button ng-click="logout()" class="btn btn-danger pull-right">
-            Log out
-        </button>
-        <a href="/warranties" target="_blank" class="btn btn-info pull-right">
-            Warranties
-        </a>
-        <h1 class="page-header">Loans</h1>
-        <div class="row">
-          <br>
-          <div class="col-md-12">
-              <h4>Search by...</h4>
+  <div class="col-lg-12">
+    <div class="row">
+      <h1 class="page-header centered-text">Loan Database</h1>
+      <br>
+      <!-- 
+      <div class="col-md-12">
+        <h4>Search by...</h4>
+      </div>
+      <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
+       -->
+    </div>
+    <button ng-click="logout()" class="btn btn-danger pull-right"> Log out </button>
+    
+    <!-- should not appear here -->
+    <!-- 
+    <a href="/warranties" target="_blank" class="btn btn-info"> Warranties </a>
+     -->
+    <div style="clear: both;"></div>
+    <div class="panel panel-container">
+      <div class="row">
+        <!-- 
+        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
+            <div class="row no-padding">
+              <em class="fa fa-xl fa-user color-blue"></em>
+              <label class="container">
+                <input type="checkbox" id="nameCheckbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="text-muted">Customer's Name </label>
+            </div>
           </div>
-          <!-- This is a styled line -->
-          <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
         </div>
-        <div class="panel panel-container">
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
-                    <div class="panel panel-teal panel-widget border-right">
-                        <div class="row no-padding">
-                            <em class="fa fa-xl fa-user color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" id="nameCheckbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Customer's Name </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 
-                <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
-                    <div class="panel panel-teal panel-widget border-right">
-                        <div class="row no-padding">
-                            <em class="fa fa-xl fa-envelope color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" id="emailCheckbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Email </label>
-                        </div>
-                    </div>
-                </div>
-                 -->
-                 
-                <!-- These are a big no no -->
-                <!-- Date filtering needs special formatting ~ a mess -->
-
-                <!-- 
+        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
+            <div class="row no-padding">
+              <em class="fa fa-xl fa-envelope color-blue"></em>
+              <label class="container">
+                <input type="checkbox" id="emailCheckbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="text-muted">Email </label>
+            </div>
+          </div>
+        </div>
+         -->
+        <!-- These are a big no no -->
+        <!-- Date filtering needs special formatting ~ a mess -->
+        <!-- 
                 <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
                     <div class="panel panel-teal panel-widget border-right">
                         <div class="row no-padding">
@@ -61,20 +61,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                    <div class="panel panel-teal panel-widget border-right">
-                        <div class="row no-padding">
-                            <em class="fa fa-xl fa-calendar color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" id="dateCheckbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Date Posted </label>
-                        </div>
-                    </div>
-                </div>
-                -->
+        -->
+        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
+            <div class="row no-padding">
+              <em class="fa fa-xl fa-calendar color-blue"></em>
+              <label class="container">
+                <input type="checkbox" id="dateCheckbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="text-muted">Date Range </label>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

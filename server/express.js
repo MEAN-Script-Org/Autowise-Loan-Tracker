@@ -1,9 +1,10 @@
 var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
-var auth = require("./auth.js");
-var routes = require('./routes.js');
 var bodyParser = require('body-parser');
+var api_routes = require('./routes.js');
+var users = require("./db/users.crud.js") ;
+var auth = require("./auth.js");
 
 var ejs_msg = '';
 var ejs_class = '';
@@ -12,26 +13,19 @@ var ejs_class = '';
 var profile_routes = express.Router();
 
 profile_routes.route('/:token')
-.get(function(req, res) {
+.all(function(req, res) {
   // next page routing based on token status and admin
-  var token = req.token;
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
-  console.log(req.query);
+  var token = req.body.token;
 
   if (!token) {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+    res.redirect("/login");
+  }
+  else if (token == "nothing ever") {
     ejs_msg = "Your session expired. Please log in again";
     ejs_class = "alert bg-warning";
     res.redirect('/login');
-  }
-  else if (token == "nothing ever") {
-    ejs_msg = "Please log in to access your profile";
-    ejs_class = 'alert bg-danger';
-
-    res.redirect("/login");
   }
   // else if (Object.keys(req.query).length < 1) {
   //   //// Technically not secure as of now... but figure out an intermediate view in the frontend for it
@@ -106,11 +100,6 @@ module.exports.init = function() {
     res.render('customerHub', {path: ''});
   });
 
-  // Customer hub
-  app.use('/perm', function(req, res) {
-    res.render('changePermissions', {path: ''});
-  });
-
   // Warranties plan view for a customer
   // why the hell does it take 4 reqs to do this??
   app.use('/warranties', function(req, res) {
@@ -124,10 +113,16 @@ module.exports.init = function() {
   app.use('/profile', profile_routes);
 
   // TODO: Add master admin hardcoded link (Harrisons work)
+  app.use('/perm', function(req, res) {
+    res.render('changePermissions', {path: ''});
+  });
+
+  // ALLOW non-logged in to retrieve user names
+  app.use('/usernames', users.getAll, users.getAllUsernames);
 
   // Token-Based Auth
   // Backend API routes
-  app.use('/api', auth.authenticate, routes);
+  app.use('/api', auth.authenticate, api_routes);
 
   // Wildcard for everything else
   app.use('/*', function(req, res) {
