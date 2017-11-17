@@ -49,7 +49,7 @@ profile_routes.route('/:token')
 //----------------------------------------------------------------------------------------------------------------------
 // Customer warranty plans routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/warranties/:loadin/:token')
+profile_routes.route('/warranties/:token')
 .all(function(req, res) {
   var token = req.body.token;
   
@@ -136,18 +136,11 @@ module.exports.init = function() {
     res.render('customerHub', {path: ''});
   });
 
-  // Warranties plan view for a customer
-  // why the hell does it take 4 reqs to do this??
-  
-
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', login_routes);
 
   // automatic reroute here
   app.use('/profile', profile_routes);
-  
-  // automatic reroute here
-  // app.use('/warranties', profile_routes);
 
   // TODO: Add master admin hardcoded link (Harrisons work)
   app.use('/perm', function(req, res) {
