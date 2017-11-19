@@ -18,10 +18,15 @@ angular.module('SWEApp').controller(
     $scope.oops = function() {
       var id = "5a0b7e6e3cf0921ddc6c9d95";
       
-      Factory.attachLoansToUser(id).then(
-        function(res) { console.log(res.data); },
-        function(err) { console.log(err); }
-      );
+      // FOR TESTING LOAN ATTACHEMENT PURPOSES
+      Factory.getUser(id).then(
+        function(res) {
+          console.log(res.user) ;
+          console.log(res) ;
+          res.user.save() ;
+        },
+        function (err) {}
+      )
     }
     
     //------------------------------------------------------------------------------------------------------------------

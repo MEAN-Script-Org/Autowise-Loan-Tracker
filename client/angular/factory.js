@@ -95,10 +95,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/loansByUser/', args);
       },
-      attachLoansToUser: function(user_id) {
-        var args = {token: getToken()};
-        return $http.put('/api/attachLoans/' + user_id, args);
-      },
       // Bug => get requests don't seem to be accepting args.... interesting
 
       //----------------------------------------------------------------------------------------------------------------

@@ -47,10 +47,6 @@ router.route('/loan/:loanID')
 router.route('/loans/:userID')
       .get(loans.loansByUserID);
       
-// Attaching multiple loans to the specified User
-router.route('/attachLoans/:userID')
-      .put(users.userByID, loans.affixLoans);
-      
 // Multiple loans under the currently logged-in User
 router.route('/loansByUser/:token')
       .get(users.userByID, loans.loansByUserID);

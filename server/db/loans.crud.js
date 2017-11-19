@@ -115,38 +115,27 @@ module.exports = {
   },
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Search loans database for loans whose purchaser information matches the User specified in the request
-  // Affixes found loans to the specified User
+  // Search loans database for loans whose purchaser information matches the specified User
+  // Affixes found loans to the this User
   //--------------------------------------------------------------------------------------------------------------------
-  affixLoans: function(req, res) {
+  affixLoans: function(user) {
     
     // Construct a query from the specified user info
-    var user = req.user ;
     var query = {
       "buyers_order.purchaser.dl":  user.dl,
       "buyers_order.purchaser.dob": user.dob
     };
     
-    console.log("MY USER:") ;
-    console.log(user) ;
-    
-    console.log("MY QUERY:") ;
-    console.log(query) ;
-    
     // Find all loans according to the query
     Loan.find(query, function(err, loans) {
-      if (err) {
-        console.log(err) ;
-        res.status(404).send(err) ;
-      } else {
+      if (err) { console.log(err); }
+      else {
         
         // Update found loans with user ID
         loans.forEach(function(loan) {
           loan.user_id = user._id ;
           loan.save() ;
         });
-        
-        res.status(200).send() ;
       }
     });
   }
