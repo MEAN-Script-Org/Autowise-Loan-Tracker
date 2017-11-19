@@ -359,11 +359,11 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 <br>
-                <label id="type-category-label" class="category-field" for="type-category"data-value="">
+                <label id="type-category-label" class="required category-field" for="type-category" ng-model="bo.is_car_used" name="is-car-used" data-value="">
 	               <span>Choose An Option:</span>
-                    <div id="type-category" class="sudo-select" ng-model="bo.is_car_used" name="is-car-used">
-                      <span class="required selected"></span>
-                      <ul id="type-category-options" class="options">
+                    <div id="type-category" class="sudo-select">
+                      <span class="selected"></span>
+                      <ul id="type-category-options" class="category-options">
                           <li class="category-option" data-value="false">
                               New
                           </li>
