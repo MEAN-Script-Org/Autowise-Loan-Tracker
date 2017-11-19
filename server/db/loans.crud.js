@@ -53,7 +53,9 @@ module.exports = {
   // Deletes a load of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   delete: function(req, res) {
-    console.log("DELETION: ", req, req.loan) ;
+    console.log("DELETION: ") ;
+    console.log(req) ;
+    console.log(req.loan) ;
     
     Loan.findByIdAndRemove(req.loan._id, function(err) {
       if (err) res.status(404).send(err);
