@@ -82,11 +82,6 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-      // TODO: Correctly implement this
-      // Affix any dangling loans in the database to this user
-      // This should be done in the backend...
-      // affixLoans(realUser);
-
       if (!$rootScope.usernames[$scope.newUser.username])
         Factory.newUser($scope.newUser);
       else
@@ -113,23 +108,5 @@ angular.module('SWEApp').controller('LoginController',
     //   else
     //     console.log("NOPE");
     // }
-    
-    // Search loans database for loans with matching contact information
-    // Affixes these loans to this User
-    function affixLoans(user) {
-      Factory.getLoansByUserInfo(user).then(
-        function(loans) {
-          
-          // Affix this user's ID to each found loan
-          res.loans.forEach(
-            function(loan) {
-              loan.user_id = user._id ;
-              loan.save() ;
-            }
-          );
-        },
-        function(err) { console.log(err) ; }
-      );
-    }
   }
 ]);
