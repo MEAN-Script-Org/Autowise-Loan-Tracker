@@ -12,8 +12,9 @@ angular.module('SWEApp').controller('CheckController',
       var currentCheckCount = 0;
         
       // count number of checkboxes
-      $(":checkbox").each(function(index) {
+      $(":checkbox.filter-cb").each(function(index) {
         currentCheckCount = currentCheckCount + 1;
+        console.log(this);
       });
 
       let totalCheckCount = currentCheckCount;
@@ -23,7 +24,7 @@ angular.module('SWEApp').controller('CheckController',
       $('.disabler').addClass('disable');
         
       // keep if checkbox has a state of change
-      $(":checkbox").change(function(index) {
+      $(":checkbox.filter-cb").change(function(index) {
         let getId = this.id;
 
         // if it is in a checked state, increment amount of checked boxes, open search bar if not handled already, add checkbox id to searchScopes array in the parent controller crud.controller.js
