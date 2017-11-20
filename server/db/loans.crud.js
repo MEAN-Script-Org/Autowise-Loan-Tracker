@@ -117,10 +117,33 @@ module.exports = {
   },
   
   //--------------------------------------------------------------------------------------------------------------------
+  // Search user database for user whose information matches the specified loan purchaser information
+  // Affixes this loan to the found User
+  //--------------------------------------------------------------------------------------------------------------------
+  affixLoanToUser: function(loan) {
+    
+    // Construct a query from the specified loan info
+    var query = {
+      "dl":  loan.buyers_order.purchaser.dl,
+      "dob": loan.buyers_order.purchaser.dob
+    };
+    
+    // Find the user according to the query
+    User.findOne(query, function(err, user) {
+      if (err) { console.log(err); }
+      else {
+        // Update loan with found user's ID
+        loan.user_id = user._id ;
+        loan.save() ;
+      }
+    });
+  },
+  
+  //--------------------------------------------------------------------------------------------------------------------
   // Search loans database for loans whose purchaser information matches the specified User
   // Affixes found loans to the this User
   //--------------------------------------------------------------------------------------------------------------------
-  affixLoans: function(user) {
+  affixUserToLoans: function(user) {
     
     // Construct a query from the specified user info
     var query = {

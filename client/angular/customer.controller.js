@@ -16,17 +16,12 @@ angular.module('SWEApp').controller(
     // Testing function
     //------------------------------------------------------------------------------------------------------------------
     $scope.oops = function() {
-      var id = "5a0b7e6e3cf0921ddc6c9d95";
-      
-      // FOR TESTING LOAN ATTACHEMENT PURPOSES
-      Factory.getUser(id).then(
+      Factory.getLoan('5a1106ca3854dd0c2cb3d818').then(
         function(res) {
-          console.log(res.user) ;
           console.log(res) ;
-          res.user.save() ;
         },
-        function (err) {}
-      )
+        function(err) { console.log(err) }
+      );
     }
     
     //------------------------------------------------------------------------------------------------------------------

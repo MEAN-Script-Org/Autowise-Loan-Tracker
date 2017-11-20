@@ -86,9 +86,8 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-console.log(req.body) ;
+    
     if (token_array) {
-      // console.log(token_array);
       if (typeof token_array == 'string')
         token_array = token_array.split(",");
       var token = token_array[0];
@@ -121,7 +120,10 @@ console.log(req.body) ;
     } 
     else {
       console.log("WHAT ARE YOU DOING HERE?!") ;
-      console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
+      console.log(req) ;
+      console.log(req._parsedOriginalUrl); // , req.body, req.body.token, req.query);
+      console.log(req.body) ;
+      console.log("END") ;
       res.json({});
       // next();
       // res.redirect('/login');
