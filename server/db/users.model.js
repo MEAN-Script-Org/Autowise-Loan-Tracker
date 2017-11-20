@@ -1,6 +1,8 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 
+var loans = require('./loans.crud.js') ;
+
 // Define user schema
 var userSchema = new mongoose.Schema({
   username: {
@@ -50,7 +52,10 @@ userSchema.pre('save', function(next) {
   
   if (!this.isAdmin)
     this.isAdmin = false;
-
+  
+  // Affix any dangling loans in the database to this User
+  loans.affixLoans(this) ;
+  
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());
   this.password = hash;

@@ -16,18 +16,22 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     var removeToken = function() {
       $window.localStorage.removeItem('token');
     }
-
+    
     // READ:
     //      DO NOT MAKE 'GET' METHODS THAT HANDLE TOKENS!!!! THEY DON'T WORK!
     var methods = {
       
+      //----------------------------------------------------------------------------------------------------------------
       // Emailing
+      //----------------------------------------------------------------------------------------------------------------
       sendEmail: function(updates) {
         var args = Object.assign(updates, {token: getToken()});
         return $http.post('/api/email', args);
       },
 
+      //----------------------------------------------------------------------------------------------------------------
       // Users CRUD
+      //----------------------------------------------------------------------------------------------------------------
       newUser: function(User) {
         console.log(User);
         var args = Object.assign(User, {token: getToken()});
@@ -52,13 +56,16 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/user/' + id, args);
       },
+      
       // TODO: Implement this
       // getUserInfo: function() {
       //   var args = {token: getToken()};
       //   return $http.get('/api/info', args);
       // },
 
+      //----------------------------------------------------------------------------------------------------------------
       // Loans CRUD
+      //----------------------------------------------------------------------------------------------------------------
       newLoan: function(loan) {
         var args = Object.assign(loan,   {token: getToken()});
         return $http.post('/api/loans', args);
@@ -71,17 +78,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/loan/' + id, args);
       },
-
-      // getLoansOfUser: function(user_id) {
-      //   var args = {token: getToken()};
-      //   return $http.get('/api/loans/' + user_id, args);
-      // },
-      
-      getLoansOfUser: function() {
-        // var args = Object.assign();
-        var args = {token: getToken()};
-        return $http.post('/api/loansByUserInfo/', args);
-      },
       deleteLoan: function(id) {
         var args = {token: getToken()};
         return $http.delete('/api/loan/' + id, args);
@@ -91,9 +87,19 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = Object.assign(updatedLoan, {token: getToken()});
         return $http.put('/api/loan/' + id, args);
       },
+      
+      //----------------------------------------------------------------------------------------------------------------
+      // CRUD operations on loans of specific Users
+      //----------------------------------------------------------------------------------------------------------------
+      getLoansOfUser: function() {
+        var args = {token: getToken()};
+        return $http.get('/api/loansByUser/', args);
+      },
       // Bug => get requests don't seem to be accepting args.... interesting
 
+      //----------------------------------------------------------------------------------------------------------------
       // Authentication
+      //----------------------------------------------------------------------------------------------------------------
       addToken: function(token) {
         addToken(token);
       },

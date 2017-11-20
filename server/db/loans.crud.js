@@ -53,6 +53,10 @@ module.exports = {
   // Deletes a load of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   delete: function(req, res) {
+    console.log("DELETION: ") ;
+    console.log(req) ;
+    console.log(req.loan) ;
+    
     Loan.findByIdAndRemove(req.loan._id, function(err) {
       if (err) res.status(404).send(err);
       else res.json(req.loan);
@@ -74,7 +78,7 @@ module.exports = {
   //--------------------------------------------------------------------------------------------------------------------
   // Get all loans belonging to a particular user (based on ID)
   //--------------------------------------------------------------------------------------------------------------------
-  loansByUserID: function(req, res) {
+  loansByUserID: function(req, res, next) {
     // console.log(req.user, req.body, req.body.token);
 
     // Query loans with matching information and send them in a JSON response
@@ -84,10 +88,7 @@ module.exports = {
         console.log(err) ;
         res.status(400).send(err) ;
       }
-      else {
-        console.log("found loans:", loans);
-        res.json(loans) ;
-      }
+      else { res.json(loans); }
     });
   },
   
@@ -113,5 +114,31 @@ module.exports = {
       console.log("NO IDDDD");
       console.log(req.body, req.body.token);
     }
+  },
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Search loans database for loans whose purchaser information matches the specified User
+  // Affixes found loans to the this User
+  //--------------------------------------------------------------------------------------------------------------------
+  affixLoans: function(user) {
+    
+    // Construct a query from the specified user info
+    var query = {
+      "buyers_order.purchaser.dl":  user.dl,
+      "buyers_order.purchaser.dob": user.dob
+    };
+    
+    // Find all loans according to the query
+    Loan.find(query, function(err, loans) {
+      if (err) { console.log(err); }
+      else {
+        
+        // Update found loans with user ID
+        loans.forEach(function(loan) {
+          loan.user_id = user._id ;
+          loan.save() ;
+        });
+      }
+    });
   }
 };

@@ -13,6 +13,23 @@ angular.module('SWEApp').controller(
     // });
     
     //------------------------------------------------------------------------------------------------------------------
+    // Testing function
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.oops = function() {
+      var id = "5a0b7e6e3cf0921ddc6c9d95";
+      
+      // FOR TESTING LOAN ATTACHEMENT PURPOSES
+      Factory.getUser(id).then(
+        function(res) {
+          console.log(res.user) ;
+          console.log(res) ;
+          res.user.save() ;
+        },
+        function (err) {}
+      )
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
     //------------------------------------------------------------------------------------------------------------------
     $scope.init = function() {
@@ -21,14 +38,14 @@ angular.module('SWEApp').controller(
       
       // TODO: pull all loans associated with a particular session user ID
       // 
-      // var id = "5a09f3ef17b72328ec7750f6";
+      // var id = "5a0b7e6e3cf0921ddc6c9d95";
       
       // Loads all loans belonging to the specified user
       Factory.getLoansOfUser().then(
         function(res) {
-          if (res.data.length != 0) {
+          
+          if (res.data.length && res.data.length != 0) {
             $rootScope.loans = res.data;
-            // console.log($rootScope.loans);
           }
           
           $timeout(function() {
@@ -51,7 +68,7 @@ angular.module('SWEApp').controller(
     $scope.logout = function() {
       Factory.logout();
     }
-
+  
     $scope.emailClient = function(loanID, userEmail, clientName) {
 
       if (!userEmail) {

@@ -6,6 +6,10 @@ var auth  = require("./auth.js") ;
 var loans = require("./db/loans.crud.js") ;
 var users = require("./db/users.crud.js") ;
 
+//----------------------------------------------------------------------------------------------------------------------
+// AUTHENTICATION, EMAILS, ETC.
+//----------------------------------------------------------------------------------------------------------------------
+
 router.route('/auth')
       .post(auth.authenticate);
 
@@ -24,29 +28,33 @@ router.route('/info').get(
     });
 });
 
-// # LOANS
-// > 'Multiple' loans
+//----------------------------------------------------------------------------------------------------------------------
+// LOANS
+//----------------------------------------------------------------------------------------------------------------------
+
+// Multiple loans
 router.route('/loans')
       .put(loans.getAll)
       .post(loans.create);
       
-// > Individual loan
+// Individual loan
 router.route('/loan/:loanID')
       .get(loans.read)
       .put(loans.update)
       .delete(loans.delete) ;
-
-// > 'Multiple' loans under the specified user
+      
+// Multiple loans under the specified user
 router.route('/loans/:userID')
       .get(loans.loansByUserID);
       
-// > 'Multiple' loans under the specified user
-router.route('/loansByUserInfo/:token')
+// Multiple loans under the currently logged-in User
+router.route('/loansByUser/:token')
       .get(users.userByID, loans.loansByUserID);
+      
+//----------------------------------------------------------------------------------------------------------------------
+// USERS
+//----------------------------------------------------------------------------------------------------------------------
 
-router.param('loanID', loans.loanByID) ;
-
-// # USERS
 // > Individual user
 router.route('/user/:userID')
       .get(users.read)
@@ -58,6 +66,10 @@ router.route('/users')
       .get(users.getAll, users.returnUsers)
       .post(users.create, auth.login) ;
 
+//----------------------------------------------------------------------------------------------------------------------
+// Routing parameters
+//----------------------------------------------------------------------------------------------------------------------
+router.param('loanID', loans.loanByID) ;
 router.param('userID', users.userByID) ;
 router.param('token', auth.decodeToken);
 // router.param('userInfo', function(req, res, next, userInfo) { req.userInfo = userInfo; next(); }) ;
