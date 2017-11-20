@@ -1,4 +1,4 @@
-angular.module('SWEApp').controller(
+loaangular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
