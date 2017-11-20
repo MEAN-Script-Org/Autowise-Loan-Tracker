@@ -1,99 +1,133 @@
 angular.module('SWEApp').factory('Factory', ['$http', '$window',
   function($http, $window) {
+    
+    var addToken = function(token) {
+        $window.localStorage.setItem('token', token);
+    }
+
+    var getToken = function() {
+
+      var token = $window.localStorage.getItem('token');
+      if (token)
+        token = [token, $window.fingerprint.md5hash];
+      return token;
+    }
+
+    var removeToken = function() {
+      $window.localStorage.removeItem('token');
+    }
+    
+    // READ:
+    //      DO NOT MAKE 'GET' METHODS THAT HANDLE TOKENS!!!! THEY DON'T WORK!
     var methods = {
       
+      //----------------------------------------------------------------------------------------------------------------
       // Emailing
+      //----------------------------------------------------------------------------------------------------------------
       sendEmail: function(updates) {
-        return $http.post('/api/email', updates);
+        var args = Object.assign(updates, {token: getToken()});
+        return $http.post('/api/email', args);
       },
-      // Uers CRUD
+
+      //----------------------------------------------------------------------------------------------------------------
+      // Users CRUD
+      //----------------------------------------------------------------------------------------------------------------
       newUser: function(User) {
-        return $http.post('/api/users', User);
-      },
-      getUsernames: function() {
-        return $http.get('/api/usernames');
-      },
-      getAllUsers: function() {
-        return $http.get('/api/users');
-      },
-      getUser: function(id) {
-        return $http.get('/api/user/' + id);
-      },
-      getUserInfo: function() {
-        return $http.get('/api/info');
-      },
-
-      // Loans CRUD
-      newLoan: function(loan) {
-        return $http.post('/api/loans', loan);
-      },
-      getLoans: function() {
-        return $http.get('/api/loans');
-      },
-      getLoan: function(id) {
-        return $http.get('/api/loan/' + id);
-      },
-      getLoansOfUser: function(user_id) {
-        return $http.get('/api/loans/' + user_id);
-      },
-      deleteLoan: function(id) {
-        return $http.delete('/api/loan/' + id);
-      },
-      modifyLoan: function(id, updatedLoan) {
-        return $http.put('/api/loan/' + id, updatedLoan);
-      },
-
-      // AUTH METHODS
-      // Adds token to local storage
-      addToken: function(token) {
-        $window.localStorage.setItem('token', token);
-      },
-
-      removeToken: function() {
-        $window.localStorage.removeItem('token');
-      },
-
-      logout: function() {
-        this.removeToken();
-        $http.get('/');
-      },
-
-      getToken: function() {
-        var token = $window.localStorage.getItem('token');
-        console.log(token);
-        return token;
-      },
-
-      isLoggedIn: function() {
-        return true ? this.getToken() : false;
-      },
-
-      login: function(loginData) {
-        return $http.post('/api/authenticate', loginData).then(function(res) {
-          if (res.data.token) {
-            console.log(res.data.token);
-            this.addToken(res.data.token);
-            return res;
-          } else alert(res.data.err);
+        console.log(User);
+        var args = Object.assign(User, {token: getToken()});
+        
+        return $http.post('/api/users', args).then(
+          function(res) {
+            addToken(res.data);
+            $window.location.href = '/login';
+          },
+          function(err, message) {
+            alert(message + err + JSON.stringify(err));
         });
       },
-
-      getUser: function() {
-        var token = this.getToken();
-
-        if (token) {
-          return $http.post('/api/me', { token });
-        } else {
-          $q.reject({ message: 'USer has no token' });
-        }
+      getUsernames: function() {
+        return $http.get('/usernames');
       },
-
-      request: function(config) {
-        var token = this.getToken();
-        if (token) config.headers['x-access-token'] = token;
-        return config;
+      getAllUsers: function() {
+        var args = {token: getToken()};
+        return $http.get('/api/users', args);
       },
+      getUser: function(id) {
+        var args = {token: getToken()};
+        return $http.get('/api/user/' + id, args);
+      },
+      
+      // TODO: Implement this
+      // getUserInfo: function() {
+      //   var args = {token: getToken()};
+      //   return $http.get('/api/info', args);
+      // },
 
+      //----------------------------------------------------------------------------------------------------------------
+      // Loans CRUD
+      //----------------------------------------------------------------------------------------------------------------
+      newLoan: function(loan) {
+        var args = Object.assign(loan,   {token: getToken()});
+        return $http.post('/api/loans', args);
+      },
+      getLoans: function() {
+        var args = {token: getToken()};
+        return $http.put('/api/loans', args);
+      },
+      getLoan: function(id) {
+        var args = {token: getToken()};
+        return $http.get('/api/loan/' + id, args);
+      },
+      deleteLoan: function(id) {
+        var args = {token: getToken()};
+        return $http.delete('/api/loan/' + id, args);
+      },
+      modifyLoan: function(id, updatedLoan) {
+        // var args = {token: getToken()};
+        var args = Object.assign(updatedLoan, {token: getToken()});
+        return $http.put('/api/loan/' + id, args);
+      },
+      
+      //----------------------------------------------------------------------------------------------------------------
+      // CRUD operations on loans of specific Users
+      //----------------------------------------------------------------------------------------------------------------
+      getLoansOfUser: function() {
+        var args = {token: getToken()};
+        return $http.get('/api/loansByUser/', args);
+      },
+      // Bug => get requests don't seem to be accepting args.... interesting
+
+      //----------------------------------------------------------------------------------------------------------------
+      // Authentication
+      //----------------------------------------------------------------------------------------------------------------
+      addToken: function(token) {
+        addToken(token);
+      },
+      getToken: function() {
+        return getToken();
+      },
+      removeToken: function() {
+        removeToken();
+      },
+      register: function(loginData) {
+        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
+        console.log(args);
+        return $http.post('/api/users', args);
+      },
+      login: function(loginData) {
+        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
+        console.log(args);
+        return $http.post('/login', args);
+      },
+      isLoggedIn: function() {
+        var token = getToken();
+        // console.log(token);
+        return $http.post('/api/auth', {token});
+      },
+      logout: function() {
+        removeToken();
+        $window.location.href = '/login';
+      },
     };
     
     return methods;

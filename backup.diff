@@ -1,0 +1,1094 @@
+diff --git a/README.md b/README.md
+index 33ccda2..5349abf 100644
+--- a/README.md
++++ b/README.md
+@@ -46,7 +46,7 @@
+         - Taxes
+         - Warranties ? => CHECK PICTURES. NEED MORE DETAILS
+     - Types
+-        - Auto Loan
++        - Auto Loan => default
+         - Repair
+         - Admin - need more details on this. Administrative fees?
+     - Trades
+diff --git a/client/angular/crud.controller.js b/client/angular/crud.controller.js
+index 509fe1d..eb8c8e1 100644
+--- a/client/angular/crud.controller.js
++++ b/client/angular/crud.controller.js
+@@ -15,7 +15,7 @@ angular.module('SWEApp').controller('CRUDController',
+     //   $(".sb-search-input").toggleClass("sb-search-open");
+     //   console.log("dalee");
+     // }
+-    
++
+     Factory.getUserInfo().then(function(response) {
+       $scope.commentAsAdmin = false;
+ 
+@@ -30,7 +30,7 @@ angular.module('SWEApp').controller('CRUDController',
+       // $rootScope.user_email = response.data.email;
+       $rootScope.user_isAdmin = response.data.isAdmin;
+     });
+-    
++
+     $scope.init = function() {
+       console.log("MEAN App on it's way!");
+ 
+@@ -45,14 +45,14 @@ angular.module('SWEApp').controller('CRUDController',
+           else {
+             console.log("DB is empty ~");
+           }
+-          
++
+           $timeout(function() {
+             $rootScope.loading = false;
+           }, 3000);
+         }
+       );
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // LOAN CRUD FUNCTIONS - SINGLE
+     //------------------------------------------------------------------------------------------------------------------
+@@ -85,7 +85,7 @@ angular.module('SWEApp').controller('CRUDController',
+         }
+       );
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // Removes a single loan of the specified ID
+     //------------------------------------------------------------------------------------------------------------------
+@@ -120,8 +120,8 @@ angular.module('SWEApp').controller('CRUDController',
+         );
+       }
+     }
+-    
+-    // Marcial: Read the comments on 
++
++    // Marcial: Read the comments on
+     // percentage from status of loan
+     $scope.statusPercentage = function(status){
+         switch(angular.lowercase(status))
+@@ -150,7 +150,7 @@ angular.module('SWEApp').controller('CRUDController',
+                 break;
+         }
+     }
+-    
++
+     // Color from status of loan
+     // Marcial:
+     //    Ya this is not a good way...
+@@ -182,11 +182,11 @@ angular.module('SWEApp').controller('CRUDController',
+           break;
+       }
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // Updates the status of a single loan of the specified ID
+     //------------------------------------------------------------------------------------------------------------------
+-    // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs, 
++    // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs,
+     //             then iterate for attributes
+     $scope.changeLoanStatus = function(loanID, newStatus) {
+       Factory.modifyLoan(loanID, {status: newStatus}).then(
+@@ -200,7 +200,7 @@ angular.module('SWEApp').controller('CRUDController',
+               }
+             }
+           });
+-          
++
+           // if (displayAlert)
+           //   alert("Successfully updated loan to status '" + newStatus + "'");
+         },
+@@ -210,7 +210,7 @@ angular.module('SWEApp').controller('CRUDController',
+         }
+       );
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // Archives the loan of the specified ID
+     //------------------------------------------------------------------------------------------------------------------
+@@ -235,11 +235,11 @@ angular.module('SWEApp').controller('CRUDController',
+             $scope.removeLoan(loanID, true) ;
+         });
+         $rootScope.massLoans = [];
+-        
++
+         alert("All selected loans have been deleted") ;
+       }
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
+     //------------------------------------------------------------------------------------------------------------------
+@@ -247,10 +247,10 @@ angular.module('SWEApp').controller('CRUDController',
+       if (newStatus) {
+         $rootScope.massLoans.forEach(
+           function(loanID) {
+-            $scope.changeLoanStatus(loanID, newStatus)          
++            $scope.changeLoanStatus(loanID, newStatus)
+             $scope.clearCheckbox(loanID);
+         });
+-        
++
+         // Clearing var once done
+         $rootScope.massLoans = [];
+         alert("All selected loans have been '" + newStatus + "'") ;
+@@ -258,7 +258,7 @@ angular.module('SWEApp').controller('CRUDController',
+         alert("Nothing was changed");
+       }
+     }
+-    
++
+     //------------------------------------------------------------------------------------------------------------------
+     // OTHER FUNCTIONS
+     //------------------------------------------------------------------------------------------------------------------
+@@ -270,7 +270,7 @@ angular.module('SWEApp').controller('CRUDController',
+         $rootScope.massLoans.forEach(
+           function(loanID) {
+             // This will log each loan id in 'massLoans'
+-            // But what's the point? 
++            // But what's the point?
+             console.log("Loan selected: " + loanID);
+         });
+       } else {
+@@ -282,7 +282,7 @@ angular.module('SWEApp').controller('CRUDController',
+         });
+       }
+     }
+-    
++
+     // TODO LATER: Same comment as 'changeLoanStatus' ~
+     // Clearing frontend checkboxes
+     $scope.clearCheckbox = function(loanID) {
+@@ -308,7 +308,7 @@ angular.module('SWEApp').controller('CRUDController',
+       return $rootScope.loans.some(function(item, index, loans) {
+         if (item._id) {
+           if (item._id == loanID) {
+-            
++
+             var newComment = {
+               admin: loans[index].commentAsAdmin,
+               writer: $rootScope.user_name,
+diff --git a/client/crud-email-test.ejs b/client/crud-email-test.ejs
+index 282b803..921e507 100644
+--- a/client/crud-email-test.ejs
++++ b/client/crud-email-test.ejs
+@@ -52,16 +52,12 @@
+       </div>
+     </div>
+ 
+-    <!-- 
+-    <a href="http://swe-2017.herokuapp.com/loan/" target="_blank"> helloooo test </a>
+-     -->
+-
+     <form ng-submit="addLoan()">
+       <h3>New Loan</h3>
+       <input placeholder="Name" type="text" ng-model="newLoan.name" required>
+       <input placeholder="Email" type="email" ng-model="newLoan.user_email">
+       <input type="submit" class="btn btn-default">
+-      <input type="submit" style="display: none">
++      <input type="submit" class="hidden">
+     </form>
+ </div>
+ 
+diff --git a/client/css/styles.css b/client/css/styles.css
+index 69ea456..f9ea26d 100644
+--- a/client/css/styles.css
++++ b/client/css/styles.css
+@@ -1569,6 +1569,15 @@ p.back-link {
+ 
+ /* Above are template styles */
+ 
++/* General Styles */
++.hidden {
++    display: none;
++}
++
++.centered-text {
++    text-align: center;
++}
++
+ /* loading... *animated* */
+ #loader {
+     display: block;
+@@ -1627,6 +1636,23 @@ img#loader{
+   }
+ }
+ 
++/* Modified Bootstrap Modal style */
++.modal-header .close {
++    margin-top: 15px;
++
++}
++.modal-header, .modal-footer {
++    border: none;
++}
++
++.modal-header, .modal-body {
++    padding-bottom: 0px;
++}
++
++.tab-content, .modal-body, .modal-header, .modal-footer {
++    padding-top: 0px;
++}
++
+ /* Login style */
+ .login-panel.panel.panel-default > * {
+     text-align: center;
+@@ -1641,15 +1667,38 @@ div.left-text {
+ }
+ 
+ /* Warranties Styles */
++/* . => class */
++/* # => id */
+ .warrantiesQueryText > div > h4, 
+ .warrantiesQueryText > div > h2 {
+     /*width: 48%;*/
+     color: white;
+ }
+ 
++<<<<<<< HEAD
+ /* Progress bar style */
+ .
+ 
++=======
++/* Progress bar styles */
++/* Only need these two fields */
++.received-progress {
++    width: 20%;
++    background-color: #6495ed;
++}
++
++/* now the rest of the pairs... */
++
++.right-right {
++    width: 48%; 
++    text-align: right;
++}
++
++.left-left {
++    width: 48%; 
++    text-align: left;
++}
++>>>>>>> 4a967c9fb59db0f19a4beb482a046715f07e2c9e
+ 
+ /*CHECK BOX*/
+ 
+@@ -1690,6 +1739,7 @@ div.left-text {
+ /* Create a custom checkbox */
+ .checkmark {
+     position: absolute;
++    
+     height: 25px;
+     width: 25px;
+     background-color: #eee;
+diff --git a/client/js/accord.js b/client/js/accord.js
+index 85a8ae6..faab0ca 100644
+--- a/client/js/accord.js
++++ b/client/js/accord.js
+@@ -6,7 +6,6 @@ angular.module('SWEApp').controller('AccordFuncController',
+   ['$scope', '$location', 'Factory',
+   function($scope, $location, Factory) {
+ 
+-    // MARK: Search
+     // search function for specifying loan criteria
+     $scope.search = function(loan) {
+       
+diff --git a/client/panels.html b/client/panels.html
+index e1c1581..b177e87 100644
+--- a/client/panels.html
++++ b/client/panels.html
+@@ -377,12 +377,14 @@
+ 	
+ 		<script src="js/jquery-1.11.1.min.js"></script>
+ 	<script src="js/bootstrap.min.js"></script>
++	<!-- 
+ 	<script src="js/chart.min.js"></script>
+ 	<script src="js/chart-data.js"></script>
+ 	<script src="js/easypiechart.js"></script>
+ 	<script src="js/easypiechart-data.js"></script>
+ 	<script src="js/bootstrap-datepicker.js"></script>
+ 	<script src="js/custom.js"></script>
++	 -->
+ 	
+ </body>
+ </html>
+diff --git a/client/partials/google_buttons.ejs b/client/partials/google_buttons.ejs
+index 529d2ef..2bddf5d 100644
+--- a/client/partials/google_buttons.ejs
++++ b/client/partials/google_buttons.ejs
+@@ -17,14 +17,20 @@
+ </div>
+ 
+ <!-- Buttons -->
+-<a class="float-btn" id="menu-share" data-target="#buyerModal" data-toggle="modal" 
++<a class="float-btn" id="menu-share" data-target="#buyersOrderModal" data-toggle="modal" 
+    ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
+     <em class="fa fa-plus float-child"></em>
+ </a>
+ <ul id="float-list" ng-show="massLoans.length > 0">
++    <li data-target="#buyerModal" data-toggle="modal" 
++        ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
++      <a id="float-edit">
++        <em class="fa fa-file float-child"></em>
++      </a>
++    </li>
++
+     <!-- data-target="#deleteModal" data-toggle="modal"  -->
+-    <li 
+-        ng-click="removeEnMass()"
++    <li ng-click="removeEnMass()"
+         ng-mouseenter="DelTip=true" ng-mouseleave="DelTip=false">
+       <a id="float-trash">
+         <em class="fa fa-trash float-child"></em>
+@@ -32,16 +38,16 @@
+     </li>
+ 
+     <!-- data-target="#archiveModal" data-toggle="modal"  -->
+-    <li 
+-        ng-click="updateStatusEnMass('Archived')"
++    <li ng-click="updateStatusEnMass('Archived')"
+         ng-mouseenter="ArcTip=true" ng-mouseleave="ArcTip=false">
+       <a id="float-archive">
+         <em class="fa fa-archive float-child"></em>
+       </a>
+     </li>
+ 
++        <!-- ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false" -->
+     <li data-target="#changeModal" data-toggle="modal" 
+-        ng-mouseenter="StatTip=true" ng-mouseleave="StatTip=false">
++        >
+       <a id="float-edit">
+         <em class="fa fa-edit float-child"></em>
+       </a>
+diff --git a/client/partials/modals.ejs b/client/partials/modals.ejs
+index 5601428..4cf1095 100644
+--- a/client/partials/modals.ejs
++++ b/client/partials/modals.ejs
+@@ -1,377 +1,321 @@
+-
+-
+ <!-- The below are not needed -->
+ <!--
++  OLD DELETE MODAL
+ <div class="container">
+-    <div class="row">
+-        <div class="col-xs-12">
+-            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="deleteModal" tabindex="-1">
+-                <div class="modal-dialog">
+-                    <div class="modal-content">
+-                        <div class="modal-header">
+-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+-                            <h4 class="modal-title">Delete Loans</h4>
+-                        </div>
+-                        <div class="modal-body">
+-                            <form>
+-                                Delete The Selected Loans:<br>
+-                                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button><br>
+-                            </form>
+-                        </div>
+-                        <div class="modal-footer">
+-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+-                        </div>
+-                    </div>
+-                </div>
++  <div class="row">
++    <div class="col-xs-12">
++      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="deleteModal" tabindex="-1">
++        <div class="modal-dialog">
++          <div class="modal-content">
++            <div class="modal-header">
++              <button type="button" class="close" data-dismiss="modal">&times;</button>
++              <h4 class="modal-title">Delete Loans</h4>
++            </div>
++            <div class="modal-body">
++              <form>
++                Delete The Selected Loans:
++                <br>
++                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeEnMass()">Delete Selected Loans</button>
++                <br>
++              </form>
++            </div>
++            <div class="modal-footer">
++              <button class="btn btn-primary" data-dismiss="modal">Close</button>
+             </div>
++          </div>
+         </div>
++      </div>
+     </div>
++  </div>
+ </div>
++
++  OLD ARCHIEVE MODAL
+ <div class="container">
+-    <div class="row">
+-        <div class="col-xs-12">
+-            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="archiveModal" tabindex="-1">
+-                <div class="modal-dialog">
+-                    <div class="modal-content">
+-                        <div class="modal-header">
+-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+-                            <h4 class="modal-title">Archive Loans</h4>
+-                        </div>
+-                        <div class="modal-body">
+-                            <form>
+-                                Archive The Selected Loans:<br>
+-                                <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass('ARCHIVED')">Archive Selected Loans</button><br> </form>
+-                        </div>
+-                        <div class="modal-footer">
+-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+-                        </div>
+-                    </div>
+-                </div>
++  <div class="row">
++    <div class="col-xs-12">
++      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="archiveModal" tabindex="-1">
++        <div class="modal-dialog">
++          <div class="modal-content">
++            <div class="modal-header">
++              <button type="button" class="close" data-dismiss="modal">&times;</button>
++              <h4 class="modal-title">Archive Loans</h4>
++            </div>
++            <div class="modal-body">
++              <form>
++                Archive The Selected Loans:
++                <br>
++                <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass('ARCHIVED')">Archive Selected Loans</button>
++                <br> </form>
++            </div>
++            <div class="modal-footer">
++              <button class="btn btn-primary" data-dismiss="modal">Close</button>
+             </div>
++          </div>
+         </div>
++      </div>
+     </div>
++  </div>
+ </div>
+--->
++ -->
+ 
++<!-- change status modal -->
+ <div class="container">
+-    <div class="row">
+-        <div class="col-xs-12">
+-            <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
+-                <div class="modal-dialog">
+-                    <div class="modal-content">
+-                        <div class="modal-header" style="text-align: center;">
+-                            <button type="button" class="close" data-dismiss="modal">
+-                                &times;
+-                            </button>
+-
+-                            <span>
+-                                <h3>Change the status of the selected loans to</h3>
+-                                <!-- <br> -->
+-                                <select name="Loan Status" ng-model="newStatus">
+-                                    <option value="" disabled selected>New Status</option>
+-                                    <option value="RECEIVED">Received</option>
+-                                    <option value="SUBMITTED">Submitted</option>
+-                                    <option value="PENDING">Pending</option>
+-                                    <option value="VERIFIED">Verified</option>
+-                                    <option value="APPROVED">Approved</option>
+-                                    <option value="DENIED">Denied</option>
+-                                </select>
+-                            </span>
+-                        </div>
+-                        <div class="modal-footer">
+-                            <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass(newStatus)">Update</button>
+-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+-                        </div>
+-                    </div>
+-                </div>
++  <div class="row">
++    <div class="col-xs-12">
++      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
++        <div class="modal-dialog">
++          <div class="modal-content">
++            <div class="modal-header centered-text">
++              <button type="button" class="close" data-dismiss="modal">
++                &times;
++              </button>
++              <span>
++                <h3>Change the status of the selected loans to</h3>
++                <!-- <br> -->
++                <select name="Loan Status" ng-model="newStatus">
++                    <option disabled selected>New Status</option>
++                    <option value="RECEIVED">Received</option>
++                    <option value="SUBMITTED">Submitted</option>
++                    <option value="PENDING">Pending</option>
++                    <option value="VERIFIED">Verified</option>
++                    <option value="APPROVED">Approved</option>
++                    <option value="DENIED">Denied</option>
++                </select>
++                </span>
+             </div>
++            <div class="modal-footer">
++              <button class="btn btn-primary" data-dismiss="modal" ng-click="updateStatusEnMass(newStatus)">Update</button>
++              <button class="btn btn-primary" data-dismiss="modal">Close</button>
++            </div>
++          </div>
+         </div>
++      </div>
+     </div>
++  </div>
+ </div>
+ 
++<!-- Simple New Loan modal -->
+ <div class="row">
+-    <div class="col-xs-12">
+-        <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
+-        <!-- <div class="modal fade" data-backdrop="static" id="wew" tabindex="-1"> -->
+-            <div class="modal-dialog">
+-                <div class="modal-content">
+-                    <div class="modal-header">
+-                        <button type="button" class="close" data-dismiss="modal">
+-                            &times;
+-                        </button>
+-
+-                        <form>
+-                          <h3>New Loan</h3>
+-                          <input placeholder="Name" type="text" ng-model="newLoan.name" required>
+-                          <input placeholder="Email" type="email" ng-model="newLoan.user_email">
+-                          <select ng-model="newLoan.type">
+-                            <option value="" disabled selected>Select loan type</option>
+-                            <option value="auto">Auto Loan</option>
+-                            <option value="repair">Repair</option>
+-                            <option value="admin">Admin</option>
+-                          </select>
+-
+-                          <!-- <input type="submit" class="btn btn-default"> -->
+-                          <!-- <input type="submit" data-dismiss="modal" style="display: none"> -->
+-                        </form>
+-                    </div>
+-                    <div class="modal-footer">
+-                        <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoan()">Create</button>
+-                        <button class="btn btn-primary" data-dismiss="modal">Close</button>
+-                    </div>
+-                </div>
+-            </div>
++  <div class="col-xs-12">
++    <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
++      <div class="modal-dialog">
++        <div class="modal-content">
++          <div class="modal-header">
++            <button type="button" class="close" data-dismiss="modal">
++              &times;
++            </button>
++            <form>
++              <h3>New Loan</h3>
++              <input placeholder="Name" type="" ng-model="newLoan.name" required>
++              <input placeholder="Email" type="email" ng-model="newLoan.user_email">
++              <select ng-model="newLoan.type">
++                <option value="" disabled>Select loan type</option>
++                <option value="auto" selected>Auto Loan</option>
++                <option value="repair">Repair</option>
++                <option value="admin">Admin</option>
++              </select>
++              <!-- <input type="submit" class="btn btn-default"> -->
++              <!-- <input type="submit" class="hidden" data-dismiss="modal"> -->
++            </form>
++          </div>
++          <div class="modal-footer">
++            <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoan()">Create</button>
++            <button class="btn btn-primary" data-dismiss="modal">Close</button>
++          </div>
+         </div>
++      </div>
+     </div>
++  </div>
+ </div>
+ 
+-
++<!-- Buyers order -->
+ <div class="row">
+-    <div class="col-xs-12">
+-        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="wew" tabindex="-1">
+-            <div class="modal-dialog">
+-                <div class="modal-content">
+-                    <div class="modal-header">
+-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+-                        <h4 class="modal-title">Buyers Order</h4>
+-                    </div>
+-                    <div class="modal-body">
+-                        <form>
+-                            Please Enter the fields for the Buyers Order<br>
+-                            Form Date:
+-                            <input type="date" name="form-date">
+-                            <br>
+-                            Car used: <select name="is-car-used">
+-                                        <option value = "True">True</option>
+-                                        <option value = "False">False</option>
+-                                      </select><br>
+-                            Email:
+-                            <input type="text" name="E-mail">
+-                            <br>
+-                            <h3>Purchaser Info</h3><br>
+-                            Name:
+-                            <input type="text" name="Purchaser-name">
+-                            <br>
+-                            DL:
+-                            <input type="text" name="Purchaser-dl">
+-                            <br>
+-                            Date of Birth:
+-                            <input type="date" name="Purchaser-dob">
+-                            <br>
+-                            <h3>Co-purchaser Info</h3><br>
+-                            Name:
+-                            <input type="text" name="copurchaser-name">
+-                            <br>
+-                            DL:
+-                            <input type="text" name="copurchaser-dl">
+-                            <br>
+-                            Date Of Birth:
+-                            <input type="date" name="copurchaser-dob">
+-                            <br>
+-                            <h3>Contact Address</h3><br>
+-                            Street:
+-                            <input type="text" name="contact-street-address">
+-                            <br>
+-                            City:
+-                            <input type="text" name="contact-city">
+-                            <br>
+-                            State:
+-                            <input type="text" name="contact-state">
+-                            <br>
+-                            County:
+-                            <input type="text" name="contact-county">
+-                            <br>
+-                            Zipcode:
+-                            <input type="text" name="contact-zip">
+-                            <br>
+-                            <h3>Contact Phone</h3><br>
+-                            Home Phone:
+-                            <input type="number" name="contact-home-phone">
+-                            <br>
+-                            Work Phone:
+-                            <input type="number" name="contact-work-phone">
+-                            <br>
+-                            Cell Phone:
+-                            <input type="number" name="contact-cell-phone">
+-                            <br>
+-                            <h3>Car Information</h3><br>
+-                            Year:
+-                            <input type="number" name="car-year">
+-                            <br>
+-                            Make:
+-                            <input type="text" name="car-make">
+-                            <br>
+-                            Model:
+-                            <input type="text" name="car-model">
+-                            <br>
+-                            Type:
+-                            <input type="text" name="car-type">
+-                            <br>
+-                            Color:
+-                            <input type="text" name="car-color">
+-                            <br>
+-                            Cyl:
+-                            <input type="text" name="car-cyl">
+-                            <br>
+-                            Serial Number:
+-                            <input type="text" name="car-serial-no">
+-                            <br>
+-                            Stock Number:
+-                            <input type="text" name="car-stock-num">
+-                            <br>
+-                            Mileage:
+-                            <input type="number" name="car-mileage">
+-                            <br>
+-                            Salesperson:
+-                            <input type="text" name="car-salesperson">
+-                            <br>
+-                            Lender:
+-                            <input type="text" name="car-lender">
+-                            <br>
+-                            Purchased new tag:
+-                            <input type="text" name="car-purchase-new-tag">
+-                            <br>
+-                            Transfer:
+-                            <input type="text" name="car-transfer">
+-                            <br>
+-                            Tag Number:
+-                            <input type="text" name="car-tag-no">
+-                            <br>
+-                            Plate Number:
+-                            <input type="text" name="car-plate-no">
+-                            <br>
+-                            Expiration Date:
+-                            <input type="text" name="car-exp-date">
+-                            <br>
+-                            <h3>Financing</h3><br>
+-                            Nada Retail:
+-                            <input type="number" name="nada_retail">
+-                            <br>
+-                            Accessories:
+-                            <input type="text" name="accessories">
+-                            <br>
+-                            Total Sale Price:
+-                            <input type="number" name="total-sale-price">
+-                            <br>
+-                            Trade Allowance:
+-                            <input type="number" name="trade-allowance">
+-                            <br>
+-                            Trade Difference:
+-                            <input type="number" name="trade-difference">
+-                            <br>
+-                            Admin Fees:
+-                            <input type="number" name="admin-fees">
+-                            <br>
+-                            Waste Tire Batt Fee:
+-                            <input type="number" name="waste-tire-batt-fee">
+-                            <br>
+-                            Sub Total a:
+-                            <input type="number" name="sub-total-a">
+-                            <br>
+-                            Sales Tax is County: <select name="sales-tax-is-county">
+-                                <option value = "True">True</option>
+-                                <option value = "False">False</option>
+-                            </select><br>
+-                            Sales Tax Percentage:
+-                            <input type="number" name="percentage">
+-                            <br>
+-                            Estimated Fees:
+-                            <input type="number" name="estimated-fees">
+-                            <br>
+-                            Lemon Law Fee:
+-                            <input type="number" name="lemon-law-fee">
+-                            <br>
+-                            Sub Total b:
+-                            <input type="number" name="sub-total-b">
+-                            <br>
+-                            Balance Owed:
+-                            <input type="number" name="bal-owed-on-trade">
+-                            <br>
+-                            Total Due:
+-                            <input type="number" name="total-due">
+-                            <br>
+-                            Down Payment:
+-                            <input type="number" name="down-payment">
+-                            <br>
+-                            Unpaid Due:
+-                            <input type="number" name="unpaid-due">
+-                            <br>
+-                            <h3>Insurance Information</h3><br>
+-                            Policy Number:
+-                            <input type="number" name="ins-policy-num">
+-                            <br>
+-                            Company:
+-                            <input type="text" name="company">
+-                            <br>
+-                            Agent:
+-                            <input type="text" name="agent">
+-                            <br>
+-                            Phone Number:
+-                            <input type="number" name="phone-num">
+-                            <br>
+-                            Eff Dates:
+-                            <input type="text" name="eff-dates">
+-                            <br>
+-                            Verified By:
+-                            <input type="text" name="verif-by">
+-                            <br>
+-                            <h3>Trades Information</h3><br>
+-                            Car Year:
+-                            <input type="number" name="car-year">
+-                            <br>
+-                            Car Make:
+-                            <input type="text" name="car-make">
+-                            <br>
+-                            Car Model:
+-                            <input type="text" name="car-model">
+-                            <br>
+-                            Car Type:
+-                            <input type="text" name="car-type">
+-                            <br>
+-                            Car Color:
+-                            <input type="text" name="car-color">
+-                            <br>
+-                            Car Cyl:
+-                            <input type="text" name="car-cyl">
+-                            <br>
+-                            Serial Number:
+-                            <input type="text" name="car-serial-no">
+-                            <br>
+-                            Account Number:
+-                            <input type="text" name="account-num">
+-                            <br>
+-                            Mileage:
+-                            <input type="number" name="car-mileage">
+-                            <br>
+-                            Phone Number:
+-                            <input type="number" name="phone-num">
+-                            <br>
+-                            Holder:
+-                            <input type="text" name="holder">
+-                            <br>
+-                            Address:
+-                            <input type="text" name="address">
+-                            <br>
+-                            Amount:
+-                            <input type="number" name="amount">
+-                            <br>
+-                            Qualified By:
+-                            <input type="text" name="qualif-by">
+-                            <br>
+-                            Verified By:
+-                            <input type="text" name="verif-by">
+-                            <br>
+-                            Good Through:
+-                            <input type="date" name="good-thru">
+-                            <br>
+-                        </form>
+-                    </div>
+-                    <div class="modal-footer">
+-                        <button class="btn btn-primary">Update</button>
+-                        <button class="btn btn-primary" data-dismiss="modal">Close</button>
+-                    </div>
+-                </div>
++  <div class="col-xs-12">
++    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyersOrderModal" tabindex="-1">
++      <!-- Marcial: Need better Modal CSS -->
++      <!--          Doesn't need to be mobile friendly -->
++      <div class="modal-dialog" style="width: 60%; min-width: 615px;">
++      <!-- <div class="modal-dialog" style=""> -->
++        <div class="modal-content">
++          <div class="modal-header">
++            <button type="button" class="close" data-dismiss="modal">&times;</button>
++            <h2>Buyers Order</h2>
++            <!-- ["cutomer-info", "car-info", "financing", "trade-info", "insurance"] -->
++            <ul class="nav nav-tabs" id="tabContent">
++              <li class="active">
++                <a href="#customer-info" data-toggle="tab">Customer Info</a>
++              </li>
++              <li> <a href="#car-info" data-toggle="tab">Car Info</a> </li>
++              <li> <a href="#financing" data-toggle="tab">Financing</a> </li>
++              <li> <a href="#trade-info" data-toggle="tab">Trade Info</a> </li>
++              <li> <a href="#insurance" data-toggle="tab">Insurance</a> </li>
++            </ul>
++          </div>
++          <div class="modal-body">
++            <!--
++              Form Date:
++              <input type="date" name="form-date">
++              <br>
++              today's should be default
++             -->
++            <div class="tab-content">
++              <!-- Please Enter the fields for the Buyers Order<br> -->
++              <div class="tab-pane active" id="customer-info">
++                <h3>Customer Information</h3>
++                <br>
++                Name <input name="customer-name"   placeholder="Required"  type="" required> <br>
++                Email <input name="customer-email" placeholder="Required"  type="" required> <br>
++                DL <input name="customer-dl"       placeholder="Required"  type="" required> <br>
++                DOB <input name="customer-dob"                             type="date" required> <br>
++                <br>
++                Phone # <input name="customer-phone" placeholder="Required"  type="tel" required> <br>
++                Home # <input name="customer-home"                            type="tel" > <br>
++                Work # <input name="customer-work"                            type="tel" > <br>
++                <br>
++
++                <h4> Adding a Co-Purchaser? </h4>
++                <!-- These need to be on the same line ... c'mon CSS... -->
++                <!-- ng-value?? need an angular value that's boolean... -->
++                <!-- ng-model="is_cosigning" -->
++                <select >
++                  <option value="true">Yes</option>
++                  <option value="false" selected>No</option>
++                </select>
++                <br>
++
++                <br>
++                Name <input name="copurchaser-name"   placeholder="Required"  type="" required> <br>
++                Email <input name="copurchaser-email" placeholder="Required"  type="" required> <br>
++                DL <input name="copurchaser-dl"       placeholder="Required"  type="" required> <br>
++                DOB <input name="copurchaser-dob"                             type="date" required> <br>
++                <br>
++                Phone # <input name="copurchaser-phone" placeholder="Required"  type="tel" required> <br>
++                Home # <input name="copurchaser-home"                           type="tel" > <br>
++                Work # <input name="copurchaser-work"                           type="tel" > <br>
++                <br>
++
++                <!-- <h4>Address</h4> -->
++                Street <input type="" name="contact-street-address"> <br>
++                City <input type="" name="contact-city"> <br>
++                State <input type="" name="contact-state"> <br>
++                County <input type="" name="contact-county"> <br>
++                Zipcode <input type="" name="contact-zip"> <br>
++                <br>
++              </div>
++
++              <div class="tab-pane" id="car-info">
++                <h3> Wanted Car Information </h3>
++                Car type:
++                <select name="is-car-used">
++                  <option disabled selected>Choose an option</option>
++                  <option value="new">NEW</option>
++                  <option value="used">Used</option>
++                </select>
++
++                <br>
++                Year <input type="number" name="car-year"> <br>
++                Make <input type="" name="car-make"> <br>
++                Model <input type="" name="car-model"> <br>
++                Type <input type="" name="car-type"> <br>
++                Color <input type="" name="car-color"> <br>
++                Mileage <input type="number" name="car-mileage"> <br>
++                <br>
++
++                <h4> Optional Information </h4>
++                Cylinders <input type="" name="car-cyl"> <br>
++                Serial Number <input type="" name="car-serial-no"> <br>
++                Stock Number <input type="" name="car-stock-num"> <br>
++                Salesperson <input type="" name="car-salesperson"> <br>
++                Lender <input type="" name="car-lender"> <br>
++                Purchased new tag <input type="" name="car-purchase-new-tag"> <br>
++                Transfer <input type="" name="car-transfer"> <br>
++                Tag Number <input type="" name="car-tag-no"> <br>
++                Plate Number <input type="" name="car-plate-no"> <br>
++                Expiration Date <input type="" name="car-exp-date"> <br>
++                <br>
++              </div>
++
++              <div class="tab-pane" id="financing">
++                <h3> Financing </h3>
++                NADA Retail <input type="number" name="nada_retail"> <br>
++                Total Sale Price <input type="number" name="total-sale-price"> <br>
++                Trade Allowance <input type="number" name="trade-allowance"> <br>
++                Trade Difference <input type="number" name="trade-difference"> <br>
++                Admin Fees <input type="number" value="845" name="admin-fees"> <br>
++                <!-- 845 by default -->
++                Balance Owed <input type="number" name="bal-owed-on-trade"> <br>
++                Total Due <input type="number" name="total-due"> <br>
++                <br>
++
++                <h4> Optional Information </h4>
++                <!-- bye bye??
++                Accessories <input type="" name="accessories">
++                <br>
++                Waste Tire Batt Fee <input type="number" name="waste-tire-batt-fee">
++                <br>
++                 -->
++                Sub Total a <input type="number" name="sub-total-a"> <br>
++                Sales Tax is County: 
++                <select name="sales-tax-is-county">
++                  <option value="True">True</option>
++                  <option value="False">False</option>
++                </select>
++                <br>
++
++                Sales Tax Percentage <input type="number" name="percentage"> <br>
++                Estimated Fees <input type="number" name="estimated-fees"> <br>
++                Lemon Law Fee <input type="number" name="lemon-law-fee"> <br>
++                Sub Total b <input type="number" name="sub-total-b"> <br>
++                Down Payment <input type="number" name="down-payment"> <br>
++                Unpaid Due <input type="number" name="unpaid-due"> <br>
++                <br>
++              </div>
++
++              <div class="tab-pane" id="trade-info">
++                <h3> Trade Information </h3>
++                Year <input type="number" name="car-year"> <br>
++                Make <input type="" name="car-make"> <br>
++                Model <input type="" name="car-model"> <br>
++                Type <input type="" name="car-type"> <br>
++                Color <input type="" name="car-color"> <br>
++                Mileage <input type="number" name="car-mileage"> <br>
++                <br>
++
++                <h4> Optional Information </h4>
++                Cylinders <input type="" name="car-cyl"> <br>
++                Serial Number <input type="" name="car-serial-no"> <br>
++                Account Number <input type="" name="account-num"> <br>
++                Phone Number <input type="number" name="phone-num"> <br>
++                Holder <input type="" name="holder"> <br>
++                Address <input type="" name="address"> <br>
++                Amount <input type="number" name="amount"> <br>
++                Qualified By <input type="" name="qualif-by"> <br>
++                Verified By <input type="" name="verif-by"> <br>
++                Good Through <input type="date" name="good-thru"> <br>
++              </div>
++
++              <div class="tab-pane" id="insurance">
++                <h3> Insurance Information </h3>
++                Policy Number <input type="number" name="ins-policy-num"> <br>
++                Company <input type="" name="company"> <br>
++                <br>
++
++                <h4> Optional Information </h4>
++                Agent <input type="" name="agent"> <br>
++                Phone Number <input type="number" name="phone-num"> <br>
++                Eff Dates <input type="" name="eff-dates"> <br>
++                Verified By <input type="" name="verif-by"> <br>
++              </div>
++
+             </div>
++          </div>
++          <div class="modal-footer">
++            <!-- just ng-click it -->
++            <button class="btn btn-primary" data-dismiss="modal">Submit</button>
++            <button class="btn btn-primary" data-dismiss="modal">Close</button>
++          </div>
+         </div>
++      </div>
+     </div>
+-</div>
++  </div>
++</div>
+\ No newline at end of file
+diff --git a/client/partials/progress-row.ejs b/client/partials/progress-row.ejs
+index 7c8bb03..51b9806 100644
+--- a/client/partials/progress-row.ejs
++++ b/client/partials/progress-row.ejs
+@@ -14,10 +14,17 @@
+                     
+                 </div>
+                 
++
+                 <!-- Marcial: -->
+                 <!-- make the style logic into CSS classes since they're always paired with each other -->
+                 <!-- posibly: class="{{loan-status}}-progress" -->
+-                <!-- Also, there needs to be a cleaner way to do the ng-class logic above... -->
++
++                <!-- 
++                 ng-class="
++                 {true: 'progress-bar-striped', false: ''}
++                 [!(angular.lowercase(loan.status) == approved || angular.lowercase(loan.status) == denied)]"
++                 -->
++                <!-- For Steven: Clean the ng-class logic above, if even needed... -->
+ 
+                 
+ 
+@@ -27,6 +34,7 @@
+     <div class="col-xs-1">
+         <ul class="pull-right panel-settings">
+         <li class="dropdown">
++            <!-- this style needs to be in a CSS class -->
+             <a class="pull-right dropdown-toggle" data-toggle="dropdown" 
+                 style="display: flex; justify-content: center; align-items: center;">
+                 <em class="fa fa-cogs"></em>
+diff --git a/client/warranties.ejs b/client/warranties.ejs
+index 9244344..ce32bf3 100644
+--- a/client/warranties.ejs
++++ b/client/warranties.ejs
+@@ -88,11 +88,12 @@
+                       <!-- <h4><strong>Age:</strong> {{warranty.age}}</h4> -->
+                       <!-- <div class="col-lg-6">&nbsp;</div> -->
+ 
+-                      <div class="pull-right" style="width: 48%; text-align: right;">
++                      <div class="pull-right right-right">
+                         <h4>Duration: <strong> {{warranty.term.months}} months </strong> </h4>
+                         <h4>Mileage: <strong> {{warranty.term.miles * 1000 | number }} miles </strong> </h4>
+                       </div>
+-                      <div class="pull-left" style="width: 48%; text-align: left;">
++
++                      <div class="pull-left left-left">
+                         <h2> <strong>{{warranty.price | currency}}</strong> </h2>
+                       </div>
+                       <!-- 

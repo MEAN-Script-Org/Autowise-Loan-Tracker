@@ -1,6 +1,8 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 
+var loans = require('./loans.crud.js') ;
+
 // Define user schema
 var userSchema = new mongoose.Schema({
   username: {
@@ -12,16 +14,20 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
+  // NEED TO ADD THE FOLLOWING FIELDS:
+  // -> name: { type: String, required: true }
+  
   // Next to fix tests to account for the required fields
   // DL: drivers licence
   dl: {
     type: String,
-    // required: true
+    required: true
   },
   // DOB: dath of birth
   dob: {
-    type: Number,
-    // required: true
+    type: Date,
+    required: true
   },
   email: {
     type: String,
@@ -37,6 +43,8 @@ var userSchema = new mongoose.Schema({
   // Assign it to the token user?? idk yet
 });
 
+// TODO: Add trigger to auto link loans to new users on the fly
+
 // Pre-processing on saving a user document
 userSchema.pre('save', function(next) {
   var currentDate = new Date();
@@ -44,7 +52,10 @@ userSchema.pre('save', function(next) {
   
   if (!this.isAdmin)
     this.isAdmin = false;
-
+  
+  // Affix any dangling loans in the database to this User
+  loans.affixLoans(this) ;
+  
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());
   this.password = hash;

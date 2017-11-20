@@ -4,52 +4,68 @@ angular.module('SWEApp').controller(
 
     // GLOBALS
     $rootScope.loans = [];
-    $rootScope.loading = false;
+    $rootScope.loading = true;
 
-    // Get Fields for loan object creation
-    Factory.getUserInfo().then(function(response) {
-      $scope.commentAsAdmin = false;
+    // ## Order Filters ~ !them for ascending order
+    $scope.reverse_comments = true;
 
-      // ## Order Filters ~ !them for ascending order
-      $scope.reverse = true;
-      $scope.reverse_comments = true;
-
-      // TO Change based on routes~
-      // ## User Details
-      $rootScope.user_id = response.data._id;
-      $rootScope.user_name = response.data.username;
-      // $rootScope.user_email = response.data.email;
-      $rootScope.user_isAdmin = response.data.isAdmin;
-    });
+    // Factory.getUserInfo().then(function(response) {
+    // });
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Testing function
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.oops = function() {
+      var id = "5a0b7e6e3cf0921ddc6c9d95";
+      
+      // FOR TESTING LOAN ATTACHEMENT PURPOSES
+      Factory.getUser(id).then(
+        function(res) {
+          console.log(res.user) ;
+          console.log(res) ;
+          res.user.save() ;
+        },
+        function (err) {}
+      )
+    }
     
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
     //------------------------------------------------------------------------------------------------------------------
     $scope.init = function() {
       $scope.visible = "visible";
+      $scope.isAdmin = false;
       
       // TODO: pull all loans associated with a particular session user ID
-      var id = "5a07d6ec2419b6401c503c60" ;
+      // 
+      // var id = "5a0b7e6e3cf0921ddc6c9d95";
       
       // Loads all loans belonging to the specified user
-      Factory.getLoansOfUser(id).then(
+      Factory.getLoansOfUser().then(
         function(res) {
-          if (res.data.length != 0) {
+          
+          if (res.data.length && res.data.length != 0) {
             $rootScope.loans = res.data;
-            console.log($rootScope.loans);
           }
           
           $timeout(function() {
             $rootScope.loading = false;
-          }, 3000);
+          }, 500);
+        },
+        function(err) {
+          console.log(err) ;
         }
       );
     }
-    
+
+    $scope.logout = function() {
+      Factory.logout();
+    }
+  
     $scope.emailClient = function(loanID, userEmail, clientName) {
 
       if (!userEmail) {
-        alert("User has no email associated with their account");
+        alert("You don't have an email associated with your account.\nPlease add one");
         return;
       }
 

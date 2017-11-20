@@ -111,20 +111,23 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-keyboard="false" data-backdrop="static" id="buyersOrderModal" tabindex="-1">
-      <div class="modal-dialog" style="width: 60%; min-width: 615px;">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2>Buyers Order</h2>
-            <ul class="nav nav-tabs" id="tabContent">
-              <li class="active">
-                <a href="#customer-info" data-toggle="tab">Customer Info</a>
-              </li>
-              <li> <a href="#car-info" data-toggle="tab">Car Info</a> </li>
-              <li> <a href="#financing" data-toggle="tab">Financing</a> </li>
-              <li> <a href="#trade-info" data-toggle="tab">Trade Info</a> </li>
-              <li> <a href="#insurance" data-toggle="tab">Insurance</a> </li>
-            </ul>
+            <h2 class="centered-text">Buyer's Order</h2>
+            <div style="background: #f2f3f2;">
+              <!-- for moble, this + display: grid == GG -->
+              <ul class="nav nav-tabs centered-text" id="tabContent2">
+                <li class="active">
+                  <a href="#customer-info" data-toggle="tab">Customer Info</a>
+                </li>
+                <li> <a href="#car-info" data-toggle="tab">Car Info</a> </li>
+                <li> <a href="#financing" data-toggle="tab">Financing</a> </li>
+                <li> <a href="#trade-info" data-toggle="tab">Trade Info</a> </li>
+                <li> <a href="#insurance" data-toggle="tab">Insurance</a> </li>
+              </ul>
+            </div>
           </div>
 
           <div class="modal-body">
@@ -132,122 +135,231 @@
             <div class="tab-content">
               
               <!-- TAB - Customer Information -->
+              <!-- <h5>Basic Info</h5> -->
+                
               <div class="tab-pane active" id="customer-info">
-                <h3>Purchaser Information</h3>
-                <br>
-                <!-- <h5>Basic Info</h5> -->
-                <div>
-                  <span class="required">Name</span>
-                  <input name="customer-name" ng-model="bo.purchaser.name">
-                </div>
-                <div>
-                  <span class="required">DL</span>
-                  <input name="customer-dl" ng-model="bo.purchaser.dl">
-                </div>
-                <div>
-                  <span class="required">DOB</span>
-                  <input name="customer-dob" ng-model="bo.purchaser.dob" type="date">
-                </div>
-                <div>
-                  <span>Email</span>
-                  <input name="customer-email" ng-model="bo.purchaser.email" type="email">
-                </div>
-                <!-- <h5>Contact Info</h5> -->
-                <br>
-                <div>
-                  <span class="required">Phone #</span>
-                  <input name="customer-phone" ng-model="bo.purchaser.phone.cell" type="tel">
-                </div>
-                <div>
-                  <span>Home #</span>
-                  <input name="customer-home" ng-model="bo.purchaser.phone.home" type="tel">
-                </div>
-                <div>
-                  <span>Work #</span>
-                  <input name="customer-work" ng-model="bo.purchaser.phone.work" type="tel">
-                </div>
-                <br>
-                <!-- <h5>Address</h5> -->
-                <div>
-                  <span class="required">Street</span>
-                  <input name="contact-street-address" ng-model="bo.purchaser.address.street">
-                </div>
-                <div>
-                  <span class="required">City</span>
-                  <input name="contact-city" ng-model="bo.purchaser.address.city">
-                </div>
-                <div>
-                  <span class="required">State</span>
-                  <input name="contact-state" ng-model="bo.purchaser.address.state">
-                </div>
-                <div>
-                  <span class="required">County</span>
-                  <input name="contact-county" ng-model="bo.purchaser.address.county">
-                </div>
-                <div>
-                  <span class="required">Zipcode</span>
-                  <input name="contact-zip" ng-model="bo.purchaser.address.zip" type="number">
-                </div>
-                <br>
-                <!-- TODO: need to add stylings to all of this... -->
-                <h4> Adding a Co-Purchaser?
-                  <select ng-model="bo.copurchaser.invalid">
-                    <option value="false"        >Yes</option>
-                    <option value="true" selected>No </option>
-                  </select>
-                </h4>
-                <!--Co-purchaser fields: hidden if the above field is marked "No" -->
-                <div ng-show="bo.copurchaser">
-                  <!-- <h5>Basic Info</h5> -->
-                  <div>
-                    <span>Name</span>
-                    <input name="copurchaser-name" ng-model="bo.copurchaser.name">
+                    <h3>Purchaser Information</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="customer-name" ng-model="bo.purchaser.name" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.purchaser.dl" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>DL</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="date" name="customer-dob" ng-model="bo.purchaser.dob" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>DOB</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="email" name="customer-email" ng-model="bo.purchaser.email" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Email</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="tel" name="customer-phone" ng-model="bo.purchaser.phone.cell" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="tel" name="customer-home" ng-model="bo.purchaser.phone.home" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Home Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <h5>Address</h5> -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-street-address" ng-model="bo.purchaser.address.street" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Street</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-city" ng-model="bo.purchaser.address.city" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>City</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-state" ng-model="bo.purchaser.address.state" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>State</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-county" ng-model="bo.purchaser.address.county" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>County</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="number" name="contact-zip" ng-model="bo.purchaser.address.zip" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Zip Code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- SWITCH for Co-Purchaser                 -->
+                    <div style="display: grid; grid-template-columns: 2fr 2fr">
+                      <div> <h5 class="co-purchase-add"> Adding a Co-Purchaser? </h5> </div>
+                      <label class="switch switch-slide no-padding" style="grid-column: 2">
+                          <input class="switch-input" type="checkbox" ng-model="bo.copurchaser.valid" ng-true-value="true" ng-false-value="false" value="false"/>
+                          <span class="switch-label" data-on="Yes" data-off="No"></span> 
+                          <span class="switch-handle"></span>
+                      </label>
+                    </div>
+    
+                      <!-- 
+                      <select ng-model="bo.copurchaser.invalid">
+                        <option value="false">Yes</option>
+                          <option value="true" selected>No </option>                    
+                      </select>
+                       -->
+    
+                    <!--Co-purchaser fields: hidden if the above field is marked "No" -->
+                    <div ng-show="bo.copurchaser.valid">
+                      <!-- <h5>Basic Info</h5> -->
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="customer-name" ng-model="bo.copurchaser.name" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.copurchaser.dl" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>DL</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>DOB</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="email" name="customer-email" ng-model="bo.copurchaser.email" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Email</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="tel" name="customer-phone" ng-model="bo.copurchaser.phone.cell" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="group">      
+                              <input class="inputMODAL" type="tel" name="customer-home" ng-model="bo.copurchaser.phone.home" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Home Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <h5>Address</h5> -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-street-address" ng-model="bo.copurchaser.address.street" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Street</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-city" ng-model="bo.copurchaser.address.city" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>City</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-state" ng-model="bo.copurchaser.address.state" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>State</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="text" name="contact-county" ng-model="bo.copurchaser.address.county" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>County</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="group">      
+                              <input class="inputMODAL" type="number" name="contact-zip" ng-model="bo.copurchaser.address.zip" required>
+                              <span class="highlight required"></span>
+                              <span class="bar"></span>
+                              <label>Zip Code</label>
+                            </div>
+                        </div>
+                    </div>
                   </div>
-                  <div>
-                    <span>DL</span>
-                    <input name="copurchaser-dl" ng-model="bo.copurchaser.dl">
-                  </div>
-                  <div>
-                    <span>DOB</span>
-                    <input name="copurchaser-dob" ng-model="bo.copurchaser.dob" type="date">
-                  </div>
-                  <br>
-                  <div>
-                    <span class="required">Phone #</span>
-                    <input name="customer-phone" ng-model="bo.copurchaser.phone.cell" type="tel">
-                  </div>
-                  <div>
-                    <span>Home #</span>
-                    <input name="customer-home" ng-model="bo.copurchaser.phone.home" type="tel">
-                  </div>
-                  <div>
-                    <span>Work #</span>
-                    <input name="customer-work" ng-model="bo.copurchaser.phone.work" type="tel">
-                  </div>
-                  <br>
-                  <!-- <h5>Address</h5> -->
-                  <div>
-                    <span>Street</span>
-                    <input name="contact-street-address" ng-model="bo.copurchaser.address.street">
-                  </div>
-                  <div>
-                    <span>City</span>
-                    <input name="contact-city" ng-model="bo.copurchaser.address.city">
-                  </div>
-                  <div>
-                    <span>State</span>
-                    <input name="contact-state" ng-model="bo.copurchaser.address.state">
-                  </div>
-                  <div>
-                    <span>County</span>
-                    <input name="contact-county" ng-model="bo.copurchaser.address.country">
-                  </div>
-                  <div>
-                    <span>Zipcode</span>
-                    <input name="contact-zip" ng-model="bo.copurchaser.address.zip" type="number">
-                  </div>
                 </div>
-              </div>
 
               <!-- TAB - Car Information -->
               <div class="tab-pane" id="car-info">

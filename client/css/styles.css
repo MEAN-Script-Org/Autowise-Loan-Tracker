@@ -41,47 +41,6 @@ h4 {
   font-weight: 300;
 }
 
-.warrantyDescription {
-  font-size: 78%;
-  line-height: 105%;
-  font-weight: 500;
-  text-align: justify;
-}
-
-.large {
-  font-size: 2em;
-}
-
-.text-muted {
-  color: #c5c7cc;
-}
-
-.color-gray {
-  color: #444444;
-}
-
-.color-blue {
-  /*    actually green*/
-  color: #38cc70;
-}
-
-.color-teal {
-  color: #1ebfae;
-}
-
-.color-orange {
-  color: #ffb53e;
-}
-
-.color-red {
-  color: #f9243f;
-}
-
-.no-padding {
-  padding: 0;
-  margin: 0;
-}
-
 .fa-xl {
   font-size: 2em;
 }
@@ -109,16 +68,21 @@ input.form-control {
 .has-success .form-control,
 .has-success .form-control:focus {
   border: 1px solid #8ad919;
+  box-shadow: inset 0px 0px 0px 1px #8ad919;
 }
 
 .has-warning .form-control,
 .has-warning .form-control:focus {
   border: 1px solid #ffb53e;
+  box-shadow: inset 0px 0px 0px 1px #ffb53e;
 }
 
 .has-error .form-control,
-.has-error .form-control:focus {
+.has-error .form-control:focus,
+.has-error.form-control,
+.has-error.form-control:focus {
   border: 1px solid #f9243f;
+  box-shadow: inset 0px 0px 0px 1px #f9243f;
 }
 
 .navbar-custom {
@@ -237,6 +201,7 @@ input.form-control {
   text-decoration: none;
   background: none;
 }
+
 
 
 
@@ -746,6 +711,58 @@ a.label:focus {
 .panel-footer .input-group {
   padding: 0px;
   margin: 0 -5px;
+  overflow: hidden;
+}
+
+.input-group {
+  /*
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+*/
+}
+
+.input-group-btn {}
+
+span.btn-group-icon {
+  display: none
+}
+
+span.btn-group-text {
+  display: inline-block
+}
+
+@media (max-width: 700px) {
+  .input-group-btn,
+  .input-group .form-control {
+    display: block;
+    margin-bottom: 8px;
+    clear: both;
+  }
+  .input-group {
+    position: relative;
+    display: block;
+    border-collapse: separate;
+  }
+  .input-group-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+  .input-group-btn:last-child>.btn-primary {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+}
+
+@media (max-width: 500px) {
+  span.btn-group-icon {
+    display: inline-block
+  }
+  span.btn-group-text {
+    display: none
+  }
 }
 
 .panel-footer .input-group-btn:last-child>.btn,
@@ -1086,6 +1103,10 @@ a.label:focus {
 }
 
 .nav-tabs {
+  /*
+  float: none;
+  display: inline-block;
+  */
   background: #f2f3f2;
   border: 0;
 }
@@ -1134,6 +1155,7 @@ a.label:focus {
 
 .navbar {
   border: 0;
+  display: flex;
 }
 
 .navbar input {
@@ -1148,6 +1170,23 @@ a.label:focus {
   border: 1px solid #38cc70;
   outline: 0;
   box-shadow: inset 0px 0px 0px 1px #38cc70;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+  border: 0;
+}
+
+.nav-tabs>li>a {
+  margin: 0;
+  border-radius: 0;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  color: #38cc70;
 }
 
 .user-menu {
@@ -1485,7 +1524,7 @@ a.todo-list-item:focus {
 }
 
 .chat ul li.left .chat-body {
-  margin-left: 80px;
+  margin-left: 45px;
 }
 
 .chat ul li.right .chat-body {
@@ -1552,6 +1591,7 @@ p.back-link {
 }
 
 
+
 /* Above are template styles */
 
 
@@ -1569,16 +1609,43 @@ p.back-link {
   text-align: center;
 }
 
+.large {
+  font-size: 2em;
+}
+
+.text-muted {
+  color: #c5c7cc;
+}
+
+.color-gray {
+  color: #444444;
+}
+
+.color-blue {
+  /*    actually green*/
+  color: #38cc70;
+}
+
+.color-teal {
+  color: #1ebfae;
+}
+
+.color-orange {
+  color: #ffb53e;
+}
+
+.color-red {
+  color: #f9243f;
+}
+
 
 /* Accordion rows get selectable hand-pointy guy */
-
 dt {
   cursor: pointer;
 }
 
 
 /* loading... *animated* */
-
 #loader {
   display: block;
   margin-left: auto;
@@ -1630,8 +1697,17 @@ img#loader {
 
 /* Modified Bootstrap Modal style */
 
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 60%;
+    margin: 30px auto;
+  }
+}
+
 .modal-header .close {
-  margin-top: 15px;
+  font-size: 28px;
+  margin-top: 22px;
+  margin-right: 16px;
 }
 
 .modal-header,
@@ -1639,9 +1715,12 @@ img#loader {
   border: none;
 }
 
-.modal-header,
-.modal-body {
+.modal-header {
   padding-bottom: 0px;
+}
+
+.modal-footer {
+  padding-bottom: 5px;
 }
 
 .tab-content,
@@ -1651,9 +1730,7 @@ img#loader {
   padding-top: 0px;
 }
 
-
 /* Login style */
-
 .login-panel.panel.panel-default>* {
   text-align: center;
 }
@@ -1662,18 +1739,53 @@ div.left-text {
   text-align: left;
 }
 
+div.right-text {
+  text-align: right;
+}
+
 .inactive {
   pointer-events: none;
 }
 
+.login {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.register {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+#tabContent.nav-tabs {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 2fr;
+}
+
+
+/* This will force placeholders to show in type 'dates' */
+input[type="date"]:before {
+  content: attr(placeholder) !important;
+  color: #aaa;
+  margin-right: 0.5em;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
+}
+
+
+/* some login styles reuse buyer's order required etc */
 
 /* Warranties Styles */
-
-
-/* . => class */
-
-
-/* # => id */
+.warrantyDescription {
+  font-size: 78%;
+  line-height: 105%;
+  font-weight: 500;
+  text-align: justify;
+}
 
 .warrantiesQueryText>div>h4,
 .warrantiesQueryText>div>h2 {
@@ -1694,6 +1806,7 @@ div.left-text {
 }
 
 
+
 /* Progress bar styles */
 
 .received-progress {
@@ -1710,6 +1823,7 @@ div.left-text {
   width: 50%;
   background-color: #6495ed;
 }
+
 
 
 /* This color is too light */
@@ -1752,31 +1866,43 @@ div.left-text {
   background-color: #F8F8F8;
 }
 
+#required:after,
 #buyersOrderModal .modal-footer:before {
   color: #f9243f;
   font-size: 15px;
-  padding: 0 0 0 20px;
   content: " * = Required";
 }
+
+#buyersOrderModal .modal-footer:before {
+  padding: 0 0 0 20px;
+}
+
 
 /* Buyers order styles */
 
 .required:after {
-  padding: 0 0 0 2px;
+  /*This looks bad on windows*/
+  /*margin-left: -8px;*/
+  /*ahh... so it's for the material design ones..*/
   color: #f9243f;
-  content: " *"
+  padding: 0 0 0 2px;
+  content: "*";
 }
+
+/*can't get this to work yet*/
 
 .tab-pane>div {
   padding: 0 10px 5px 5px;
 }
 
-.tab-pane> div > span,
-.tab-pane> div > div > span {
+.tab-pane>div>span,
+.tab-pane>div>div>span {
   padding: 0 10px 0 0;
 }
 
+
 /*CHECK BOX*/
+
 
 /* Customize the label (the container) */
 
@@ -1791,6 +1917,7 @@ div.left-text {
   justify-content: center;
   -webkit-user-select: none;
 }
+
 
 
 /* Hide the browser's default checkbox */
@@ -1825,21 +1952,17 @@ div.left-text {
 }
 
 
-
 /* On mouse-over, add a grey background color */
 
 .container:hover input~.checkmark {
   background-color: #ccc;
 }
 
-
-
 /* When the checkbox is checked, add a blue background */
 
 .container input:checked~.checkmark {
   background-color: #38cc70;
 }
-
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1857,7 +1980,6 @@ div.left-text {
 .container input:checked~.checkmark:after {
   display: block;
 }
-
 
 
 /* Style the checkmark/indicator */
@@ -1880,6 +2002,7 @@ div.left-text {
   padding: 0;
   margin: 0;
 }
+
 
 
 /*FLOATING MENU*/
@@ -1925,6 +2048,7 @@ div.left-text {
   color: #333;
   opacity: 0.5;
 }
+
 
 
 /* NG-ANIMATION for tooltips */
@@ -2062,6 +2186,348 @@ div.ng-show {
   animation: 0.5s fadeIn;
 }
 
+
+/* INPUT FORM */
+
+/* form starting stylings ------------------------------- */
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+.inputMODAL {
+  font-size: 12px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+  color: rgb(68, 68, 68);
+  /*color: #FFFFFF;*/
+}
+
+.inputMODAL:focus {
+  outline: none;
+  /*color: rgb(68, 68, 68);*/
+}
+
+.inputMODAL:after {
+  margin-left: -8px;
+  color: #f9243f;
+  padding: 0 0 0 2px;
+  content: "*";
+}
+
+
+/*
+.ng-valid-date {
+  outline:none; 
+  color: rgb(68, 68, 68);
+}
+*/
+
+
+/* LABEL ======================================= */
+/* Conflict stuff ~
+< HEAD
+.modal-body label {
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+=======
+> origin/buyer-order-design
+*/
+
+.modal-body .group label {
+  color:#999; 
+  font-size:12px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  background-color: #FFFFFF;
+  width: 80%;
+  
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  
+}
+
+
+/* active state */
+
+.inputMODAL:focus~label,
+.inputMODAL:valid~label {
+  top: -30%;
+  font-size: 10px;
+  color: #38cc70;
+}
+
+
+/* BOTTOM BARS ================================= */
+
+.bar {
+  position: relative;
+  display: block;
+  /*    width:300px; */
+  top: 1px;
+}
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #38cc70;
+  
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+
+/* active state */
+
+.inputMODAL:focus~.bar:before,
+.inputMODAL:focus~.bar:after {
+  width: 50%;
+}
+
+
+/* HIGHLIGHTER ================================== */
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 30%;
+  left: 0;
+  pointer-events: none;
+  /*
+  -webkit-transition:opacity 0.3s ease;
+  -moz-transition:opacity 0.3s ease;
+  transition:opacity 0.3s ease;
+*/
+}
+
+
+/* active state => this looks bad on Windows */
+/*
+.inputMODAL:focus~.highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+*/
+
+
+/* END INPUT FORM */
+
+/* Switch Slide
+==========================*/
+.co-purchase-add {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	height: 30px;
+	padding: 3px;
+	margin: 0 10px 10px 0;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+	border-radius: 18px;
+/*	box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.switch-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	box-sizing:content-box;
+}
+.switch-label {
+	position: relative;
+	display: block;
+	height: inherit;
+	font-size: 10px;
+	text-transform: uppercase;
+	background: #eceeef;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+	box-sizing:content-box;
+}
+.switch-label:before, .switch-label:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+	box-sizing:content-box;
+}
+.switch-label:before {
+	content: attr(data-off);
+	right: 11px;
+	color: #aaaaaa;
+}
+.switch-label:after {
+	content: attr(data-on);
+	left: 11px;
+	color: #FFFFFF;
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label {
+	background: #E1B42B;
+}
+.switch-input:checked ~ .switch-label:before {
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label:after {
+	opacity: 1;
+}
+.switch-handle {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+	background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+	border-radius: 100%;
+/*	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
+}
+.switch-handle:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -6px;
+	width: 12px;
+	height: 12px;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+	border-radius: 6px;
+	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+.switch-input:checked ~ .switch-handle {
+	left: 74px;
+	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+ 
+/* Transition
+========================== */
+.switch-label, .switch-handle {
+	transition: All 0.3s ease;
+	-webkit-transition: All 0.3s ease;
+	-moz-transition: All 0.3s ease;
+	-o-transition: All 0.3s ease;
+}
+
+.switch-slide {
+	padding: 16px;
+	margin: 0;
+	background: #FFF;
+	border-radius: 0;
+	background-image: none;
+}
+.switch-slide .switch-label {
+	box-shadow: none;
+	background: none;
+	overflow: hidden;
+}
+.switch-slide .switch-label:after, .switch-slide .switch-label:before {
+	width: 100%;
+	height: 65%;
+	top: 5px;
+	left: 0;
+	text-align: center;
+	padding-top: 10%;
+    font-weight: 500;
+/*	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
+}
+.switch-slide .switch-label:after {
+	color: #FFFFFF;
+	background: #38cc70;
+	left: -100px;
+}
+.switch-slide .switch-label:before {
+	background: #eceeef;
+}
+.switch-slide .switch-handle {
+	display: none;
+}
+.switch-slide .switch-input:checked ~ .switch-label {
+	background: #FFF;
+	border-color: #38cc70;
+}
+.switch-slide .switch-input:checked ~ .switch-label:before {
+	left: 100px;
+}
+.switch-slide .switch-input:checked ~ .switch-label:after {
+	left: 0;
+}
+
+/*END SWITCH*/
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #38cc70;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
 @keyframes bot-to-top {
   0% {
     bottom: -100px
@@ -2098,4 +2564,10 @@ div.ng-show {
   to {
     transform: rotate(0deg);
   }
+}
+
+/* For presedence */
+.no-padding {
+  padding: 0;
+  margin: 0;
 }

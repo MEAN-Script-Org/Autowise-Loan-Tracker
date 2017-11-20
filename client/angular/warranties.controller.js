@@ -232,11 +232,13 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$loc
       
       // Add comment to the user's active loan
       // TODO: replace test loan ID with actual loan object
-      Factory.getLoan("59fe11a6b12b072490b4796d").then(function(res) {
-        var loan = res.data ;
-        loan.comments.push(newComment) ;
+      // DOOOOOOO it
+      // Factory.getLoan("59fe11a6b12b072490b4796d").then(function(res) {
+      //   var loan = res.data ;
+      //   loan.comments.push(newComment) ;
         
-        Factory.modifyLoan(loan._id, loan) ;
-      });
+      //   Factory.modifyLoan(loan._id, loan) ;
+      // });
+
     };
 }]);

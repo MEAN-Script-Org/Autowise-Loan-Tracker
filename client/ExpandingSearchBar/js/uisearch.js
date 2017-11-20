@@ -98,7 +98,7 @@
 					}
 					else if( classie.has( self.el, 'sb-search-open' ) && /^\s*$/.test( self.inputEl.value ) ) { // close it
 						ev.preventDefault();
-//						self.close();
+						self.close();
 					}
 				}
 
@@ -106,12 +106,10 @@
 			this.el.addEventListener( 'touchstart', initSearchFn );
 			this.inputEl.addEventListener( 'click', function( ev ) { ev.stopPropagation(); });
 			this.inputEl.addEventListener( 'touchstart', function( ev ) { ev.stopPropagation(); } );
-		},
-        // open attribute for search bar
-        open : function() {
+		},        
+		open : function() {
 			var self = this;
            
-            // if the disabler element is in a disabled state, block functionality of opening search bar
             if(!$('.disabler').hasClass('disable'))
             {
                 classie.add( this.el, 'sb-search-open' );
@@ -121,25 +119,17 @@
                 }
                 // close the search input if body is clicked
                 var bodyFn = function( ev ) {
-                    // self.close();
+                    self.close();
                     this.removeEventListener( 'click', bodyFn );
                     this.removeEventListener( 'touchstart', bodyFn );
                 };
                 document.addEventListener( 'click', bodyFn );
                 document.addEventListener( 'touchstart', bodyFn );
             }
-            else {
-                // clear out input
-                this.inputEl.blur();
-			     classie.remove( this.el, 'sb-search-open' );
-                this.inputEl.val('');
-            }
 		},
-        // clear out input on close
 		close : function() {
 			this.inputEl.blur();
 			classie.remove( this.el, 'sb-search-open' );
-            this.inputEl.val('');
 		}
 	}
 
