@@ -15,6 +15,7 @@ angular.module('SWEApp').controller(
     $rootScope.searchScopes = [];
     $rootScope.singleLoanID = [];
     $rootScope.loanWithNewComments = {};
+    $rootScope.isEditingLoan = false ;
     
     // Buyer's Order placeholder
     $rootScope.bo = { purchaser: {}, copurchaser: { invalid: true }, insr: {}} ; 
@@ -52,7 +53,43 @@ angular.module('SWEApp').controller(
     $scope.logout = function() {
       Factory.logout();
     }
-
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true',
+    // altering the beahvior of the buyer's order modal dialog
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.editLoanWithBO = function(loan) {
+      $rootScope.singleLoanID.push(loan._id) ;
+      $rootScope.bo = loan.buyers_order ;
+      
+      console.log(loan) ;
+      
+      $rootScope.isEditingLoan = true ;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Called from the buyer's order modal. Updates the currently selected loan in the database
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.updateLoanWithBO = function() {
+      if ($rootScope.singleLoanID.length < 1)
+        return ;
+      
+      // Update loan in the database with updated buyer's order
+      Factory.modifyLoan($rootScope.singleLoanID[0], { buyers_order: $rootScope.bo }).then(
+        function(res) {
+          
+          // On success, clear the fields and set 'isEditingLoan' to 'false'
+          isEditingLoan = false ;
+          $rootScope.bo = { purchaser: {}, copurchaser: { invalid: true }, insr: {}} ;
+          $rootScope.singleLoanID = [] ;
+        },
+        function(err) {
+          alert("Error updating loan! Ensure all fields are filled properly");
+          console.log(err);
+        }
+      );
+    }
+    
     //------------------------------------------------------------------------------------------------------------------
     // LOAN CRUD FUNCTIONS - SINGLE
     //------------------------------------------------------------------------------------------------------------------

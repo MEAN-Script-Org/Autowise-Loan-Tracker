@@ -608,8 +608,10 @@
             </div>
           </div>
 
+          <!-- 'Update' or 'create' button appears depending on the 'isEditingLoan' property -->
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="addLoanWithBO()">Submit</button>
+            <button class="btn btn-primary" ng-hide="isEditingLoan" ng-click="addLoanWithBO()">Submit</button>
+            <button class="btn btn-primary" ng-show="isEditingLoan" ng-click="updateLoanWithBO()">Update</button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
