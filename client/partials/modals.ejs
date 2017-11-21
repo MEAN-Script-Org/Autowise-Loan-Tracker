@@ -807,31 +807,59 @@
               <!-- TAB - Insurance -->
               <div class="tab-pane" id="insurance">
                 <h3> Insurance </h3>
-                <br>
-                <div>
-                  <span class="required"> Policy Number </span>
-                  <input name="ins-policy-num" ng-model="bo.insr.policy_no" type="number">
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="ins-policy-num" ng-model="bo.insr.policy_no" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Policy Number</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="company" ng-model="bo.insr.company" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Company</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="agent" ng-model="bo.insr.agent" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Agent</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required"> Company </span>
-                  <input name="company" ng-model="bo.insr.company">
-                </div>
-                <div>
-                  <span> Agent </span>
-                  <input name="agent" ng-model="bo.insr.agent">
-                </div>
-                <div>
-                  <span> Phone Number </span>
-                  <input name="phone-num" ng-model="bo.insr.phone_no" type="number">
-                </div>
-                <div>
-                  <span> Eff Dates </span>
-                  <input name="eff-dates" ng-model="bo.insr.eff_dtaes">
-                </div>
-                <div>
-                  <span> Verified By </span>
-                  <input name="verif-by" ng-model="bo.insr.verif_by">
-                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="ins-phone-num" ng-model="bo.insr.phone_no" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Phone Number</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="eff-dates" ng-model="bo.insr.eff_dates" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Eff Dates</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="verif-by" ng-model="bo.insr.verif_by" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Verified By</label>
+                        </div>
+                    </div>
+                  </div>
                 <br>
               </div>
             </div>
