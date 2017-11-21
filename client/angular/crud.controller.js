@@ -92,6 +92,16 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     // Create a new loan with all the fields specified under the Buyer's Order
     //------------------------------------------------------------------------------------------------------------------
+    $scope.setCarUsed = function(used) {
+        $rootScope.bo.is_car_used = used;
+        $rootScope.bo.is_car_used_text = used ? "Used" : "New";
+        console.log($rootScope.bo.is_car_used + " : " + $rootScope.bo.is_car_used_text);
+    };
+    $scope.onEditInput = function() {
+        if($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
+            $rootScope.bo.is_car_used_text = "";
+        }
+    };
     $scope.addLoanWithBO = function() {
       var newLoan = $scope.newLoan ;
       

@@ -358,19 +358,18 @@
               <!-- TAB - Car Information -->
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
-                <br>
+                <hr>
                 <div class="group selector">      
-                  <input class="inputMODAL" type="text" name="is-car-used" ng-model="bo.is_car_used" required readonly>
+                  <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-change="onEditInput()">
                   <span class="highlight required"></span>
                   <span class="bar"></span>
                   <label>Choose An Option</label>
                   <div class="sudo-select">
-                      <span class="selected"></span>
                       <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false">
+                          <li class="category-option" data-value="false" ng-click="setCarUsed(false)">
                               New
                           </li>
-                          <li class="category-option" data-value="true">
+                          <li class="category-option" data-value="true" ng-click="setCarUsed(true)">
                               Used
                           </li>
                       </ul>
