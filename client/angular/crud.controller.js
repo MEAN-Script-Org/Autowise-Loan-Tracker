@@ -157,7 +157,7 @@ angular.module('SWEApp').controller(
       
       // TODO: test this!
       
-      Factory.modifyLoan($rootScope.currLoan, { buyers_order: $rootScope.bo }).then(
+      Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
         function(res) {
           
           // TODO: Close modal
