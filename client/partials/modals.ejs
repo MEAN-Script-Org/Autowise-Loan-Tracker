@@ -359,74 +359,169 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 <hr>
-                <div class="group selector">      
-                  <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-change="onEditInput()">
-                  <span class="highlight required"></span>
-                  <span class="bar"></span>
-                  <label>Choose An Option</label>
-                  <div class="sudo-select">
-                      <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed(false)">
-                              New
-                          </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed(true)">
-                              Used
-                          </li>
-                      </ul>
-                  </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="group selector">      
+                          <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-focus="onFocusInput()" ng-change="onEditInput()">
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Choose An Option</label>
+                          <div class="sudo-select">
+                              <ul id="type-category-options" class="category-options">
+                                  <li class="category-option" data-value="false" ng-click="setCarUsed(false)">
+                                      New
+                                  </li>
+                                  <li class="category-option" data-value="true" ng-click="setCarUsed(true)">
+                                      Used
+                                  </li>
+                                  <a class="sudo-select-btn" ng-click="onBlurInput()">
+                                    <em class="fa fa-md fa-close"></em>
+                                  </a>
+                              </ul>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="car-year" ng-model="bo.car_info.year" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Year</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-make" ng-model="bo.car_info.make" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Make</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-model" ng-model="bo.car_info.model" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Model</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Type</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-color" ng-model="bo.car_info.color" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Color</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="car-mileage" ng-model="bo.car_info.mileage" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Mileage</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="car-cyl" ng-model="bo.car_info.cyl">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Cylinders</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="car-serial-no" ng-model="bo.car_info.serial_no">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Serial Number</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="car-stock-num" ng-model="bo.car_info.stock_no">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Stock Number</label>
+                        </div>
+                    </div>
                 </div>
                 <!-- <br> -->
-                <div>
-                  <span class="required">Year</span>
-                  <input name="car-year" ng-model="bo.car_info.year" type="number">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Salesperson</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-lender" ng-model="bo.car_info.lender">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Lender</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Make</span>
-                  <input name="car-make" ng-model="bo.car_info.make">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>License Plate</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-plate-no" ng-model="bo.car_info.plate_no">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Plate Number</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Model</span>
-                  <input name="car-model" ng-model="bo.car_info.model">
-                </div>
-                <div>
-                  <span class="required">Type</span>
-                  <input name="car-type" ng-model="bo.car_info.type_t">
-                </div>
-                <div>
-                  <span class="required">Color</span>
-                  <input name="car-color" ng-model="bo.car_info.color">
-                </div>
-                <div>
-                  <span class="required">Mileage</span>
-                  <input name="car-mileage" ng-model="bo.car_info.mileage" type="number">
-                </div>
-                <div>
-                  <span>Cylinders</span>
-                  <input name="car-cyl" ng-model="bo.car_info.cyl" type="number">
-                </div>
-                <div>
-                  <span>Serial Number</span>
-                  <input name="car-serial-no" ng-model="bo.car_info.serial_no" type="number">
-                </div>
-                <div>
-                  <span>Stock Number</span>
-                  <input name="car-stock-num" ng-model="bo.car_info.stock_no" type="number">
-                </div>
-                <div>
-                  <span>Salesperson</span>
-                  <input name="car-salesperson" ng-model="bo.car_info.salesperson">
-                </div>
-                <div>
-                  <span>Lender</span>
-                  <input name="car-lender" ng-model="bo.car_info.lender">
-                </div>
-                <div>
-                  <span>License Plate</span>
-                  <input name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
-                </div>
-                <div>
-                  <span>Plate Number</span>
-                  <input name="car-plate-no" ng-model="bo.car_info.plate_no">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Transfer</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Tag Number</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Expiration Date</label>
+                        </div>
+                    </div>
                 </div>
                 <div>
                   <span>Transfer</span>
