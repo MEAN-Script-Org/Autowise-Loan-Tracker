@@ -238,7 +238,7 @@
                     <br>
 
                     <!-- SWITCH for Co-Purchaser                 -->
-                    <h5 class="co-purchase-add"> Adding a Co-Purchaser?
+                    <h5 class="header-switch"> Adding a Co-Purchaser?
                         <label class="switch switch-slide">
                             <input class="switch-input" type="checkbox" ng-model="bo.copurchaser.valid" ng-true-value="true" ng-false-value="false" value="false"/>
                             <span class="switch-label" data-on="Yes" data-off="No"></span> 
@@ -437,7 +437,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="number" name="car-cyl" ng-model="bo.car_info.cyl">
+                          <input class="inputMODAL" type="number" name="car-cyl" ng-model="bo.car_info.cyl" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Cylinders</label>
@@ -445,7 +445,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="number" name="car-serial-no" ng-model="bo.car_info.serial_no">
+                          <input class="inputMODAL" type="number" name="car-serial-no" ng-model="bo.car_info.serial_no" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Serial Number</label>
@@ -453,7 +453,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="number" name="car-stock-num" ng-model="bo.car_info.stock_no">
+                          <input class="inputMODAL" type="number" name="car-stock-num" ng-model="bo.car_info.stock_no" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Stock Number</label>
@@ -464,7 +464,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Salesperson</label>
@@ -472,7 +472,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-lender" ng-model="bo.car_info.lender">
+                          <input class="inputMODAL" type="text" name="car-lender" ng-model="bo.car_info.lender" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Lender</label>
@@ -482,7 +482,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
+                          <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>License Plate</label>
@@ -490,7 +490,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-plate-no" ng-model="bo.car_info.plate_no">
+                          <input class="inputMODAL" type="text" name="car-plate-no" ng-model="bo.car_info.plate_no" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Plate Number</label>
@@ -500,7 +500,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.purchase_new_tag">
+                          <input class="inputMODAL" type="text" name="car-transfer" ng-model="bo.car_info.transfer" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Transfer</label>
@@ -508,7 +508,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <input class="inputMODAL" type="text" name="car-tag-no" ng-model="bo.car_info.tag_no" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Tag Number</label>
@@ -516,94 +516,156 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="group">      
-                          <input class="inputMODAL" type="text" name="car-salesperson" ng-model="bo.car_info.salesperson">
+                          <input class="inputMODAL" type="date" name="car-exp-date" ng-model="bo.car_info.exp_date" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Expiration Date</label>
                         </div>
                     </div>
-                </div>
-                <div>
-                  <span>Transfer</span>
-                  <input name="car-transfer" ng-model="bo.car_info.transfer">
-                </div>
-                <div>
-                  <span>Tag Number</span>
-                  <input name="car-tag-no" ng-model="bo.car_info.tag_no">
-                </div>
-                <div>
-                  <span>Expiration Date</span>
-                  <input name="car-exp-date" ng-model="bo.car_info.exp_date" type="date">
-                </div>
+                  </div>                
               </div>
 
               <!-- TAB - Financing -->
               <div class="tab-pane" id="financing">
                 <h3> Financing </h3>
-                <br>
-                <div>
-                  <span class="required">NADA Retail</span>
-                  <input name="nada_retail" ng-model="bo.finances.nada_retail" type="number">
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="nada_retail" ng-model="bo.finances.nada_retail" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>NADA Retail</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="total-sale-price" ng-model="bo.finances.total_sale_price" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Total Sale Price</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Total Sale Price</span>
-                  <input name="total-sale-price" ng-model="bo.finances.total_sale_price" type="number">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="trade-allowance" ng-model="bo.finances.trade_allowance" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Trade Allowance</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="trade-difference" ng-model="bo.finances.trade_difference" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Trade Difference</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Trade Allowance</span>
-                  <input name="trade-allowance" ng-model="bo.finances.trade_allowance" type="number">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="admin-fees" ng-model="bo.finances.admin_fees" required value="489">
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Admin Fees</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="bal-owed-on-trade" ng-model="bo.finances.bal_owed_on_trade" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Balance Owed</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="total-due" ng-model="bo.finances.total_due" required>
+                          <span class="highlight required"></span>
+                          <span class="bar"></span>
+                          <label>Total Due</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Trade Difference</span>
-                  <input name="trade-difference" ng-model="bo.finances.trade_difference" type="number">
+                <div class="row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="sub-total-a" ng-model="bo.finances.sub_total_a" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Sub Total A</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Admin Fees</span>
-                  <input name="admin-fees" value="489" ng-model="bo.finances.admin_fees" type="number">
+                <!-- <br> -->
+                <div class="row">
+                    <div class="col-sm-6">                        
+                        <h5 class="header-switch"> Sales Tax Is County: 
+                            <label class="switch switch-slide">
+                                <input class="switch-input" type="checkbox" ng-model="bo.financies.sales_tax.is_county" ng-true-value="true" ng-false-value="false" value="false"/>
+                                <span class="switch-label" data-on="Yes" data-off="No"></span> 
+                                <span class="switch-handle"></span>
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="text" name="percentage" ng-model="bo.finances.sales_tax.percentage" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Sales Tax %</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <span class="required">Balance Owed</span>
-                  <input name="bal-owed-on-trade" ng-model="bo.finances.bal_owed_on_trade">
-                </div>
-                <div>
-                  <span class="required">Total Due</span>
-                  <input name="total-due" ng-model="bo.finances.total_due">
-                </div>
-                <div>
-                <span> Sub Total A</span>
-                  <input type="number" name="sub-total-a" ng-model="bo.finances.sub_total_a">
-                </div>
-                <div>
-                <span> Sales Tax is County:</span>
-                  <select name="sales-tax-is-county" ng-model="bo.finances.sales_tax.is_county">
-                    <option value="True">True</option>
-                    <option value="False">False</option>
-                  </select>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="estimated-fees" ng-model="bo.finances.estimated_fees" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Estimated Fees</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="lemon-law-fee" ng-model="bo.finances.lemon_law_fee" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Lemon Law Fee</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="sub-total-b" ng-model="bo.finances.sub_total_b" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Sub Total B</label>
+                        </div>
+                    </div>
                   </div>
-                <div>
-                <span> Sales Tax %</span>
-                  <input name="percentage" ng-model="bo.finances.sales_tax.percentage" type="number">
-                </div>
-                <div>
-                <span> Estimated Fees</span>
-                  <input name="estimated-fees" ng-model="bo.finances.estimated_fees" type="number">
-                </div>
-                <div>
-                <span> Lemon Law Fee</span>
-                  <input name="lemon-law-fee" ng-model="bo.finances.lemon_law_fee" type="number">
-                </div>
-                <div>
-                <span> Sub Total B</span>
-                  <input name="sub-total-b" ng-model="bo.finances.sub_total_b" type="number">
-                </div>
-                <div>
-                <span> Down Payment</span>
-                  <input name="down-payment" ng-model="bo.finances.down_payment" type="number">
-                </div>
-                <div>
-                <span> Unpaid Due</span>
-                  <input name="unpaid-due" ng-model="bo.finances.unpaid_due" type="number">
-                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="down-payment" ng-model="bo.finances.down_payment" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Down Payment</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">      
+                          <input class="inputMODAL" type="number" name="unpaid-due" ng-model="bo.finances.unpaid_due" required>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Unpaid Due</label>
+                        </div>
+                    </div>
+                  </div>
               </div>
 
               <!-- TAB - Trades Information -->

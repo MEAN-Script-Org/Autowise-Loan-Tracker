@@ -2315,10 +2315,11 @@ div.ng-show {
 
 /* Switch Slide
 ==========================*/
-.co-purchase-add {
+.header-switch {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 24px;
 }
 
 .switch {
