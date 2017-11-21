@@ -252,7 +252,7 @@
     -->
                     </h5>
                     <!--Co-purchaser fields: hidden if the above field is marked "No" -->
-                    <div ng-show="bo.copurchaser.valid">
+                    <div ng-class="bo.copurchaser.valid ? 'co-purchase-show' : ''" class="co-purchase">
                       <!-- <h5>Basic Info</h5> -->
                       <div class="row">
                         <div class="col-sm-4">

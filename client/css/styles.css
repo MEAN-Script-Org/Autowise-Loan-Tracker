@@ -2473,6 +2473,22 @@ div.ng-show {
     color: #FFFFFF;
 }
 
+/*specific functionality*/
+.co-purchase {
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    
+    transition: max-height 0.3s;
+}
+
+.co-purchase-show {
+    max-height: 100em;
+    pointer-events: all;
+}
+
+.switch-slide .switch-input:checked
+
 /*END SWITCH*/
 
 /* ANIMATIONS ================ */
