@@ -102,7 +102,7 @@ module.exports.init = function() {
 
   //customer account info
    app.use('/account', function(req, res) {
-    res.render('userInfo');
+    res.render('userInfo', {path: ''});
   });
 
   // Warranties plan view for a customer

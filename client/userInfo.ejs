@@ -4,7 +4,7 @@
   <% include partials/header.ejs %>
 </head>
 <body>
-  <% include partials/nav.ejs %>
+  
 
 
 <!-- ACCOUNT EDITING VIEW & FUNCTIONALITY ~
@@ -24,7 +24,9 @@
 
   <!-- MAIN PAGE DIV -->
   <div class="col-sm-12 col-lg-12 main"
+
     ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
+        <% include partials/nav.ejs %>
         <div class="header row">
             <ol class="breadcrumb">
                 <li><a href="#">
@@ -67,19 +69,10 @@
              <br /><br />
 
 
-             <button class="btn btn-primary " data-dismiss="modal" ng-click="contactAdmin">
+             <button class="btn btn-primary " data-dismiss="modal" ng-click="contactAdmin"  data-target="#changePasswordModal" data-toggle="modal">
                 <!-- Forgot my password button -->
-                Forgot my password
+                Change my password
               </button>
-
-             <button class="btn btn-primary " data-dismiss="modal" ng-click="contactAdmin">
-                <!-- Send email to Autowise -->
-                Contact Autowise
-
-
-              </button>
-
-              
 
 
 
