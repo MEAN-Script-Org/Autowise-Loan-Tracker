@@ -359,9 +359,12 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 <br>
-                <label id="type-category-label" class="required category-field" for="type-category" ng-model="bo.is_car_used" name="is-car-used" data-value="">
-	               <span>Choose An Option:</span>
-                    <div id="type-category" class="sudo-select">
+                <div class="group selector">      
+                  <input class="inputMODAL" type="text" name="is-car-used" ng-model="bo.is_car_used" required readonly>
+                  <span class="highlight required"></span>
+                  <span class="bar"></span>
+                  <label>Choose An Option</label>
+                  <div class="sudo-select">
                       <span class="selected"></span>
                       <ul id="type-category-options" class="category-options">
                           <li class="category-option" data-value="false">
@@ -371,8 +374,8 @@
                               Used
                           </li>
                       </ul>
-                    </div>
-                </label>
+                  </div>
+                </div>
                 <!-- <br> -->
                 <div>
                   <span class="required">Year</span>
