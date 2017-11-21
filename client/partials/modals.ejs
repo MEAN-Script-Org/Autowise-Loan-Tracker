@@ -47,7 +47,7 @@
                 &times;
               </button>
               <span>
-                <h3>Change the status of the {{singleLoanID[0].name}}'s {{singleLoanID[0].type}} loan to:</h3>
+                <h3>Change the status of the {{currLoan.name}}'s {{currLoan.type}} loan to:</h3>
                 <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
                 <select name="Loan Status" ng-model="newStatus">
                     <!-- <option disabled selected>New Status</option> -->
@@ -61,7 +61,7 @@
               </span>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(singleLoanID[0]._id, newStatus)">Update</button>
+              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(currLoan._id, newStatus)">Update</button>
               <button class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
           </div>
@@ -83,9 +83,9 @@
             </button>
             <form>
               <h3>New Loan</h3>
-              <input placeholder="Name" type="" ng-model="newLoan.name" required>
-              <input placeholder="Email" type="email" ng-model="newLoan.user_email">
-              <select ng-model="newLoan.type">
+              <input placeholder="Name" type="" ng-model="currLoan.name" required>
+              <input placeholder="Email" type="email" ng-model="currLoan.user_email">
+              <select ng-model="currLoan.type">
                 <option value="" disabled>Select loan type</option>
                 <option value="auto" selected>Auto Loan</option>
                 <option value="repair">Repair</option>
@@ -610,7 +610,7 @@
 
           <!-- 'Update' or 'create' button appears depending on the 'isEditingLoan' property -->
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-hide="isEditingLoan" ng-click="addLoanWithBO()">Submit</button>
+            <button class="btn btn-primary" ng-hide="isEditingLoan" ng-click="createLoanWithBO()">Submit</button>
             <button class="btn btn-primary" ng-show="isEditingLoan" ng-click="updateLoanWithBO()">Update</button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>

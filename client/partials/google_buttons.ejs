@@ -21,7 +21,7 @@
     <em class="fa fa-plus float-child"></em>
 </a>
 <ul id="float-list" ng-show="massLoans.length > 0">
-    <li data-target="#buyerModal" data-toggle="modal">
+    <li ng-click="prepareLoanCreate()" data-target="#buyerModal" data-toggle="modal">
       <a id="float-edit">
         <em class="fa fa-file float-child"></em>
       </a>
