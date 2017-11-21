@@ -2375,13 +2375,12 @@ div.ng-show {
 	content: attr(data-on);
 	left: 11px;
 	color: #FFFFFF;
-	opacity: 0;
 }
 .switch-input:checked ~ .switch-label {
 	background: #E1B42B;
 }
 .switch-input:checked ~ .switch-label:before {
-	opacity: 0;
+	opacity: 1;
 }
 .switch-input:checked ~ .switch-label:after {
 	opacity: 1;
@@ -2437,7 +2436,7 @@ div.ng-show {
 	overflow: hidden;
 }
 .switch-slide .switch-label:after, .switch-slide .switch-label:before {
-	width: 100%;
+	width: 50%;
 	height: 65%;
 	top: 5px;
 	left: 0;
@@ -2447,12 +2446,14 @@ div.ng-show {
 /*	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
 }
 .switch-slide .switch-label:after {
-	color: #FFFFFF;
-	background: #38cc70;
-	left: -100px;
+	color: #AAAAAA;
+	background: #eceeef;
+	left: 0;
 }
 .switch-slide .switch-label:before {
-	background: #eceeef;
+	background: #38cc70;
+    color: #FFFFFF;
+    left: 50%;
 }
 .switch-slide .switch-handle {
 	display: none;
@@ -2462,10 +2463,14 @@ div.ng-show {
 	border-color: #38cc70;
 }
 .switch-slide .switch-input:checked ~ .switch-label:before {
-	left: 100px;
+	left: 50%;
+    color: #AAAAAA;
+	background: #eceeef;
 }
 .switch-slide .switch-input:checked ~ .switch-label:after {
 	left: 0;
+    background: #38cc70;
+    color: #FFFFFF;
 }
 
 /*END SWITCH*/
