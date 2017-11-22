@@ -805,19 +805,48 @@
           <!-- Header -->
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="centered-text">Add Warranty Plan</h2>
+            <h2 class="centered-text">Update Warranty Plan</h2>
           </div>
           
           <!-- Body -->
           <div class="modal-body">
             <div class="tab-content">
               <div class="tab-pane active">
+                
                 <div class="row">
                   <div class="col-sm-12">
+                    <select class="inputMODAL" name="warranty-type" ng-model="warranty.type_t">
+                      <option value="Any Year">Any Year</option>
+                      <option value="Deluxe">Deluxe</option>
+                      <option value="Factory Type">Factory Type</option>
+                    </select>
+                    <span class="bar"></span>
+                    <label>Plan Type</label>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="currLoan.warranty" required>
+                      <input class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
                       <span class="bar"></span>
-                      <label>Price of Warranty Plan</label>
+                      <label>Plan Duration (months)</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                    <div class="group">
+                      <input class="inputMODAL" type="number" name="warranty-miles" ng-model="warranty.term.miles">
+                      <span class="bar"></span>
+                      <label>Plan Mileage</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                    <div class="group">
+                      <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="warranty.price">
+                      <span class="bar"></span>
+                      <label>Plan Price</label>
                     </div>
                   </div>
                 </div>

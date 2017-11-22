@@ -14,6 +14,8 @@ angular.module('SWEApp').controller(
     $rootScope.currLoan = {};             // Single loan of a current operation (creating, updating, etc.)
     $rootScope.loanWithNewComments = {};  // Loan with comments used to update the existing loan
     
+    $rootScope.warranty = {} ;            // Warranty plan placeholder object
+    
     $rootScope.loading = true;
     $rootScope.searchScopes = [];
     
@@ -77,6 +79,11 @@ angular.module('SWEApp').controller(
     // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
     //------------------------------------------------------------------------------------------------------------------
     $scope.prepareLoanEdit = function(loan) {
+      
+      // Assign global warranty object
+      if (loan.warranty)
+        $rootScope.warranty = loan.warranty ;
+      else $rootScope.warranty = {} ;
       
       // Assign current loan and buyer's order objects
       $rootScope.currLoan = loan ;
@@ -178,8 +185,11 @@ angular.module('SWEApp').controller(
     // Updates the loan with warranty information
     //------------------------------------------------------------------------------------------------------------------
     $scope.warrantyUpdate = function() {
-      Factory.modifyLoan($rootScope.currLoan._id, $rootScope.currLoan).then(
+      Factory.modifyLoan($rootScope.currLoan._id, { warranty: $rootScope.warranty } ).then(
         function(res) {
+          
+          // Assign warranty object to loan on the front-end
+          $rootScope.currLoan.warranty = $rootScope.warranty ;
           
           // TODO: Close modal
           //modal.hide
