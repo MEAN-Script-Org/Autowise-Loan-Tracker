@@ -126,7 +126,18 @@ input.form-control {
   height: 60px;
 }
 
-.navbar-header .navbar-brand {
+.navbar .nav-container {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbar-title {
+    width: auto;
+}
+
+.navbar-title .navbar-brand {
   color: #fff;
   font-size: 20px;
   text-transform: uppercase;
@@ -135,9 +146,32 @@ input.form-control {
   padding-top: 18px;
 }
 
-.navbar-header .navbar-brand div {
+.navbar-title .navbar-brand div {
   color: #38cc70;
 }
+
+.navbar-drop {
+    width: auto;
+}
+.navbar-drop-icon {
+    list-style: none;
+    width: 60px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .navbar-toggle {
   background: rgba(255, 255, 255, 0.1);
@@ -153,20 +187,13 @@ input.form-control {
   background: #fff;
 }
 
-.dropdown {
-  background: rgba(255, 255, 255, 0.1);
-  float: left;
-  margin: 10px 8px;
-  padding: 0px;
-  border-radius: 4px;
-}
-
 .dropdown a.dropdown-toggle {
   color: #fff;
   height: 40px;
-  width: 40px;
-  padding-top: 11px;
-  padding-left: 9px;
+  width: 40px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .dropdown:hover {
@@ -236,6 +263,10 @@ input.form-control {
   color: #38cc70;
   text-decoration: none;
   background: none;
+}
+
+.dropdown-menu {
+    left: -250%;
 }
 
 
