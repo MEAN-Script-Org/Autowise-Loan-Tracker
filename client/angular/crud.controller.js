@@ -1,4 +1,4 @@
-angular.module('SWEApp').controller(
+loaangular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
@@ -87,14 +87,6 @@ angular.module('SWEApp').controller(
     }
 
     // Steven's CSS/jQuery prowess in Material design
-    $scope.setCarUsed = function(used) {
-       // console.log($(".sudo-select ul").css('opacity'));
-        $rootScope.bo.is_car_used = used;
-        $rootScope.bo.is_car_used_text = used ? "Used" : "New";
-        $(".sudo-select").find("ul").css('opacity', '0');
-        $(".sudo-select").find("ul").css('height', '0');
-    };
-
     $scope.onFocusInput = function() {
         $(".sudo-select").find("ul").css('opacity', '1');
         $(".sudo-select").find("ul").css('height', 'auto');
@@ -104,6 +96,15 @@ angular.module('SWEApp').controller(
         $(".sudo-select").find("ul").css('opacity', '0');
         $(".sudo-select").find("ul").css('height', '0');
     }
+
+    $scope.setCarUsed = function(used) {
+       // console.log($(".sudo-select ul").css('opacity'));
+        $rootScope.bo.is_car_used = used;
+        $rootScope.bo.is_car_used_text = used ? "Used" : "New";
+        onBlurInput();
+        // $(".sudo-select").find("ul").css('opacity', '0');
+        // $(".sudo-select").find("ul").css('height', '0');
+    };
 
     $scope.onEditInput = function() {
         if($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {

@@ -92,6 +92,11 @@ module.exports.init = function() {
     res.render('customerHub', {path: ''});
   });
 
+  //customer account info
+   app.use('/account', function(req, res) {
+    res.render('userInfo', {path: ''});
+  });
+
   // Warranties plan view for a customer
   // why the hell does it take 4 reqs to do this??
   app.use('/warranties', function(req, res) {
