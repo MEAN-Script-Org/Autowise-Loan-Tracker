@@ -86,16 +86,14 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-    console.log(token_array);
+    console.log(req.body) ;
     
     if (token_array) {
       // console.log(token_array);
       if (typeof token_array == 'string')
         token_array = token_array.split(",");
-      
       var token = token_array[0];
       var md5hash = token_array[1];
-      console.log(token, md5hash);
 
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err || decodedToken.md5hash != md5hash) {
@@ -123,7 +121,8 @@ module.exports = {
       });
     } 
     else {
-      console.log("No Token") ;
+      // console.log("WHAT ARE YOU DOING HERE?!") ;
+      // this means no token passed at all... go bye bye
       console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
       res.json({});
       // next();

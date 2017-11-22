@@ -62,9 +62,9 @@ router.route('/user/:userID')
       .delete(users.delete) ;
 
 // > 'Multiple' users
+// I don't have a token when I create one, so ofc it's gonna be bad...
 router.route('/users')
-      .get(users.getAll, users.returnUsers)
-      .post(users.create, auth.login) ;
+      .get(users.getAll, users.returnUsers) ;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Routing parameters

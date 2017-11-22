@@ -9,12 +9,13 @@ var config_loader = require('dotenv');
 
 var locals = config_loader.load();
 
-gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
+gulp.task('default', ['nodemon', 'browser-sync',]);
+// gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
 
-gulp.task('get-config', function(cb) {
-    if (exec("heroku config -s > .env"))
-        cb();
-});
+// gulp.task('get-config', function(cb) {
+//     if (exec("heroku config -s > .env"))
+//         cb();
+// });
 
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {

@@ -12,33 +12,25 @@ var ejs_class = '';
 // Reroute logic *nessesarily ugly&
 var profile_routes = express.Router();
 
-profile_routes.route('/:token')
-.all(function(req, res) {
-  // next page routing based on token status and admin
-  var token = req.body.token;
+profile_routes.route('/:token').all(
+  function(req, res) {
+    // next page routing based on token status and admin
+    var token = req.body.token;
 
-  if (!token) {
-    ejs_msg = "Please log in to access your profile";
-    ejs_class = 'alert bg-danger';
-    res.redirect("/login");
-  }
-  else if (token == "nothing ever") {
-    ejs_msg = "Your session expired. Please log in again";
-    ejs_class = "alert bg-warning";
-    res.redirect('/login');
-  }
-  // else if (Object.keys(req.query).length < 1) {
-  //   //// Technically not secure as of now... but figure out an intermediate view in the frontend for it
-  //   // here render an angular view where you call the http with token and etc, 
-  //   console.log(req.query);
-  //   console.log(req.body);
-  //   // res.render("secure", {path: ""});
-  //   res.json({what: "no work"});
-  // }
-  else if (token.isAdmin)
-    res.render("admin", {path: "../"});
-  else
-    res.render("customerHub", {path: "../"});
+    if (!token) {
+      ejs_msg = "Please log in to access your profile";
+      ejs_class = 'alert bg-danger';
+      res.redirect("/login");
+    }
+    else if (token == "nothing ever") {
+      ejs_msg = "Your session expired. Please log in again";
+      ejs_class = "alert bg-warning";
+      res.redirect('/login');
+    }
+    else if (token.isAdmin)
+      res.render("admin", {path: "../"});
+    else
+      res.render("customerHub", {path: "../"});
 });
 
 profile_routes.param('token', auth.decodeToken);
@@ -50,21 +42,21 @@ profile_routes.param('token', auth.decodeToken);
 
 var login_routes = express.Router();
 login_routes.route("/")
-.get(function(req, res) {
-  // console.log(ejs_msg, ejs_class);
+  .get(function(req, res) {
+    // console.log(ejs_msg, ejs_class);
 
-  // have these values yes or yes
-  console.log("rendering...");
-  res.render('login', {
-      message: ejs_msg,
-      type: ejs_class,
-      path: ''
-  });
+    // have these values yes or yes
+    console.log("rendering...");
+    res.render('login', {
+        message: ejs_msg,
+        type: ejs_class,
+        path: ''
+    });
 
-  ejs_msg = '';
-  ejs_class = '';
-})
-.post(auth.login);
+    ejs_msg = '';
+    ejs_class = '';
+  })
+  .post(auth.login);
 
 // End of ugly (but needed) routes
 
@@ -117,8 +109,14 @@ module.exports.init = function() {
     res.render('changePermissions', {path: ''});
   });
 
-  // ALLOW non-logged in to retrieve user names
+  // TODO: Add master admin hardcoded link (Harrisons work)
+  app.use('/admin', function(req, res) {
+    res.render("admin", {path: "../"});
+  });
+
+  // ALLOW non-logged in to retrieve usernames, and create new profiles
   app.use('/usernames', users.getAll, users.getAllUsernames);
+  app.use('/new', users.create, auth.login);
 
   // Token-Based Auth
   // Backend API routes

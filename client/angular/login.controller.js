@@ -12,17 +12,18 @@ angular.module('SWEApp').controller('LoginController',
       // Atempt to reroute ASAP
       Factory.isLoggedIn().then(
         function(res) {
+
           if (res.data.error || error_message || type) {
-            alert(res.data.error);
             // useless error..
             // console.log(res.data.error);
             Factory.removeToken();
           } 
           
-          if (Factory.getToken()) {
+          var token_array = Factory.getToken();
+          if (token_array) {
             // alert("Redirecting to profile.. please wait");
             // setTimeout(function(){$('.alert').alert('close')}, 400);
-            // window.location.href = '/profile/' + Factory.getToken();
+            window.location.href = '/profile/' + Factory.getToken();
           }
         },
         function(err, error) {
@@ -41,16 +42,11 @@ angular.module('SWEApp').controller('LoginController',
             $rootScope.usernames[item] = true;
           });
         }
-      );
-
-      // This works
-      // Factory.getAllUsers().then(
-      //   function(res) {
-      //     $rootScope.users = res.data;
-      //   },
+      //   ,
       //   function(err) {
-      //     alert(err);
-      // });
+      //     alert("can't get usernames..");
+      // }
+      );
     }
 
     $scope.login = function() {
@@ -68,10 +64,16 @@ angular.module('SWEApp').controller('LoginController',
             
             // check that this works
             Factory.addToken(res.data);
-            console.log(res.data);
-            console.log(Factory.getToken());
-            // $window.location.href = '/login';
-          } else alert(res.data.error);
+            // console.log(Factory.getToken());
+          } else {
+            if (res.data.error.indexOf("Invalid") > -1)
+            {
+              // username it's ok not to be cleared here
+              $scope.password = null;
+            }
+
+            alert(res.data.error);
+          }
         },
         function(err) {
           return alert(err);
@@ -79,8 +81,9 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-      if (!$rootScope.usernames[$scope.newUser.username])
+      if (!$rootScope.usernames[$scope.newUser.username]) {
         Factory.newUser($scope.newUser);
+      }
       else
         alert("Please change your username to one that hasn't been taken");
     }

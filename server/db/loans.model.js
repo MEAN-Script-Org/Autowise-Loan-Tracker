@@ -84,7 +84,9 @@ var loanSchema = new mongoose.Schema({
       year:             {type: Number, required: true},
       make:             {type: String, required: true},
       model:            {type: String, required: true},
-      type_t:           {type: String, required: true}, // 'type' is a reserved word, lol
+      // 'type' is a reserved word, lol
+      // i think it's cuz we already have it.. lol
+      type_t:           {type: String, required: true}, 
       color:            {type: String, required: true},
       cyl:              Number,
 
@@ -175,7 +177,7 @@ loanSchema.pre('save', function(next) {
 
   // TODO: Enforce all uppercase in server too
   if (!this.type)
-    this.type = "Auto Loan";
+    this.type = "AUTO LOAN";
 
   next();
 });
