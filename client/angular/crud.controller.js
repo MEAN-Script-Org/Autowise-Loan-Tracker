@@ -92,6 +92,32 @@ angular.module('SWEApp').controller(
       // Set editing flag to 'true'
       $rootScope.isEditingLoan = true ;
     }
+
+    // Steven's CSS/jQuery prowess in Material design
+    $scope.onFocusInput = function() {
+        $(".sudo-select").find("ul").css('opacity', '1');
+        $(".sudo-select").find("ul").css('height', 'auto');
+    }
+
+    $scope.onBlurInput = function() {
+        $(".sudo-select").find("ul").css('opacity', '0');
+        $(".sudo-select").find("ul").css('height', '0');
+    }
+
+    $scope.setCarUsed = function(used) {
+       // console.log($(".sudo-select ul").css('opacity'));
+        $rootScope.bo.is_car_used = used;
+        $rootScope.bo.is_car_used_text = used ? "Used" : "New";
+        onBlurInput();
+        // $(".sudo-select").find("ul").css('opacity', '0');
+        // $(".sudo-select").find("ul").css('height', '0');
+    };
+
+    $scope.onEditInput = function() {
+        if($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
+            $rootScope.bo.is_car_used_text = "";
+        }
+    };
     
     //------------------------------------------------------------------------------------------------------------------
     // Called from the buyer's order modal
@@ -102,8 +128,10 @@ angular.module('SWEApp').controller(
       
       var newLoan = $rootScope.currLoan ;
       
-      newLoan.buyers_order = $rootScope.bo ;                  // Assign buyer's order information to loan
-      newLoan.name = newLoan.buyers_order.purchaser.name ;    // Copy Purchaser name to Loan name field
+      // Assign buyer's order information to loan
+      // Copy Purchaser name to Loan name field
+      newLoan.buyers_order = $rootScope.bo ;                  
+      newLoan.name = newLoan.buyers_order.purchaser.name ;    
       
       // Checks if insurance has been specifeid
       // If not, asks the User if they would like to continue
@@ -342,7 +370,7 @@ angular.module('SWEApp').controller(
     $scope.clearCheckbox = function(loanID) {
       // jQuery again
       var checkbox = ["#", loanID, "-checkbox"].join("");
-      $(checkbox).prop('checked', false);;
+      $(checkbox).prop('checked', false);
     }
 
     function addCommentFrontend(loanID, newCommentContent) {

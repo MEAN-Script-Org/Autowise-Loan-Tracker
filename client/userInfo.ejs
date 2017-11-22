@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/header.ejs %>
+</head>
+<body>
+  
+
+
+<!-- ACCOUNT EDITING VIEW & FUNCTIONALITY ~
+> View your account info
+  - Name
+  - DOB
+  - Email (if exists)
+  - DL
+  - Other info?
+> Change your password
+  - Implement as a button to a modal dialog
+> Can't change other information -> need to call in so Autowise admin can do so
+> Contact Autowise -> send a message
+  - Textbox field
+  - Button to send contents of field in an email -->
+<!-- col-sm-offset-1 col-lg-offset-1 -->
+
+  <!-- MAIN PAGE DIV -->
+  <div class="col-sm-12 col-lg-12 main"
+
+    ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
+        <% include partials/nav.ejs %>
+        <div class="header row">
+            <ol class="breadcrumb">
+                <li><a href="#">
+                    <em class="fa fa-home"></em>
+                </a></li>
+                <li class="active">Account Information</li>
+            </ol>
+        </div>
+
+
+
+<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main"
+     ng-app="SWEApp" ng-controller="UserAccounts" ng-init="init()">
+
+     <div class="row">
+         <div class="col-md-12">
+
+             <h2 class="page-header">Account Information</h2>     
+             
+             <br />
+             <b>Username</b>
+             <br />
+             <div class="user-info-spacing"> {{username}}
+             <br /><br />
+             <b>Name</b>
+             <br />
+             {{name}}
+             <br /><br />
+             <b>Date of Birth</b>
+             <br />
+             {{dob}}
+             <br /><br />
+             <b>Email</b>
+             <br />
+             {{email}}
+             <br /><br />
+             <b>Driver's License</b>
+             <br />
+             {{dl}}
+             <br /><br />
+
+
+             <button class="btn btn-primary " data-dismiss="modal" ng-click="contactAdmin"  data-target="#changePasswordModal" data-toggle="modal">
+                <!-- Forgot my password button -->
+                Change my password
+              </button>
+
+
+
+
+
+    <% include partials/nav.ejs %>
+    <% include partials/modals.ejs %>
+    </div>
+</div>
+
+<% include partials/footer.ejs %>
+
+</body>
+</html>

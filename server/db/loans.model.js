@@ -1,4 +1,7 @@
 var mongoose = require('mongoose') ;
+
+var loans = require('./loans.crud.js') ;
+
 mongoose.Promise = global.Promise;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -92,7 +95,9 @@ var loanSchema = new mongoose.Schema({
       year:             {type: Number, required: true},
       make:             {type: String, required: true},
       model:            {type: String, required: true},
-      type_t:           {type: String, required: true}, // 'type' is a reserved word, lol
+      // 'type' is a reserved word, lol
+      // i think it's cuz we already have it.. lol
+      type_t:           {type: String, required: true}, 
       color:            {type: String, required: true},
       cyl:              Number,
 
@@ -180,10 +185,13 @@ loanSchema.pre('save', function(next) {
     this.status = "RECEIVED";
   else
     this.status = this.status.toUpperCase();
-
+  
+  // Attempt to affix this loan to a user, if one is found with matching information
+  loans.affixLoanToUser(this) ;
+  
   // TODO: Enforce all uppercase in server too
   if (!this.type)
-    this.type = "Auto Loan";
+    this.type = "AUTO LOAN";
 
   next();
 });

@@ -1,6 +1,6 @@
 angular.module('SWEApp').controller(
-  'CustomerController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-  function($rootScope, $scope, $location, $timeout, Factory) {
+  'CustomerController', ['$rootScope', '$scope', '$location', '$window', '$timeout', 'Factory',
+  function($rootScope, $scope, $location, $window, $timeout, Factory) {
 
     // GLOBALS
     $rootScope.loans = [];
@@ -16,17 +16,12 @@ angular.module('SWEApp').controller(
     // Testing function
     //------------------------------------------------------------------------------------------------------------------
     $scope.oops = function() {
-      var id = "5a0b7e6e3cf0921ddc6c9d95";
-      
-      // FOR TESTING LOAN ATTACHEMENT PURPOSES
-      Factory.getUser(id).then(
+      Factory.getLoan('5a1106ca3854dd0c2cb3d818').then(
         function(res) {
-          console.log(res.user) ;
           console.log(res) ;
-          res.user.save() ;
         },
-        function (err) {}
-      )
+        function(err) { console.log(err) }
+      );
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -57,7 +52,14 @@ angular.module('SWEApp').controller(
         }
       );
     }
-
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Sets the path to the warranty plans view
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.goToWarranties = function(loan_id) {
+      $window.location.href = '/profile/warranties/' + loan_id + '/' + Factory.getToken() ;
+    }
+    
     $scope.logout = function() {
       Factory.logout();
     }

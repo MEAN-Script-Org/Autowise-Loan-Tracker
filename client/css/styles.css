@@ -90,7 +90,18 @@ input.form-control {
   height: 60px;
 }
 
-.navbar-header .navbar-brand {
+.navbar .nav-container {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbar-title {
+    width: auto;
+}
+
+.navbar-title .navbar-brand {
   color: #fff;
   font-size: 20px;
   text-transform: uppercase;
@@ -99,9 +110,32 @@ input.form-control {
   padding-top: 18px;
 }
 
-.navbar-header .navbar-brand div {
+.navbar-title .navbar-brand div {
   color: #38cc70;
 }
+
+.navbar-drop {
+    width: auto;
+}
+.navbar-drop-icon {
+    list-style: none;
+    width: 60px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .navbar-toggle {
   background: rgba(255, 255, 255, 0.1);
@@ -117,20 +151,13 @@ input.form-control {
   background: #fff;
 }
 
-.dropdown {
-  background: rgba(255, 255, 255, 0.1);
-  float: left;
-  margin: 10px 8px;
-  padding: 0px;
-  border-radius: 4px;
-}
-
 .dropdown a.dropdown-toggle {
   color: #fff;
   height: 40px;
-  width: 40px;
-  padding-top: 11px;
-  padding-left: 9px;
+  width: 40px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .dropdown:hover {
@@ -200,6 +227,10 @@ input.form-control {
   color: #38cc70;
   text-decoration: none;
   background: none;
+}
+
+.dropdown-menu {
+    left: -250%;
 }
 
 
@@ -2204,9 +2235,9 @@ div.ng-show {
 /* INPUT FORM */
 
 /* form starting stylings ------------------------------- */
-.group {
-  position: relative;
-  margin-bottom: 45px;
+.group 			  { 
+  position:relative; 
+  margin-bottom:16px; 
 }
 
 .inputMODAL {
@@ -2354,12 +2385,91 @@ div.ng-show {
 
 /* END INPUT FORM */
 
+/* SELECTOR OPTION */
+.selector .inputMODAL {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='#666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'> <path d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/> <path d='M0-.75h24v24H0z' fill='none'/> </svg>");
+
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+/*
+  height: 24px;
+  width: 24px;
+*/
+  -webkit-transition-property: background;
+  transition-property: background;
+}
+
+.selector .sudo-select {
+    position: absolute;
+    width: 100%;
+/*    top: 16px;*/
+    height: auto;
+    opacity: 1;
+    -webkit-transition-property: height, opacity;
+    transition-property: height, opacity;
+    z-index: 2000;
+}
+.selector .sudo-select ul {
+  color:#38cc70;
+  background: #fff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  display: block;
+  height: 0;
+  list-style: none;
+  margin-top: -8px;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 1px;
+  -webkit-transition: height 0.3s, opacity 0.3s;
+  transition: height 0.3s, opacity 0.3s;
+  width: 100%;
+}
+.selector .sudo-select ul li {
+  height: 32px;
+  padding: 8px 4px;
+}
+
+.selector .inputMODAL:focus {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='#38cc70' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'> <path d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/> <path d='M0-.75h24v24H0z' fill='none'/> </svg>");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+}
+/*, .selector .inputMODAL:focus ~ .sudo-select ul*/
+/*
+.selector .inputMODAL:focus ~ .sudo-select {
+  height: auto;
+  opacity: 1;
+}
+*/
+
+.sudo-select li:hover {
+    background-color: #38cc70;
+    color: white;
+}
+
+.sudo-select-btn {
+    background-color: #E8E8E8;
+    color: #38cc70;
+    width: 100%;
+    height: 24px;
+    padding: 4px 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sudo-select-btn:hover {
+    background-color: #38cc70;
+}
+/* END SELECTOR OPTION */
+
 /* Switch Slide
 ==========================*/
-.co-purchase-add {
+.header-switch {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 24px;
 }
 
 .switch {
@@ -2415,13 +2525,12 @@ div.ng-show {
 	content: attr(data-on);
 	left: 11px;
 	color: #FFFFFF;
-	opacity: 0;
 }
 .switch-input:checked ~ .switch-label {
 	background: #E1B42B;
 }
 .switch-input:checked ~ .switch-label:before {
-	opacity: 0;
+	opacity: 1;
 }
 .switch-input:checked ~ .switch-label:after {
 	opacity: 1;
@@ -2477,7 +2586,7 @@ div.ng-show {
 	overflow: hidden;
 }
 .switch-slide .switch-label:after, .switch-slide .switch-label:before {
-	width: 100%;
+	width: 50%;
 	height: 65%;
 	top: 5px;
 	left: 0;
@@ -2487,12 +2596,14 @@ div.ng-show {
 /*	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
 }
 .switch-slide .switch-label:after {
-	color: #FFFFFF;
-	background: #38cc70;
-	left: -100px;
+	color: #AAAAAA;
+	background: #eceeef;
+	left: 0;
 }
 .switch-slide .switch-label:before {
-	background: #eceeef;
+	background: #38cc70;
+    color: #FFFFFF;
+    left: 50%;
 }
 .switch-slide .switch-handle {
 	display: none;
@@ -2502,11 +2613,31 @@ div.ng-show {
 	border-color: #38cc70;
 }
 .switch-slide .switch-input:checked ~ .switch-label:before {
-	left: 100px;
+	left: 50%;
+    color: #AAAAAA;
+	background: #eceeef;
 }
 .switch-slide .switch-input:checked ~ .switch-label:after {
 	left: 0;
+    background: #38cc70;
+    color: #FFFFFF;
 }
+
+/*specific functionality*/
+.co-purchase {
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    
+    transition: max-height 0.3s;
+}
+
+.co-purchase-show {
+    max-height: 100em;
+    pointer-events: all;
+}
+
+.switch-slide .switch-input:checked
 
 /*END SWITCH*/
 
