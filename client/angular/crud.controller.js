@@ -9,15 +9,18 @@ angular.module('SWEApp').controller(
     // ];
     // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
-    $rootScope.loans = [];
+    $rootScope.loans = [];                // All loans in the database
+    $rootScope.massLoans = [];            // All loans currently selected (checked)
+    $rootScope.currLoan = {};             // Single loan of a current operation (creating, updating, etc.)
+    $rootScope.loanWithNewComments = {};  // Loan with comments used to update the existing loan
+    
     $rootScope.loading = true;
-    $rootScope.massLoans = [];
     $rootScope.searchScopes = [];
-    $rootScope.singleLoanID = [];
-    $rootScope.loanWithNewComments = {};
+    
+    $rootScope.isEditingLoan = false ;
     
     // Buyer's Order placeholder
-    $rootScope.bo = { purchaser: {}, copurchaser: { invalid: true }, insr: {}} ; 
+    $rootScope.bo = {} ; 
 
     $scope.init = function() {
       console.log("MEAN App on it's way!");
@@ -52,68 +55,75 @@ angular.module('SWEApp').controller(
     $scope.logout = function() {
       Factory.logout();
     }
-
+    
     //------------------------------------------------------------------------------------------------------------------
     // LOAN CRUD FUNCTIONS - SINGLE
     //------------------------------------------------------------------------------------------------------------------
+    
     //------------------------------------------------------------------------------------------------------------------
-    // Create a new loan, prompting the buyer's order modal dialog
+    // Sets the current buyer's order and loan to a blank template and sets the 'isEditingLoan' property to 'false'
     //------------------------------------------------------------------------------------------------------------------
-    $scope.addLoan = function() {
-      // Assigning foreign elements
-      $scope.newLoan.user_id = $rootScope.user_id;
-      // $scope.newLoan.user_email = $rootScope.user_email;
+    $scope.prepareLoanCreate = function() {
       
-      Factory.newLoan($scope.newLoan).then(
-        function(response) {
-          if (response.data) {
-            // Making the loan
-            var newLoan = response.data;
-            newLoan.new = true;
-            $rootScope.loans.push(newLoan);
-
-            // Logging
-            // console.log("Returned new loan: ");
-            // console.log(response.data);
-
-            // clear form data once done
-            $scope.newLoan = {};
-          }
-        },
-        function(err) {
-          console.log(err);
-        }
-      );
+      // Assign empty templates to current loan and buyer's order objects
+      $rootScope.currLoan = {} ;
+      $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ;
+      
+      // Set editing flag to 'false'
+      $rootScope.isEditingLoan = false ;
     }
     
     //------------------------------------------------------------------------------------------------------------------
-    // Create a new loan with all the fields specified under the Buyer's Order
+    // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
     //------------------------------------------------------------------------------------------------------------------
+    $scope.prepareLoanEdit = function(loan) {
+      
+      // Assign current loan and buyer's order objects
+      $rootScope.currLoan = loan ;
+      $rootScope.bo = loan.buyers_order ;
+      
+      // Set editing flag to 'true'
+      $rootScope.isEditingLoan = true ;
+    }
+
+    // Steven's CSS/jQuery prowess in Material design
     $scope.setCarUsed = function(used) {
-//        console.log($(".sudo-select ul").css('opacity'));
+       // console.log($(".sudo-select ul").css('opacity'));
         $rootScope.bo.is_car_used = used;
         $rootScope.bo.is_car_used_text = used ? "Used" : "New";
         $(".sudo-select").find("ul").css('opacity', '0');
         $(".sudo-select").find("ul").css('height', '0');
     };
+
     $scope.onFocusInput = function() {
         $(".sudo-select").find("ul").css('opacity', '1');
         $(".sudo-select").find("ul").css('height', 'auto');
     }
+
     $scope.onBlurInput = function() {
         $(".sudo-select").find("ul").css('opacity', '0');
         $(".sudo-select").find("ul").css('height', '0');
     }
+
     $scope.onEditInput = function() {
         if($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
             $rootScope.bo.is_car_used_text = "";
         }
     };
-    $scope.addLoanWithBO = function() {
-      var newLoan = $scope.newLoan ;
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Called from the buyer's order modal
+    // Information on the 'bo' and 'currLoan' objects are used to create a new loan in the database
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.createLoanWithBO = function() {
+      if (!$rootScope.currLoan) return ;
       
-      newLoan.buyers_order = $rootScope.bo ;                  // Assign buyer's order information to loan
-      newLoan.name = newLoan.buyers_order.purchaser.name ;    // Copy Purchaser name to Loan name field
+      var newLoan = $rootScope.currLoan ;
+      
+      // Assign buyer's order information to loan
+      // Copy Purchaser name to Loan name field
+      newLoan.buyers_order = $rootScope.bo ;                  
+      newLoan.name = newLoan.buyers_order.purchaser.name ;    
       
       // Checks if insurance has been specifeid
       // If not, asks the User if they would like to continue
@@ -125,10 +135,12 @@ angular.module('SWEApp').controller(
           return ;
       }
       
-      // TODO: search for existing user via 'newLoan.buyers_order.purchaser' specifications
-      //       if none found, prompt to add a new user
+      // Create new loan and upload it to the database
+      // On back-end, if a matching user exists with the purchaser information, the user is assigned this loan
+      // Else the loan is dangling without an assigned user
       
-      // Use factory to create new loan and upload it to the database
+      // TODO: test this!
+      
       Factory.newLoan(newLoan).then(
         function(response) {
           if (response.data) {
@@ -158,7 +170,36 @@ angular.module('SWEApp').controller(
         }
       );
     }
-
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Called from the buyer's order modal
+    // Information on the 'bo' and 'currLoan' objects are used to update a loan in the database
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.updateLoanWithBO = function() {
+      if (!$rootScope.currLoan) return ;
+      
+      // Update loan in the database with updated buyer's order
+      // On back-end, the loan may be reassigned to a user if the purchaser information has changed
+      // Additionally, the loan may become dangling if there is no longer a user match
+      
+      // TODO: test this!
+      
+      Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
+        function(res) {
+          
+          // TODO: Close modal
+          //modal.hide
+          //data-dismiss="modal"
+          
+          alert("Loan was updated successfully!") ;
+        },
+        function(err) {
+          alert("Error updating loan! Ensure all fields are filled properly");
+          console.log(err);
+        }
+      );
+    }
+    
     //------------------------------------------------------------------------------------------------------------------
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
@@ -192,15 +233,10 @@ angular.module('SWEApp').controller(
         );
       }
     }
-
-    // Marcial:
-    //    AVOID angular.ANYTHING for general javascript/programming actions
-
+    
     //------------------------------------------------------------------------------------------------------------------
     // Updates the status of a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
-    // TODO LATER: Could improve efficiency if needed if passing an object with loanIDs,
-    //             then iterate for attributes
     $scope.changeLoanStatus = function(loanID, newStatus) {
       Factory.modifyLoan(loanID, { status: newStatus }).then(
         function(response) {
@@ -214,8 +250,7 @@ angular.module('SWEApp').controller(
             }
           });
 
-          if ($rootScope.singleLoanID.length > 0)
-            $rootScope.singleLoanID = [];
+          $rootScope.currLoan = {} ;
         },
         function(err) {
           alert("Error updating loan status");
