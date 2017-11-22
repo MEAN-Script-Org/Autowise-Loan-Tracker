@@ -54,7 +54,7 @@ userSchema.pre('save', function(next) {
     this.isAdmin = false;
   
   // Affix any dangling loans in the database to this User
-  loans.affixLoans(this) ;
+  loans.affixLoansToUser(this) ;
   
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());

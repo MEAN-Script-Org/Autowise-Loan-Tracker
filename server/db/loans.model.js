@@ -1,4 +1,7 @@
 var mongoose = require('mongoose') ;
+
+var loans = require('./loans.crud.js') ;
+
 mongoose.Promise = global.Promise;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -174,7 +177,10 @@ loanSchema.pre('save', function(next) {
     this.status = "RECEIVED";
   else
     this.status = this.status.toUpperCase();
-
+  
+  // Attempt to affix this loan to a user, if one is found with matching information
+  loans.affixLoanToUser(this) ;
+  
   // TODO: Enforce all uppercase in server too
   if (!this.type)
     this.type = "AUTO LOAN";
