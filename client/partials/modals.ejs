@@ -250,13 +250,6 @@
                       </label>
                     </div>
     
-                      <!-- 
-                      <select ng-model="bo.copurchaser.invalid">
-                        <option value="false">Yes</option>
-                          <option value="true" selected>No </option>                    
-                      </select>
-                       -->
-    
                     <!--Co-purchaser fields: hidden if the above field is marked "No" -->
                     <div ng-show="bo.copurchaser.valid">
                       <!-- <h5>Basic Info</h5> -->
@@ -404,11 +397,11 @@
                 </div>
                 <div>
                   <span>Serial Number</span>
-                  <input name="car-serial-no" ng-model="bo.car_info.serial_no" type="number">
+                  <input name="car-serial-no" ng-model="bo.car_info.serial_no">
                 </div>
                 <div>
                   <span>Stock Number</span>
-                  <input name="car-stock-num" ng-model="bo.car_info.stock_no" type="number">
+                  <input name="car-stock-num" ng-model="bo.car_info.stock_no">
                 </div>
                 <div>
                   <span>Salesperson</span>
@@ -793,6 +786,49 @@
                 I want this plan
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Marcial: Need better Modal CSS -->
+<!--          Doesn't need to be mobile friendly -->
+<!-- TODO:  VALIDATION AND CLEANING (no need for 'name fields') -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyPlanAdmin">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <!-- Header -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="centered-text">Add Warranty Plan</h2>
+          </div>
+          
+          <!-- Body -->
+          <div class="modal-body">
+            <div class="tab-content">
+              <div class="tab-pane active">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="group">
+                      <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="currLoan.warranty" required>
+                      <span class="bar"></span>
+                      <label>Price of Warranty Plan</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="warrantyUpdate()">Update Warranty</button>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

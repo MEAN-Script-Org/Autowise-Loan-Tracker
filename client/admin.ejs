@@ -66,7 +66,7 @@
                               <span class="checkmark"></span>
                             </label>
                               
-                            {{loan.name | limitTo: 18}}
+                            {{loan.buyers_order.purchaser.name | limitTo: 18}}
                           <!-- style this somewhat... -->
                           – {{loan.type | uppercase}}
                           – {{loan.status | uppercase}}

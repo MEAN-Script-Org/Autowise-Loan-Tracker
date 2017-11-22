@@ -174,6 +174,27 @@ angular.module('SWEApp').controller(
     }
     
     //------------------------------------------------------------------------------------------------------------------
+    // Called from the admin warranty modal
+    // Updates the loan with warranty information
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.warrantyUpdate = function() {
+      Factory.modifyLoan($rootScope.currLoan._id, $rootScope.currLoan).then(
+        function(res) {
+          
+          // TODO: Close modal
+          //modal.hide
+          //data-dismiss="modal"
+          
+          alert("Warranty plan was updated successfully!") ;
+        },
+        function(err) {
+          alert("Error updating warranty plan! Ensure field is filled properly");
+          console.log(err);
+        }
+      );
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
     $scope.removeLoan = function(loanID, uncofirmedDeletion) {

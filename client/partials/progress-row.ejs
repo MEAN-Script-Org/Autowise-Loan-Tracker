@@ -15,7 +15,7 @@
         <!-- href="{{updateCheckList(loan._id, false)}}"  -->
         <!-- this hardcoded style needs to be in a CSS class -->
         <a class="pull-right dropdown-toggle" data-target="#changeModal" data-toggle="modal"
-           title="Change status of loan" ng-click="currLoan = loan"
+           title="Change status of loan" ng-click="prepareLoanEdit(loan)"
            style="display: flex; justify-content: center; align-items: center;">
             <em class="fa fa-cogs"></em>
         </a>
@@ -23,7 +23,13 @@
         <a class="pull-right dropdown-toggle" data-target="#buyersOrderModal" data-toggle="modal"
            title="Edit or view Buyer's Order" ng-click="prepareLoanEdit(loan)"
            style="display: flex; justify-content: center; align-items: center;">
-            <em class="btn-danger fa fa-edit"></em>
+            <em class="fa fa-edit"></em>
+        </a>
+        
+        <a class="pull-right dropdown-toggle" data-target="#warrantyPlanAdmin" data-toggle="modal"
+           title="Add a warranty plan" ng-click="prepareLoanEdit(loan)"
+           style="display: flex; justify-content: center; align-items: center;">
+            <em class="fa fa-flask"></em>
         </a>
       </li>
     </ul>
