@@ -2,16 +2,26 @@ var morgan = require('morgan');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var api_routes = require('./routes.js');
-var users = require("./db/users.crud.js") ;
+
 var auth = require("./auth.js");
+var api_routes = require('./routes.js');
+
+var users = require("./db/users.crud.js") ;
+var loans = require('./db/loans.crud.js') ;
 
 var ejs_msg = '';
 var ejs_class = '';
 
+//----------------------------------------------------------------------------------------------------------------------
+// PROFILE ROUTING
+//======================================================================================================================
+
 // Reroute logic *nessesarily ugly&
 var profile_routes = express.Router();
 
+//----------------------------------------------------------------------------------------------------------------------
+// User (admin and customer) home/hub routing
+//----------------------------------------------------------------------------------------------------------------------
 profile_routes.route('/:token').all(
   function(req, res) {
     // next page routing based on token status and admin
@@ -33,14 +43,45 @@ profile_routes.route('/:token').all(
       res.render("customerHub", {path: "../"});
 });
 
+//----------------------------------------------------------------------------------------------------------------------
+// Customer warranty plans routing
+//----------------------------------------------------------------------------------------------------------------------
+profile_routes.route('/warranties/:loan_id/:token')
+.all(function(req, res) {
+  var token = req.body.token;
+  var loan = req.loan;
+  
+  console.log("WARRANTIES ROUTER: ");
+  console.log(token) ;
+  console.log(loan) ;
+  
+  // Missing/invalid token handling => redirect to login page
+  if (!token) {
+    ejs_msg = "Your session expired. Please log in again";
+    ejs_class = "alert bg-warning";
+    res.redirect('/login');
+  } else if (token == "nothing ever") {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+    res.redirect("/login");
+  
+  // Render warranties page
+  } else {
+    res.render("warranties", {path: "../../../"});
+  }
+});
+
+profile_routes.param('loan_id', loans.loanByID);
 profile_routes.param('token', auth.decodeToken);
 
-// profile_routes.route('/:token/warranty')
-//               .get()
-//               .post()
-//               ;
-
+//----------------------------------------------------------------------------------------------------------------------
+// LOGIN ROUTING
+//======================================================================================================================
 var login_routes = express.Router();
+
+//----------------------------------------------------------------------------------------------------------------------
+// Login page routing
+//----------------------------------------------------------------------------------------------------------------------
 login_routes.route("/")
   .get(function(req, res) {
     // console.log(ejs_msg, ejs_class);
@@ -58,8 +99,13 @@ login_routes.route("/")
   })
   .post(auth.login);
 
+// Marcial:
 // End of ugly (but needed) routes
+// I did it this way in order to reroute back to login with a message
 
+//======================================================================================================================
+// Rest of the routing
+//======================================================================================================================
 module.exports.init = function() {
 
   // Connect to database
@@ -99,9 +145,9 @@ module.exports.init = function() {
 
   // Warranties plan view for a customer
   // why the hell does it take 4 reqs to do this??
-  app.use('/warranties', function(req, res) {
-    res.render('warranties', {path: ''});
-  });
+  // app.use('/warranties', function(req, res) {
+  //   res.render('warranties', {path: ''});
+  // });
 
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', login_routes);
