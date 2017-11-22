@@ -240,7 +240,7 @@
                     </div>
                     <br>
 
-                    <!-- SWITCH for Co-Purchaser -->
+                    <!-- old switch for Co-Purchaser -->
                     <!-- 
                     <div style="display: grid; grid-template-columns: 2fr 2fr">
                       <div> <h5 class="co-purchase-add"> Adding a Co-Purchaser? </h5> </div>
@@ -257,12 +257,8 @@
                         <input class="switch-input" type="checkbox" ng-model="bo.copurchaser.valid" ng-true-value="true" ng-false-value="false" value="false"/>
                         <span class="switch-label" data-on="Yes" data-off="No"></span> 
                         <span class="switch-handle"></span>
-                    </label>
-                    <select ng-model="bo.copurchaser.invalid">
-                      <option value="false">Yes</option>
-                        <option value="true" selected>No </option>                    
-                    </select>
-    
+                    </label>    
+
                     <!--Co-purchaser fields: hidden if the above field is marked "No" -->
                     <div ng-class="bo.copurchaser.valid ? 'co-purchase-show' : ''" class="co-purchase">
                       <!-- <h5>Basic Info</h5> -->

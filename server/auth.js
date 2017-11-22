@@ -86,7 +86,8 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-console.log(req.body) ;
+    console.log(req.body) ;
+    
     if (token_array) {
       // console.log(token_array);
       if (typeof token_array == 'string')
@@ -120,7 +121,8 @@ console.log(req.body) ;
       });
     } 
     else {
-      console.log("WHAT ARE YOU DOING HERE?!") ;
+      // console.log("WHAT ARE YOU DOING HERE?!") ;
+      // this means no token passed at all... go bye bye
       console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
       res.json({});
       // next();

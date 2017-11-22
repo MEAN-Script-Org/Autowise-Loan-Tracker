@@ -303,7 +303,7 @@ angular.module('SWEApp').controller(
     $scope.clearCheckbox = function(loanID) {
       // jQuery again
       var checkbox = ["#", loanID, "-checkbox"].join("");
-      $(checkbox).prop('checked', false);;
+      $(checkbox).prop('checked', false);
     }
 
     function addCommentFrontend(loanID, newCommentContent) {
