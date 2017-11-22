@@ -39,7 +39,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         return $http.post('/api/users', args).then(
           function(res) {
             addToken(res.data);
-            $window.location.href = '/login';
+            console.log(res.data);
+            // $window.location.href = '/login';
           },
           function(err, message) {
             alert(message + err + JSON.stringify(err));

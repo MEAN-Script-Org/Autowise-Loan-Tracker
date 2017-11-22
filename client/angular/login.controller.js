@@ -12,8 +12,8 @@ angular.module('SWEApp').controller('LoginController',
       // Atempt to reroute ASAP
       Factory.isLoggedIn().then(
         function(res) {
-
           if (res.data.error || error_message || type) {
+            alert(res.data.error);
             // useless error..
             // console.log(res.data.error);
             Factory.removeToken();
@@ -22,7 +22,7 @@ angular.module('SWEApp').controller('LoginController',
           if (Factory.getToken()) {
             // alert("Redirecting to profile.. please wait");
             // setTimeout(function(){$('.alert').alert('close')}, 400);
-            window.location.href = '/profile/' + Factory.getToken();
+            // window.location.href = '/profile/' + Factory.getToken();
           }
         },
         function(err, error) {
@@ -41,10 +41,6 @@ angular.module('SWEApp').controller('LoginController',
             $rootScope.usernames[item] = true;
           });
         }
-      //   ,
-      //   function(err) {
-      //     alert("can't get usernames..");
-      // }
       );
 
       // This works
@@ -72,8 +68,9 @@ angular.module('SWEApp').controller('LoginController',
             
             // check that this works
             Factory.addToken(res.data);
+            console.log(res.data);
             console.log(Factory.getToken());
-            $window.location.href = '/login';
+            // $window.location.href = '/login';
           } else alert(res.data.error);
         },
         function(err) {
