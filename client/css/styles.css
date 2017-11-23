@@ -1151,10 +1151,7 @@ span.btn-group-text {
 }
 
 .nav-tabs {
-  
-  float: none;
-  display: inline-block;
-  
+
   background: #f2f3f2;
   border: 0;
 }
