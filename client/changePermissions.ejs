@@ -8,24 +8,31 @@
 <body>
     <div class="row">
         <div class="col-md-12" ng-app="SWEApp" ng-controller="userPerm" ng-init="init()">
-            <h1 class="page-header">Edit User Permissions</h1>
-            <div class="form-group">
-                <h3>Enter the User you are looking for: </h3>
-                <input type="text" name="user" ng-model="query">
-                <br>
-            </div>
-            <!--<div ng-repeat="user in fake_users | filter:query ">-->
-            <div ng-repeat="user in fake_users | filter:query ">
-                <!-- TODO: Align these stuff... -->
-                <br>
-                {{user.username}} {{user.dob}}
-                <!-- TODO: Add ng-click to these -->
-                <dt ng-click="makeSuperAdmin(user.username, user.isAdmin)"><button class="btn btn-primary">Super Admin</button></dt>
-                <dt ng-click="makeAdmin(user.username, user.isAdmin)"><button class="btn btn-warning">Admin</button></dt>
-                <dt ng-click="makeUser(user.username, user.isAdmin)"><button class="btn btn-danger">User</button></dt>
-                <dt ng-click="removeUser(user.username)"><button class="btn btn-primary">
-                <em class="fa fa-trash"></em></button></dt>
+            <div class="panel-body">
+                <h1 class="page-header">Edit User Permissions</h1>
+                <div class="form-group">
+                    <h3>Enter the User you are looking for: </h3>
+                    <input type="text" name="user" ng-model="query">
+                    <br>
+                </div>
 
+                <% include partials/modals.ejs %>
+
+                <div ng-repeat="user in fake_users | filter:query ">
+                    <!-- TODO: Align these stuff... -->
+                    <br> {{user.username}} {{user.dob}}
+                    <!-- TODO: Add ng-click to these -->
+
+                    <button class="btn btn-primary" data-target="superAdmin">Super Admin</button>
+
+                    <button class="btn btn-warning" data-target="Admin">Admin</button>
+
+                    <button class="btn btn-danger" data-target="regUser">User</button>
+
+                    <button class="btn btn-primary" data-target="delUser">
+                        <em class="fa fa-trash"></em></button>
+
+                </div>
             </div>
         </div>
     </div>
