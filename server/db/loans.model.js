@@ -193,7 +193,7 @@ loanSchema.pre('save', function(next) {
   next();
 });
 
-userSchema.post('save', function() {
+loanSchema.post('save', function() {
   // Affix any dangling loans in the database to this User
   // loans.affixLoansToUser(this) ;
 });

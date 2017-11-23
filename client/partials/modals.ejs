@@ -115,7 +115,7 @@
             <h2 class="centered-text">Buyer's Order</h2>
             <div style="background: #f2f3f2;">
               <!-- for moble, this + display: grid == GG -->
-              <ul class="nav nav-tabs centered-text" id="tabContent2">
+              <ul class="nav nav-tabs centered-text" id="tabContent">
                 <li class="active">
                   <a href="#customer-info" data-toggle="tab">Customer Info</a>
                 </li>
@@ -137,7 +137,7 @@
                 <div class="row">
                   <div class="col-sm-5">
                     <div class="group">
-                      <input class="inputMODAL required" type="text" name="customer-name" ng-model="bo.purchaser.name" required>
+                      <input class="inputMODAL" type="text" name="customer-name" ng-model="bo.purchaser.name" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>Full Name</label>
@@ -145,15 +145,15 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL required" type="date" name="customer-dob" ng-model="bo.purchaser.dob" required>
-                      <span class="highlight"></span>
+                      <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.purchaser.dob" required>
+                      <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>DOB</label>
                     </div>
                   </div>
                   <div class="col-sm-3">
                     <div class="group">
-                      <input class="inputMODAL required" type="text" name="customer-dl" ng-model="bo.purchaser.dl" required>
+                      <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.purchaser.dl" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>DL</label>
@@ -163,7 +163,7 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL required" type="email" name="customer-email" ng-model="bo.purchaser.email" required>
+                      <input class="inputMODAL" type="email" name="customer-email" ng-model="bo.purchaser.email" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>Email</label>
@@ -171,7 +171,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL required" type="tel" name="customer-phone" ng-model="bo.purchaser.phone.cell" required>
+                      <input class="inputMODAL" type="tel" name="customer-phone" ng-model="bo.purchaser.phone.cell" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>Phone Number</label>
@@ -179,7 +179,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL required" type="tel" name="customer-home" ng-model="bo.purchaser.phone.home" required>
+                      <input class="inputMODAL" type="tel" name="customer-home" ng-model="bo.purchaser.phone.home" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Home Number</label>
@@ -191,7 +191,7 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="group">
-                      <input class="inputMODAL required" type="text" name="contact-street-address" ng-model="bo.purchaser.address.street" required>
+                      <input class="inputMODAL" type="text" name="contact-street-address" ng-model="bo.purchaser.address.street" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>Street</label>
@@ -266,8 +266,8 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required >
-                        <span class="highlight"></span>
+                        <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required >
+                        <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>DOB</label>
                       </div>
@@ -360,10 +360,10 @@
                       <label>New or Used? (Choose An Option)</label>
                       <div class="sudo-select">
                         <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed(false)">
+                          <li class="category-option" data-value="false" ng-click="setCarUsed('is_car_used', false)">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed(true)">
+                          <li class="category-option" data-value="true" ng-click="setCarUsed('is_car_used', true)">
                             Used
                           </li>
                           <a class="sudo-select-btn" ng-click="onBlurInput()"> 
@@ -471,13 +471,27 @@
                     </div>
                   </div>
                 </div>
+                  
                 <div class="row">
                   <div class="col-sm-6">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.license_plate" required>
+                    <div class="group selector">
+                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.license_plate_text" required ng-focus="onFocusInput()" ng-change="onEditInput()">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>License Plate (New/Used)</label>
+                      <div class="sudo-select">
+                        <ul id="type-category-options" class="category-options">
+                          <li class="category-option" data-value="false" ng-click="setCarUsed('license_plate', false)">
+                            New
+                          </li>
+                          <li class="category-option" data-value="true" ng-click="setCarUsed('license_plate, true)">
+                            Used
+                          </li>
+                          <a class="sudo-select-btn" ng-click="onBlurInput()"> 
+                            <em class="fa fa-md fa-close"></em>
+                          </a>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6">
@@ -508,7 +522,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL" type="date" name="car-exp-date" ng-model="bo.car_info.exp_date" required>
+                      <input class="dateInput inputMODAL" type="date" name="car-exp-date" ng-model="bo.car_info.exp_date" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Expiration Date</label>
@@ -785,7 +799,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru" required>
+                      <input class="dateInput inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Good Through</label>
@@ -816,7 +830,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="inputMODAL" type="date" name="eff-dates" ng-model="bo.insr.eff_dates" required>
+                      <input class="dateInput inputMODAL" type="date" name="eff-dates" ng-model="bo.insr.eff_dates" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Eff Dates</label>

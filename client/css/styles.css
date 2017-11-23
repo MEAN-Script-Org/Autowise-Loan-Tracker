@@ -1151,10 +1151,7 @@ span.btn-group-text {
 }
 
 .nav-tabs {
-  /*
-  float: none;
-  display: inline-block;
-  */
+
   background: #f2f3f2;
   border: 0;
 }
@@ -1780,7 +1777,7 @@ img#loader {
 }
 
 .modal-footer {
-  padding-bottom: 5px;
+    padding: 16px;
 }
 
 .tab-content,
@@ -1820,9 +1817,12 @@ div.right-text {
 }
 
 #tabContent.nav-tabs {
+/*
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 2fr;
+*/
+    height: 100%;
 }
 
 
@@ -1838,6 +1838,13 @@ input[type="date"]:before {
 input[type="date"]:focus:before,
 input[type="date"]:valid:before {
   content: "";
+}
+
+.dateInput {
+    color: transparent !important;
+}
+.dateInput:focus, .dateInput:valid {
+    color: rgb(68, 68, 68) !important;
 }
 
 
@@ -1954,9 +1961,13 @@ input[type="date"]:valid:before {
 
 /*can't get this to work yet*/
 
+/*
 .tab-pane>div {
-  padding: 0 10px 5px 5px;
+  overflow: hidden;
 }
+*/
+
+
 
 .tab-pane>div>span,
 .tab-pane>div>div>span {
@@ -2280,9 +2291,9 @@ div.ng-show {
   content: "*";
   color: #f9243f;
   /*This looks bad on windows*/
-  /*margin-left: -8px;*/
+  margin-left: -8px;
   /*ahh... so it's for the material design ones..*/
-  /*padding: 0 0 0 0px;*/
+  padding: 0 0 0 0px;
 }
 
 
@@ -2306,7 +2317,6 @@ div.ng-show {
   margin-left: -8px;
   color: #f9243f;
   padding: 0 0 0 2px;
-  content: "*";
 }
 
 
@@ -2320,7 +2330,7 @@ div.ng-show {
   pointer-events: none;
   left: 5px;
   top: 10px;
-  background-color: #FFFFFF;
+/*  background-color: #FFFFFF;*/
   width: 80%;
 
   transition: 0.2s ease all;
@@ -2695,6 +2705,7 @@ div.ng-show {
 .co-purchase-show {
   max-height: 100em;
   pointer-events: all;
+  overflow: visible;
 }
 
 .switch-slide .switch-input:checked
