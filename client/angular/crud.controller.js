@@ -53,6 +53,12 @@ angular.module('SWEApp').controller(
           }, 1000);
         }
       );
+
+      Factory.getUser().then(
+        function(res) {
+          $rootScope.user = res.data;
+          user = res.data;
+      });
     }
 
     $scope.logout = function() {
@@ -224,7 +230,6 @@ angular.module('SWEApp').controller(
       // Additionally, the loan may become dangling if there is no longer a user match
       
       // TODO: test this!
-      
       Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
         function(res) {
           
@@ -403,8 +408,8 @@ angular.module('SWEApp').controller(
             var newComment = {
               admin: loans[index].commentAsAdmin,
               writer: {
-                id   : $rootScope.id,
-                name : $rootScope.user_name,
+                id   : $rootScope.user.id,
+                name : $rootScope.user.name,
               },
               content: newCommentContent,
               newtime: new Date(),

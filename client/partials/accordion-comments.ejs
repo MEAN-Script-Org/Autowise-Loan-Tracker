@@ -7,24 +7,22 @@
       <div class="panel-body">
         <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
           <li class="left clearfix">
-            <!-- chat-body clearfix -->
-            <!-- implement TheEEeEeEeEEEEeeeeeeE GRIDDDDDDDDD -->
             <div class="comment-writer">
               <!-- For amins: names -->
               <!-- For users: you vs 'Autowise' -->
-              <span ng-show="isAdmin">
-                <strong ng-show="comment.writer.name != user.name">
+              <span ng-hide="isAdmin">
+                <strong ng-show="comment.writer.id != user.id">
                   Autowise: 
                 </strong>
-                <strong ng-show="comment.writer.name == user.name">
+                <strong ng-show="comment.writer.id == user.id">
                   You: 
                 </strong>
               </span>
-              <span ng-hide="isAdmin">
-                <strong ng-show="comment.writer.name != user.name">
+              <span ng-show="isAdmin">
+                <strong ng-show="comment.writer.id == user.id">
                   You:
                 </strong>
-                <strong ng-show="comment.writer.name == user.name">
+                <strong ng-show="comment.writer.id != user.id">
                   {{comment.writer.name}}:
                 </strong>
               </span>
@@ -33,7 +31,7 @@
               <!-- Comment Data -->
               <span>{{comment.content}}</span>
               <div class="pull-right">
-                <strong class="primary-font" ng-if="comment.admin && user_isAdmin">
+                <strong class="primary-font" ng-if="comment.admin">
                     Admin Only
                 </strong>
                 <small class="text-muted">
@@ -42,10 +40,11 @@
                 </small>
                 
                 <!-- Remove comment -->
-                <!-- TODO: only show if it's the same person who wrote it, expect for superAdmins -->
-                <button class="btn btn-danger btn-xs" title="Delete this comment" ng-click="removeComment(loan._id, loan.comments, comment)">
-                  <em class="fa fa-trash"></em>
-                </button>
+                <span ng-hide="(comment.writer.id != user.id) && !user.isSuperAdmin">
+                  <button class="btn btn-danger btn-xs" title="Delete this comment" ng-click="removeComment(loan._id, loan.comments, comment)">
+                    <em class="fa fa-trash"></em>
+                  </button>
+                </span>
               </div>
             </div>
           </li>

@@ -20,7 +20,8 @@
    ng-mouseenter="AddTip=true" ng-mouseleave="AddTip=false">
     <em class="fa fa-plus float-child"></em>
 </a>
-<ul id="float-list" ng-show="massLoans.length > 0">
+<ul id="float-list">
+ <!-- ng-show="massLoans.length > 0"> -->
     <li ng-click="prepareLoanCreate()" data-target="#buyerModal" data-toggle="modal">
       <a id="float-edit">
         <em class="fa fa-file float-child"></em>

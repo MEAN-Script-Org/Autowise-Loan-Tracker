@@ -32,7 +32,7 @@ module.exports = {
 
   update: function(req, res) {
     var oldLoan = req.loan;
-    // console.log(req.body);
+    console.log(req.body);
 
     // Replace old loan's properties with the newly sent ones
     var loanToBeUpdated = Object.assign(oldLoan, req.body, function(former, replacement){
@@ -53,9 +53,9 @@ module.exports = {
   // Deletes a load of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   delete: function(req, res) {
-    console.log("DELETION: ") ;
-    console.log(req) ;
-    console.log(req.loan) ;
+    // console.log("DELETION: ") ;
+    // console.log(req) ;
+    // console.log(req.loan) ;
     
     Loan.findByIdAndRemove(req.loan._id, function(err) {
       if (err) res.status(404).send(err);
@@ -120,23 +120,25 @@ module.exports = {
   // Search user database for user whose information matches the specified loan purchaser information
   // Affixes this loan to the found User
   //--------------------------------------------------------------------------------------------------------------------
-  affixLoanToUser: function(loan) {
+  affixLoansToUser: function(loan) {
     
     // Construct a query from the specified loan info
-    var query = {
-      "dl":  loan.buyers_order.purchaser.dl,
-      "dob": loan.buyers_order.purchaser.dob
-    };
-    
-    // Find the user according to the query
-    User.findOne(query, function(err, user) {
-      if (err) { console.log(err); }
-      else {
-        // Update loan with found user's ID
-        loan.user_id = user._id ;
-        loan.save() ;
-      }
-    });
+    if (loan.buyers_order) {
+      var query = {
+        "dl":  loan.buyers_order.purchaser.dl,
+        "dob": loan.buyers_order.purchaser.dob
+      };
+      
+      // Find the user according to the query
+      User.findOne(query, function(err, user) {
+        if (err) { console.log(err); }
+        else {
+          // Update loan with found user's ID
+          loan.user_id = user._id ;
+          loan.save() ;
+        }
+      });
+    }
   },
   
   //--------------------------------------------------------------------------------------------------------------------

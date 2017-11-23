@@ -116,6 +116,7 @@ input.form-control {
 
 .navbar-drop {
   width: auto;
+  margin-right: 15px;
 }
 
 .navbar-drop-icon {
@@ -1922,12 +1923,6 @@ input[type="date"]:valid:before {
   background-color: #F8F8F8;
 }
 
-#required:after,
-#buyersOrderModal .modal-footer:before {
-  color: #f9243f;
-  font-size: 15px;
-  content: " * = Required";
-}
 
 #buyersOrderModal .modal-footer:before {
   padding: 0 0 0 20px;
@@ -1942,16 +1937,6 @@ input[type="date"]:valid:before {
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 3fr 4fr 1fr 4fr 1fr 1fr;
 }
-
-.required:after {
-  /*This looks bad on windows*/
-  /*margin-left: -8px;*/
-  /*ahh... so it's for the material design ones..*/
-  color: #f9243f;
-  /*padding: 0 0 0 0px;*/
-  content: "*";
-}
-
 
 /*can't get this to work yet*/
 
@@ -1982,8 +1967,6 @@ input[type="date"]:valid:before {
   justify-content: center;
   -webkit-user-select: none;
 }
-
-
 
 
 /* Hide the browser's default checkbox */
@@ -2272,6 +2255,23 @@ div.ng-show {
   margin-bottom: 16px;
 }
 
+#required:after,
+#buyersOrderModal .modal-footer:before {
+  color: #f9243f;
+  font-size: 15px;
+  content: " * = Required";
+}
+
+.required:after {
+  content: "*";
+  color: #f9243f;
+  /*This looks bad on windows*/
+  /*margin-left: -8px;*/
+  /*ahh... so it's for the material design ones..*/
+  /*padding: 0 0 0 0px;*/
+}
+
+
 .inputMODAL {
   font-size: 12px;
   padding: 10px 10px 10px 5px;
@@ -2296,31 +2296,7 @@ div.ng-show {
 }
 
 
-
-/*
-.ng-valid-date {
-  outline:none; 
-  color: rgb(68, 68, 68);
-}
-*/
-
-
 /* LABEL ======================================= */
-
-
-/* Conflict stuff ~
-< HEAD
-.modal-body label {
-  color: #999;
-  font-size: 12px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-=======
-> origin/buyer-order-design
-*/
 
 .modal-body .group label {
   color: #999;
@@ -2339,16 +2315,14 @@ div.ng-show {
 }
 
 
-
 /* active state */
 
-.inputMODAL:focus~label,
-.inputMODAL:valid~label {
-  top: -30%;
+.inputMODAL:valid~label ,
+.inputMODAL:focus~label {
+  top: -2px;
   font-size: 10px;
   color: #38cc70;
 }
-
 
 
 /* BOTTOM BARS ================================= */
@@ -2478,9 +2452,6 @@ div.ng-show {
   background-repeat: no-repeat;
   background-position: right 0 center;
 }
-
-
-/*, .selector .inputMODAL:focus ~ .sudo-select ul*/
 
 
 /*

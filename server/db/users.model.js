@@ -39,6 +39,10 @@ var userSchema = new mongoose.Schema({
     type: Boolean,
   },
 
+  isSuperAdmin: {
+    type: Boolean,
+  },
+
   loans: Array,
   updated_at: Date,
   created_by: String,
@@ -55,13 +59,19 @@ userSchema.pre('save', function(next) {
   if (!this.isAdmin)
     this.isAdmin = false;
   
-  // Affix any dangling loans in the database to this User
-  // loans.affixLoansToUser(this) ;
+  if (!this.isSuperAdmin)
+    this.isSuperAdmin = false;
   
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());
   this.password = hash;
 
+  next();
+});
+
+userSchema.post('save', function(next) {
+  // Affix any dangling loans in the database to this User
+  loans.affixLoansToUser(this) ;
   next();
 });
 

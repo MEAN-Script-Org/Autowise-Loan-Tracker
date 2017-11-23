@@ -46,12 +46,7 @@ module.exports = {
   },
 
   read: function(req, res) {
-    var user = {
-      id: req.user._id,
-      name: req.user.name,
-      isAdmin: req.user.isAdmin,
-    }
-    res.json() ;
+    res.json(req.body.token) ;
   },
 
   update: function(req, res) {

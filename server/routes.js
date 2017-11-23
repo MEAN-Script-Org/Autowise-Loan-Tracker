@@ -10,23 +10,12 @@ var users = require("./db/users.crud.js") ;
 // AUTHENTICATION, EMAILS, ETC.
 //----------------------------------------------------------------------------------------------------------------------
 
-router.route('/auth')
-      .post(auth.authenticate);
+// Possible reason for the multiple requests...
+// router.route('/auth')
+//       .post(auth.authenticate);
 
 router.route('/email')
       .post(emailHandler);
-
-router.route('/info').get(
-  // fake funtion
-  // future equivalent of 'users.read'
-  function(req, res) {
-    res.json({
-      _id: 123456,
-      email: "marcial.abrahantes@gmail.com",
-      username: "Marcial1234",
-      isAdmin: true,
-    });
-});
 
 //----------------------------------------------------------------------------------------------------------------------
 // LOANS
@@ -39,9 +28,11 @@ router.route('/loans')
       
 // Individual loan
 router.route('/loan/:loanID')
-      .get(loans.read)
+      // .get(loans.read)
       .put(loans.update)
-      .delete(loans.delete) ;
+      
+router.route('/deleteLoan/:loanID')
+      .put(loans.delete) ;
       
 // Multiple loans under the specified user
 router.route('/loans/:userID')
@@ -57,14 +48,18 @@ router.route('/loansByUser/:token')
 
 // > Individual user
 router.route('/user/:userID')
-      .get(users.read)
-      .put(users.update)
-      .delete(users.delete) ;
+      .put(users.update);
+
+router.route('/deleteUser/:userID')
+      .put(users.delete) ;
+
+router.route('/userinfo/')
+      .put(users.read);
 
 // > 'Multiple' users
 // I don't have a token when I create one, so ofc it's gonna be bad...
-router.route('/users')
-      .get(users.getAll, users.returnUsers) ;
+// router.route('/users')
+//       .get(users.getAll, users.returnUsers) ;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Routing parameters

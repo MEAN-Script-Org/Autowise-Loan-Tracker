@@ -4,7 +4,7 @@ angular.module('SWEApp').controller('LoginController',
 
     // GLOBALS
     $rootScope.users = [];
-    $rootScope.newUser = {isAdmin: false};
+    $rootScope.newUser = {isAdmin: false, isSuperAdmin: false};
     $rootScope.usernames = {};
     $scope.login_page = true;
 

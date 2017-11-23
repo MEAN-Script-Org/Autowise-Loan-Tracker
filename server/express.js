@@ -87,7 +87,7 @@ login_routes.route("/")
     // console.log(ejs_msg, ejs_class);
 
     // have these values yes or yes
-    console.log("rendering...");
+    // console.log("rendering...");
     res.render('login', {
         message: ejs_msg,
         type: ejs_class,
@@ -144,7 +144,6 @@ module.exports.init = function() {
   });
 
   // Warranties plan view for a customer
-  // why the hell does it take 4 reqs to do this??
   app.use('/warranties', function(req, res) {
     res.render('warranties', {path: ''});
   });

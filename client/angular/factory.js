@@ -58,9 +58,9 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.get('/api/users', args);
       },
-      getUser: function(id) {
+      getUser: function() {
         var args = {token: getToken()};
-        return $http.get('/api/user/' + id, args);
+        return $http.put('/api/userinfo/', args);
       },
       
       // TODO: Implement this
@@ -86,7 +86,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       },
       deleteLoan: function(id) {
         var args = {token: getToken()};
-        return $http.delete('/api/loan/' + id, args);
+        return $http.put('/api/deleteLoan/' + id, args);
       },
       modifyLoan: function(id, updatedLoan) {
         // var args = {token: getToken()};
@@ -122,13 +122,13 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       },
       login: function(loginData) {
         var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
-        console.log(args);
+        // console.log(args);
         return $http.post('/login', args);
       },
       isLoggedIn: function() {
         var token = getToken();
         // console.log(token);
-        return $http.post('/api/auth', {token});
+        return $http.post('/', {token});
       },
       logout: function() {
         removeToken();

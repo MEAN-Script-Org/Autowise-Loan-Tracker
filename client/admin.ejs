@@ -34,15 +34,16 @@
                   </span>
                   <div class="loanHeader">
                     <span> Customer Name </span>
-                    <!-- style this somewhat... -->
                     <span> Loan Type </span>
                     <span> Loan Status </span>
-                    <!-- - total $ -->
                     <span> Loan ID # </span>
                   </div>
                   <span> Show details </span>
                 </div> 
-                <!-- | filter: important_filter:archive_filter"> -->
+                <!-- 
+                  you can get the contents of the filtered things like this:
+                  " item in (filteredItems = (items | filters) ) "
+                -->
                 <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: query">
                   <div ng-if="loan.new">
                     {{reloadAccordion()}}s

@@ -30,10 +30,12 @@ module.exports = {
           if (validPassword) {
             var user_details = {
               id: user._id,
+              name: user.name,
               email: user.email,
               isAdmin: user.isAdmin,
               username: user.username,
               md5hash: req.body.md5hash,
+              isSuperAdmin: user.isSuperAdmin,
             }
 
             // turn token into a two peace deal
@@ -86,12 +88,14 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-    console.log(req.body) ;
+    // console.log(req.body) ;
     
     if (token_array) {
+
       // console.log(token_array);
       if (typeof token_array == 'string')
         token_array = token_array.split(",");
+
       var token = token_array[0];
       var md5hash = token_array[1];
 
@@ -113,7 +117,7 @@ module.exports = {
 
         // REAL next
         else {
-          console.log("GUUUD Token");
+          // console.log("GUUUD Token");
           // console.log(decodedToken);
           req.body.token = decodedToken;
           next();
@@ -123,7 +127,8 @@ module.exports = {
     else {
       // console.log("WHAT ARE YOU DOING HERE?!") ;
       // this means no token passed at all... go bye bye
-      console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
+      console.log("no token evah");
+      // console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
       res.json({});
       // next();
       // res.redirect('/login');
