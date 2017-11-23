@@ -1777,7 +1777,7 @@ img#loader {
 }
 
 .modal-footer {
-  padding-bottom: 5px;
+    padding: 16px;
 }
 
 .tab-content,
@@ -1961,9 +1961,13 @@ input[type="date"]:valid:before {
 
 /*can't get this to work yet*/
 
+/*
 .tab-pane>div {
-  padding: 0 10px 5px 5px;
+  overflow: hidden;
 }
+*/
+
+
 
 .tab-pane>div>span,
 .tab-pane>div>div>span {
@@ -2701,6 +2705,7 @@ div.ng-show {
 .co-purchase-show {
   max-height: 100em;
   pointer-events: all;
+  overflow: visible;
 }
 
 .switch-slide .switch-input:checked
