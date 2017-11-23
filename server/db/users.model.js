@@ -71,7 +71,7 @@ userSchema.pre('save', function(next) {
 
 userSchema.post('save', function() {
   // Affix any dangling loans in the database to this User
-  loans.affixLoansToUser(this) ;
+  // loans.affixLoansToUser(this) ;
 });
 
 userSchema.methods.comparePassword = function(password) {
@@ -88,4 +88,5 @@ userSchema.methods.reset = function(new_password) {
 
 // Mongoose model of the above
 var User = mongoose.model('Users', userSchema) ;
+
 module.exports = User ;

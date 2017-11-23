@@ -44,9 +44,11 @@
                 </div> 
                 <!-- | filter: important_filter:archive_filter"> -->
                 <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: query">
+                  <!-- 
                   <div ng-if="loan.new">
-                    {{reloadAccordion()}}s
+                    {{reloadAccordion()}}
                   </div>
+                   -->
                   <div class="tab accordionIn accordionOut">
                     <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
                     <label for="tab-{{loan._id}}" class="tab-header">

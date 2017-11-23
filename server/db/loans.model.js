@@ -111,13 +111,13 @@ var loanSchema = new mongoose.Schema({
       exp_date:         Date,
       transfer:         String,
       plate_no:         String,
+      license_plate:    String,
       // license_plate:    {type: String, required: true},
     },
 
     // Financing and fees
     finances: {
-      nada_retail:         {type: Number, required: true},
-
+      nada_retail:         {type: String, required: true},
       admin_fees:          {type: Number, required: true},
       trade_allowance:     {type: Number, required: true},
       trade_difference:    {type: Number, required: true},
@@ -186,14 +186,16 @@ loanSchema.pre('save', function(next) {
   else
     this.status = this.status.toUpperCase();
   
-  // Attempt to affix this loan to a user, if one is found with matching information
-  loans.affixLoanToUser(this) ;
-  
   // TODO: Enforce all uppercase in server too
   if (!this.type)
     this.type = "AUTO";
 
   next();
+});
+
+userSchema.post('save', function() {
+  // Affix any dangling loans in the database to this User
+  // loans.affixLoansToUser(this) ;
 });
 
 // Create loan model from schema
