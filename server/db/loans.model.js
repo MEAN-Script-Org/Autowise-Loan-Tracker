@@ -25,8 +25,16 @@ var loanSchema = new mongoose.Schema({
   //--------------------------------------------------------------------------------------------------------------------
   type:       String,   // Loan type
   status:     String,   // Loan status
-  warranty:   Number,   // Warranty plan cost, if any
   comments:   Array,    // List of loan comments
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Warranty plan information
+  //--------------------------------------------------------------------------------------------------------------------
+  warranty: {
+    type_t: String,
+    price:  Number,
+    term :  {months: Number,   miles: Number},
+  },
   
   //--------------------------------------------------------------------------------------------------------------------
   // Tracking information

@@ -1,0 +1,12 @@
+<!-- Warranty bar, displayed under the loan progress bar if a warranty plan is present -->
+<!-- TODO: someone please make this beautiful -->
+<div class="row warranty-row" ng-show="loan.warranty">
+  <div class="col-xs-12">
+    <h4 class="centered-text">Warranty Plan</h4>
+    <div class="warranty-bar warranty">
+      <div>Type: {{loan.warranty.type_t}}</div>
+      <div>Term: {{loan.warranty.term.months}} months | {{loan.warranty.term.miles}} miles</div>
+      <div>Price: {{loan.warranty.price | currency}}</div>
+    </div>
+  </div>
+</div>

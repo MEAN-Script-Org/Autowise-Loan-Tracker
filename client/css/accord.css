@@ -207,6 +207,8 @@ h5.warranty-instruction {
 /*--------------------------------------------------------------------------------------------------------------------*\
 |* ACCORDION ITEM
 \*--------------------------------------------------------------------------------------------------------------------*/
+
+/* Loan progress row */
 .progress-row {
     height: 100%;
     display: flex;
@@ -226,6 +228,27 @@ h5.warranty-instruction {
     margin-bottom: 8px;
 }
 
+/* Loan warranty row */
+.warranty-row {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.warranty-row hr {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.warranty {
+    width: 103%;
+    height: 100%;
+    margin-bottom: 0;
+}
+
+/* Button bar for loan editing */
 .dropdown-menu {
     padding: 8px;
 }
