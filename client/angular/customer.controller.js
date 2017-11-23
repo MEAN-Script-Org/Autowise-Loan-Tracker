@@ -6,23 +6,20 @@ angular.module('SWEApp').controller(
     $rootScope.loans = [];
     $rootScope.loading = true;
 
-    // ## Order Filters ~ !them for ascending order
-    $scope.reverse_comments = true;
-
-    // Factory.getUserInfo().then(function(response) {
+    // Factory.getUser().then(function(response) {
     // });
     
     //------------------------------------------------------------------------------------------------------------------
     // Testing function
     //------------------------------------------------------------------------------------------------------------------
-    $scope.oops = function() {
-      Factory.getLoan('5a1106ca3854dd0c2cb3d818').then(
-        function(res) {
-          console.log(res) ;
-        },
-        function(err) { console.log(err) }
-      );
-    }
+    // $scope.oops = function() {
+    //   Factory.getLoan('5a1106ca3854dd0c2cb3d818').then(
+    //     function(res) {
+    //       console.log(res) ;
+    //     },
+    //     function(err) { console.log(err) }
+    //   );
+    // }
     
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
@@ -31,17 +28,13 @@ angular.module('SWEApp').controller(
       $scope.visible = "visible";
       $scope.isAdmin = false;
       
-      // TODO: pull all loans associated with a particular session user ID
-      // 
-      // var id = "5a0b7e6e3cf0921ddc6c9d95";
-      
       // Loads all loans belonging to the specified user
       Factory.getLoansOfUser().then(
         function(res) {
           
-          if (res.data.length && res.data.length != 0) {
-            $rootScope.loans = res.data;
-          }
+          $rootScope.loans = res.data;
+          // if (res.data.length && res.data.length != 0) {
+          // }
           
           $timeout(function() {
             $rootScope.loading = false;
@@ -73,6 +66,7 @@ angular.module('SWEApp').controller(
 
       var errorMsg = "There was an error sending the email. Please check the logs";
 
+      // UPDATE THIS!
       // Generic message will do for now...
       var bodyMessage = "You have an update on your loan application.";
       var email = {

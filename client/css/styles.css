@@ -115,8 +115,8 @@ input.form-control {
 }
 
 .navbar-drop {
-  width: auto;
   margin-right: 15px;
+  width :auto;
 }
 
 .navbar-drop-icon {
@@ -1198,7 +1198,7 @@ span.btn-group-text {
 }
 
 .tab-content {
-  padding: 15px;
+  padding: 8px;
 }
 
 .navbar {
@@ -2328,16 +2328,13 @@ div.ng-show {
   -webkit-transition: 0.2s ease all;
 }
 
-
 /* active state */
-
 .inputMODAL:valid~label ,
 .inputMODAL:focus~label {
   top: -2px;
   font-size: 10px;
   color: #38cc70;
 }
-
 
 /* BOTTOM BARS ================================= */
 

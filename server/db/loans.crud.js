@@ -22,13 +22,23 @@ module.exports = {
     res.json(req.loan) ;
   },
 
-  // TODO: Make single view THAT FUCKING TAKES IN PARAMETERS!!
-  // for /crud/:id => render request, then do a factory call for that ID, done!
-  // I want to go to a specific loan...
-  // Scrap this thing. needs to be on in the 'express' area
-  // display: function(req, res) {
-  //     res.redirect('/crud/' + req.loan._id);
-  // },
+  tempAddComment: function(req, res, next) {
+    var new_plain_comment = req.body.newComment;
+
+    var newComment = {
+      admin: true,
+      writer: {
+        id   : req.user._id,
+        name : req.user.name,
+      },
+      content: new_plain_comment,
+      newtime: new Date(),
+    }
+
+    req.loan.comments.push(newComment);
+    if (req.body = {comments})
+      next();
+  },
 
   update: function(req, res) {
     var oldLoan = req.loan;
@@ -53,10 +63,6 @@ module.exports = {
   // Deletes a load of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   delete: function(req, res) {
-    // console.log("DELETION: ") ;
-    // console.log(req) ;
-    // console.log(req.loan) ;
-    
     Loan.findByIdAndRemove(req.loan._id, function(err) {
       if (err) res.status(404).send(err);
       else res.json(req.loan);
@@ -116,6 +122,7 @@ module.exports = {
     }
   },
   
+  // NEED TO GET THESE WURKING~
   //--------------------------------------------------------------------------------------------------------------------
   // Search user database for user whose information matches the specified loan purchaser information
   // Affixes this loan to the found User

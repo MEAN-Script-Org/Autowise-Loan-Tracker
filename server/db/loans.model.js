@@ -111,7 +111,7 @@ var loanSchema = new mongoose.Schema({
       exp_date:         Date,
       transfer:         String,
       plate_no:         String,
-      license_plate:    {type: String, required: true},
+      // license_plate:    {type: String, required: true},
     },
 
     // Financing and fees

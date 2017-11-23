@@ -69,10 +69,9 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-userSchema.post('save', function(next) {
+userSchema.post('save', function() {
   // Affix any dangling loans in the database to this User
   loans.affixLoansToUser(this) ;
-  next();
 });
 
 userSchema.methods.comparePassword = function(password) {

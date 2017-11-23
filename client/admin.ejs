@@ -56,15 +56,14 @@
                       </label>
                       <div class="loanHeader">
                         <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
-                        <!-- style this somewhat... -->
                         <span> {{loan.type | uppercase}} </span>
                         <span> {{loan.status | uppercase}} </span>
-                        <!-- - total $ -->
                         <span> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
                       </div>
                     </label>
                     <div class="tab-content">
                       <% include partials/progress-row.ejs %>
+                      <% include partials/warranty-row.ejs %>
                       <% include partials/accordion-comments.ejs %>
                     </div>
                   </div>

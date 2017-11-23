@@ -19,14 +19,16 @@ var format_email_html = function (req) {
   // - Default type
   if (req.type == "warranty") {
     
-    subject = "Warranty plan interest for customer #" + req.userID ;
+    subject = "NEW Warranty interest from " + req.name ;
     
     message = [
       "",
       req.message,
+      /*
       "",
       "",
       "This is an automatically generated email message"
+      */
     ];
       
   } else {
@@ -61,9 +63,9 @@ module.exports = function (req, res) {
   
   // Get email info object
   var email_info = format_email_html(req.body) ;
+  console.log(req.body);
 
   // Basic Email Settings
-  // console.log(req.body);
   var mailOptions = {
     from: process.env.YAHOO_USERNAME,
     to: req.body.to,

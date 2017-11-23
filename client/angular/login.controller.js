@@ -70,11 +70,7 @@ angular.module('SWEApp').controller('LoginController',
       if (!$rootScope.usernames[$rootScope.newUser.username]) {
         $rootScope.newUser.md5hash = window.fingerprint.md5hash;
         
-        Factory.newUser($rootScope.newUser).then(
-          function(req) {
-            Factory.addToken(req.data);
-          }
-        );
+        Factory.newUser($rootScope.newUser);
       }
       else
         alert("Please change your username to one that hasn't been taken");

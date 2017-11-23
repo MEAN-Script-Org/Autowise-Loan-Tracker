@@ -15,58 +15,45 @@
   <!-- MAIN PAGE DIV -->
   <div class="col-sm-12 col-lg-12 main"
     ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
-		<div class="header row">
-			<ol class="breadcrumb">
-				<li><a href="#">
-					<em class="fa fa-home"></em>
-				</a></li>
-				<li class="active">Active Loans</li>
-				<li class="active">Warranties</li>
-			</ol>
-		</div>
     
     <!-- ROW - WARRANTIES QUERY FORM -->
-		<div class="row">
-			<div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
         <h1 class="page-header">Warranties</h1>
 
         <h5 class="warranty-instruction">
           Enter car information. Qualified warranties will be displayed below
         </h5>
 
-        <!-- FORM FOR WARRANTY PLAN QUERY -->
-        <form ng-submit="queryWarrantyPlan()">
-          <fieldset>
-            <!-- DROP-DOWN FOR CAR AGE SELECTION -->
-            <div class="form-group">
-              <h3>Your desired car's year</h3>
-              <select ng-model="query.age" ng-change="queryWarrantyPlan()">
-                  <!-- BASIC -  -->
-                <option value="-1">Any year</option>
-                  <!-- DELUXE -  -->
-                <option value="2007">2007 or newer</option>
-                  <!-- FACTORY COVERAGE -  -->
-                <option value="2011">2011 or newer</option>
-              </select>
-            </div>
-            
-            <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
-            <div class="form-group">
-            <h3 class="page-header-warranties">Mileage</h3>
-              <input type="text" name="Mileage" ng-model="query.mileage" ng-change="queryWarrantyPlan()" > miles<br>
-            </div>
-            
-            <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
-            <!-- TODO: Make this prettier -->
-            <div class="form-group">
-            <h3 class="page-header-warranties">Car make: Domestic or Foreign</h3>
-              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
-              <input type="radio" name="RadioAnswer" ng-model="query.make" value="Foreign" ng-change="queryWarrantyPlan()"> Foreign
-            </div>
-          </fieldset>
-        </form>
+        <!-- 'FORM' FOR WARRANTY PLAN QUERY -->
+        <!-- DROP-DOWN FOR CAR AGE SELECTION -->
+        <div class="form-group">
+          <h3>Your desired car's year</h3>
+          <select ng-model="query.age" ng-change="queryWarrantyPlan()">
+              <!-- BASIC -  -->
+            <option value="-1">Any year</option>
+              <!-- DELUXE -  -->
+            <option value="2007">2007 or newer</option>
+              <!-- FACTORY COVERAGE -  -->
+            <option value="2011">2011 or newer</option>
+          </select>
+        </div>
+        
+        <!-- TEXT-ENTRY FOR CAR MILEAGAE -->
+        <div class="form-group">
+        <h3 class="page-header-warranties">Mileage</h3>
+          <input type="text" name="Mileage" ng-model="query.mileage" ng-change="queryWarrantyPlan()" > miles<br>
+        </div>
+        
+        <!-- RADIO BUTTON FOR CAR MAKE/COUNTRY OF ORIGIN -->
+        <!-- TODO: Make this prettier -->
+        <div class="form-group">
+        <h3 class="page-header-warranties">Car make: Domestic or Foreign</h3>
+          <input type="radio" name="RadioAnswer" ng-model="query.make" value="Domestic" ng-change="queryWarrantyPlan()" > Domestic<br>
+          <input type="radio" name="RadioAnswer" ng-model="query.make" value="Foreign" ng-change="queryWarrantyPlan()"> Foreign
+        </div>
       </div>
-		</div>
+    </div>
     
     <!-- Warranty Modal -->
     <% include partials/modals.ejs %>

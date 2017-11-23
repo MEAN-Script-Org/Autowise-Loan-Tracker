@@ -16,8 +16,24 @@ var ejs_class = '';
 // PROFILE ROUTING
 //======================================================================================================================
 
-// Reroute logic *nessesarily ugly&
+// Reroute logic *nessesarily ugly*
 var profile_routes = express.Router();
+
+// Missing/invalid token handling => redirect to login page
+function validUrlAndCredentials(token) {
+  if (!token) {
+    ejs_msg = "Please log in to access your profile";
+    ejs_class = 'alert bg-danger';
+    res.redirect("/login");
+  }
+  else if (token == "nothing ever") {
+    ejs_msg = "Your session expired. Please log in again";
+    ejs_class = "alert bg-warning";
+    res.redirect('/login');
+  }
+  else
+    return true
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 // User (admin and customer) home/hub routing
@@ -27,49 +43,32 @@ profile_routes.route('/:token').all(
     // next page routing based on token status and admin
     var token = req.body.token;
 
-    if (!token) {
-      ejs_msg = "Please log in to access your profile";
-      ejs_class = 'alert bg-danger';
-      res.redirect("/login");
+    if (validUrlAndCredentials(token))
+    {
+      if (token.isAdmin || token.isSuperAdmin)
+        res.render("admin", {path: "../"});
+      else
+        res.render("customerHub", {path: "../"});
     }
-    else if (token == "nothing ever") {
-      ejs_msg = "Your session expired. Please log in again";
-      ejs_class = "alert bg-warning";
-      res.redirect('/login');
-    }
-    else if (token.isAdmin)
-      res.render("admin", {path: "../"});
-    else
-      res.render("customerHub", {path: "../"});
 });
 
 //----------------------------------------------------------------------------------------------------------------------
 // Customer warranty plans routing
 //----------------------------------------------------------------------------------------------------------------------
 profile_routes.route('/warranties/:loan_id/:token')
-.all(function(req, res) {
-  var token = req.body.token;
-  var loan = req.loan;
-  
-  console.log("WARRANTIES ROUTER: ");
-  console.log(token) ;
-  console.log(loan) ;
-  
-  // Missing/invalid token handling => redirect to login page
-  if (!token) {
-    ejs_msg = "Your session expired. Please log in again";
-    ejs_class = "alert bg-warning";
-    res.redirect('/login');
-  } else if (token == "nothing ever") {
-    ejs_msg = "Please log in to access your profile";
-    ejs_class = 'alert bg-danger';
-    res.redirect("/login");
-  
-  // Render warranties page
-  } else {
-    res.render("warranties", {path: "../../../"});
-  }
-});
+              .post(loans.tempAddComment, loans.update)
+              .all(function(req, res) {
+                var token = req.body.token;
+                var loan = req.loan;
+                
+                console.log("WARRANTIES ROUTER: ");
+                console.log(token) ;
+                console.log(loan) ;
+                
+                if (validUrlAndCredentials(token)) {
+                  res.render("warranties", {path: "../../../"});
+                }
+              });
 
 profile_routes.param('loan_id', loans.loanByID);
 profile_routes.param('token', auth.decodeToken);

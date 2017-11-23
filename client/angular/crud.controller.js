@@ -23,6 +23,13 @@ angular.module('SWEApp').controller(
     
     // Buyer's Order placeholder
     $rootScope.bo = {};
+    var newBo = {
+        insr: {},
+        purchaser: {}, 
+        finances: { admin_fees: 489 },
+        copurchaser: { invalid: "true" }, 
+    };
+
 
     $scope.init = function() {
       console.log("MEAN App on it's way!");
@@ -67,7 +74,8 @@ angular.module('SWEApp').controller(
       Factory.logout();
     }
     
-    // argg...
+    // Simple Filters. 
+    // TODO: implement like normal angular filters, or as in warranties controller as last resort
     $scope.toggleArchiveFilter = function() {
       $scope.looking_for_archived != $scope.looking_for_archived;
     }
@@ -109,14 +117,9 @@ angular.module('SWEApp').controller(
     $scope.prepareLoanCreate = function() {
       
       // Assign empty templates to current loan and buyer's order objects
+      $rootScope.bo = Object.assign({}, newBo);
       $rootScope.currLoan = {} ;
-      $rootScope.bo = { 
-        insr: {},
-        purchaser: {}, 
-        finances: { admin_fees: 489 },
-        copurchaser: { invalid: "true" }, 
-      };
-      
+
       // Set editing flag to 'false'
       $rootScope.isEditingLoan = false ;
     }
@@ -154,7 +157,7 @@ angular.module('SWEApp').controller(
        // console.log($(".sudo-select ul").css('opacity'));
         $rootScope.bo.is_car_used = used;
         $rootScope.bo.is_car_used_text = used ? "Used" : "New";
-        onBlurInput();
+        $scope.onBlurInput();
         // $(".sudo-select").find("ul").css('opacity', '0');
         // $(".sudo-select").find("ul").css('height', '0');
     };
@@ -208,13 +211,10 @@ angular.module('SWEApp').controller(
             
             // clear form data once done
             $scope.newLoan = {} ;
-            $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ;
-            
-            // TODO: Close modal
-            //modal.hide
-            //data-dismiss="modal"
+            $rootScope.bo = Object.assign({}, newBo);
             
             alert("Loan was created successfully!") ;
+            $("#buyersOrderModal").modal('hide');
           }
         },
         function(err) {
