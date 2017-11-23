@@ -116,8 +116,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         removeToken();
       },
       register: function(loginData) {
-        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
-        console.log(args);
+        // var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
+        // console.log(args);
         return $http.post('/api/users', args);
       },
       login: function(loginData) {

@@ -145,9 +145,9 @@ module.exports.init = function() {
 
   // Warranties plan view for a customer
   // why the hell does it take 4 reqs to do this??
-  // app.use('/warranties', function(req, res) {
-  //   res.render('warranties', {path: ''});
-  // });
+  app.use('/warranties', function(req, res) {
+    res.render('warranties', {path: ''});
+  });
 
   // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
   app.use('/login', login_routes);

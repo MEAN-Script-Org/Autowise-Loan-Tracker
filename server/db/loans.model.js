@@ -103,7 +103,7 @@ var loanSchema = new mongoose.Schema({
       exp_date:         Date,
       transfer:         String,
       plate_no:         String,
-      purchase_new_tag: String,
+      license_plate:    {type: String, required: true},
     },
 
     // Financing and fees
@@ -183,7 +183,7 @@ loanSchema.pre('save', function(next) {
   
   // TODO: Enforce all uppercase in server too
   if (!this.type)
-    this.type = "AUTO LOAN";
+    this.type = "AUTO";
 
   next();
 });

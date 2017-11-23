@@ -3,10 +3,10 @@ angular.module('SWEApp').controller('LoginController',
   function($rootScope, $scope, $location, $window, $http, Factory) {
 
     // GLOBALS
-    $scope.newUser = {isAdmin: false};
     $rootScope.users = [];
-    // $scope.newUser = {email: "dale", username: "dale"};
+    $rootScope.newUser = {isAdmin: false};
     $rootScope.usernames = {};
+    $scope.login_page = true;
 
     $scope.init = function(error_message, type) {
       // Atempt to reroute ASAP
@@ -21,8 +21,6 @@ angular.module('SWEApp').controller('LoginController',
           
           var token_array = Factory.getToken();
           if (token_array) {
-            // alert("Redirecting to profile.. please wait");
-            // setTimeout(function(){$('.alert').alert('close')}, 400);
             window.location.href = '/profile/' + Factory.getToken();
           }
         },
@@ -32,20 +30,12 @@ angular.module('SWEApp').controller('LoginController',
         }
       );
 
-      // I could easily get BOTH, just usernames and all their data...
-      // Maybe the username conversion should be a frontend thing... backend logic is screwed up
       Factory.getUsernames().then(
         function(res) {
-          // $rootScope.usernames = res.data;
-          // console.log(res.data);
           res.data.forEach(function(item) {
             $rootScope.usernames[item] = true;
           });
         }
-      //   ,
-      //   function(err) {
-      //     alert("can't get usernames..");
-      // }
       );
     }
 
@@ -59,12 +49,7 @@ angular.module('SWEApp').controller('LoginController',
       Factory.login(loginData).then(
         function(res) {
           if (!res.data.error) {
-            // console.log(res.data);
-            // console.log(JSON.stringify(res.data));
-            
-            // check that this works
             Factory.addToken(res.data);
-            // console.log(Factory.getToken());
           } else {
             if (res.data.error.indexOf("Invalid") > -1)
             {
@@ -81,32 +66,18 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-      if (!$rootScope.usernames[$scope.newUser.username]) {
-        Factory.newUser($scope.newUser);
+      
+      if (!$rootScope.usernames[$rootScope.newUser.username]) {
+        $rootScope.newUser.md5hash = window.fingerprint.md5hash;
+        
+        Factory.newUser($rootScope.newUser).then(
+          function(req) {
+            Factory.addToken(req.data);
+          }
+        );
       }
       else
         alert("Please change your username to one that hasn't been taken");
     }
-
-    // // don't waste time on this...
-    // $scope.makeUsernameTheEmail = function() {
-    //   // make the user email to be username while nothing is types as username, or the email is still the username
-    //   console.log($scope.newUser.username);
-    //   console.log($scope.newUser.email);
-
-    //   var email = $scope.newUser.email;
-    //   var username = $scope.newUser.username;
-
-    //   email.substring(0, Math.min(email.length - 1, username.length - 1));
-
-    //   if (!email || username == email) {
-    //     console.log($scope.newUser.username);
-    //     console.log($scope.newUser.email);
-
-    //     $scope.newUser.username = $scope.newUser.email;
-    //   }
-    //   else
-    //     console.log("NOPE");
-    // }
   }
 ]);

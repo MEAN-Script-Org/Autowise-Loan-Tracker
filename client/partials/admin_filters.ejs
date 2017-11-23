@@ -5,75 +5,57 @@
       <h1 class="page-header centered-text">Loan Database</h1>
       <br>
       <!-- 
-      <div class="col-md-12">
-        <h4>Search by...</h4>
-      </div>
       <hr style="padding: 0.5px; margin: 0 16px 8px; color:#38cc70; background-color:#38cc70;">
        -->
     </div>
-    <button ng-click="logout()" class="btn btn-danger pull-right"> Log out </button>
-    
-    <!-- should not appear here -->
-    <!-- 
-    <a href="/warranties" target="_blank" class="btn btn-info"> Warranties </a>
-     -->
     <div style="clear: both;"></div>
     <div class="panel panel-container">
+      <div class="col-md-12 centered-text">
+        <h3>Quick Filters</h3>
+      </div>
+      <div class="col-md-12">&nbsp;</div>
       <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
+            <div class="row no-padding">
+              <em class="fa fa-xl fa-exclamation-circle"></em>
+              <label class="container" ng-click="toggleArchiveFilter()">
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="text-muted"> need immediate attention </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
+            <div class="row no-padding">
+              <em class="fa fa-xl fa-archive"></em>
+              <label class="container" ng-click="toggleImportantFilter()">
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="text-muted"> archived loans </label>
+            </div>
+          </div>
+        </div>
+
         <!-- 
         <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
           <div class="panel panel-teal panel-widget border-right">
             <div class="row no-padding">
-              <em class="fa fa-xl fa-user color-blue"></em>
+              <em class="fa fa-xl fa-calendar"></em>
               <label class="container">
-                <input type="checkbox" id="nameCheckbox">
-                <span class="checkmark"></span>
-              </label>
-              <label class="text-muted">Customer's Name </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
-          <div class="panel panel-teal panel-widget border-right">
-            <div class="row no-padding">
-              <em class="fa fa-xl fa-envelope color-blue"></em>
-              <label class="container">
-                <input type="checkbox" id="emailCheckbox">
-                <span class="checkmark"></span>
-              </label>
-              <label class="text-muted">Email </label>
-            </div>
-          </div>
-        </div>
-         -->
-        <!-- These are a big no no -->
-        <!-- Date filtering needs special formatting ~ a mess -->
-        <!-- 
-                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                    <div class="panel panel-teal panel-widget border-right">
-                        <div class="row no-padding">
-                            <em class="fa fa-xl fa-university color-blue"></em>
-                            <label class="container">
-                                <input type="checkbox" id="lenderCheckbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="text-muted">Lender </label>
-                        </div>
-                    </div>
-                </div>
-        -->
-        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
-          <div class="panel panel-teal panel-widget border-right">
-            <div class="row no-padding">
-              <em class="fa fa-xl fa-calendar color-blue"></em>
-              <label class="container">
-                <input type="checkbox" id="dateCheckbox">
+                <input type="checkbox">
                 <span class="checkmark"></span>
               </label>
               <label class="text-muted">Date Range </label>
             </div>
           </div>
         </div>
+         -->
+        
       </div>
     </div>
   </div>

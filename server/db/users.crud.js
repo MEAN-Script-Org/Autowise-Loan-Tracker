@@ -11,13 +11,12 @@ module.exports = {
     var newUser = new User({
       dl: req.body.dl,
       dob: req.body.dob,
+      name: req.body.name,
       email: req.body.email,
+      isAdmin: req.body.isAdmin,
       username: req.body.username,
       password: req.body.password,
-      
-      isAdmin: req.body.isAdmin,
     });
-    // console.log("WHAT", newUser);
 
     if (req.body.username && req.body.password) {
       newUser.save(function(err, realNewUser) {
@@ -47,7 +46,12 @@ module.exports = {
   },
 
   read: function(req, res) {
-    res.json(req.user) ;
+    var user = {
+      id: req.user._id,
+      name: req.user.name,
+      isAdmin: req.user.isAdmin,
+    }
+    res.json() ;
   },
 
   update: function(req, res) {

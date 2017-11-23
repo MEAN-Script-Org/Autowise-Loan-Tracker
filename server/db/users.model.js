@@ -14,10 +14,12 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+  name: {
+    type: String,
+    required: true
+  },
   // NEED TO ADD THE FOLLOWING FIELDS:
   // -> name: { type: String, required: true }
-  
   // Next to fix tests to account for the required fields
   // DL: drivers licence
   dl: {
@@ -54,7 +56,7 @@ userSchema.pre('save', function(next) {
     this.isAdmin = false;
   
   // Affix any dangling loans in the database to this User
-  loans.affixLoansToUser(this) ;
+  // loans.affixLoansToUser(this) ;
   
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());

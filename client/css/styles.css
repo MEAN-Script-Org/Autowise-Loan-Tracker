@@ -91,14 +91,14 @@ input.form-control {
 }
 
 .navbar .nav-container {
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .navbar-title {
-    width: auto;
+  width: auto;
 }
 
 .navbar-title .navbar-brand {
@@ -115,25 +115,26 @@ input.form-control {
 }
 
 .navbar-drop {
-    width: auto;
+  width: auto;
 }
+
 .navbar-drop-icon {
-    list-style: none;
-    width: 60px;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  width: 60px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .dropdown {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    margin: 0;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -154,10 +155,10 @@ input.form-control {
 .dropdown a.dropdown-toggle {
   color: #fff;
   height: 40px;
-  width: 40px; 
+  width: 40px;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 .dropdown:hover {
@@ -230,8 +231,9 @@ input.form-control {
 }
 
 .dropdown-menu {
-    left: -250%;
+  left: -150%;
 }
+
 
 
 
@@ -606,7 +608,7 @@ a.label:focus {
 }
 
 .panel-container {
-  padding-top: 20px;
+  padding-top: 1px;
 }
 
 .panel-heading .fa-toggle-up,
@@ -1623,6 +1625,7 @@ p.back-link {
 
 
 
+
 /* Above are template styles */
 
 
@@ -1670,13 +1673,23 @@ p.back-link {
 }
 
 
+
 /* Accordion rows get selectable hand-pointy guy */
+
 dt {
   cursor: pointer;
 }
 
+.loanHeader {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+
 
 /* loading... *animated* */
+
 #loader {
   display: block;
   margin-left: auto;
@@ -1726,6 +1739,7 @@ img#loader {
 }
 
 
+
 /* Modified Bootstrap Modal style */
 
 @media (min-width: 768px) {
@@ -1761,7 +1775,9 @@ img#loader {
   padding-top: 0px;
 }
 
+
 /* Login style */
+
 .login-panel.panel.panel-default>* {
   text-align: center;
 }
@@ -1795,7 +1811,9 @@ div.right-text {
 }
 
 
+
 /* This will force placeholders to show in type 'dates' */
+
 input[type="date"]:before {
   content: attr(placeholder) !important;
   color: #aaa;
@@ -1808,14 +1826,18 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* some login styles reuse buyer's order required etc */
 
+
 /* Warranties Styles */
+
 .warrantyDescription {
-  font-size: 78%;
-  line-height: 105%;
-  font-weight: 500;
   text-align: justify;
+  overflow-y: scroll;
+  font-weight: 500;
+  line-height: 105%;
+  font-size: 78%;
 }
 
 .warrantiesQueryText>div>h4,
@@ -1838,6 +1860,7 @@ input[type="date"]:valid:before {
 
 
 
+
 /* Progress bar styles */
 
 .received-progress {
@@ -1854,6 +1877,7 @@ input[type="date"]:valid:before {
   width: 50%;
   background-color: #6495ed;
 }
+
 
 
 
@@ -1909,16 +1933,24 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* Buyers order styles */
+
+#tabContent2 {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 3fr 4fr 1fr 4fr 1fr 1fr;
+}
 
 .required:after {
   /*This looks bad on windows*/
   /*margin-left: -8px;*/
   /*ahh... so it's for the material design ones..*/
   color: #f9243f;
-  padding: 0 0 0 2px;
+  /*padding: 0 0 0 0px;*/
   content: "*";
 }
+
 
 /*can't get this to work yet*/
 
@@ -1930,6 +1962,7 @@ input[type="date"]:valid:before {
 .tab-pane>div>div>span {
   padding: 0 10px 0 0;
 }
+
 
 
 /*CHECK BOX*/
@@ -1948,6 +1981,7 @@ input[type="date"]:valid:before {
   justify-content: center;
   -webkit-user-select: none;
 }
+
 
 
 
@@ -1973,6 +2007,7 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* Create a custom checkbox */
 
 .checkmark {
@@ -1983,17 +2018,20 @@ input[type="date"]:valid:before {
 }
 
 
+
 /* On mouse-over, add a grey background color */
 
 .container:hover input~.checkmark {
   background-color: #ccc;
 }
 
+
 /* When the checkbox is checked, add a blue background */
 
 .container input:checked~.checkmark {
   background-color: #38cc70;
 }
+
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -2006,11 +2044,13 @@ input[type="date"]:valid:before {
 
 
 
+
 /* Show the checkmark when checked */
 
 .container input:checked~.checkmark:after {
   display: block;
 }
+
 
 
 /* Style the checkmark/indicator */
@@ -2033,6 +2073,7 @@ input[type="date"]:valid:before {
   padding: 0;
   margin: 0;
 }
+
 
 
 
@@ -2079,6 +2120,7 @@ input[type="date"]:valid:before {
   color: #333;
   opacity: 0.5;
 }
+
 
 
 
@@ -2218,12 +2260,15 @@ div.ng-show {
 }
 
 
+
 /* INPUT FORM */
 
+
 /* form starting stylings ------------------------------- */
-.group 			  { 
-  position:relative; 
-  margin-bottom:16px; 
+
+.group {
+  position: relative;
+  margin-bottom: 16px;
 }
 
 .inputMODAL {
@@ -2250,6 +2295,7 @@ div.ng-show {
 }
 
 
+
 /*
 .ng-valid-date {
   outline:none; 
@@ -2259,6 +2305,8 @@ div.ng-show {
 
 
 /* LABEL ======================================= */
+
+
 /* Conflict stuff ~
 < HEAD
 .modal-body label {
@@ -2274,21 +2322,21 @@ div.ng-show {
 */
 
 .modal-body .group label {
-  color:#999; 
-  font-size:12px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
   background-color: #FFFFFF;
   width: 80%;
-  
+
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
-  
 }
+
 
 
 /* active state */
@@ -2299,6 +2347,7 @@ div.ng-show {
   font-size: 10px;
   color: #38cc70;
 }
+
 
 
 /* BOTTOM BARS ================================= */
@@ -2318,11 +2367,10 @@ div.ng-show {
   bottom: 1px;
   position: absolute;
   background: #38cc70;
-  
+
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
-  
 }
 
 .bar:before {
@@ -2334,12 +2382,14 @@ div.ng-show {
 }
 
 
+
 /* active state */
 
 .inputMODAL:focus~.bar:before,
 .inputMODAL:focus~.bar:after {
   width: 50%;
 }
+
 
 
 /* HIGHLIGHTER ================================== */
@@ -2359,7 +2409,10 @@ div.ng-show {
 }
 
 
+
 /* active state => this looks bad on Windows */
+
+
 /*
 .inputMODAL:focus~.highlight {
   -webkit-animation: inputHighlighter 0.3s ease;
@@ -2371,13 +2424,15 @@ div.ng-show {
 
 /* END INPUT FORM */
 
+
 /* SELECTOR OPTION */
+
 .selector .inputMODAL {
   background-image: url("data:image/svg+xml;utf8,<svg fill='#666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'> <path d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/> <path d='M0-.75h24v24H0z' fill='none'/> </svg>");
 
   background-repeat: no-repeat;
   background-position: right 0 center;
-/*
+  /*
   height: 24px;
   width: 24px;
 */
@@ -2386,17 +2441,18 @@ div.ng-show {
 }
 
 .selector .sudo-select {
-    position: absolute;
-    width: 100%;
-/*    top: 16px;*/
-    height: auto;
-    opacity: 1;
-    -webkit-transition-property: height, opacity;
-    transition-property: height, opacity;
-    z-index: 2000;
+  position: absolute;
+  width: 100%;
+  /*    top: 16px;*/
+  height: auto;
+  opacity: 1;
+  -webkit-transition-property: height, opacity;
+  transition-property: height, opacity;
+  z-index: 2000;
 }
+
 .selector .sudo-select ul {
-  color:#38cc70;
+  color: #38cc70;
   background: #fff;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   display: block;
@@ -2410,6 +2466,7 @@ div.ng-show {
   transition: height 0.3s, opacity 0.3s;
   width: 100%;
 }
+
 .selector .sudo-select ul li {
   height: 32px;
   padding: 8px 4px;
@@ -2420,7 +2477,11 @@ div.ng-show {
   background-repeat: no-repeat;
   background-position: right 0 center;
 }
+
+
 /*, .selector .inputMODAL:focus ~ .sudo-select ul*/
+
+
 /*
 .selector .inputMODAL:focus ~ .sudo-select {
   height: auto;
@@ -2429,203 +2490,233 @@ div.ng-show {
 */
 
 .sudo-select li:hover {
-    background-color: #38cc70;
-    color: white;
+  background-color: #38cc70;
+  color: white;
 }
 
 .sudo-select-btn {
-    background-color: #E8E8E8;
-    color: #38cc70;
-    width: 100%;
-    height: 24px;
-    padding: 4px 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #E8E8E8;
+  color: #38cc70;
+  width: 100%;
+  height: 24px;
+  padding: 4px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sudo-select-btn:hover {
-    background-color: #38cc70;
+  background-color: #38cc70;
 }
+
+
 /* END SELECTOR OPTION */
+
 
 /* Switch Slide
 ==========================*/
+
 .header-switch {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 24px;
 }
 
 .switch {
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	width: 100px;
-	height: 30px;
-	padding: 3px;
-	margin: 0 10px 10px 0;
-	background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
-	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
-	border-radius: 18px;
-/*	box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
-	cursor: pointer;
-	box-sizing:content-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 100px;
+  height: 30px;
+  padding: 3px;
+  margin: 0 10px 10px 0;
+  background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+  background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+  border-radius: 18px;
+  /*  box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
+  cursor: pointer;
+  box-sizing: content-box;
 }
+
 .switch-input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	box-sizing:content-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  box-sizing: content-box;
 }
+
 .switch-label {
-	position: relative;
-	display: block;
-	height: inherit;
-	font-size: 10px;
-	text-transform: uppercase;
-	background: #eceeef;
-	border-radius: inherit;
-	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
-	box-sizing:content-box;
+  position: relative;
+  display: block;
+  height: inherit;
+  font-size: 10px;
+  text-transform: uppercase;
+  background: #eceeef;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+  box-sizing: content-box;
 }
-.switch-label:before, .switch-label:after {
-	position: absolute;
-	top: 50%;
-	margin-top: -.5em;
-	line-height: 1;
-	-webkit-transition: inherit;
-	-moz-transition: inherit;
-	-o-transition: inherit;
-	transition: inherit;
-	box-sizing:content-box;
-}
-.switch-label:before {
-	content: attr(data-off);
-	right: 11px;
-	color: #aaaaaa;
-}
+
+.switch-label:before,
 .switch-label:after {
-	content: attr(data-on);
-	left: 11px;
-	color: #FFFFFF;
+  position: absolute;
+  top: 50%;
+  margin-top: -.5em;
+  line-height: 1;
+  -webkit-transition: inherit;
+  -moz-transition: inherit;
+  -o-transition: inherit;
+  transition: inherit;
+  box-sizing: content-box;
 }
-.switch-input:checked ~ .switch-label {
-	background: #E1B42B;
+
+.switch-label:before {
+  content: attr(data-off);
+  right: 11px;
+  color: #aaaaaa;
 }
-.switch-input:checked ~ .switch-label:before {
-	opacity: 1;
+
+.switch-label:after {
+  content: attr(data-on);
+  left: 11px;
+  color: #FFFFFF;
 }
-.switch-input:checked ~ .switch-label:after {
-	opacity: 1;
+
+.switch-input:checked~.switch-label {
+  background: #E1B42B;
 }
+
+.switch-input:checked~.switch-label:before {
+  opacity: 1;
+}
+
+.switch-input:checked~.switch-label:after {
+  opacity: 1;
+}
+
 .switch-handle {
-	position: absolute;
-	top: 4px;
-	left: 4px;
-	width: 28px;
-	height: 28px;
-	background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
-	background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
-	border-radius: 100%;
-/*	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+  background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+  border-radius: 100%;
+  /*  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
 }
+
 .switch-handle:before {
-	content: "";
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -6px 0 0 -6px;
-	width: 12px;
-	height: 12px;
-	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
-	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
-	border-radius: 6px;
-	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -6px 0 0 -6px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+  background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+  border-radius: 6px;
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
-.switch-input:checked ~ .switch-handle {
-	left: 74px;
-	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+
+.switch-input:checked~.switch-handle {
+  left: 74px;
+  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
- 
+
+
 /* Transition
 ========================== */
-.switch-label, .switch-handle {
-	transition: All 0.3s ease;
-	-webkit-transition: All 0.3s ease;
-	-moz-transition: All 0.3s ease;
-	-o-transition: All 0.3s ease;
+
+.switch-label,
+.switch-handle {
+  transition: All 0.3s ease;
+  -webkit-transition: All 0.3s ease;
+  -moz-transition: All 0.3s ease;
+  -o-transition: All 0.3s ease;
 }
 
 .switch-slide {
-	padding: 16px;
-	margin: 0;
-	background: #FFF;
-	border-radius: 0;
-	background-image: none;
-}
-.switch-slide .switch-label {
-	box-shadow: none;
-	background: none;
-	overflow: hidden;
-}
-.switch-slide .switch-label:after, .switch-slide .switch-label:before {
-	width: 50%;
-	height: 65%;
-	top: 5px;
-	left: 0;
-	text-align: center;
-	padding-top: 10%;
-    font-weight: 500;
-/*	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
-}
-.switch-slide .switch-label:after {
-	color: #AAAAAA;
-	background: #eceeef;
-	left: 0;
-}
-.switch-slide .switch-label:before {
-	background: #38cc70;
-    color: #FFFFFF;
-    left: 50%;
-}
-.switch-slide .switch-handle {
-	display: none;
-}
-.switch-slide .switch-input:checked ~ .switch-label {
-	background: #FFF;
-	border-color: #38cc70;
-}
-.switch-slide .switch-input:checked ~ .switch-label:before {
-	left: 50%;
-    color: #AAAAAA;
-	background: #eceeef;
-}
-.switch-slide .switch-input:checked ~ .switch-label:after {
-	left: 0;
-    background: #38cc70;
-    color: #FFFFFF;
+  padding: 16px;
+  margin: 0;
+  background: #FFF;
+  border-radius: 0;
+  background-image: none;
 }
 
+.switch-slide .switch-label {
+  box-shadow: none;
+  background: none;
+  overflow: hidden;
+}
+
+.switch-slide .switch-label:after,
+.switch-slide .switch-label:before {
+  width: 50%;
+  height: 65%;
+  top: 5px;
+  left: 0;
+  text-align: center;
+  padding-top: 10%;
+  font-weight: 500;
+  /*  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
+}
+
+.switch-slide .switch-label:after {
+  color: #AAAAAA;
+  background: #eceeef;
+  left: 0;
+}
+
+.switch-slide .switch-label:before {
+  background: #38cc70;
+  color: #FFFFFF;
+  left: 50%;
+}
+
+.switch-slide .switch-handle {
+  display: none;
+}
+
+.switch-slide .switch-input:checked~.switch-label {
+  background: #FFF;
+  border-color: #38cc70;
+}
+
+.switch-slide .switch-input:checked~.switch-label:before {
+  left: 50%;
+  color: #AAAAAA;
+  background: #eceeef;
+}
+
+.switch-slide .switch-input:checked~.switch-label:after {
+  left: 0;
+  background: #38cc70;
+  color: #FFFFFF;
+}
+
+
 /*specific functionality*/
+
 .co-purchase {
-    max-height: 0;
-    overflow: hidden;
-    pointer-events: none;
-    
-    transition: max-height 0.3s;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  transition: max-height 0.3s;
 }
 
 .co-purchase-show {
-    max-height: 100em;
-    pointer-events: all;
+  max-height: 100em;
+  pointer-events: all;
 }
 
 .switch-slide .switch-input:checked
-
 /*END SWITCH*/
+
 
 /* ANIMATIONS ================ */
 
@@ -2697,7 +2788,9 @@ div.ng-show {
   }
 }
 
+
 /* For presedence */
+
 .no-padding {
   padding: 0;
   margin: 0;

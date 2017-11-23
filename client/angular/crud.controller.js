@@ -10,8 +10,8 @@ angular.module('SWEApp').controller(
     // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = [];                // All loans in the database
-    $rootScope.massLoans = [];            // All loans currently selected (checked)
     $rootScope.currLoan = {};             // Single loan of a current operation (creating, updating, etc.)
+    $rootScope.massLoans = [];            // All loans currently selected (checked)
     $rootScope.loanWithNewComments = {};  // Loan with comments used to update the existing loan
     
     $rootScope.loading = true;
@@ -20,7 +20,7 @@ angular.module('SWEApp').controller(
     $rootScope.isEditingLoan = false ;
     
     // Buyer's Order placeholder
-    $rootScope.bo = {} ; 
+    $rootScope.bo = {};
 
     $scope.init = function() {
       console.log("MEAN App on it's way!");
@@ -35,6 +35,9 @@ angular.module('SWEApp').controller(
       $scope.newLoan = {};
       $scope.isAdmin = true;
       $scope.visible = "visible";
+
+      $scope.looking_for_archived = false;
+      $scope.looking_for_important = false;
 
       Factory.getLoans().then(
         function(res) {
@@ -56,6 +59,38 @@ angular.module('SWEApp').controller(
       Factory.logout();
     }
     
+    // argg...
+    $scope.toggleArchiveFilter = function() {
+      $scope.looking_for_archived != $scope.looking_for_archived;
+    }
+    
+    $scope.archive_filter = function(loan) {
+      if ($scope.looking_for_archived)
+        return loan.status.toLowerCase() == "archived";
+      else
+        return true;
+    }
+
+    $scope.toggleImportantFilter = function() {
+      $scope.looking_for_important != $scope.looking_for_important;
+    }
+    
+    $scope.important_filter = function(loan) {
+      if ($scope.looking_for_important) {
+        var importants = {
+          "approved": true,
+          "denied": true,
+          "received": true,
+          "submitted": true,
+        };
+
+        return loan.status.toLowerCase() in importants;
+      }
+      else
+        return true;
+    }
+
+
     //------------------------------------------------------------------------------------------------------------------
     // LOAN CRUD FUNCTIONS - SINGLE
     //------------------------------------------------------------------------------------------------------------------
@@ -67,7 +102,12 @@ angular.module('SWEApp').controller(
       
       // Assign empty templates to current loan and buyer's order objects
       $rootScope.currLoan = {} ;
-      $rootScope.bo = { purchaser: {}, copurchaser: { invalid: "true" }, insr: {}} ;
+      $rootScope.bo = { 
+        insr: {},
+        purchaser: {}, 
+        finances: { admin_fees: 489 },
+        copurchaser: { invalid: "true" }, 
+      };
       
       // Set editing flag to 'false'
       $rootScope.isEditingLoan = false ;
@@ -116,7 +156,7 @@ angular.module('SWEApp').controller(
     // Called from the buyer's order modal
     // Information on the 'bo' and 'currLoan' objects are used to create a new loan in the database
     //------------------------------------------------------------------------------------------------------------------
-    $scope.createLoanWithBO = function() {
+    $scope.addLoanWithBO = function() {
       if (!$rootScope.currLoan) return ;
       
       var newLoan = $rootScope.currLoan ;
@@ -334,7 +374,6 @@ angular.module('SWEApp').controller(
         $rootScope.massLoans = [];
     }
 
-    // TODO LATER: Same comment as 'changeLoanStatus' ~
     // Clearing frontend checkboxes
     $scope.clearCheckbox = function(loanID) {
       // jQuery again
