@@ -143,9 +143,19 @@ angular.module('SWEApp').controller(
     }
 
     // Steven's CSS/jQuery prowess in Material design
-    $scope.onFocusInput = function() {
-        $(".sudo-select").find("ul").css('opacity', '1');
-        $(".sudo-select").find("ul").css('height', 'auto');
+    $scope.onFocusInput = function(ind) {
+        switch(ind) {
+            case 0:
+                $("#sudo-select-0").find("ul").css('opacity', '1');
+                $("#sudo-select-0").find("ul").css('height', 'auto');
+                break;
+            case 1:
+                $("#sudo-select-1").find("ul").css('opacity', '1');
+                $("#sudo-select-1").find("ul").css('height', 'auto');
+                break;
+            default:
+                break;
+        }
     }
 
     $scope.onBlurInput = function() {
@@ -161,6 +171,7 @@ angular.module('SWEApp').controller(
             $scope.onBlurInput();
         }
         else {
+            console.log(used);
             $rootScope.bo.license_plate = used;
             $rootScope.bo.license_plate_text = used ? "Used" : "New";
             $scope.onBlurInput();

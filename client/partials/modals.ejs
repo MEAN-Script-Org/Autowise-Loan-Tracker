@@ -354,11 +354,11 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-focus="onFocusInput()" ng-change="onEditInput()">
+                      <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-focus="onFocusInput(0)" ng-change="onEditInput()">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>New or Used? (Choose An Option)</label>
-                      <div class="sudo-select">
+                      <div class="sudo-select" id="sudo-select-0">
                         <ul id="type-category-options" class="category-options">
                           <li class="category-option" data-value="false" ng-click="setCarUsed('is_car_used', false)">
                             New
@@ -475,16 +475,16 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.license_plate_text" required ng-focus="onFocusInput()" ng-change="onEditInput()">
+                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.license_plate_text" required ng-focus="onFocusInput(1)" ng-change="onEditInput()">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>License Plate (New/Used)</label>
-                      <div class="sudo-select">
+                      <div class="sudo-select" id="sudo-select-1">
                         <ul id="type-category-options" class="category-options">
                           <li class="category-option" data-value="false" ng-click="setCarUsed('license_plate', false)">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('license_plate, true)">
+                          <li class="category-option" data-value="true" ng-click="setCarUsed('license_plate', true)">
                             Used
                           </li>
                           <a class="sudo-select-btn" ng-click="onBlurInput()"> 
