@@ -1833,11 +1833,12 @@ input[type="date"]:valid:before {
 /* Warranties Styles */
 
 .warrantyDescription {
+  font-size: 78%;
+  height: 600px;
+  line-height: 105%;
+  font-weight: 500;
   text-align: justify;
   overflow-y: scroll;
-  font-weight: 500;
-  line-height: 105%;
-  font-size: 78%;
 }
 
 .warrantiesQueryText>div>h4,
