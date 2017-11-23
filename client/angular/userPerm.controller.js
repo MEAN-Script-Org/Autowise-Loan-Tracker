@@ -26,7 +26,7 @@
                          alert(err);
                      });
 
-                /* $scope.removeUser = function(userID) {
+                 $scope.removeUser = function(userID) {
                      Factory.deleteUser(userID).then(
                          function(response) {
                              $rootScope.fake_users.some(function(item, index, fake_users) {
@@ -50,10 +50,7 @@
                          function(response) {
                              $rootScope.fake_users.some(function(item, fake_users) {
                                  if (item._id == userID) {
-                                     if (fake_users.isAdmin == true) {
-                                         fake_users..isAdmin = false;
-                                     } else
-                                         fake_users.isAdmin = true;
+                                    fake_users.isAdmin == true
                                  }
                              });
                          },
@@ -68,10 +65,7 @@
                              function(response) {
                                  $rootScope.fake_users.some(function(item, fake_users) {
                                      if (item._id == userID) {
-                                         if (fake_users.isAdmin == true) {
-                                             fake_users.isAdmin = false;
-                                         } else
-                                             fake_users.isAdmin = true;
+                                        fake_users.isAdmin == true
                                      }
                                  });
                              },
@@ -94,6 +88,6 @@
                                      alert("Error updating to user.");
                                      console.log(err);
                                  }
-                             } */
+                             }
                          }
                      ]);
