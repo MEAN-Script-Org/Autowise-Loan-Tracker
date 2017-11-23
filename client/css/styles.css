@@ -1151,10 +1151,10 @@ span.btn-group-text {
 }
 
 .nav-tabs {
-  /*
+  
   float: none;
   display: inline-block;
-  */
+  
   background: #f2f3f2;
   border: 0;
 }
@@ -2280,9 +2280,9 @@ div.ng-show {
   content: "*";
   color: #f9243f;
   /*This looks bad on windows*/
-  /*margin-left: -8px;*/
+  margin-left: -8px;
   /*ahh... so it's for the material design ones..*/
-  /*padding: 0 0 0 0px;*/
+  padding: 0 0 0 0px;
 }
 
 
@@ -2306,7 +2306,6 @@ div.ng-show {
   margin-left: -8px;
   color: #f9243f;
   padding: 0 0 0 2px;
-  content: "*";
 }
 
 
