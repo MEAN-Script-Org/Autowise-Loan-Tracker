@@ -1840,6 +1840,13 @@ input[type="date"]:valid:before {
   content: "";
 }
 
+.dateInput {
+    color: transparent !important;
+}
+.dateInput:focus, .dateInput:valid {
+    color: rgb(68, 68, 68) !important;
+}
+
 
 
 /* some login styles reuse buyer's order required etc */
@@ -2319,7 +2326,7 @@ div.ng-show {
   pointer-events: none;
   left: 5px;
   top: 10px;
-  background-color: #FFFFFF;
+/*  background-color: #FFFFFF;*/
   width: 80%;
 
   transition: 0.2s ease all;
