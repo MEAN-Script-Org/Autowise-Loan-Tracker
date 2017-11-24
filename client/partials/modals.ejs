@@ -38,7 +38,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
+      <div ng-click="prepareLoanEdit(loan)" class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header centered-text">
@@ -46,7 +46,7 @@
                 &times;
               </button>
               <span>
-                <h3>Change the status of the {{singleLoanID[0].name}}'s {{singleLoanID[0].type}} loan to:</h3>
+                <h3>Change the status of the {{currLoan.name}}'s {{currLoan.type}} loan to:</h3>
                 <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
                 <select name="Loan Status" ng-model="newStatus">
                     <!-- <option disabled selected>New Status</option> -->
@@ -60,7 +60,7 @@
               </span>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(singleLoanID[0]._id, newStatus)">Update</button>
+              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(currLoan._id, newStatus)">Update</button>
               <button class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
           </div>
@@ -868,9 +868,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" ng-click="addLoanWithBO()"
+            <button ng-hide="isEditingLoan" class="btn btn-primary" type="submit" ng-click="addLoanWithBO()"
                     title="If clicking seems to be doing nothing, check the other tabs">
                     Submit
+            </button>
+            <button ng-show="isEditingLoan" class="btn btn-primary" type="submit" ng-click="updateLoanWithBO()"
+                    title="If clicking seems to be doing nothing, check the other tabs">
+                    Update
             </button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
