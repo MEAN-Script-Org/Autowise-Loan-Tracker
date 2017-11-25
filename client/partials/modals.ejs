@@ -38,7 +38,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
+      <div ng-click="prepareLoanEdit(loan)" class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header centered-text">
@@ -46,7 +46,7 @@
                 &times;
               </button>
               <span>
-                <h3>Change the status of the {{singleLoanID[0].name}}'s {{singleLoanID[0].type}} loan to:</h3>
+                <h3>Change the status of the {{currLoan.name}}'s {{currLoan.type}} loan to:</h3>
                 <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
                 <select name="Loan Status" ng-model="newStatus">
                     <!-- <option disabled selected>New Status</option> -->
@@ -60,7 +60,7 @@
               </span>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(singleLoanID[0]._id, newStatus)">Update</button>
+              <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(currLoan._id, newStatus)">Update</button>
               <button class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
           </div>
@@ -868,9 +868,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" ng-click="addLoanWithBO()"
+            <button ng-hide="isEditingLoan" class="btn btn-primary" type="submit" ng-click="addLoanWithBO()"
                     title="If clicking seems to be doing nothing, check the other tabs">
                     Submit
+            </button>
+            <button ng-show="isEditingLoan" class="btn btn-primary" type="submit" ng-click="updateLoanWithBO()"
+                    title="If clicking seems to be doing nothing, check the other tabs">
+                    Update
             </button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
@@ -1050,6 +1054,76 @@
                 I want this plan
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warranties: add admin view -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyPlanAdmin">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <!-- Header -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="centered-text">Update Warranty Plan</h2>
+          </div>
+          
+          <!-- Body -->
+          <div class="modal-body">
+            <div class="tab-content">
+              <div class="tab-pane active">
+                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <select class="inputMODAL" name="warranty-type" ng-model="warranty.type_t">
+                      <option value="Any Year">Any Year</option>
+                      <option value="Deluxe">Deluxe</option>
+                      <option value="Factory Type">Factory Type</option>
+                    </select>
+                    <span class="bar"></span>
+                    <label>Plan Type</label>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="group">
+                      <input class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
+                      <span class="bar"></span>
+                      <label>Plan Duration (months)</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                    <div class="group">
+                      <input class="inputMODAL" type="number" name="warranty-miles" ng-model="warranty.term.miles">
+                      <span class="bar"></span>
+                      <label>Plan Mileage</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                    <div class="group">
+                      <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="warranty.price">
+                      <span class="bar"></span>
+                      <label>Plan Price</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="warrantyUpdate()">Update Warranty</button>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
