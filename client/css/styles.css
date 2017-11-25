@@ -1126,17 +1126,20 @@ span.btn-group-text {
 }
 
 .warranty-bar {
-  float: left;
   width: 0;
+  /*float: left;*/
+  color: #fff;
   height: 100%;
   font-size: 16px;
   line-height: 24px;
   text-align: center;
-  color: #fff;
   background-color: #A0A0A0;
+  grid-template-columns: 2fr 3fr 2fr;
+  display: grid;
+
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition        : width .6s ease;
   -webkit-transition: width .6s ease;
-  transition: width .6s ease;
 }
 
 .jumbotron {
@@ -1644,10 +1647,12 @@ p.back-link {
 /* General Styles */
 
 .invisible {
+  display: none;
   visibility: hidden;
 }
 
 .visible {
+  display: block;
   visibility: visible;
 }
 
@@ -1816,13 +1821,11 @@ div.right-text {
   grid-column: 2;
 }
 
-#tabContent.nav-tabs {
-/*
+#tabContent.login {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 2fr;
-*/
-    height: 100%;
+  /*height: 100%;*/
 }
 
 
@@ -1901,7 +1904,11 @@ input[type="date"]:valid:before {
   background-color: #6495ed;
 }
 
-
+.btn-aqua, .btn-aqua:focus, .btn-aqua:hover {
+  color: white;
+  border-color: aquamarine;  
+  background-color: aquamarine;
+}
 
 
 /* This color is too light */
@@ -2448,14 +2455,14 @@ div.ng-show {
 }
 
 .selector .sudo-select ul {
+  height: 0;
+  opacity: 0;
   color: #38cc70;
   background: #fff;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   display: block;
-  height: 0;
   list-style: none;
   margin-top: -8px;
-  opacity: 0;
   overflow: hidden;
   padding: 0 1px;
   -webkit-transition: height 0.3s, opacity 0.3s;

@@ -22,7 +22,7 @@ module.exports = {
     res.json(req.loan) ;
   },
 
-  tempAddComment: function(req, res, next) {
+  addComment: function(req, res, next) {
     var new_plain_comment = req.body.newComment;
 
     var newComment = {
@@ -40,6 +40,9 @@ module.exports = {
       next();
   },
 
+  // TODO:
+  // every time there's an update, add a comment!
+  // Need add local 'addComent' method
   update: function(req, res) {
     var oldLoan = req.loan;
     console.log(req.body);
@@ -47,7 +50,10 @@ module.exports = {
     // Replace old loan's properties with the newly sent ones
     var loanToBeUpdated = Object.assign(oldLoan, req.body, function(former, replacement){
       if (!replacement) return former;
-      else return replacement;
+      else  {
+        console.log(replacement)
+        return replacement;
+      }
     });
     
     // {new: true} => Returns the real/actual updated version

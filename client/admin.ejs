@@ -26,7 +26,7 @@
               <div class="load-txt">Loading</div>
             </div>
             <div ng-hide="loading" class="accordion invisible {{visible}}">
-              <dl>
+              <dl ng-show="filtered_loans.length > 0">
                 <div class="inverse-tab">
                   <span>
                     <!-- need this for spaces sake -->
@@ -34,21 +34,16 @@
                   </span>
                   <div class="loanHeader">
                     <span> Customer Name </span>
-                    <!-- style this somewhat... -->
                     <span> Loan Type </span>
                     <span> Loan Status </span>
-                    <!-- - total $ -->
                     <span> Loan ID # </span>
                   </div>
                   <span> Show details </span>
                 </div> 
-                <!-- | filter: important_filter:archive_filter"> -->
-                <div ng-repeat="loan in loans | orderBy:'updated_at':reverse | filter: query">
-                  <!-- 
-                  <div ng-if="loan.new">
-                    {{reloadAccordion()}}
-                  </div>
-                   -->
+                <div ng-repeat="loan in filtered_loans = (loans 
+                  | orderBy:'updated_at':reverse
+                  | archived_filter:looking_for_archived
+                  | important_filter:looking_for_important)">
                   <div class="tab accordionIn accordionOut">
                     <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
                     <label for="tab-{{loan._id}}" class="tab-header">
@@ -64,13 +59,17 @@
                       </div>
                     </label>
                     <div class="tab-content">
-                      <% include partials/progress-row.ejs %>
+                      <% include partials/actions-row.ejs %>
                       <% include partials/warranty-row.ejs %>
                       <% include partials/accordion-comments.ejs %>
                     </div>
                   </div>
                 </div>
               </dl>
+              <h3 style="background: #f1f4f7;" 
+                  ng-hide="filtered_loans.length > 0" class="centered-text">
+                No results. Either change the filters or log in again
+              </h3>
             </div>
           </div>
         </div>

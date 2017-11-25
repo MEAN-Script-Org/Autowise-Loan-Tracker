@@ -46,7 +46,7 @@
                 &times;
               </button>
               <span>
-                <h3>Change the status of the {{currLoan.name}}'s {{currLoan.type}} loan to:</h3>
+                <h3>Change the status of the {{currLoan.buyers_order.purchaser.name}}'s {{currLoan.type}} loan to:</h3>
                 <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
                 <select name="Loan Status" ng-model="newStatus">
                     <!-- <option disabled selected>New Status</option> -->
@@ -258,18 +258,18 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.copurchaser.dl" required >
-                        <span class="highlight required"></span>
-                        <span class="bar"></span>
-                        <label>DL</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="group">
                         <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required >
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>DOB</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.copurchaser.dl" required >
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>DL</label>
                       </div>
                     </div>
                   </div>
@@ -351,28 +351,9 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 <hr>
+                
                 <div class="row">
-                  <div class="col-sm-12">
-                    <div class="group selector">
-                      <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-focus="onFocusInput()" ng-change="onEditInput()">
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>New or Used? (Choose An Option)</label>
-                      <div class="sudo-select">
-                        <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed('is_car_used', false)">
-                            New
-                          </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('is_car_used', true)">
-                            Used
-                          </li>
-                          <a class="sudo-select-btn" ng-click="onBlurInput()"> 
-                            <em class="fa fa-md fa-close"></em>
-                          </a>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
@@ -402,13 +383,28 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required>
+                    <div class="group selector">
+                      <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required
+                      ng-focus="onFocusInput('type')" 
+                      ng-change="onEditInput('type')"
+                      >
+
                       <span class="highlight required"></span>
                       <span class="bar"></span>
-                      <label>Type</label>
+                      <label>New or Used?</label>
+                      <div class="sudo-select type">
+                        <!-- id="type-category-options"  -->
+                        <ul class="category-options" id="type">
+                          <li class="category-option" data-value="false" ng-click="setCarUsed('type', false)">
+                            New
+                          </li>
+                          <li class="category-option" data-value="true" ng-click="setCarUsed('type', true)">
+                            Used
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
+                  </div>                      
                   <div class="col-sm-4">
                     <div class="group">
                       <input class="inputMODAL" type="text" name="car-color" ng-model="bo.car_info.color" required>
@@ -475,21 +471,29 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.license_plate_text" required ng-focus="onFocusInput()" ng-change="onEditInput()">
+                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.license_plate" required 
+                      ng-focus="onFocusInput('plate')" 
+                      ng-change="onEditInput('plate')"
+                      >
+                      
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>License Plate (New/Used)</label>
                       <div class="sudo-select">
-                        <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed('license_plate', false)">
+                        <ul id="plate"  class="category-options" >
+                          <!-- id="type-category-options" -->
+                          <li class="category-option" data-value="false" ng-click="setCarUsed('plate', false)">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('license_plate', true)">
+                          <li class="category-option" data-value="true" ng-click="setCarUsed('plate', true)">
                             Used
                           </li>
-                          <a class="sudo-select-btn" ng-click="onBlurInput()"> 
+                          <!-- redundant -->
+                          <!-- 
+                          <a class="sudo-select-btn" ng-click="onBlurInput('plate')"> 
                             <em class="fa fa-md fa-close"></em>
                           </a>
+                           -->
                         </ul>
                       </div>
                     </div>
@@ -678,131 +682,150 @@
                 <hr>
                 <div class="row">
                   <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="car-year" ng-model="bo.trade_in.year" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Year</label>
-                    </div>
+                    <h5 class="header-switch"> Adding a Trade?
                   </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-make" ng-model="bo.trade_in.make" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Make</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-model" ng-model="bo.trade_in.model" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Model</label>
-                    </div>
+                  <div class="col-sm-3">
+                      <label class="switch switch-slide">
+                        <input class="switch-input" type="checkbox" ng-model="bo.trade.valid" ng-true-value="true" ng-false-value="false" value="false" />
+                        <span class="switch-label" data-on="Yes" data-off="No"></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </h5>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-type_t" ng-model="bo.trade_in.type_t" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Type</label>
+
+                <!-- TODO:  -->
+                <!-- trying to get the same styling as 'adding a co-purchaser' -->
+                <!-- ng-class="bo.trade.valid ? 'co-purchase-show' : ''"  -->
+                <div ng-class="bo.trade.valid ? 'visible' : 'invisible'">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="car-year" ng-model="bo.trade_in.year" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Year</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="car-make" ng-model="bo.trade_in.make" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Make</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="car-model" ng-model="bo.trade_in.model" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Model</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="car-color" ng-model="bo.trade_in.color" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Color</label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="car-type_t" ng-model="bo.trade_in.type_t" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Type</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="car-color" ng-model="bo.trade_in.color" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Color</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="car-mileage" ng-model="bo.trade_in.mileage" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Mileage</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="car-mileage" ng-model="bo.trade_in.mileage" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Mileage</label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="amount" ng-model="bo.trade_in.payoff" required>
+                        <span class="highlight required"></span>
+                        <span class="bar"></span>
+                        <label>Pay Off Amount</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="car-cyl" ng-model="bo.trade_in.cyl" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Cylinders</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="car-serial" ng-model="bo.trade_in.serial_no" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Serial Number</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="amount" ng-model="bo.trade_in.payoff" required>
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>Pay Off Amount</label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="number" name="account-num" ng-model="bo.trade_in.account_no" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Account Number</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="holder" ng-model="bo.trade_in.holder" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Holder</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="address" ng-model="bo.trade_in.address" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Address</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="car-cyl" ng-model="bo.trade_in.cyl" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Cylinders</label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="qualif-by" ng-model="bo.trade_in.qualif_by" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Qualified By</label>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="car-serial" ng-model="bo.trade_in.serial_no" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Serial Number</label>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="inputMODAL" type="text" name="verif_by" ng-model="bo.trade_in.verif_by" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Verified By</label>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="account-num" ng-model="bo.trade_in.account_no" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Account Number</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="holder" ng-model="bo.trade_in.holder" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Holder</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="address" ng-model="bo.trade_in.address" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Address</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="qualif-by" ng-model="bo.trade_in.qualif_by" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Qualified By</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="text" name="verif_by" ng-model="bo.trade_in.verif_by" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Verified By</label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="dateInput inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru" required>
-                      <span class="highlight"></span>
-                      <span class="bar"></span>
-                      <label>Good Through</label>
+                    <div class="col-sm-4">
+                      <div class="group">
+                        <input class="dateInput inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Good Through</label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1076,45 +1099,42 @@
           
           <!-- Body -->
           <div class="modal-body">
-            <div class="tab-content">
-              <div class="tab-pane active">
-                
-                <div class="row">
-                  <div class="col-sm-12">
-                    <select class="inputMODAL" name="warranty-type" ng-model="warranty.type_t">
-                      <option value="Any Year">Any Year</option>
-                      <option value="Deluxe">Deluxe</option>
-                      <option value="Factory Type">Factory Type</option>
-                    </select>
-                    <span class="bar"></span>
-                    <label>Plan Type</label>
-                  </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="group">
+                  <select class="inputMODAL" name="warranty-type" ng-model="warranty.type_t">
+                    <option value="Any-Year">Drivetrain</option>
+                    <option value="Deluxe">Deluxe</option>
+                    <option value="Factory-Type">Factory</option>
+                  </select>
+                  <span class="bar"></span>
+                  <label>Type</label>
                 </div>
-                
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
-                      <span class="bar"></span>
-                      <label>Plan Duration (months)</label>
-                    </div>
-                  </div>
-                  
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" type="number" name="warranty-miles" ng-model="warranty.term.miles">
-                      <span class="bar"></span>
-                      <label>Plan Mileage</label>
-                    </div>
-                  </div>
-                  
-                  <div class="col-sm-4">
-                    <div class="group">
-                      <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="warranty.price">
-                      <span class="bar"></span>
-                      <label>Plan Price</label>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="group">
+                  <input class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
+                  <span class="bar"></span>
+                  <label>Months</label>
+                </div>
+              </div>
+              
+              <div class="col-sm-4">
+                <div class="group">
+                  <input class="inputMODAL" type="number" name="warranty-miles" ng-model="warranty.term.miles">
+                  <span class="bar"></span>
+                  <label>Mileage</label>
+                </div>
+              </div>
+              
+              <div class="col-sm-4">
+                <div class="group">
+                  <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="warranty.price">
+                  <span class="bar"></span>
+                  <label>Price</label>
                 </div>
               </div>
             </div>

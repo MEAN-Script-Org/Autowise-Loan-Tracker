@@ -18,7 +18,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
 
       // FOR TESTING PURPOSES ONLY
       // $scope.user = { _id: '0001123', username: 'Slugcat' } ;
-      Factory.getUser().then(
+      Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
           user = res.data;

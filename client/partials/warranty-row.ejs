@@ -4,9 +4,9 @@
   <div class="col-xs-12">
     <h4 class="centered-text">Warranty Plan</h4>
     <div class="warranty-bar warranty">
-      <div>Type: {{loan.warranty.type_t}}</div>
-      <div>Term: {{loan.warranty.term.months}} months | {{loan.warranty.term.miles}} miles</div>
-      <div>Price: {{loan.warranty.price | currency}}</div>
+      <div>{{convert_warranties(loan.warranty.type_t)}}</div>
+      <div>{{loan.warranty.term.months}} months | {{loan.warranty.term.miles}} miles</div>
+      <div>{{loan.warranty.price | currency}}</div>
     </div>
   </div>
 </div>

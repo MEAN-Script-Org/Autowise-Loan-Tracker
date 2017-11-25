@@ -49,14 +49,14 @@ var loanSchema = new mongoose.Schema({
   //--------------------------------------------------------------------------------------------------------------------
   buyers_order: {
     form_date:       Date,
-    is_car_used:     Boolean,
     
     // Purchaser and Co-Purchaser
     purchaser: {
-      name:  {type:   String, required: true},
-      email: {type:   String, required: false},
-      dl:    {type:   String, required: true},
-      dob:   {type:   Date,   required: true},
+      name:     {type:   String, required: true},
+      email:    {type:   String, required: false},
+      dl:       {type:   String, required: true},
+      dob:      {type:   Date,   required: true},
+      dob_text: {type:   String},
 
       // Contact information
       address: {
@@ -79,6 +79,7 @@ var loanSchema = new mongoose.Schema({
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
       dob:     {type:   Date,   /*required: false*/},
+      dob_text:{type:   String,   /*required: false*/},
 
       // Contact information
       address: {
@@ -95,6 +96,7 @@ var loanSchema = new mongoose.Schema({
       year:             {type: Number, required: true},
       make:             {type: String, required: true},
       model:            {type: String, required: true},
+      
       // 'type' is a reserved word, lol
       // i think it's cuz we already have it.. lol
       type_t:           {type: String, required: true}, 
@@ -111,6 +113,7 @@ var loanSchema = new mongoose.Schema({
       exp_date:         Date,
       transfer:         String,
       plate_no:         String,
+      // NEW/USED
       license_plate:    String,
       // license_plate:    {type: String, required: true},
     },
@@ -190,6 +193,22 @@ loanSchema.pre('save', function(next) {
   if (!this.type)
     this.type = "AUTO";
 
+  // CORRECLTY Format all dates
+  // this.buyers_order.form_date = new Date(this.buyers_order.form_date);
+  // this.buyers_order.purchaser.dob = new Date(this.buyers_order.purchaser.dob);
+  this.buyers_order.purchaser.dob_text = new Date(this.buyers_order.purchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
+
+  if (this.buyers_order.copurchaser.dob) {
+    // this.buyers_order.copurchaser.dob = new Date(this.buyers_order.copurchaser.dob);
+    this.buyers_order.copurchaser.dob_text = new Date(this.buyers_order.copurchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
+  }
+
+  // if (this.buyers_order.exp_date)
+  //   this.buyers_order.exp_date = new Date(this.buyers_order.exp_date);
+
+  // if (this.buyers_order.car_info.good_thru)
+  //   this.car_info.good_thru = new Date(this.car_info.good_thru);
+
   next();
 });
 
@@ -200,6 +219,7 @@ loanSchema.post('save', function() {
 
 // Create loan model from schema
 var Loan = mongoose.model('Loans', loanSchema) ;
+Loan.collection.dropIndexes();
 
 // Export loan model to application
 module.exports = Loan ;

@@ -58,7 +58,7 @@
             <button class="btn btn-md btn-primary" ng-click="addComment(loan._id)">
               <!-- Other words: -->
               <!-- Attach, plain comment? -->
-              <span class="btn-group-text">Publish Comment</span>
+              <span class="btn-group-text">Save Comment</span>
               <span class="btn-group-icon"><em class="fa fa-xl fa-send"></em></span>
             </button>
             <button class="btn btn-md" ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')" ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
@@ -66,12 +66,6 @@
               <span class="btn-group-text">Visible To Customer</span>
               <span class="btn-group-icon" ng-if="loan.commentAsAdmin"><em class="fa fa-xl fa-eye-slash"></em></span>
               <span class="btn-group-icon" ng-if="!loan.commentAsAdmin"><em class="fa fa-xl fa-eye"></em></span>
-            </button>
-            <!-- Somewhere else? -->
-            <!-- Have a read/have updates from client -->
-            <button class="btn btn-warning btn-md" ng-click="emailClient(loan._id, loan.user_email, loan.name)">
-              <span class="btn-group-text">Email</span>
-              <span class="btn-group-icon"><em class="fa fa-xl fa-envelope"></em></span>
             </button>
           </div>
         </div>
