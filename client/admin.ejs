@@ -42,6 +42,7 @@
                 </div> 
                 <div ng-repeat="loan in filtered_loans = (loans 
                   | orderBy:'updated_at':reverse
+                  | filter: query
                   | archived_filter:looking_for_archived
                   | important_filter:looking_for_important)">
                   <div class="tab accordionIn accordionOut">

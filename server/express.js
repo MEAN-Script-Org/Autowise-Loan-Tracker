@@ -138,7 +138,7 @@ module.exports.init = function() {
   });
 
   //customer account info
-   app.use('/account', function(req, res) {
+  app.use('/account', function(req, res) {
     res.render('userInfo', {path: ''});
   });
 
