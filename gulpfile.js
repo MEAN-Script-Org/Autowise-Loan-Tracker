@@ -9,21 +9,22 @@ var config_loader = require('dotenv');
 
 var locals = config_loader.load();
 
+gulp.task('default', ['nodemon']);
 // gulp.task('default', ['nodemon', 'browser-sync',]);
-gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
+// gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
 
-gulp.task('get-config', function(cb) {
-    if (exec("heroku config -s > .env"))
-        cb();
-});
+// gulp.task('get-config', function(cb) {
+//     if (exec("heroku config -s > .env"))
+//         cb();
+// });
 
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        port: "5001",
         proxy: "http://localhost:5000",
         files: ["client/**/*.*"],
-        // reloadOnRestart: true,
         browser: "chrome",
+        port: "5001",
+        // reloadOnRestart: true,
     });
 });
 
@@ -50,9 +51,9 @@ gulp.task('nodemon', function (cb) {
             started = true;
         }
 
-        if (!load_frontend()) {
-            load_frontend();
-        }
+        // if (!load_frontend()) {
+        //     load_frontend();
+        // }
     })
     .on('restart', function() {
         // clear();
@@ -62,6 +63,6 @@ gulp.task('nodemon', function (cb) {
         // clear();
         console.log('-------- APP CRASHED! Make sure you have valid Heroku credentials --------');
         console.log("-------- Type 'rs' [enter] on THIS command line to RESTART server --------");
-        load_frontend();
+        // load_frontend();
     });
 });

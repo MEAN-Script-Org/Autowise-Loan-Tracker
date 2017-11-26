@@ -9,6 +9,8 @@ module.exports = {
 
   create: function(req, res) {
     var newLoan = new Loan(req.body);
+    // TODO: add a new comment to the loan saying who made it
+    console.log(req.body.token);
 
     newLoan.save(function(err, realNewLoan) {
       if (err) {
@@ -22,22 +24,38 @@ module.exports = {
     res.json(req.loan) ;
   },
 
+  deleteComment: function(req, res, next) {
+    // either pass an id or index to remove the loans
+    // going with the index way since i already have it :D
+
+    var nonWantedIndex = req.body.index;
+    console.log(req.loan.comments[nonWantedIndex]);
+    next();
+    // need to pass to next as well.
+  },
+
   addComment: function(req, res, next) {
-    var new_plain_comment = req.body.newComment;
+    console.log("we here");
+    console.log("we here");
+    console.log("we here");
+    console.log("we here");
+    res.json({"da": "le"});
+    // var new_plain_comment = req.body.newComment;
 
-    var newComment = {
-      admin: true,
-      writer: {
-        id   : req.user._id,
-        name : req.user.name,
-      },
-      content: new_plain_comment,
-      newtime: new Date(),
-    }
+    // var newComment = {
+    //   admin: true,
+    //   writer: {
+    //     id   : req.user._id,
+    //     name : req.user.name,
+    //   },
+    //   content: new_plain_comment,
+    //   newtime: new Date(),
+    // };
 
-    req.loan.comments.push(newComment);
-    if (req.body = {comments})
-      next();
+    // req.loan.comments.push(newComment);
+    // next f(x) does the save (update)
+    // if (!(req.body = {comments: req.loan.comments}))
+    // next();
   },
 
   // TODO:
@@ -45,13 +63,17 @@ module.exports = {
   // Need add local 'addComent' method
   update: function(req, res) {
     var oldLoan = req.loan;
-    console.log(req.body);
+    // console.log(req.body);
+    // check if the req is newComment/we
 
     // Replace old loan's properties with the newly sent ones
     var loanToBeUpdated = Object.assign(oldLoan, req.body, function(former, replacement){
+      // this never gets here... but works at least!
+      console.log(former, replacement);
+
       if (!replacement) return former;
       else  {
-        console.log(replacement)
+        console.log("eey", replacement);
         return replacement;
       }
     });
@@ -149,6 +171,8 @@ module.exports = {
           // Update loan with found user's ID
           loan.user_id = user._id ;
           loan.save() ;
+          // yeah this doesn't work like this....
+          // need to do a mongoose save
         }
       });
     }

@@ -193,16 +193,26 @@ loanSchema.pre('save', function(next) {
   if (!this.type)
     this.type = "AUTO";
 
+  console.log("FUCKING SAVINGS!");
+
+  // YYYY-mm-dd
+  // new Date().toLocaleDateString('km-KH')
+
+  // mm/dd/YYYY , hopefuly ~
+  // new Date().toLocaleDateString('zh-Hans-CN')
+
   // CORRECLTY Format all dates
   // this.buyers_order.form_date = new Date(this.buyers_order.form_date);
   // this.buyers_order.purchaser.dob = new Date(this.buyers_order.purchaser.dob);
-  this.buyers_order.purchaser.dob_text = new Date(this.buyers_order.purchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
+  // this.buyers_order.purchaser.dob_text = new Date(this.buyers_order.purchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
 
-  if (this.buyers_order.copurchaser.dob) {
-    // this.buyers_order.copurchaser.dob = new Date(this.buyers_order.copurchaser.dob);
-    this.buyers_order.copurchaser.dob_text = new Date(this.buyers_order.copurchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
-  }
+  // if (this.buyers_order.copurchaser.dob) {
+  //   // this.buyers_order.copurchaser.dob = new Date(this.buyers_order.copurchaser.dob);
+  //   this.buyers_order.copurchaser.dob_text = new Date(this.buyers_order.copurchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
+  // }
 
+  // check if you can do a method by ref :D
+  
   // if (this.buyers_order.exp_date)
   //   this.buyers_order.exp_date = new Date(this.buyers_order.exp_date);
 
@@ -219,7 +229,7 @@ loanSchema.post('save', function() {
 
 // Create loan model from schema
 var Loan = mongoose.model('Loans', loanSchema) ;
-Loan.collection.dropIndexes();
+// Loan.collection.dropIndexes();
 
 // Export loan model to application
 module.exports = Loan ;

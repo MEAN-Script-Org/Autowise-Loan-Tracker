@@ -88,6 +88,6 @@ userSchema.methods.reset = function(new_password) {
 
 // Mongoose model of the above
 var User = mongoose.model('Users', userSchema) ;
-User.collection.dropIndexes();
+// User.collection.dropIndexes();
 
 module.exports = User ;

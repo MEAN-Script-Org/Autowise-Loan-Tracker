@@ -38,6 +38,7 @@
                   {{comment.newtime | date: "MMM dd, yyyy"}}
                   <b>{{comment.newtime | date: "h:mm a"}}</b>
                 </small>
+                <!-- 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular -->
                 
                 <!-- Remove comment -->
                 <span ng-hide="(comment.writer.id != user.id) && !user.isSuperAdmin">

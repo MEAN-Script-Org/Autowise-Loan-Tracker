@@ -88,7 +88,6 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-    // console.log(req.body) ;
     
     if (token_array) {
 
