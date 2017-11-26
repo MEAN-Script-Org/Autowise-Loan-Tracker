@@ -21,16 +21,14 @@
     <em class="fa fa-plus float-child"></em>
 </a>
 <ul id="float-list" ng-show="massLoans.length > 0">
-    <!-- data-target="#deleteModal" data-toggle="modal"  -->
-    <li ng-click="removeEnMass()"
+    <li ng-show="user.isSuperAdmin" ng-click="removeEnMass()"
         ng-mouseenter="DelTip=true" ng-mouseleave="DelTip=false">
       <a id="float-trash">
         <em class="fa fa-trash float-child"></em>
       </a>
     </li>
 
-    <!-- data-target="#archiveModal" data-toggle="modal"  -->
-    <li ng-click="updateStatusEnMass('Archived')"
+    <li ng-click="archiveEnMass()"
         ng-mouseenter="ArcTip=true" ng-mouseleave="ArcTip=false">
       <a id="float-archive">
         <em class="fa fa-archive float-child"></em>

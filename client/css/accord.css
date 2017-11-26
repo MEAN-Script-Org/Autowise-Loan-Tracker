@@ -1,55 +1,59 @@
 /*//updated ver*/
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .heading-primary {
-    font-size: 1em;
-    padding: 2em;
-    padding: 8px 0;
-    margin: 0;
+  font-size: 1em;
+  padding: 2em;
+  padding: 8px 0;
+  margin: 0;
 }
 
 .accordion a,
 a:hover,
 a:focus {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .accordion dl,
 .accordion-list {
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 .accordion dl:after,
 .accordion-list:after {
-    content: "";
-    display: block;
-    height: 1em;
-    width: 100%;
-    background-color: #2ba659;
+  content: "";
+  display: block;
+  height: 1em;
+  width: 100%;
+  background-color: #2ba659;
 }
 
 .accordion dd,
 .accordion__panel {
-    background-color: #eee;
-    font-size: 1em;
-    line-height: 1.5em;
+  background-color: #eee;
+  font-size: 1em;
+  line-height: 1.5em;
 }
+
 
 /*
     ACCORDION TRANSITION
 */
 
+
 /* Accordion styles */
+
 .tab {
   position: relative;
   width: 100%;
   /*color: #fff;*/
   overflow: hidden;
 }
+
 .checkSelector {
   position: absolute;
   opacity: 0;
@@ -86,17 +90,17 @@ a:focus {
   margin: 0;
 }
 
-.tab-header > label {
+.tab-header>label {
   grid-column: 1
 }
 
-.tab-header > span {
+.tab-header>span {
   grid-column: 2
 }
 
 
 .tab-header:hover {
-    background-color: #2ba659;
+  background-color: #2ba659;
 }
 
 .tab .tab-content {
@@ -107,60 +111,68 @@ a:focus {
   overflow-x: hidden;
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
-    
+
   -webkit-transition: all .5s;
   -o-transition: all .5s;
   transition: all .5s;
 }
 
 .accordion {
-    width: 100%;
-    /*overflow-y: auto;  */
-    max-height: 500px;
-    position: relative;
-    background-color: #eee;
+  width: 100%;
+  /*overflow-y: auto;  */
+  max-height: 500px;
+  position: relative;
+  background-color: #eee;
 }
 
 .container-accordion {
-    max-width: 100%;
-    margin: 0 auto;
-    /*margin-right: 76px;*/
-    padding: 2em 0 2em 0;
-    padding-top: 100px;
+  max-width: 100%;
+  margin: 0 auto;
+  /*margin-right: 76px;*/
+  padding: 2em 0 2em 0;
+  padding-top: 100px;
 }
 
 
+
 /* :checked */
-.checkSelector:checked ~ .tab-content {
+
+.checkSelector:checked~.tab-content {
   max-height: 50em;
   padding: 8px;
   -webkit-transform: scale(1.0);
   transform: scale(1.0);
   opacity: 1.0;
 }
+
+
 /* Icon */
+
 .tab-header::after {
-    grid-column: 3;
-    content: "+"; 
-    /*content: "\25BC";*/
-    font-size: 1.5em;
-    line-height: 0.5em;
-    float: right;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  grid-column: 3;
+  content: "+";
+  /*content: "\25BC";*/
+  font-size: 1.5em;
+  line-height: 0.5em;
+  float: right;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
-input[type=radio] + label::after {
+input[type=radio]+label::after {
   content: "\25BC";
 }
-input[type=checkbox]:checked + label::after {
+
+input[type=checkbox]:checked+label::after {
   transform: rotate(225deg);
 }
-input[type=radio]:checked + label::after {
+
+input[type=radio]:checked+label::after {
   transform: rotateX(225deg);
 }
+
 
 
 /*END TRANSITION*/
@@ -169,6 +181,7 @@ input[type=radio]:checked + label::after {
 /*--------------------------------------------------------------------------------------------------------------------*\
 |* FAKE ACCORDION HEADING - Looks like an accordion, doesn't act like one
 \*--------------------------------------------------------------------------------------------------------------------*/
+
 .accordionFakeTitle {
   background-color: #38cc70;
   text-align: center;
@@ -204,51 +217,67 @@ h5.warranty-instruction {
   color: #444444;
 }
 
+
 /*--------------------------------------------------------------------------------------------------------------------*\
 |* ACCORDION ITEM
 \*--------------------------------------------------------------------------------------------------------------------*/
 
+
 /* Loan progress row */
+
 .progress-row {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .progress {
-    width: 103%;
-    height: 100%;
-    margin-bottom: 0;
+  /*width: 103%;*/
+  height: 100%;
+  margin-bottom: 0;
 }
 
 .progress-row hr {
-    margin-top: 8px;
-    margin-bottom: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+
+/* Loan action buttons row */
+/* this SHOULD be in styles.css ... but w/e */
+.actions-row {
+  text-align: center;
+  margin-bottom: 16px;
+  display: grid;
+  grid-column-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* Loan warranty row */
+
 .warranty-row {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .warranty-row hr {
-    margin-top: 8px;
-    margin-bottom: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .warranty {
-    width: 103%;
-    height: 100%;
-    margin-bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
 }
 
+
 /* Button bar for loan editing */
+
 .dropdown-menu {
-    padding: 8px;
+  padding: 8px;
 }

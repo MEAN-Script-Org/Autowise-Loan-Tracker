@@ -54,21 +54,16 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       getUsernames: function() {
         return $http.get('/usernames');
       },
+      // this needs to change
       getAllUsers: function() {
         var args = {token: getToken()};
-        return $http.get('/api/users', args);
+        return $http.put('/api/users', args);
       },
-      getUser: function() {
+      getUserInfo: function() {
         var args = {token: getToken()};
         return $http.put('/api/userinfo/', args);
       },
       
-      // TODO: Implement this
-      // getUserInfo: function() {
-      //   var args = {token: getToken()};
-      //   return $http.get('/api/info', args);
-      // },
-
       //----------------------------------------------------------------------------------------------------------------
       // Loans CRUD
       //----------------------------------------------------------------------------------------------------------------
@@ -80,10 +75,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.put('/api/loans', args);
       },
-      getLoan: function(id) {
-        var args = {token: getToken()};
-        return $http.get('/api/loan/' + id, args);
-      },
+      // getLoan: function(id) {
+      //   var args = {token: getToken()};
+      //   return $http.get('/api/loan/' + id, args);
+      // },
       deleteLoan: function(id) {
         var args = {token: getToken()};
         return $http.put('/api/deleteLoan/' + id, args);
@@ -93,13 +88,18 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = Object.assign(updatedLoan, {token: getToken()});
         return $http.put('/api/loan/' + id, args);
       },
+      // addComment: function(id, newComment) {
+      //   // var args = {token: getToken()};
+      //   var args = Object.assign(newComment, {token: getToken()});
+      //   return $http.post('/api/newComment/' + id, args);
+      // },
       
       //----------------------------------------------------------------------------------------------------------------
       // CRUD operations on loans of specific Users
       //----------------------------------------------------------------------------------------------------------------
       getLoansOfUser: function() {
         var args = {token: getToken()};
-        return $http.get('/api/loansByUser/', args);
+        return $http.put('/api/loansByUser/', args);
       },
       // Bug => get requests don't seem to be accepting args.... interesting
 

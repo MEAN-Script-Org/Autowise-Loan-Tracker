@@ -18,7 +18,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
 
       // FOR TESTING PURPOSES ONLY
       // $scope.user = { _id: '0001123', username: 'Slugcat' } ;
-      Factory.getUser().then(
+      Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
           user = res.data;
@@ -230,22 +230,17 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
           alert(errorMsg);
         });
 
-      // Create comment to add to loan signifying that Warranty interest has been submitted
-      var newComment = {
-        admin: false,
-        writer: $rootScope.user.username,
-        content: [
-          "Request for warranty plan: ",
-          converted_war_type, ", ",
-          warranty.term.months, " months, ",
-          warranty.term.miles * 1000, " miles. ",
-          "Starting at $", warranty.price, ". ",
-          "Please allow up to 3 business days for Autowise to review your submission"
-        ].join(''),
-        newtime: new Date(),
-      }
+      // Add comment to loan signifying that Warranty interest has been submitted
+      var newLoanComent = [
+        "Customer is interested in the following warranty plan: ",
+        converted_war_type, ", ",
+        warranty.term.months, " months, ",
+        warranty.term.miles * 1000, " miles. ",
+        "Starting at $", warranty.price, ". "
+      ].join('');
 
-      $http.post(window.location.href, {newComment, token: Factory.getToken()});
+      // this is a fast Factory call
+      $http.post(window.location.href, {note: newComment, token: Factory.getToken()});
     };
   }
 ]);

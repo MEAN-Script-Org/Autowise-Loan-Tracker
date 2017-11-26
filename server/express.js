@@ -56,7 +56,7 @@ profile_routes.route('/:token').all(
 // Customer warranty plans routing
 //----------------------------------------------------------------------------------------------------------------------
 profile_routes.route('/warranties/:loan_id/:token')
-              .post(loans.tempAddComment, loans.update)
+              .post(loans.update)
               .all(function(req, res) {
                 var token = req.body.token;
                 var loan = req.loan;
@@ -138,7 +138,7 @@ module.exports.init = function() {
   });
 
   //customer account info
-   app.use('/account', function(req, res) {
+  app.use('/account', function(req, res) {
     res.render('userInfo', {path: ''});
   });
 

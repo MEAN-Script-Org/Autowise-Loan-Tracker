@@ -29,7 +29,7 @@ router.route('/loans')
 // Individual loan
 router.route('/loan/:loanID')
       // .get(loans.read)
-      .put(loans.update)
+      .put(loans.update);
       
 router.route('/deleteLoan/:loanID')
       .put(loans.delete) ;
@@ -40,7 +40,7 @@ router.route('/loans/:userID')
       
 // Multiple loans under the currently logged-in User
 router.route('/loansByUser/:token')
-      .get(users.userByID, loans.loansByUserID);
+      .put(users.userByID, loans.loansByUserID);
       
 //----------------------------------------------------------------------------------------------------------------------
 // USERS
@@ -57,9 +57,8 @@ router.route('/userinfo/')
       .put(users.read);
 
 // > 'Multiple' users
-// I don't have a token when I create one, so ofc it's gonna be bad...
-// router.route('/users')
-//       .get(users.getAll, users.returnUsers) ;
+router.route('/users')
+      .put(users.getAll, users.returnUsers) ;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Routing parameters

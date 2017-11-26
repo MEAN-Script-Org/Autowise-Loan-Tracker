@@ -1,149 +1,152 @@
 angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-  function($rootScope, $scope, $location, $timeout, Factory) {
+    function($rootScope, $scope, $location, $timeout, Factory) {
 
-    // $rootScope.loans = [
-    //    {"name" : "Steven", "_id" : 1}, 
-    //    {"name" : "Marcial", "_id" : 2}, 
-    //    {"name" : "Max", "_id" : 3}
-    // ];
-    // GLOBALS
-    // Essentially, anything that goes into an async (Factory) call
-    $rootScope.loans = [];                // All loans in the database
-    $rootScope.currLoan = {};             // Single loan of a current operation (creating, updating, etc.)
-    $rootScope.massLoans = [];            // All loans currently selected (checked)
-    $rootScope.loanWithNewComments = {};  // Loan with comments used to update the existing loan
-    
-    $rootScope.warranty = {} ;            // Warranty plan placeholder object
-    
-    $rootScope.loading = true;
-    $rootScope.searchScopes = [];
-    
-    $rootScope.isEditingLoan = false ;
-    
-    // Buyer's Order placeholder
-    $rootScope.bo = {};
-    var newBo = {
+      // GLOBALS
+      // Essentially, anything that goes into an async (Factory) call
+      $rootScope.loans = []; // All loans in the database
+      $rootScope.currLoan = {}; // Single loan of a current operation (creating, updating, etc.)
+      $rootScope.massLoans = []; // All loans currently selected (checked)
+      $rootScope.loanWithNewComments = {}; // Loan with comments used to update the existing loan
+
+      $rootScope.loading = true; // shows the loading car animation
+      $rootScope.warranty = {}; // Warranty plan placeholder object
+      $rootScope.filtered_loans = {}; // Filtered Loans placeholder object
+
+      // Max's Variable to handle BO edits
+      $rootScope.isEditingLoan = false;
+
+      // Buyer's Order placeholder
+      $rootScope.bo = {};
+      $scope.newBo = {
         insr: {},
-        purchaser: {}, 
+        purchaser: {},
         finances: { admin_fees: 489 },
-        copurchaser: { invalid: "true" }, 
-    };
+        copurchaser: { invalid: "true" },
+      };
 
+      $scope.init = function() {
+        console.log("MEAN App on it's way!");
 
-    $scope.init = function() {
-      console.log("MEAN App on it's way!");
+        $scope.commentAsAdmin = false;
 
-      $scope.commentAsAdmin = false;
-      
-      // ## Order Filters ~ !them for ascending order
-      // not doing much with this rn...
-      $scope.reverse = true;
-      $scope.reverse_comments = true;
+        // ## Order Filters ~ !them for ascending order
+        // not doing much with this rn...
+        $scope.reverse = true;
+        $scope.reverse_comments = true;
 
-      $scope.newLoan = {};
-      $scope.isAdmin = true;
-      $scope.visible = "visible";
+        $scope.newLoan = {};
+        $scope.isAdmin = true;
+        $scope.visible = "visible";
 
-      $scope.looking_for_archived = false;
-      $scope.looking_for_important = false;
+        $scope.looking_for_archived = false;
+        $scope.looking_for_important = false;
 
-      Factory.getLoans().then(
-        function(res) {
-          if (res.data.length != 0) {
-            $rootScope.loans = res.data;
-            console.log($rootScope.loans);
-          } else {
-            console.log("DB is empty ~");
+        Factory.getLoans().then(
+          function(res) {
+            if (res.data.length != 0) {
+              $rootScope.loans = res.data;
+              // console.log($rootScope.loans);
+            } else {
+              console.log("DB is empty ~");
+            }
+
+            $timeout(function() {
+              $rootScope.loading = false;
+            }, 1000);
           }
+        );
 
-          $timeout(function() {
-            $rootScope.loading = false;
-          }, 1000);
-        }
-      );
-
-      Factory.getUser().then(
-        function(res) {
-          $rootScope.user = res.data;
-          user = res.data;
-      });
-    }
-
-    $scope.logout = function() {
-      Factory.logout();
-    }
-    
-    // Simple Filters. 
-    // TODO: implement like normal angular filters, or as in warranties controller as last resort
-    $scope.toggleArchiveFilter = function() {
-      $scope.looking_for_archived != $scope.looking_for_archived;
-    }
-    
-    $scope.archive_filter = function(loan) {
-      if ($scope.looking_for_archived)
-        return loan.status.toLowerCase() == "archived";
-      else
-        return true;
-    }
-
-    $scope.toggleImportantFilter = function() {
-      $scope.looking_for_important != $scope.looking_for_important;
-    }
-    
-    $scope.important_filter = function(loan) {
-      if ($scope.looking_for_important) {
-        var importants = {
-          "approved": true,
-          "denied": true,
-          "received": true,
-          "submitted": true,
-        };
-
-        return loan.status.toLowerCase() in importants;
+        Factory.getUserInfo().then(
+          function(res) {
+            $rootScope.user = res.data;
+            // user = res.data;
+          });
       }
-      else
-        return true;
-    }
 
+      $scope.logout = function() {
+        Factory.logout();
+      }
 
-    //------------------------------------------------------------------------------------------------------------------
-    // LOAN CRUD FUNCTIONS - SINGLE
-    //------------------------------------------------------------------------------------------------------------------
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Sets the current buyer's order and loan to a blank template and sets the 'isEditingLoan' property to 'false'
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.prepareLoanCreate = function() {
-      
-      // Assign empty templates to current loan and buyer's order objects
-      $rootScope.bo = Object.assign({}, newBo);
-      $rootScope.currLoan = {} ;
+      $scope.convert_warranties = function(type) {
+        // 'any-year' are drivetrains...
+        if (type)
+          return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+      }
 
-      // Set editing flag to 'false'
-      $rootScope.isEditingLoan = false ;
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.prepareLoanEdit = function(loan) {
-      
-      // Assign global warranty object
-      if (loan.warranty)
-        $rootScope.warranty = loan.warranty ;
-      else $rootScope.warranty = {} ;
-      
-      // Assign current loan and buyer's order objects
-      $rootScope.currLoan = loan ;
-      $rootScope.bo = loan.buyers_order ;
-      
-      // Set editing flag to 'true'
-      $rootScope.isEditingLoan = true ;
-    }
+      // Simple Filters. 
+      $scope.toggleArchiveFilter = function() {
+        $scope.looking_for_archived = !$scope.looking_for_archived;
+      }
 
-    // Steven's CSS/jQuery prowess in Material design
-    $scope.onFocusInput = function(ind) {
+      $scope.toggleImportantFilter = function() {
+        $scope.looking_for_important = !$scope.looking_for_important;
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // LOAN CRUD FUNCTIONS - SINGLE
+      //------------------------------------------------------------------------------------------------------------------
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Sets the current buyer's order and loan to a blank template and sets the 'isEditingLoan' property to 'false'
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.prepareLoanCreate = function() {
+
+        // Assign empty templates to current loan and buyer's order objects
+        $rootScope.bo = Object.assign({}, $scope.newBo);
+        $rootScope.currLoan = {};
+
+        // Set editing flag to 'false'
+        $rootScope.isEditingLoan = false;
+      }
+
+      $scope.prepareLoanDates = function(bo) {
+        // ALL DATES NEED TO BE WRITTEN HERE FOR CORRECT DISPLAY
+        // Copied from loan models ~
+        bo.purchaser.dob = new Date(bo.purchaser.dob);
+
+        if (bo.copurchaser.dob)
+          bo.copurchaser.dob = new Date(bo.copurchaser.dob);
+        
+        if (bo.exp_date)
+          bo.exp_date = new Date(bo.exp_date);
+
+        if (bo.car_info.good_thru)
+          bo.car_info.good_thru = new Date(bo.car_info.good_thru);
+
+        if (bo.insr.eff_dates)
+          bo.insr.eff_dates = new Date(bo.insr.eff_dates);
+
+        return bo;
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
+      //------------------------------------------------------------------------------------------------------------------
+      // TODO: divide this into 3 methods, cuz it's gonna get MESSY with dates
+      // need: newStatus, _id, purcharser.name, warranty
+      // do this tomorrow .... oink
+      $scope.prepareLoanEdit = function(loan) {
+        // console.log(loan);
+
+        // Assign global warranty object
+        if (loan.warranty)
+          $rootScope.warranty = loan.warranty;
+        else
+          $rootScope.warranty = {};
+
+        // Assign current loan and buyer's order objects
+        $rootScope.currLoan = loan;
+        $rootScope.bo = loan.buyers_order;
+        $rootScope.bo = $scope.prepareLoanDates($rootScope.bo);
+        $scope.newStatus = loan.status;
+
+        // Set editing flag to 'true'
+        $rootScope.isEditingLoan = true;
+      }
+
+      // Steven's CSS/jQuery prowess in Material design
+      $scope.onFocusInput = function(ind) {
         switch(ind) {
             case 0:
                 $("#sudo-select-0").find("ul").css('opacity', '1');
@@ -184,372 +187,378 @@ angular.module('SWEApp').controller(
             $rootScope.bo.is_car_used_text = "";
         }
     };
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Called from the buyer's order modal
-    // Information on the 'bo' and 'currLoan' objects are used to create a new loan in the database
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.addLoanWithBO = function() {
-      if (!$rootScope.currLoan) return ;
-      
-      var newLoan = $rootScope.currLoan ;
-      
-      // Assign buyer's order information to loan
-      // Copy Purchaser name to Loan name field
-      newLoan.buyers_order = $rootScope.bo ;                  
-      newLoan.name = newLoan.buyers_order.purchaser.name ;    
-      
-      // Checks if insurance has been specifeid
-      // If not, asks the User if they would like to continue
-      var insurance = newLoan.buyers_order.insr ;
-      if (!(insurance.company && insurance.policy_no)) {
-        var confirmation = confirm("Insurance company and/or policy number has not been specified. Submit this Loan anyway?") ;
-        
-        if (!confirmation)
-          return ;
-      }
-      
-      // Create new loan and upload it to the database
-      // On back-end, if a matching user exists with the purchaser information, the user is assigned this loan
-      // Else the loan is dangling without an assigned user
-      
-      // TODO: test this!
-      
-      Factory.newLoan(newLoan).then(
-        function(response) {
-          if (response.data) {
-            
-            // Making the loan
-            newLoan = response.data ;
-            newLoan.new = true ;
-            
-            // Add loan to front-end scope
-            $rootScope.loans.push(newLoan) ;
-            
-            // clear form data once done
-            $scope.newLoan = {} ;
-            $rootScope.bo = Object.assign({}, newBo);
-            
-            alert("Loan was created successfully!") ;
-            $("#buyersOrderModal").modal('hide');
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Called from the buyer's order modal
+      // Information on the 'bo' and 'currLoan' objects are used to create a new loan in the database
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.addLoanWithBO = function() {
+        if (!$rootScope.currLoan) return;
+
+        var newLoan = $rootScope.currLoan;
+
+        // Assign buyer's order information to loan
+        // Copy Purchaser name to Loan name field
+        newLoan.buyers_order = $rootScope.bo;
+        newLoan.name = newLoan.buyers_order.purchaser.name;
+
+        // Checks if insurance has been specifeid
+        // If not, asks the User if they would like to continue
+        var insurance = newLoan.buyers_order.insr;
+        if (!(insurance.company && insurance.policy_no)) {
+          var confirmation = confirm("Insurance company and/or policy number has not been specified. Submit this Loan anyway?");
+
+          if (!confirmation)
+            return;
+        }
+
+        // Create new loan and upload it to the database
+        // On back-end, if a matching user exists with the purchaser information, the user is assigned this loan
+        // Else the loan is dangling without an assigned user
+
+        // TODO: test this!
+
+        Factory.newLoan(newLoan).then(
+          function(response) {
+            if (response.data) {
+
+              // Making the loan
+              newLoan = response.data;
+              newLoan.new = true;
+
+              // Add loan to front-end scope
+              $rootScope.loans.push(newLoan);
+
+              // clear form data once done
+              $scope.newLoan = {};
+              $rootScope.bo = Object.assign({}, $scope.newBo);
+
+              alert("Loan was created successfully!");
+              $("#buyersOrderModal").modal('hide');
+            }
+          },
+          function(err) {
+            alert("Error submitting. Ensure all required (*) fields are filled.\nA value is invalid if the grey placeholders stay");
+
+            console.log(err);
           }
-        },
-        function(err) {
-          alert("There was an error submitting the form. Ensure all required fields are filled") ;
-          
-          console.log(err);
+        );
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Called from the buyer's order modal
+      // Information on the 'bo' and 'currLoan' objects are used to update a loan in the database
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.updateLoanWithBO = function() {
+        if (!$rootScope.currLoan) return;
+        console.log($rootScope.currLoan);
+
+        // Update loan in the database with updated buyer's order
+        // On back-end, the loan may be reassigned to a user if the purchaser information has changed
+        // Additionally, the loan may become dangling if there is no longer a user match
+
+        // TODO: test this!
+        // add note
+        Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
+          function(res) {
+            alert("Loan was updated successfully!");
+            // Close modal
+            $("#buyersOrderModal").modal('hide');
+          },
+          function(err) {
+            alert("Error updating loan! Ensure all fields are filled properly");
+            console.log(err);
+          }
+        );
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Called from the admin warranty modal
+      // Updates the loan with warranty information
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.warrantyUpdate = function() {
+        // add note
+        Factory.modifyLoan($rootScope.currLoan._id, { warranty: $rootScope.warranty }).then(
+          function(res) {
+
+            // Assign warranty object to loan on the front-end 
+            // TODO: fix this
+            $rootScope.currLoan.warranty = $rootScope.warranty;
+            alert("Warranty plan was updated successfully!");
+            // AND Close modal
+            $("#warrantyPlanAdmin").modal('hide');
+          },
+          function(err) {
+            alert("Error updating warranty plan! Ensure field is filled properly");
+            console.log(err);
+          }
+        );
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Removes a single loan of the specified ID
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.removeLoan = function(loanID, uncofirmedDeletion) {
+        // TODO Sprint 3:
+        // Delete should send things to archieve...
+        //        Delete from active DB, Add to 'archieve.json' in server
+        if (uncofirmedDeletion) {
+          if (confirm("Are you sure you want to delete this loan? Doing so will delete ALL records of it"))
+            $scope.removeLoan(loanID, true);
+        } else {
+          Factory.deleteLoan(loanID).then(
+            function(response) {
+              // update frontend after DB
+              $rootScope.loans.some(function(item, index, loans) {
+                if (item._id) {
+                  if (item._id == loanID) {
+                    loans.splice(index, 1);
+                    return true;
+                  }
+                }
+              });
+
+              // if (displayAlert)
+              //   alert("Successfully deleted loan");
+            },
+            function(err) {
+              alert("Error deleting loan. Perhaps it was already deleted");
+              console.log(err);
+            }
+          );
         }
-      );
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Called from the buyer's order modal
-    // Information on the 'bo' and 'currLoan' objects are used to update a loan in the database
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.updateLoanWithBO = function() {
-      if (!$rootScope.currLoan) return ;
-      
-      // Update loan in the database with updated buyer's order
-      // On back-end, the loan may be reassigned to a user if the purchaser information has changed
-      // Additionally, the loan may become dangling if there is no longer a user match
-      
-      // TODO: test this!
-      Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
-        function(res) {
-          
-          // TODO: Close modal
-          //modal.hide
-          //data-dismiss="modal"
-          
-          alert("Loan was updated successfully!") ;
-        },
-        function(err) {
-          alert("Error updating loan! Ensure all fields are filled properly");
-          console.log(err);
-        }
-      );
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Called from the admin warranty modal
-    // Updates the loan with warranty information
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.warrantyUpdate = function() {
-      Factory.modifyLoan($rootScope.currLoan._id, { warranty: $rootScope.warranty } ).then(
-        function(res) {
-          
-          // Assign warranty object to loan on the front-end
-          $rootScope.currLoan.warranty = $rootScope.warranty ;
-          
-          // TODO: Close modal
-          //modal.hide
-          //data-dismiss="modal"
-          
-          alert("Warranty plan was updated successfully!") ;
-        },
-        function(err) {
-          alert("Error updating warranty plan! Ensure field is filled properly");
-          console.log(err);
-        }
-      );
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Removes a single loan of the specified ID
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.removeLoan = function(loanID, uncofirmedDeletion) {
-      // TODO Sprint 3:
-      // Delete should send things to archieve...
-      //        Delete from active DB, Add to 'archieve.json' in server
-      if (uncofirmedDeletion) {
-        if (confirm("Are you sure you want to delete this loan? Doing so will delete ALL records of it"))
-          $scope.removeLoan(loanID, true);
-      } else {
-        Factory.deleteLoan(loanID).then(
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Updates the status of a single loan of the specified ID
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.changeLoanStatus = function(loanID, newStatus) {
+        // add note
+        Factory.modifyLoan(loanID, { status: newStatus }).then(
           function(response) {
             // update frontend after DB
             $rootScope.loans.some(function(item, index, loans) {
               if (item._id) {
                 if (item._id == loanID) {
-                  loans.splice(index, 1);
+                  loans[index].status = newStatus;
                   return true;
                 }
               }
             });
 
-            // if (displayAlert)
-            //   alert("Successfully deleted loan");
+            $rootScope.currLoan = {};
           },
           function(err) {
-            alert("Error deleting loan. Perhaps it was already deleted");
+            alert("Error updating loan status");
             console.log(err);
           }
         );
       }
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------
-    // Updates the status of a single loan of the specified ID
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.changeLoanStatus = function(loanID, newStatus) {
-      Factory.modifyLoan(loanID, { status: newStatus }).then(
-        function(response) {
-          // update frontend after DB
-          $rootScope.loans.some(function(item, index, loans) {
-            if (item._id) {
-              if (item._id == loanID) {
-                loans[index].status = newStatus;
-                return true;
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Archives the loan of the specified ID
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.archiveEnMass = function(loanID) {
+        if (confirm("You sure you want to archive the " + $rootScope.massLoans.length + " selected loans?")) {
+          $rootScope.massLoans.forEach(
+            function(loanID) {
+              $scope.changeLoanStatus(loanID, "archived");
+            });
+          $rootScope.massLoans = [];
+
+          alert("All selected loans have been archived");
+        }
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // LOAN CRUD FUNCTIONS - EN MASSE
+      //------------------------------------------------------------------------------------------------------------------
+      //------------------------------------------------------------------------------------------------------------------
+      // Removal of all selected loans. Called from the modal dialog for mass loan deletion
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.removeEnMass = function() {
+        if (confirm("You sure you want to remove the " + $rootScope.massLoans.length + " selected loans?")) {
+          $rootScope.massLoans.forEach(
+            function(loanID) {
+              $scope.removeLoan(loanID, false);
+            });
+          $rootScope.massLoans = [];
+
+          alert("All selected loans have been deleted");
+        }
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
+      //------------------------------------------------------------------------------------------------------------------
+      $scope.updateStatusEnMass = function(newStatus) {
+        if (newStatus) {
+          $rootScope.massLoans.forEach(
+            function(loanID) {
+              $scope.changeLoanStatus(loanID, newStatus)
+              $scope.clearCheckbox(loanID);
+            });
+
+          // Clearing var once done
+          $rootScope.massLoans = [];
+          alert("All selected loans have been '" + newStatus + "'");
+        } else {
+          alert("Nothing was changed");
+        }
+      }
+
+      //------------------------------------------------------------------------------------------------------------------
+      // OTHER FUNCTIONS
+      //------------------------------------------------------------------------------------------------------------------
+      // MARK: CHECK LIST
+      $rootScope.updateCheckList = function(loanID, add) {
+        if (add) {
+          $rootScope.massLoans.push(loanID);
+        } else {
+          $rootScope.massLoans.forEach(
+            function(value, index, loans) {
+              if (value === loanID) {
+                loans.splice(index, 1);
               }
-            }
-          });
-
-          $rootScope.currLoan = {} ;
-        },
-        function(err) {
-          alert("Error updating loan status");
-          console.log(err);
-        }
-      );
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // Archives the loan of the specified ID
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.archiveLoan = function(loanID) {
-      if (confirm("You sure you want to archive this loan?")) {
-        $scope.changeLoanStatus(loanID, "Archived");
-      }
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // LOAN CRUD FUNCTIONS - EN MASSE
-    //------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    // Removal of all selected loans. Called from the modal dialog for mass loan deletion
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.removeEnMass = function() {
-      if (confirm("You sure you want to remove these " + $rootScope.massLoans.length + " loans?")) {
-        $rootScope.massLoans.forEach(
-          function(loanID) {
-            $scope.removeLoan(loanID, false);
-          });
-        $rootScope.massLoans = [];
-
-        alert("All selected loans have been deleted");
-      }
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // Update to the specified status of all selected loans. Called from the modal dialog for mass loan update
-    //------------------------------------------------------------------------------------------------------------------
-    $scope.updateStatusEnMass = function(newStatus) {
-      if (newStatus) {
-        $rootScope.massLoans.forEach(
-          function(loanID) {
-            $scope.changeLoanStatus(loanID, newStatus)
-            $scope.clearCheckbox(loanID);
-          });
-
-        // Clearing var once done
-        $rootScope.massLoans = [];
-        alert("All selected loans have been '" + newStatus + "'");
-      } else {
-        alert("Nothing was changed");
-      }
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // OTHER FUNCTIONS
-    //------------------------------------------------------------------------------------------------------------------
-    // MARK: CHECK LIST
-    $rootScope.updateCheckList = function(loanID, add) {
-      if (add) {
-        $rootScope.massLoans.push(loanID);
-      } else {
-        $rootScope.massLoans.forEach(
-          function(value, index, loans) {
-            if (value === loanID) {
-              loans.splice(index, 1);
-            }
-          });
-      }
-    }
-
-    $scope.checkTrigger = function(loanID) {
-      let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
-      if (stateUpdate != -1) {
-        $scope.updateCheckList(loanID, stateUpdate);
-      }
-    };
-
-    $scope.clearMassLoans = function() {
-        $rootScope.massLoans = [];
-    }
-
-    // Clearing frontend checkboxes
-    $scope.clearCheckbox = function(loanID) {
-      // jQuery again
-      var checkbox = ["#", loanID, "-checkbox"].join("");
-      $(checkbox).prop('checked', false);
-    }
-
-    function addCommentFrontend(loanID, newCommentContent) {
-      // JS time int to string options... but chose to go with Angular
-      // DO NOT DELETE THESE COMMENTS
-      // var time_options = {
-      //     minute: "numeric",
-      //     month: "short",
-      //     day: "numeric",
-      //     hour: "numeric",
-      //     year: "numeric",
-      //     hour12: true,
-      //     timeZone: "America/New_York",
-      //     timeZoneName: "short",
-      // };
-      // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
-
-      return $rootScope.loans.some(function(item, index, loans) {
-        if (item._id) {
-          if (item._id == loanID) {
-
-            var newComment = {
-              admin: loans[index].commentAsAdmin,
-              writer: {
-                id   : $rootScope.user.id,
-                name : $rootScope.user.name,
-              },
-              content: newCommentContent,
-              newtime: new Date(),
-              // time: new Date().toLocaleString('en-US', time_options),
-            }
-
-            loans[index].comments.push(newComment);
-            $rootScope.loanWithNewComments = loans[index];
-            return true;
-          }
-        }
-      });
-    }
-
-    $scope.addComment = function(loanID) {
-      /*
-        The following uses jQuery
-        No suitable Angular way found
-      */
-      var wantedInputField = ["#", loanID, "-new-comment"].join("");
-      var newCommentContent = $(wantedInputField).val();
-      $(wantedInputField).val("");
-      console.log(newCommentContent);
-      // saving text message content, clearing input field
-
-      if (newCommentContent) {
-        // update frontend
-        if (addCommentFrontend(loanID, newCommentContent)) {
-          // and DB
-          Factory.modifyLoan(loanID, $rootScope.loanWithNewComments).then(
-            function(res) {
-              console.log("Returned new loan with updated comments:");
-              console.log(res.data);
             });
         }
       }
-    }
 
-    // TODO: Clear or figure out why I wrote the 'if (item.id)'s...
-    $scope.removeComment = function(loanID, comments, nonwanted) {
-      comments.some(function(item, index, array) {
-        if (nonwanted.content == item.content && nonwanted.newtime == item.newtime) {
-          array.splice(index, 1);
-          return true;
+      $scope.checkTrigger = function(loanID) {
+        let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
+        if (stateUpdate != -1) {
+          $scope.updateCheckList(loanID, stateUpdate);
         }
-      });
-
-      // update DB after Frontend
-      Factory.modifyLoan(loanID, { comments: comments }).then(
-        function(response) {
-          return;
-        },
-        function(err) {
-          alert("Error deleting comment");
-          console.log(err);
-        }
-      );
-    }
-
-    $scope.emailClient = function(loanID, userEmail, clientName) {
-
-      if (!userEmail) {
-        alert("Customer has no email associated with their account");
-        return;
-      }
-
-      var errorMsg = "There was an error sending the email. Please check the logs";
-
-      // Generic message will do for now...
-      var bodyMessage = "You have an update on your loan application.";
-      var email = {
-        id: loanID,
-        to: userEmail,
-        name: clientName,
-        message: bodyMessage,
       };
 
-      Factory.sendEmail(email).then(
-        function(response) {
-          // this can be changed later to not trigger the alert
-          //    and just do sucess messages like Assignments
-          if (response.data.error) {
-            console.log(response.data.error);
-            alert(errorMsg);
-          } else {
-            alert("Notification email sent to " + userEmail + "!");
+      $scope.clearMassLoans = function() {
+        $rootScope.massLoans = [];
+      }
+
+      // Clearing frontend checkboxes
+      $scope.clearCheckbox = function(loanID) {
+        // jQuery again
+        var checkbox = ["#", loanID, "-checkbox"].join("");
+        $(checkbox).prop('checked', false);
+      }
+
+      function addCommentFrontend(loanID, newCommentContent) {
+        // JS time int to string options... but chose to go with Angular
+        // DO NOT DELETE THESE COMMENTS
+        // var time_options = {
+        //     minute: "numeric",
+        //     month: "short",
+        //     day: "numeric",
+        //     hour: "numeric",
+        //     year: "numeric",
+        //     hour12: true,
+        //     timeZone: "America/New_York",
+        //     timeZoneName: "short",
+        // };
+        // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
+
+        return $rootScope.loans.some(function(item, index, loans) {
+          if (item._id) {
+            if (item._id == loanID) {
+
+              var newComment = {
+                admin: loans[index].commentAsAdmin,
+                writer: {
+                  id: $rootScope.user.id,
+                  name: $rootScope.user.name,
+                },
+                content: newCommentContent,
+                newtime: new Date(),
+                // time: new Date().toLocaleString('en-US', time_options),
+              }
+
+              loans[index].comments.push(newComment);
+              $rootScope.loanWithNewComments = loans[index];
+              return true;
+            }
           }
-        },
-        function(error) {
-          console.log(error);
-          alert(errorMsg);
         });
-    };
-  }
-]);
+      }
+
+      $scope.addComment = function(loanID) {
+        /*
+          The following uses jQuery
+          No suitable Angular way found
+        */
+        var wantedInputField = ["#", loanID, "-new-comment"].join("");
+        var newCommentContent = $(wantedInputField).val();
+        $(wantedInputField).val("");
+        console.log(newCommentContent);
+        // saving text message content, clearing input field
+
+        if (newCommentContent) {
+          // update frontend
+          if (addCommentFrontend(loanID, newCommentContent)) {
+            // and DB
+            // TODO: change this to simple add comment
+            Factory.modifyLoan(loanID, $rootScope.loanWithNewComments).then(
+              function(res) {
+                console.log("Returned new loan with updated comments:");
+                console.log(res.data);
+              });
+          }
+        }
+      }
+
+      // TODO: Clear or figure out why I wrote the 'if (item.id)'s...
+      $scope.removeComment = function(loanID, comments, nonwanted) {
+        comments.some(function(item, index, array) {
+          if (nonwanted.content == item.content && nonwanted.newtime == item.newtime) {
+            array.splice(index, 1);
+            return true;
+          }
+        });
+
+        // update DB after Frontend
+        Factory.modifyLoan(loanID, { comments: comments }).then(
+          function(response) {
+            return;
+          },
+          function(err) {
+            alert("Error deleting comment");
+            console.log(err);
+          }
+        );
+      }
+
+      $scope.emailClient = function(loanID, userEmail, clientName) {
+
+        if (!userEmail) {
+          alert("Customer has no email associated with their account");
+          return;
+        }
+
+        var errorMsg = "There was an error sending the email. Please check the logs";
+
+        // Generic message will do for now...
+        var bodyMessage = "You have an update on your loan application.";
+        var email = {
+          id: loanID,
+          to: userEmail,
+          name: clientName,
+          message: bodyMessage,
+        };
+
+        Factory.sendEmail(email).then(
+          function(response) {
+            // this can be changed later to not trigger the alert
+            //    and just do sucess messages like Assignments
+            if (response.data.error) {
+              console.log(response.data.error);
+              alert(errorMsg);
+            } else {
+              alert("Notification email sent to " + userEmail + "!");
+            }
+          },
+          function(error) {
+            console.log(error);
+            alert(errorMsg);
+          });
+      };
+    }
+  ]);

@@ -1,37 +1,9 @@
 <div class="row progress-row">
   <div class="col-xs-12">
     <div class="progress">
-      <!-- Marcial to Steven: The animation doesn't seem to be working correctly... -->
-      <!-- It resets too early/glitches on windows -->
-      <!-- role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" -->
       <div class="progress-bar active {{loan.status | lowercase}}-progress">
         {{ loan.status | uppercase }}
       </div>
     </div>
-  </div>
-  <div class="col-xs-1">
-    <ul class="pull-right panel-settings">
-      <li class="dropdown">
-        <!-- TODO: make this look not awful -->
-        <!-- Jeez I'm bad at HTML/CSS styling... -->
-        <a class="pull-right dropdown-toggle" data-target="#changeModal" data-toggle="modal"
-           title="Change status of loan" ng-click="prepareLoanEdit(loan)"
-           style="display: flex; justify-content: center; align-items: center;">
-            <em class="fa fa-cogs"></em>
-        </a>
-        
-        <a class="pull-right dropdown-toggle" data-target="#buyersOrderModal" data-toggle="modal"
-           title="Edit or view Buyer's Order" ng-click="prepareLoanEdit(loan)"
-           style="display: flex; justify-content: center; align-items: center;">
-            <em class="fa fa-edit"></em>
-        </a>
-        
-        <a class="pull-right dropdown-toggle" data-target="#warrantyPlanAdmin" data-toggle="modal"
-           title="Add a warranty plan" ng-click="prepareLoanEdit(loan)"
-           style="display: flex; justify-content: center; align-items: center;">
-            <em class="fa fa-flask"></em>
-        </a>
-      </li>
-    </ul>
   </div>
 </div>

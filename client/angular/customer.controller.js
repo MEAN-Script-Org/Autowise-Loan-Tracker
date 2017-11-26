@@ -6,9 +6,11 @@ angular.module('SWEApp').controller(
     $rootScope.loans = [];
     $rootScope.loading = true;
 
-    // Factory.getUser().then(function(response) {
-    // });
-    
+    Factory.getUserInfo().then(
+      function(res) {
+        $rootScope.user = res.data;
+      });
+
     //------------------------------------------------------------------------------------------------------------------
     // Testing function
     //------------------------------------------------------------------------------------------------------------------

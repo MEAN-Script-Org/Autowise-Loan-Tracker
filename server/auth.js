@@ -49,7 +49,7 @@ module.exports = {
   },
 
   decodeToken: function(req, res, next, token_array) {
-    console.log(req.body, token);
+    // console.log(req.body, token);
 
     if (!token_array) {
       req.body.token = "nothing ever";
@@ -88,7 +88,6 @@ module.exports = {
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     var token_array = req.body.token;
-    // console.log(req.body) ;
     
     if (token_array) {
 

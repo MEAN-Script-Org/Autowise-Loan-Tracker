@@ -9,6 +9,7 @@ var config_loader = require('dotenv');
 
 var locals = config_loader.load();
 
+// gulp.task('default', ['nodemon']);
 // gulp.task('default', ['nodemon', 'browser-sync',]);
 gulp.task('default', ['get-config', 'nodemon', 'browser-sync',]);
 
@@ -19,11 +20,11 @@ gulp.task('get-config', function(cb) {
 
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        port: "5001",
         proxy: "http://localhost:5000",
         files: ["client/**/*.*"],
-        // reloadOnRestart: true,
         browser: "chrome",
+        port: "5001",
+        // reloadOnRestart: true,
     });
 });
 

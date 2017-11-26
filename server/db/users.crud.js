@@ -16,6 +16,7 @@ module.exports = {
       isAdmin: req.body.isAdmin,
       username: req.body.username,
       password: req.body.password,
+      isSuperAdmin: req.body.isSuperAdmin,
     });
 
     if (req.body.username && req.body.password) {

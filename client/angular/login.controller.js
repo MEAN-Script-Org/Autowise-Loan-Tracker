@@ -6,9 +6,15 @@ angular.module('SWEApp').controller('LoginController',
     $rootScope.users = [];
     $rootScope.newUser = {isAdmin: false, isSuperAdmin: false};
     $rootScope.usernames = {};
-    $scope.login_page = true;
 
     $scope.init = function(error_message, type) {
+      $scope.login_page = true;
+      
+      $scope.rn = new Date().getTime();
+      $scope.already_typed = false;
+      $scope.funny_dob = false;
+      $scope.funny_dob_message = "nothing so far";
+
       // Atempt to reroute ASAP
       Factory.isLoggedIn().then(
         function(res) {
@@ -39,6 +45,32 @@ angular.module('SWEApp').controller('LoginController',
       );
     }
 
+    $scope.typedVerification = function() {
+      $scope.already_typed = true;
+    }
+    
+    $scope.checkDOB = function() {
+      var day = 1000 * 60 * 60 * 24;
+      var year = Math.floor(day * 365.25);
+      var diff = Math.floor($scope.rn - $scope.newUser.dob.getTime());
+      // alert(diff + "\n" + diff/year);
+
+      if (diff > 18 * year && diff < 115 * year) {
+        $scope.funny_dob = false;
+      }
+      else {
+        $scope.funny_dob = true;
+        if (diff < 0)
+          $scope.funny_dob_message = "Are you sure you haven't been born yet?";
+        else if (diff < 18 * year)
+          $scope.funny_dob_message = "Are you sure you're younger than 18?";
+        else if (diff > 115 * year) {
+          var age = Math.floor(diff / year);
+          $scope.funny_dob_message = "Are you sure you're " + age + " years old?";
+        }
+      }
+    }
+
     $scope.login = function() {
 
       var loginData = {
@@ -67,13 +99,17 @@ angular.module('SWEApp').controller('LoginController',
 
     $scope.register = function() {
       
-      if (!$rootScope.usernames[$rootScope.newUser.username]) {
+      if ($rootScope.newUser.verify != $rootScope.newUser.password)
+        alert("Please verify your password");
+      else if ($rootScope.usernames[$rootScope.newUser.username]) 
+        alert("Please change your username to one that hasn't been taken");
+      else if ($scope.funny_dob) 
+        alert("Please fix your DOB");
+      else {
         $rootScope.newUser.md5hash = window.fingerprint.md5hash;
         
         Factory.newUser($rootScope.newUser);
       }
-      else
-        alert("Please change your username to one that hasn't been taken");
     }
   }
 ]);
