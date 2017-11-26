@@ -1,7 +1,9 @@
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+require('mongoose-type-email');
 
-var loans = require('./loans.crud.js') ;
+var Loan = require('./loans.model.js') ;
 
 // Define user schema
 var userSchema = new mongoose.Schema({
@@ -32,7 +34,7 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: String,
+    type: mongoose.SchemaTypes.Email,
   },
 
   isAdmin: {
@@ -70,8 +72,30 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.post('save', function() {
-  // Affix any dangling loans in the database to this User
-  // loans.affixLoansToUser(this) ;
+  // //--------------------------------------------------------------------------------------------------------------------
+  // // Search loans database for loans whose purchaser information matches the specified User
+  // // Affixes found loans to the this User
+  // //--------------------------------------------------------------------------------------------------------------------
+  // affixUserToLoans: function(user) {
+
+  //   // Construct a query from the specified user info
+  //   var query = {
+  //     "buyers_order.purchaser.dl": user.dl,
+  //     "buyers_order.purchaser.dob": user.dob
+  //   };
+
+  //   // Find all loans according to the query
+  //   Loan.find(query, function(err, loans) {
+  //     if (err) { console.log(err); } else {
+
+  //       // Update found loans with user ID
+  //       loans.forEach(function(loan) {
+  //         loan.user_id = user._id;
+  //         loan.save();
+  //       });
+  //     }
+  //   });
+  // }
 });
 
 userSchema.methods.comparePassword = function(password) {

@@ -1700,7 +1700,8 @@ dt {
 .loanHeader {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
+  /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
 }
 
 
@@ -1948,6 +1949,7 @@ input[type="date"]:valid:before {
 
 .archived-progress {
   width: 100%;
+  color: black;
   background-color: #F8F8F8;
 }
 

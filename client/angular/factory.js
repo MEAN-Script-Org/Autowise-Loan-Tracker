@@ -88,11 +88,11 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = Object.assign(updatedLoan, {token: getToken()});
         return $http.put('/api/loan/' + id, args);
       },
-      addComment: function(id, newComment) {
-        // var args = {token: getToken()};
-        var args = Object.assign(newComment, {token: getToken()});
-        return $http.post('/api/newComment/' + id, args);
-      },
+      // addComment: function(id, newComment) {
+      //   // var args = {token: getToken()};
+      //   var args = Object.assign(newComment, {token: getToken()});
+      //   return $http.post('/api/newComment/' + id, args);
+      // },
       
       //----------------------------------------------------------------------------------------------------------------
       // CRUD operations on loans of specific Users

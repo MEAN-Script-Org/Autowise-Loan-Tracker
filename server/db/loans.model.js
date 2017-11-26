@@ -1,8 +1,8 @@
 var mongoose = require('mongoose') ;
-
-var loans = require('./loans.crud.js') ;
-
 mongoose.Promise = global.Promise;
+require('mongoose-type-email');
+
+var User = require('./users.model.js') ;
 
 //----------------------------------------------------------------------------------------------------------------------
 // LOAN SCHEMA
@@ -12,18 +12,18 @@ mongoose.Promise = global.Promise;
 //----------------------------------------------------------------------------------------------------------------------
 var loanSchema = new mongoose.Schema({
   
+  // REMINDER: SAVE ALL DATES AS STRINGS!!!
+  // except for the comments (not on this file, so don't worry about it)
+
   //--------------------------------------------------------------------------------------------------------------------
-  // User ID information
+  // User information
   //--------------------------------------------------------------------------------------------------------------------
   user_id:    String,
-  user_dob:   String,
-  user_email: String,
-  user_name:  String,
   
   //--------------------------------------------------------------------------------------------------------------------
   // App Functionality
   //--------------------------------------------------------------------------------------------------------------------
-  type:       String,   // Loan type
+  // type:         String,   // Loan type
   status:     String,   // Loan status
   comments:   Array,    // List of loan comments
   
@@ -39,7 +39,8 @@ var loanSchema = new mongoose.Schema({
   //--------------------------------------------------------------------------------------------------------------------
   // Tracking information
   //--------------------------------------------------------------------------------------------------------------------
-  updated_at: Date,
+  created_at: String,
+  updated_at: String,
   created_by: String,
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -48,15 +49,12 @@ var loanSchema = new mongoose.Schema({
   // The original "paper copy" of a loan. Majority of fields described here are transcribed from the document
   //--------------------------------------------------------------------------------------------------------------------
   buyers_order: {
-    form_date:       Date,
-    
     // Purchaser and Co-Purchaser
     purchaser: {
       name:     {type:   String, required: true},
-      email:    {type:   String, required: false},
+      email:    {type:   mongoose.SchemaTypes.Email, required: false},
       dl:       {type:   String, required: true},
-      dob:      {type:   Date,   required: true},
-      dob_text: {type:   String},
+      dob:      {type:   String,   required: true},
 
       // Contact information
       address: {
@@ -78,8 +76,7 @@ var loanSchema = new mongoose.Schema({
       invalid: {type: Boolean},
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
-      dob:     {type:   Date,   /*required: false*/},
-      dob_text:{type:   String,   /*required: false*/},
+      dob:     {type:   String,   /*required: false*/},
 
       // Contact information
       address: {
@@ -97,8 +94,8 @@ var loanSchema = new mongoose.Schema({
       make:             {type: String, required: true},
       model:            {type: String, required: true},
       
-      // 'type' is a reserved word, lol
-      // i think it's cuz we already have it.. lol
+      // 'type' is a reserved word
+      // i think it's cuz we already have it..
       type_t:           {type: String, required: true}, 
       color:            {type: String, required: true},
       cyl:              Number,
@@ -110,10 +107,10 @@ var loanSchema = new mongoose.Schema({
       lender:           String,
 
       tag_no:           String,
-      exp_date:         Date,
+      exp_date:         String,
       transfer:         String,
       plate_no:         String,
-      // NEW/USED
+      // NEW/USED as a STRING
       license_plate:    String,
       // license_plate:    {type: String, required: true},
     },
@@ -125,7 +122,6 @@ var loanSchema = new mongoose.Schema({
       trade_allowance:     {type: Number, required: true},
       trade_difference:    {type: Number, required: true},
       total_sale_price:    {type: Number, required: true},
-      // TODO: automatic calculation ?
       sub_total_a:         Number,
       
       sales_tax: {
@@ -135,7 +131,6 @@ var loanSchema = new mongoose.Schema({
 
       estimated_fees:      Number,
       lemon_law_fee:       Number,
-      // TODO: automatic calculation
       sub_total_b:         Number,
 
       bal_owed_on_trade:   {type: Number, required: true},
@@ -172,64 +167,103 @@ var loanSchema = new mongoose.Schema({
       amount:      Number,
       verif_by:    String,
       qualif_by:   String,
-      good_thru:   Date,
+      good_thru:   String,
     },
   }
 
 });
 
+// function yyyy_mm_dd(string) {
+//   // CORRECT FORMAT FOR 'date' type input transcition
+//   // YYYY-mm-dd
+//   return new Date(string).toLocaleDateString('km-KH');
+// }
+
+function mm_dd_yyyy(string) {
+  // mm/dd/YYYY
+  return new Date(string).toLocaleDateString('en-IR');
+}
+
+
+function formatDates(bo) {
+
+  bo.purchaser.dob = mm_dd_yyyy(bo.purchaser.dob);
+
+  if (bo.copurchaser.dob)
+    bo.copurchaser.dob = mm_dd_yyyy(bo.copurchaser.dob);
+  
+  if (bo.car_info.exp_date)
+    bo.car_info.exp_date = mm_dd_yyyy(bo.car_info.exp_date);
+
+  if (bo.car_info.good_thru)
+    bo.car_info.good_thru = mm_dd_yyyy(bo.car_info.good_thru);
+
+  if (bo.insr.eff_dates)
+    bo.insr.eff_dates = mm_dd_yyyy(bo.insr.eff_dates);
+
+  return bo;
+}
+
 // On save preprocessing
 loanSchema.pre('save', function(next) {
+  console.log(this);
+
+  // Forcing this
+  this.status = "RECEIVED";
+  
   var currentDate = new Date();
+  // these could be used for filtering ~ but idk too fancy no time
   this.updated_at = currentDate;
 
-  // Fill in fields if missing
-  if (!this.status)
-    this.status = "RECEIVED";
-  else
-    this.status = this.status.toUpperCase();
-  
-  // TODO: Enforce all uppercase in server too
-  if (!this.type)
-    this.type = "AUTO";
-
-  console.log("FUCKING SAVINGS!");
-
-  // YYYY-mm-dd
-  // new Date().toLocaleDateString('km-KH')
-
-  // mm/dd/YYYY , hopefuly ~
-  // new Date().toLocaleDateString('zh-Hans-CN')
+  if (!this.created_at)
+    this.created_at = currentDate;
 
   // CORRECLTY Format all dates
-  // this.buyers_order.form_date = new Date(this.buyers_order.form_date);
-  // this.buyers_order.purchaser.dob = new Date(this.buyers_order.purchaser.dob);
-  // this.buyers_order.purchaser.dob_text = new Date(this.buyers_order.purchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
-
-  // if (this.buyers_order.copurchaser.dob) {
-  //   // this.buyers_order.copurchaser.dob = new Date(this.buyers_order.copurchaser.dob);
-  //   this.buyers_order.copurchaser.dob_text = new Date(this.buyers_order.copurchaser.dob).toLocaleString('en-US', {timeZone: "America/New_York"});
-  // }
-
-  // check if you can do a method by ref :D
-  
-  // if (this.buyers_order.exp_date)
-  //   this.buyers_order.exp_date = new Date(this.buyers_order.exp_date);
-
-  // if (this.buyers_order.car_info.good_thru)
-  //   this.car_info.good_thru = new Date(this.car_info.good_thru);
+  this.buyers_order = formatDates(this.buyers_order);
 
   next();
 });
 
+// loan affixing
 loanSchema.post('save', function() {
-  // Affix any dangling loans in the database to this User
-  // loans.affixLoansToUser(this) ;
+  //--------------------------------------------------------------------------------------------------------------------
+  // Search user database for user whose information matches the specified loan purchaser information
+  // Affixes this loan to the found User
+  //--------------------------------------------------------------------------------------------------------------------
+  // affixLoansToUser: function(loan) {
+  //   // Construct a query from the specified loan info
+  //   if (loan.buyers_order) {
+  //     var query = {
+  //       "dl": loan.buyers_order.purchaser.dl,
+  //       "dob": loan.buyers_order.purchaser.dob
+  //     };
+
+  //     // Find the user according to the query
+  //     User.findOne(query, function(err, user) {
+  //       if (err) { console.log(err); } else {
+  //         // Update loan with found user's ID
+  //         loan.user_id = user._id;
+  //         loan.save();
+  //         // yeah this doesn't work like this....
+  //         // need to do a mongoose save
+  //       }
+  //     });
+  //   }
+  // },
+});
+
+loanSchema.pre('update', function() {
+  this.status = this.status.toUpperCase();
+
+  // CORRECLTY Format all dates
+  // ALL THE TIME!
+  this.updated_at = new Date();
+  this.buyers_order = formatDates(this.buyers_order);
 });
 
 // Create loan model from schema
 var Loan = mongoose.model('Loans', loanSchema) ;
-// Loan.collection.dropIndexes();
+// this.collection.dropIndexes();
 
 // Export loan model to application
 module.exports = Loan ;

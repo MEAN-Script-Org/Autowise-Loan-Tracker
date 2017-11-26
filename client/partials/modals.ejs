@@ -38,7 +38,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div ng-click="prepareLoanEdit(loan)" class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
+      <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changeModal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header centered-text">
@@ -63,39 +63,6 @@
               <button class="btn btn-primary" data-dismiss="modal" ng-click="changeLoanStatus(currLoan._id, newStatus)">Update</button>
               <button class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Simple New Loan modal - UNUSED MODAL -->
-<div class="row">
-  <div class="col-xs-12">
-    <div class="modal fade" data-backdrop="static" id="buyerModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
-            <form>
-              <h3>New Loan</h3>
-              <input placeholder="Name" type="" ng-model="newLoan.name" required>
-              <input placeholder="Email" type="email" ng-model="newLoan.user_email">
-              <select ng-model="newLoan.type">
-                <option value="" disabled>Select loan type</option>
-                <option value="auto" selected>Auto</option>
-                <option value="repair">Repair</option>
-                <option value="admin">Admin</option>
-              </select>
-              <!-- <input type="submit" class="btn btn-default"> -->
-              <!-- <input type="submit" class="data-dismiss="modal"> -->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" data-dismiss="modal" ng-click="addLoan()">Create</button>
-            <button class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

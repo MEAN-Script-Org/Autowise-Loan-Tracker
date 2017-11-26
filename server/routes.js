@@ -31,24 +31,12 @@ router.route('/loan/:loanID')
       // .get(loans.read)
       .put(loans.update);
       
-// router.route('/deleteLoan/:loanID')
-//       .put(loans.delete) ;
+router.route('/deleteLoan/:loanID')
+      .put(loans.delete) ;
       
-// router.route('/newComments/:loanID')
-//       .put(
-//       function(req, res) {
-//       console.log(req);
-//       res.json({"what the": "FUCK1"});
-//       }
-//       );
-//       // .post(loans.addComment, loans.update);
-
-router.route('/byeComment/:loanID')
-      .put(loans.deleteComment);
-
 // Multiple loans under the specified user
-// router.route('/loans/:userID')
-//       .get(loans.loansByUserID);
+router.route('/loans/:userID')
+      .get(loans.loansByUserID);
       
 // Multiple loans under the currently logged-in User
 router.route('/loansByUser/:token')

@@ -30,7 +30,7 @@
       <span class="btn-group-text"> Change Warranty </span>
     </button>
 
-    <button class="btn btn-warning btn-md" ng-click="emailClient(loan._id, loan.user_email, loan.name)">
+    <button class="btn btn-warning btn-md" ng-click="emailClient(loan._id, loan.buyers_order.purchaser.email, loan.name)">
       <span class="btn-group-text">Email Client</span>
       <span class="btn-group-icon"><em class="fa fa-xl fa-envelope"></em></span>
     </button>

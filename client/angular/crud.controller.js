@@ -41,15 +41,12 @@ angular.module('SWEApp').controller(
 
         $scope.looking_for_archived = false;
         $scope.looking_for_important = false;
-        // these are needed for the above since rn they trigger TWO CLICKS
-        $scope.archived_counter = 0;
-        $scope.important_counter = 0;
 
         Factory.getLoans().then(
           function(res) {
             if (res.data.length != 0) {
               $rootScope.loans = res.data;
-              console.log($rootScope.loans);
+              // console.log($rootScope.loans);
             } else {
               console.log("DB is empty ~");
             }
@@ -74,7 +71,7 @@ angular.module('SWEApp').controller(
       $scope.convert_warranties = function(type) {
         // 'any-year' are drivetrains...
         if (type)
-          return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type ;
+          return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
       }
 
       // Simple Filters. 
@@ -103,20 +100,46 @@ angular.module('SWEApp').controller(
         $rootScope.isEditingLoan = false;
       }
 
+      $scope.prepareLoanDates = function(bo) {
+        // ALL DATES NEED TO BE WRITTEN HERE FOR CORRECT DISPLAY
+        // Copied from loan models ~
+        bo.purchaser.dob = new Date(bo.purchaser.dob);
+
+        if (bo.copurchaser.dob)
+          bo.copurchaser.dob = new Date(bo.copurchaser.dob);
+        
+        if (bo.exp_date)
+          bo.exp_date = new Date(bo.exp_date);
+
+        if (bo.car_info.good_thru)
+          bo.car_info.good_thru = new Date(bo.car_info.good_thru);
+
+        if (bo.insr.eff_dates)
+          bo.insr.eff_dates = new Date(bo.insr.eff_dates);
+
+        return bo;
+      }
+
       //------------------------------------------------------------------------------------------------------------------
       // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
       //------------------------------------------------------------------------------------------------------------------
+      // TODO: divide this into 3 methods, cuz it's gonna get MESSY with dates
+      // need: newStatus, _id, purcharser.name, warranty
+      // do this tomorrow .... oink
       $scope.prepareLoanEdit = function(loan) {
-        console.log(loan);
+        // console.log(loan);
 
         // Assign global warranty object
         if (loan.warranty)
           $rootScope.warranty = loan.warranty;
-        else $rootScope.warranty = {};
+        else
+          $rootScope.warranty = {};
 
         // Assign current loan and buyer's order objects
         $rootScope.currLoan = loan;
         $rootScope.bo = loan.buyers_order;
+        $rootScope.bo = $scope.prepareLoanDates($rootScope.bo);
+        $scope.newStatus = loan.status;
 
         // Set editing flag to 'true'
         $rootScope.isEditingLoan = true;
@@ -125,23 +148,22 @@ angular.module('SWEApp').controller(
       // Steven's CSS/jQuery prowess in Material design
       // Should be in CSS only... oh well
       $scope.onFocusInput = function(type) {
-        $("#"+type).css('opacity', '1');
-        $("#"+type).css('height', 'auto');
+        $("#" + type).css('opacity', '1');
+        $("#" + type).css('height', 'auto');
       }
 
       $scope.onBlurInput = function(type) {
-        $("#"+type).css('opacity', '0');
-        $("#"+type).css('height', '0');
+        $("#" + type).css('opacity', '0');
+        $("#" + type).css('height', '0');
       }
 
       // This is ugly as hell but welp
       $scope.onEditInput = function(type) {
-        if (type == "type")
+        if (type == "type") {
           if ($rootScope.bo.car_info.type_t != "Used" || $rootScope.bo.car_info.type_t != "New") {
             $rootScope.bo.car_info.type_t = "";
           }
-        else if (type == 'plate')
-        {
+        } else if (type == 'plate') {
           if ($rootScope.bo.car_info.license_plate != "Used" || $rootScope.bo.car_info.license_plate != "New") {
             $rootScope.bo.car_info.license_plate = "";
           }
@@ -208,7 +230,7 @@ angular.module('SWEApp').controller(
             }
           },
           function(err) {
-            alert("There was an error submitting the form. Ensure all required fields are filled");
+            alert("Error submitting. Ensure all required (*) fields are filled.\nA value is invalid if the grey placeholders stay");
 
             console.log(err);
           }
@@ -228,6 +250,7 @@ angular.module('SWEApp').controller(
         // Additionally, the loan may become dangling if there is no longer a user match
 
         // TODO: test this!
+        // add note
         Factory.modifyLoan($rootScope.currLoan._id, { buyers_order: $rootScope.bo }).then(
           function(res) {
             alert("Loan was updated successfully!");
@@ -246,6 +269,7 @@ angular.module('SWEApp').controller(
       // Updates the loan with warranty information
       //------------------------------------------------------------------------------------------------------------------
       $scope.warrantyUpdate = function() {
+        // add note
         Factory.modifyLoan($rootScope.currLoan._id, { warranty: $rootScope.warranty }).then(
           function(res) {
 
@@ -301,6 +325,7 @@ angular.module('SWEApp').controller(
       // Updates the status of a single loan of the specified ID
       //------------------------------------------------------------------------------------------------------------------
       $scope.changeLoanStatus = function(loanID, newStatus) {
+        // add note
         Factory.modifyLoan(loanID, { status: newStatus }).then(
           function(response) {
             // update frontend after DB
@@ -325,9 +350,15 @@ angular.module('SWEApp').controller(
       //------------------------------------------------------------------------------------------------------------------
       // Archives the loan of the specified ID
       //------------------------------------------------------------------------------------------------------------------
-      $scope.archiveLoan = function(loanID) {
-        if (confirm("You sure you want to archive this loan?")) {
-          $scope.changeLoanStatus(loanID, "Archived");
+      $scope.archiveEnMass = function(loanID) {
+        if (confirm("You sure you want to archive the " + $rootScope.massLoans.length + " selected loans?")) {
+          $rootScope.massLoans.forEach(
+            function(loanID) {
+              $scope.changeLoanStatus(loanID, "archived");
+            });
+          $rootScope.massLoans = [];
+
+          alert("All selected loans have been archived");
         }
       }
 
@@ -338,7 +369,7 @@ angular.module('SWEApp').controller(
       // Removal of all selected loans. Called from the modal dialog for mass loan deletion
       //------------------------------------------------------------------------------------------------------------------
       $scope.removeEnMass = function() {
-        if (confirm("You sure you want to remove these " + $rootScope.massLoans.length + " loans?")) {
+        if (confirm("You sure you want to remove the " + $rootScope.massLoans.length + " selected loans?")) {
           $rootScope.massLoans.forEach(
             function(loanID) {
               $scope.removeLoan(loanID, false);

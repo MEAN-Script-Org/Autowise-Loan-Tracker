@@ -34,7 +34,7 @@
                   </span>
                   <div class="loanHeader">
                     <span> Customer Name </span>
-                    <span> Loan Type </span>
+                    <!-- <span> Loan Type </span> -->
                     <span> Loan Status </span>
                     <span> Loan ID # </span>
                   </div>
@@ -43,6 +43,7 @@
                 <div ng-repeat="loan in filtered_loans = (loans 
                   | orderBy:'updated_at':reverse
                   | filter: query
+                  | date_filter:looking_for_dates:start:end:createdEh
                   | archived_filter:looking_for_archived
                   | important_filter:looking_for_important)">
                   <div class="tab accordionIn accordionOut">
@@ -54,7 +55,7 @@
                       </label>
                       <div class="loanHeader">
                         <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
-                        <span> {{loan.type | uppercase}} </span>
+                        <!-- <span> {{loan.type | uppercase}} </span> -->
                         <span> {{loan.status | uppercase}} </span>
                         <span> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
                       </div>
