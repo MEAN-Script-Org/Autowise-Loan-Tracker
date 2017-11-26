@@ -1905,10 +1905,10 @@ input[type="date"]:valid:before {
   background-color: #6495ed;
 }
 
-.btn-aqua, .btn-aqua:focus, .btn-aqua:hover {
+.btn-cadet, .btn-cadet:focus, .btn-cadet:hover {
   color: white;
-  border-color: aquamarine;  
-  background-color: aquamarine;
+  border-color: cadetblue;  
+  background-color: cadetblue;
 }
 
 
