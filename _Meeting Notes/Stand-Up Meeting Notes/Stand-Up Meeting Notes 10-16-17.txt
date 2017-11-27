@@ -1,9 +1,0 @@
-Done:
-	- Steven & Harrison : UI/Layout Components for Admin 
-	- Max : CRUD Functionality, Schema for Users and Loans.
-	- Michael : Manual testing and collaboration with Max's schema set up. Schema for Users and Loans.
-	- Marcial : Created cleaner, simpler MEAN Repo. Implemented email functionality. Talked to client and modularized requirements.
-
-TODO:
-	- Team: Set-up definitive roles, get someone to take charge of Unit-Testing.
-	- Steven & Harrison : UI/Layout Components for User (relatively similar); Connect to work with MEAN Stack, this might mean transition with AngularUI 
