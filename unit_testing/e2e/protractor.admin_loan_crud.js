@@ -3,16 +3,6 @@
 // TEST GROUP I - ADMINISTRATOR LOAN CRUD
 //======================================================================================================================
 describe('TEST GROUP I - ADMINISTRATOR LOAN CRUD', function() {
-  var loans = element.all(by.repeater('loan in filtered_loans')) ;
-  
-  var searchBar    = element(by.id('search')) ;
-  
-  var buttonStatus = loans.first().element(by.id('action-status')) ;
-  var buttonEdit   = loans.first().element(by.id('action-edit')) ;
-  
-  var buttonUpdateStatus = element(by.id('update-status')) ;
-  
-  var statusDropdown = element(by.model('newStatus')) ;
   
   //--------------------------------------------------------------------------------------------------------------------
   // HELPER FUNCTIONS
@@ -35,28 +25,49 @@ describe('TEST GROUP I - ADMINISTRATOR LOAN CRUD', function() {
   
   // Before each test, load the admin hub page
   beforeEach(function() {
-    browser.get('http://localhost:5001/profile/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMGI3ZTZlM2NmMDkyMWRkYzZjOWQ5NSIsIm5hbWUiOiJUeWxlciBCYXJrbGV5IiwiZW1haWwiOiJ0YkBnbWFpbC5jb20iLCJpc0FkbWluIjp0cnVlLCJ1c2VybmFtZSI6InR5bGVyIiwibWQ1aGFzaCI6IjhhYzg3OTY5MjQ5OGYzZGZiNWQ3NmM1NTViNTQzYzhiIiwiaWF0IjoxNTExNzU1MDIwLCJleHAiOjE1MTE3NjU4MjB9.woQdSdpbETudIlbMnSLhjfArHrx2N4C0ws-4R5ln6OQ,8ac879692498f3dfb5d76c555b543c8b');
-    browser.waitForAngular() ;
+    browser.get('http://autowise.herokuapp.com/login') ;
+    
+    // Fill out username and password fields
+    element(by.model('username')).sendKeys('tyler') ;
+    element(by.model('password')).sendKeys('123') ;
+    
+    // Click 'Login' button
+    element(by.buttonText('Login')).click() ;
   });
   
   //--------------------------------------------------------------------------------------------------------------------
   // Test #1.0: ???
   //--------------------------------------------------------------------------------------------------------------------
   it('Update status', function() {
-    browser.pause() ;
+    var loans = element.all(by.repeater('loan in filtered_loans'));
+    var loan = loans.first() ;
     
-    expect(element(by.id('loans-array')).isPresent()).toBe(true) ;
+    //var searchBar    = element(by.id('search')) ;
+    
+    CAN't USE IDs DUMMY
+    
+   // var buttonStatus = loan.element(by.id('action-status')) ;
+   // var buttonEdit   = loan.element(by.id('action-edit')) ;
+    
+    //var buttonUpdateStatus = element(by.id('update-status')) ;
+    
+    //var statusDropdown = element(by.model('newStatus')) ;
+    
+    console.log("LOANS: ") ;
+    //console.log(loans.count()) ;
+    //console.log(loan.element.getText()) ;
     
     // Open 'change status' modal dialog
-    buttonStatus.click() ;
+    //buttonStatus.click() ;
     
     // Select 'Pending' as the new status
-    selectDropdownItem(statusDropdown, 2) ;
+    //selectDropdownItem(statusDropdown, 2) ;
     
     // Confirm new status
-    buttonUpdateStatus.click() ;
+    //buttonUpdateStatus.click() ;
     
     // Verify that loan status has been changed to 'Pending'
-    expect(loans.first().getText()).toContain('Pending') ;
+    expect(loans.count()).toEqual(3) ;
+    //expect(loan.getText()).toContain('Pending') ;
   });
 });
