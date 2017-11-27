@@ -20,6 +20,7 @@ var ejs_class = '';
 var profile_routes = express.Router();
 
 // Missing/invalid token handling => redirect to login page
+// this doesn't seem to be working. it's all defaulting to "btn-danger"
 function validUrlAndCredentials(token) {
   if (!token) {
     ejs_msg = "Please log in to access your profile";
@@ -32,7 +33,7 @@ function validUrlAndCredentials(token) {
     res.redirect('/login');
   }
   else
-    return true
+    return true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
