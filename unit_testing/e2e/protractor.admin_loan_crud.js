@@ -2,30 +2,50 @@
 //======================================================================================================================
 // TEST GROUP I - ADMINISTRATOR LOAN CRUD
 //======================================================================================================================
-describe('TEST GROUP I - ADMINISTRATOR LOAN CRUD', function() {
+describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   
   //--------------------------------------------------------------------------------------------------------------------
   // HELPER FUNCTIONS
   //--------------------------------------------------------------------------------------------------------------------
   
-  // Selects the item 'optionNum' from the specified dropdown list specified by 'element'
-  // Borrowed from https://technpol.wordpress.com/2013/12/01/protractor-and-dropdowns-validation/
-  var selectDropdownItem = function (element, index) {
-    if (index){
-      var options = browser.findElements(by.tagName('option'))   
-        .then(function(options){
-          options[index].click();
-        });
-    }
+  // Returns an object containing several loan web elements
+  var extractLoanElements = function() {
+    var loans = element.all(by.repeater('loan in filtered_loans')) ;
+    var loan = loans.first() ;
+    
+    return {
+    
+      // Top-level loan elements
+      loans: loans,
+      loan:  loan,
+      
+      // Within-loan elements
+      loanHeader:   loan.element(by.css('.loanHeader')),
+      buttonStatus: loan.element(by.id('action-status')),
+      buttonEdit:   loan.element(by.id('action-edit')),
+      
+      // Modal elements
+      buttonUpdateStatus: element(by.id('update-status')),
+      buttonUpdateBO:     element(by.id('bo-update')),
+      statusDropdown:     element(by.id('status-dropdown')),
+      nameField:          element(by.id('customer-name')),
+    } 
+  }
+  
+  // Selects the specified loan status from the dropdown list specified by 'element'
+  // One must click the dropdown menu and THEN proceed to click the dropdown item, it seems
+  var selectDropdownStatus = function (element, status) {
+    element.click() ;
+    element.element(by.css('option[value=' + status + ']')).click();
   };
   
   //--------------------------------------------------------------------------------------------------------------------
   // TESTING FUNCTIONS
   //--------------------------------------------------------------------------------------------------------------------
   
-  // Before each test, load the admin hub page
-  beforeEach(function() {
-    browser.get('http://autowise.herokuapp.com/login') ;
+  // Before all tests, load the admin hub page and assign 
+  beforeAll(function() {
+    browser.get('http://localhost:5001/login') ;
     
     // Fill out username and password fields
     element(by.model('username')).sendKeys('tyler') ;
@@ -33,41 +53,63 @@ describe('TEST GROUP I - ADMINISTRATOR LOAN CRUD', function() {
     
     // Click 'Login' button
     element(by.buttonText('Login')).click() ;
+    
+    browser.waitForAngular() ;
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.0: ???
+  // Test #1.0: Loan status updates
   //--------------------------------------------------------------------------------------------------------------------
-  it('Update status', function() {
-    var loans = element.all(by.repeater('loan in filtered_loans'));
-    var loan = loans.first() ;
+  it('Test #1.0: Loan status updates', function() {
+    var LE = extractLoanElements() ;
     
-    //var searchBar    = element(by.id('search')) ;
-    
-    CAN't USE IDs DUMMY
-    
-   // var buttonStatus = loan.element(by.id('action-status')) ;
-   // var buttonEdit   = loan.element(by.id('action-edit')) ;
-    
-    //var buttonUpdateStatus = element(by.id('update-status')) ;
-    
-    //var statusDropdown = element(by.model('newStatus')) ;
-    
-    console.log("LOANS: ") ;
-    //console.log(loans.count()) ;
-    //console.log(loan.element.getText()) ;
+    // Expand loan accordion
+    LE.loanHeader.click() ;
     
     // Open 'change status' modal dialog
-    //buttonStatus.click() ;
+    LE.buttonStatus.click() ;
     
     // Select 'Pending' as the new status
-    //selectDropdownItem(statusDropdown, 2) ;
+    selectDropdownStatus(LE.statusDropdown, 'PENDING') ;
     
     // Confirm new status
-    //buttonUpdateStatus.click() ;
+    LE.buttonUpdateStatus.click() ;
     
     // Verify that loan status has been changed to 'Pending'
-    expect(loans.count()).toEqual(3) ;
-    //expect(loan.getText()).toContain('Pending') ;
+    expect(LE.loanHeader.getText()).toContain('PENDING') ;
+    
+    // Collapse loan accordion
+    LE.loanHeader.click() ;
+  });
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Test #1.1: Loan buyer's order editing
+  //--------------------------------------------------------------------------------------------------------------------
+  it('Test #1.1: Loan buyer\'s order editing', function() {
+    var LE = extractLoanElements() ;
+    
+    // Expand loan accordion
+    LE.loanHeader.click() ;
+    
+    // Open 'edit buyer's order' modal dialog
+    LE.buttonEdit.click() ;
+    
+    // Overwrite name field
+    LE.nameField.clear() ;
+    LE.nameField.sendKeys('Oswald the Lucky Rabbit') ;
+    
+    // Confirm updated buyer's order
+    LE.buttonUpdateBO.click() ;
+    
+    // Confirm alert
+    browser.driver.sleep(500) ;
+    browser.switchTo().alert().accept() ;
+    
+    // Verify that name on buyer's order has changed
+    // The entire name won't fit on the header
+    expect(LE.loanHeader.getText()).toContain('Oswald the Lucky') ;
+    
+    // Collapse loan accordion
+    LE.loanHeader.click() ;
   });
 });

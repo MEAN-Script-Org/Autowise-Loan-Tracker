@@ -40,7 +40,7 @@
                   </div>
                   <span> Show details </span>
                 </div> 
-                <div id="loans-array" ng-repeat="loan in filtered_loans = (loans 
+                <div ng-repeat="loan in filtered_loans = (loans 
                   | orderBy:'updated_at':reverse
                   | filter: query
                   | date_filter:looking_for_dates:start:end:createdEh

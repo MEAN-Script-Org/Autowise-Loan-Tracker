@@ -9,7 +9,7 @@
     <div ng-hide="login_page" class="navbar-drop">
       <ul class="navbar-drop-icon">
         <li class="dropdown">
-          <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+          <a id="user-action-toggle" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
             <em class="fa fa-xl fa-user"></em>
           </a>
           <!-- MARCIAL: TODOOOOO -->
@@ -25,7 +25,7 @@
                 <div class="divider"></div>
               </li>
             </li>
-            <li> <a href="#" ng-click="logout()"> <div> Log out (VERY REAL) </div> </a> </li>
+            <li> <a href="#" id="user-action-logout" ng-click="logout()"> <div> Log out (VERY REAL) </div> </a> </li>
           </ul>
         </li>
       </ul>
