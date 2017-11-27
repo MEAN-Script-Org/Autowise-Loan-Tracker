@@ -204,10 +204,36 @@ function formatDates(bo) {
   return bo;
 }
 
-// On save preprocessing
-loanSchema.pre('save', function(next) {
-  console.log(this);
+//--------------------------------------------------------------------------------------------------------------------
+// Search user database for user whose information matches the specified loan purchaser information
+// Affixes this loan to the found User
+//--------------------------------------------------------------------------------------------------------------------
+function affixLoansToUser(loan) {
+  if (!loan.buyers_order)
+    return ;
+  
+  // Construct a query from the specified loan info
+  var query = {
+    "dl": loan.buyers_order.purchaser.dl,
+    "dob": loan.buyers_order.purchaser.dob
+  };
 
+  // Find the user according to the query
+  User.findOne(query, function(err, user) {
+    if (err) { console.log(err); } else {
+      
+      // Update loan with found user's ID
+      loan.user_id = user._id;
+    }
+  });
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+// PRE-PROCESSING: Save
+//--------------------------------------------------------------------------------------------------------------------
+loanSchema.pre('save', function(next) {
+  console.log("HEY!") ;
+  
   // Forcing this
   this.status = "RECEIVED";
   
@@ -224,34 +250,23 @@ loanSchema.pre('save', function(next) {
   next();
 });
 
-// loan affixing
-loanSchema.post('save', function() {
-  //--------------------------------------------------------------------------------------------------------------------
-  // Search user database for user whose information matches the specified loan purchaser information
-  // Affixes this loan to the found User
-  //--------------------------------------------------------------------------------------------------------------------
-  // affixLoansToUser: function(loan) {
-  //   // Construct a query from the specified loan info
-  //   if (loan.buyers_order) {
-  //     var query = {
-  //       "dl": loan.buyers_order.purchaser.dl,
-  //       "dob": loan.buyers_order.purchaser.dob
-  //     };
-
-  //     // Find the user according to the query
-  //     User.findOne(query, function(err, user) {
-  //       if (err) { console.log(err); } else {
-  //         // Update loan with found user's ID
-  //         loan.user_id = user._id;
-  //         loan.save();
-  //         // yeah this doesn't work like this....
-  //         // need to do a mongoose save
-  //       }
-  //     });
-  //   }
-  // },
+//--------------------------------------------------------------------------------------------------------------------
+// POST-PROCESSING: save
+//--------------------------------------------------------------------------------------------------------------------
+loanSchema.post('save', function(next) {
+  
+  
+  loan.askdufskd.slkdvbl = 2 ;
+  
+  // Attempt to affix this loan to an existing user
+  affixLoansToUser(this) ;
+  
+  next() ;
 });
 
+//--------------------------------------------------------------------------------------------------------------------
+// RE-PROCESSING: update
+//--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('update', function() {
   this.status = this.status.toUpperCase();
 

@@ -124,6 +124,4 @@ module.exports = {
       console.log(req.body, req.body.token);
     }
   },
-
-  // MOVED AFFIXING TO WHERE BELONG, TO MODELS!
 };

@@ -53,7 +53,33 @@ var userSchema = new mongoose.Schema({
 
 // TODO: Add trigger to auto link loans to new users on the fly
 
-// Pre-processing on saving a user document
+//--------------------------------------------------------------------------------------------------------------------
+// Search loans database for loans whose purchaser information matches the specified User
+// Affixes found loans to the this User
+//--------------------------------------------------------------------------------------------------------------------
+function affixUserToLoans(user) {
+
+  // Construct a query from the specified user info
+  var query = {
+    "buyers_order.purchaser.dl": user.dl,
+    "buyers_order.purchaser.dob": user.dob
+  };
+
+  // Find all loans according to the query
+  Loan.find(query, function(err, loans) {
+    if (err) { console.log(err); } else {
+
+      // Update found loans with user ID
+      loans.forEach(function(loan) {
+        loan.user_id = user._id;
+      });
+    }
+  });
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+// PRE-PROCESSING: Save
+//--------------------------------------------------------------------------------------------------------------------
 userSchema.pre('save', function(next) {
   var currentDate = new Date();
   this.updated_at = currentDate;
@@ -71,31 +97,15 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-userSchema.post('save', function() {
-  // //--------------------------------------------------------------------------------------------------------------------
-  // // Search loans database for loans whose purchaser information matches the specified User
-  // // Affixes found loans to the this User
-  // //--------------------------------------------------------------------------------------------------------------------
-  // affixUserToLoans: function(user) {
-
-  //   // Construct a query from the specified user info
-  //   var query = {
-  //     "buyers_order.purchaser.dl": user.dl,
-  //     "buyers_order.purchaser.dob": user.dob
-  //   };
-
-  //   // Find all loans according to the query
-  //   Loan.find(query, function(err, loans) {
-  //     if (err) { console.log(err); } else {
-
-  //       // Update found loans with user ID
-  //       loans.forEach(function(loan) {
-  //         loan.user_id = user._id;
-  //         loan.save();
-  //       });
-  //     }
-  //   });
-  // }
+//--------------------------------------------------------------------------------------------------------------------
+// POST-PROCESSING: Save
+//--------------------------------------------------------------------------------------------------------------------
+userSchema.post('save', function(next) {
+  
+  // Attempt to affix this loan to an existing user
+  affixUserToLoans(this) ;
+  
+  next() ;
 });
 
 userSchema.methods.comparePassword = function(password) {
