@@ -232,7 +232,7 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -150%;
+  left: -320%;
 }
 
 
@@ -2798,3 +2798,56 @@ div.ng-show {
   padding: 0;
   margin: 0;
 }
+
+/* TITLE FOR CUSTOMER HUB*/
+.title-container {
+/*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+*/
+    text-align: center;
+    background-color: transparent;
+    border: 0;
+}
+.title-brand {
+    color: #38cc70;
+/*  font-size: 20px;*/
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.hub-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+/*
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+*/
+}
+.hub-items .item {
+    background-color: #eeeeee;
+/*    margin: 4px;*/
+    padding: 4px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.hub-items .item a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hub-items .item a em {
+    color: #444444;
+}
+
+.hub-items .item a:hover em, .hub-items .item a:hover div {
+    color: #38cc70;
+}
+
+/* END TITLE FOR CH*/
