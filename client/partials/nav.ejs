@@ -17,19 +17,10 @@
           <ul class="dropdown-menu dropdown-alerts">
             <li ng-show="isAdmin">
               <li> 
-                <a href="#"> <div> 1 New Message (demo) </div> </a> 
+                <a href="#" ng-click="goToPermissions()"> <div> User Magement </div> </a>
                 <div class="divider"></div>
               </li>
-              <li> 
-                <a href="#"> <div> 12 New Likes (demo) </div> </a> 
-                <div class="divider"></div>
-              </li>
-              <li> 
-                <a href="#" ng-click="goToPermissions()"> <div> Change user permissions or delete a user. </div> </a>
-                <div class="divider"></div>
-              </li>
-            </li>
-            <li> <a href="#" ng-click="logout()"> <div> Log out (VERY REAL) </div> </a> </li>
+            <li> <a href="#" ng-click="logout()"> <div> Log out </div> </a> </li>
           </ul>
         </li>
       </ul>
