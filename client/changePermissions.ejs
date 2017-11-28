@@ -9,35 +9,31 @@
     <div class="row">
         <div class="col-md-12" ng-app="SWEApp" ng-controller="userPerm" ng-init="init()">
             <div class="panel-body">
-                <h1 class="page-header">Edit User Permissions</h1>
-                <div class="form-group">
-                    <h3>Enter the User you are looking for: </h3>
-                    <input type="text" name="user" ng-model="query">
-                    <br>
-                </div>
-
-                <% include partials/modals.ejs %>
-
-                <div ng-repeat="user in fake_users | filter:query ">
-                    <!-- TODO: Align these stuff... -->
-                    <br> {{user.username}} {{user.dob}}
-                    <!-- TODO: Add ng-click to these -->
-
-                    <button class="btn btn-primary" data-target="#superAdmin" data-toggle="modal">Super Admin</button>
-
-                    <button class="btn btn-warning" data-target="#Admin" data-toggle="modal">Admin</button>
-
-                    <button class="btn btn-danger" data-target="#regUser" data-toggle="modal">User</button>
-
-                    <button class="btn btn-primary" data-target="#delUser" data-toggle="modal">
-                        <em class="fa fa-trash"></em></button>
-
-                </div>
+                <center>
+                    <h1 class="page-header">Edit User Permissions</h1>
+                    <div class="form-group">
+                        <h3>Enter the User you are looking for: </h3>
+                        <input type="text" name="user" ng-model="query">
+                        <br>
+                    </div>
+                    <% include partials/modals.ejs %>
+                        <div ng-repeat="user in fake_users | filter:query ">
+                            <center>
+                            <!-- TODO: Align these stuff... -->
+                            <br> {{user.username}} {{user.dob}}
+                            <!-- TODO: Add ng-click to these -->
+                            <button class="btn btn-primary" data-target="#superAdmin" data-toggle="modal">Super Admin</button>
+                            <button class="btn btn-warning" data-target="#Admin" data-toggle="modal">Admin</button>
+                            <button class="btn btn-danger" data-target="#regUser" data-toggle="modal">User</button>
+                            <button class="btn btn-primary" data-target="#delUser" data-toggle="modal">
+                                <em class="fa fa-trash"></em></button>
+                            </center>
+                        </div>
+                </center>
             </div>
         </div>
     </div>
     <br>
     <% include partials/footer.ejs %>
 </body>
-
 </html>
