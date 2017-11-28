@@ -1,3 +1,12 @@
+.account-info-style {
+  margin: auto;
+  width: 50%;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+  border: 20px solid #E2ECE4;
+}
+
 body {
   background: #f1f4f7;
   overflow-x: hidden;

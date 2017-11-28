@@ -44,10 +44,25 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
       //     type: String,
       //     // required: true
       //   },
-      // }
-      
+      // }     
       $scope.currentUser = function() {
 
       }
-    }
+
+      $scope.changePasswordSubmit = function(pwd, pw1, pw2) {
+
+
+        // else if (pw1 =! pw2) {
+
+        //   alert("Passwords do not match!")
+          
+        // } 
+
+        if (pw1 == pw2) {
+          alert("New password is: '" + pw1 + "'");
+        }
+
+      }
+
+  }   
 ]);

@@ -3,6 +3,9 @@
 <head>
   <% include partials/header.ejs %>
 </head>
+
+
+
 <body>
   
 
@@ -24,8 +27,8 @@
 
   <!-- MAIN PAGE DIV -->
   <div class="col-sm-12 col-lg-12 main"
-
     ng-app="SWEApp" ng-controller="Warranties" ng-init="init()">
+
         <% include partials/nav.ejs %>
         <div class="header row">
             <ol class="breadcrumb">
@@ -42,7 +45,7 @@
      ng-app="SWEApp" ng-controller="UserAccounts" ng-init="init()">
 
      <div class="row">
-         <div class="col-md-12">
+         <div class="col-md-12 account-info-style">
 
              <h2 class="page-header">Account Information</h2>     
              
@@ -73,6 +76,7 @@
                 <!-- Forgot my password button -->
                 Change my password
               </button>
+
 
 
 
