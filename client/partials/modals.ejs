@@ -352,20 +352,20 @@
                   <div class="col-sm-4">
                     <div class="group selector">
                       <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required
-                      ng-focus="onFocusInput('type')" 
-                      ng-change="onEditInput('type')"
+                      ng-focus="onFocusInput('0')" 
+                      ng-change="onEditInput('0')"
+                      ng-blur="onBlurInput('0')"
                       >
 
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>New or Used?</label>
                       <div class="sudo-select type">
-                        <!-- id="type-category-options"  -->
-                        <ul class="category-options" id="type">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed('type', false)">
+                        <ul class="category-options" id="sudo-select-0">
+                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('type', false)">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('type', true)">
+                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('type', true)">
                             Used
                           </li>
                         </ul>
@@ -439,28 +439,22 @@
                   <div class="col-sm-6">
                     <div class="group selector">
                       <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.license_plate" required 
-                      ng-focus="onFocusInput('plate')" 
-                      ng-change="onEditInput('plate')"
+                      ng-focus="onFocusInput('1')" 
+                      ng-change="onEditInput('1')"
+                      ng-blur="onBlurInput('1')"
                       >
                       
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>License Plate (New/Used)</label>
                       <div class="sudo-select">
-                        <ul id="plate"  class="category-options" >
-                          <!-- id="type-category-options" -->
-                          <li class="category-option" data-value="false" ng-click="setCarUsed('plate', false)">
+                        <ul id="sudo-select-1" class="category-options" >
+                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('plate', false)">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('plate', true)">
+                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('plate', true)">
                             Used
                           </li>
-                          <!-- redundant -->
-                          <!-- 
-                          <a class="sudo-select-btn" ng-click="onBlurInput('plate')"> 
-                            <em class="fa fa-md fa-close"></em>
-                          </a>
-                           -->
                         </ul>
                       </div>
                     </div>
