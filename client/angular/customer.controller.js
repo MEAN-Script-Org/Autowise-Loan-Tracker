@@ -31,7 +31,7 @@ angular.module('SWEApp').controller(
       $scope.isAdmin = false;
       
       // Loads all loans belonging to the specified user
-      Factory.getLoansOfUser().then(
+      Factory.getUserLoans().then(
         function(res) {
           
           $rootScope.loans = res.data;

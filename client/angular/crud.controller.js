@@ -104,18 +104,19 @@ angular.module('SWEApp').controller(
       $scope.prepareLoanDates = function(bo) {
         // ALL DATES NEED TO BE WRITTEN HERE FOR CORRECT DISPLAY
         // Copied from loan models ~
-        bo.purchaser.dob = new Date(bo.purchaser.dob);
-
-        if (bo.copurchaser.dob)
-          bo.copurchaser.dob = new Date(bo.copurchaser.dob);
         
-        if (bo.exp_date)
-          bo.exp_date = new Date(bo.exp_date);
+        bo.purchaser.dob = new Date(bo.purchaser.dob);
 
         if (bo.car_info.good_thru)
           bo.car_info.good_thru = new Date(bo.car_info.good_thru);
 
-        if (bo.insr.eff_dates)
+        if (bo.copurchaser && bo.copurchaser.dob)
+          bo.copurchaser.dob = new Date(bo.copurchaser.dob);
+        
+        if (bo.insr.exp_date)
+          bo.insr.exp_date = new Date(bo.insr.exp_date);
+
+        if (bo.insr && bo.insr.eff_dates)
           bo.insr.eff_dates = new Date(bo.insr.eff_dates);
 
         return bo;

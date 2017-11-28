@@ -18,7 +18,8 @@ var loanSchema = new mongoose.Schema({
   //--------------------------------------------------------------------------------------------------------------------
   // User information
   //--------------------------------------------------------------------------------------------------------------------
-  user_id:    String,
+  // this needs to be a Array
+  user_ids:  [String],
   
   //--------------------------------------------------------------------------------------------------------------------
   // App Functionality
@@ -204,35 +205,12 @@ function formatDates(bo) {
   return bo;
 }
 
-//--------------------------------------------------------------------------------------------------------------------
-// Search user database for user whose information matches the specified loan purchaser information
-// Affixes this loan to the found User
-//--------------------------------------------------------------------------------------------------------------------
-function affixLoansToUser(loan) {
-  if (!loan.buyers_order)
-    return ;
-  
-  // Construct a query from the specified loan info
-  var query = {
-    "dl": loan.buyers_order.purchaser.dl,
-    "dob": loan.buyers_order.purchaser.dob
-  };
-
-  // Find the user according to the query
-  User.findOne(query, function(err, user) {
-    if (err) { console.log(err); } else {
-      
-      // Update loan with found user's ID
-      loan.user_id = user._id;
-    }
-  });
-}
 
 //--------------------------------------------------------------------------------------------------------------------
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('save', function(next) {
-  console.log("HEY!") ;
+  // console.log("HEY!") ;
   
   // Forcing this
   this.status = "RECEIVED";
@@ -247,21 +225,31 @@ loanSchema.pre('save', function(next) {
   // CORRECLTY Format all dates
   this.buyers_order = formatDates(this.buyers_order);
 
-  next();
-});
 
-//--------------------------------------------------------------------------------------------------------------------
-// POST-PROCESSING: save
-//--------------------------------------------------------------------------------------------------------------------
-loanSchema.post('save', function(next) {
-  
-  
-  loan.askdufskd.slkdvbl = 2 ;
-  
-  // Attempt to affix this loan to an existing user
-  affixLoansToUser(this) ;
-  
-  next() ;
+  // Find all loans according to the query, affix this user's id to them
+  var loan_id = this.id;
+  // console.log(loan_id);
+
+  if (!User.find({ loans: loan_id }, function(err, users) {
+    var temp_users = [];
+    console.log(users.length);
+
+    if (err) console.log(err);
+    else {
+      // Update found users with loan ID
+      users.forEach(function(user) {
+        user.loans.push(loan_id);
+
+        User.findByIdAndUpdate(user._id, user, {new: true},
+          function(err, updated) {
+          console.log("NEW!: ", updated);
+        });
+      });
+    }
+  }))
+    this.user_ids = temp_users;
+
+  next();
 });
 
 //--------------------------------------------------------------------------------------------------------------------

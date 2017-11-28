@@ -51,30 +51,9 @@ var userSchema = new mongoose.Schema({
   // Assign it to the token user?? idk yet
 });
 
-// TODO: Add trigger to auto link loans to new users on the fly
-
-//--------------------------------------------------------------------------------------------------------------------
-// Search loans database for loans whose purchaser information matches the specified User
-// Affixes found loans to the this User
-//--------------------------------------------------------------------------------------------------------------------
-function affixUserToLoans(user) {
-
-  // Construct a query from the specified user info
-  var query = {
-    "buyers_order.purchaser.dl": user.dl,
-    "buyers_order.purchaser.dob": user.dob
-  };
-
-  // Find all loans according to the query
-  Loan.find(query, function(err, loans) {
-    if (err) { console.log(err); } else {
-
-      // Update found loans with user ID
-      loans.forEach(function(loan) {
-        loan.user_id = user._id;
-      });
-    }
-  });
+function mm_dd_yyyy(string) {
+  // mm/dd/YYYY
+  return new Date(string).toLocaleDateString('en-IR');
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -94,8 +73,9 @@ userSchema.pre('save', function(next) {
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());
   this.password = hash;
 
-  next();
-});
+  // Affixing possible already existing loans
+  // console.log(this);
+
 
 //--------------------------------------------------------------------------------------------------------------------
 // POST-PROCESSING: Save
@@ -105,10 +85,48 @@ userSchema.post('save', function() {
   // Attempt to affix this loan to an existing user
   affixUserToLoans(this) ;
   
+  // not using the DL for now... but could!
+  var query = {
+    "buyers_order.purchaser.name": this.name,
+    "buyers_order.purchaser.dob": mm_dd_yyyy(this.dob),
+  };
+
+  var co_query = {
+    "buyers_order.copurchaser.name": this.name,
+    "buyers_order.copurchaser.dob": mm_dd_yyyy(this.dob),
+  };
+
+  // console.log(this);
+  var user_id = this.id;
+  console.log(user_id);
+
+  // Find all loans according to the query, affix this user's id to them
+  if (!Loan.find({ $or: [query, co_query]}, function(err, loans) {
+    var temp_loans = [];
+    console.log(loans.length);
+
+    if (err) console.log(err);
+    else {
+      // Update found loans with user ID
+      loans.forEach(function(loan) {
+        loan.user_id = user_id;
+
+        Loan.findByIdAndUpdate(loan._id, loan, {new: true},
+          function(err, updated) {
+          console.log("NEW!: ", updated);
+        });
+        
+        temp_loans.push(loan._id);
+      });
+    }
+  }))
+    this.loans = temp_loans;
   
+  next();
+
 });
 
-userSchema.methods.comparePassword = function(password) {
+  userSchema.methods.comparePassword = function(password) {
   var is_same_password = bcrypt.compareSync(password, this.password)
   return is_same_password;
 };
