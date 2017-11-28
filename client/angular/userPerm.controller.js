@@ -26,9 +26,6 @@
                          alert(err);
                      });
 
-                 $scope.goToPermissions = function() {
-                     $window.location.href = '/profile/changePermissions/' + Factory.getToken();
-                 }
 
                  $scope.removeUser = function(userID) {
                      Factory.deleteUser(userID).then(
