@@ -42,12 +42,6 @@ angular.module('SWEApp').controller(
         $scope.looking_for_archived = false;
         $scope.looking_for_important = false;
         
-        Factory.getLoan('5a193f2cadcb7f24c8caa673').then(
-          function(res) {
-            console.log(res) ;
-          }
-        )
-        
         Factory.getLoans().then(
           function(res) {
             if (res.data.length != 0) {
