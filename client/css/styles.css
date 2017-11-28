@@ -2818,3 +2818,12 @@ div.ng-show {
     font-weight: 500;
 }
 /* end user info style */
+
+
+.isAdmin {
+  color: crimson;
+}
+
+.isSuperAdmin {
+  font-weight: bold;
+}
