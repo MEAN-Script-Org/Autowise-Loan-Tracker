@@ -53,8 +53,8 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
     browser.get('http://localhost:5001/login') ;
     
     // Fill out username and password fields
-    element(by.model('username')).sendKeys('tyler') ;
-    element(by.model('password')).sendKeys('123') ;
+    element(by.model('username')).sendKeys('super') ;
+    element(by.model('password')).sendKeys('admin') ;
     
     // Click 'Login' button
     element(by.buttonText('Login')).click() ;

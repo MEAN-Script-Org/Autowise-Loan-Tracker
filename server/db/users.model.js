@@ -100,12 +100,10 @@ userSchema.pre('save', function(next) {
 //--------------------------------------------------------------------------------------------------------------------
 // POST-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
-userSchema.post('save', function(next) {
+userSchema.post('save', function() {
   
   // Attempt to affix this loan to an existing user
   affixUserToLoans(this) ;
-  
-  next() ;
 });
 
 userSchema.methods.comparePassword = function(password) {

@@ -10,7 +10,7 @@ test_files = {  os.path.join(path, f)
                 for dir in directories
                 for path, dirs, files in os.walk(dir)
                 for f in files
-                if f.endswith(".js") }
+                if f.endswith(".js") and not f.startswith("protractor") }
 
 # open ONLY if gulp is already there...
 try:
