@@ -33,14 +33,41 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Database loan objects
   var test_loan_id ;
   
-  // Testing loan object that is well-defined
+  // Testing loan objects that are well-defined
   var test_loan_ok = new Loan({
-    status: '',
-    type: 'Car Loan',
-    // costs: { taxes: 3000.00, warranty: 200.00 },
-    warranty: 200.00,
-    trades: {},
-    comments: ['This is a test']
+    buyers_order: {
+      purchaser: {
+        name:  'Oswald the Lucky Rabbit',
+        dl:    'ABC',
+        dob:   new Date('1923/11/23'),
+        address: {
+          street: '108 Somewhere Lane',
+          city:   'Disney World',
+          state:  'FL',
+          county: 'Orange',
+          zip:    '12345',
+        },
+        phone: {
+          cell: '1234567890',
+        },
+      },
+      car_info: {   
+        year:   1999,
+        make:   'Ford',
+        model:  'T',
+        type_t: 'Old', 
+        color:  'Black & White'
+      },
+      finances: {
+        nada_retail:       1000,
+        admin_fees:        1000,
+        trade_allowance:   1000,
+        trade_difference:  1000,
+        total_sale_price:  1000,
+        bal_owed_on_trade: 1000,
+        total_due:         1000
+      }
+    }
   });
   
   // Testing loan object that is poorly defined
@@ -68,14 +95,15 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     agent.get('/api/loan/' + test_loan_id).expect(200).end(function(err, res) {
       should.exist(res) ;
       
+      var db_purchaser = res.body.buyers_order.purchaser ;
+      var purchaser = test_loan_ok.buyers_order.purchaser ;
+      
       res.body.status.should.equal('RECEIVED') ;
-      res.body.type.should.equal(test_loan_ok.type) ;
-      // TBChanged
-      // res.body.taxes.should.equal(test_loan_ok.taxes) ;
-      res.body.warranty.should.equal(test_loan_ok.warranty) ;
-      res.body.trades.should.equal(test_loan_ok.trades) ;
-      res.body.comments[0].should.equal(test_loan_ok.comments[0]) ;
-      should.not.exist(res.body.comments[1]) ;
+      
+      // Check a few select fields
+      db_purchaser.name.should.equal(purchaser.name) ;
+      db_purchaser.dl.should.equal(purchaser.dl) ;
+      db_purchaser.dob.should.equal(purchaser.dob) ;
       
       done() ;
     });
@@ -89,11 +117,6 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
       should.not.exist(err) ;
       should.exist(res.body) ;
       
-      // maybe have your own DB test this
-      // res.body.should.have.length(1) ; 
-      // Should be a single Loan in the database
-      //    Not exactly
-      
       done() ;
     });
   });
@@ -102,7 +125,6 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.3: May update a loan successfully -> HTTP response body is JSON of posted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.3: May update a loan successfully -> HTTP response body is JSON of posted Loan', function(done) {
-    // Assignment needs to be wrapped in an if due to its async nature
     if (test_loan_ok.status = 'PENDING') {
       agent.put('/api/loan/' + test_loan_id).send(test_loan_ok).expect(200).end(function(err, res) {
         should.not.exist(err) ;
