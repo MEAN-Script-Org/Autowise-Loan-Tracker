@@ -20,12 +20,6 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   
   // Specify HTTP agent
   var agent ;
-  before(function(done) {
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
-    agent = request.agent(express.init()) ;
-    
-    done() ;
-  });
   
   // Set timeout to 5 seconds
   this.timeout(5000) ;
@@ -73,11 +67,38 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Testing loan object that is poorly defined
   var test_loan_bad = new Loan({});
   
+  // Specify tokens
+  var token_ok ;
+  var token_haxxor = 'jo_mamma'
+  
+  before(function(done) {
+    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    agent = request.agent(express.init()) ;
+    
+    // Login arguments
+    var args = {
+      username: 'super',
+      password: 'admin',
+      md5hash: 'gardner-mccune > dave small'
+    }
+    
+    // Gimme' a token
+    agent.post('/login').send(args).expect(200).end(function(err, res) {
+      token_ok = res.body ;
+      test_loan_ok.token = token_ok ;
+      
+      done() ;
+    });
+  });
+  
   //--------------------------------------------------------------------------------------------------------------------
   // Test #2.0: Loan is created and saved succesfully -> HTTP response body is JSON of posted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.0: Loan is created and saved succesfully -> HTTP response body is JSON of posted Loan', function(done) {
-    agent.post('/api/loans/').send(test_loan_ok).expect(200).end(function(err, res) {
+    agent.post('/api/loans/').send({token: token_ok, data: test_loan_ok}).expect(200).end(function(err, res) {
+      console.log("TOKEN:") ;
+      console.log(token_ok) ;
+      
       should.not.exist(err) ;
       should.exist(res) ;
       should.exist(res.body._id) ;
