@@ -220,7 +220,8 @@ function affixLoansToUser(loan) {
 
   // Find the user according to the query
   User.findOne(query, function(err, user) {
-    if (err) { console.log(err); } else {
+    if (err) { console.log(err); }
+    else if (user) {
       
       // Update loan with found user's ID
       loan.user_id = user._id;
@@ -253,15 +254,10 @@ loanSchema.pre('save', function(next) {
 //--------------------------------------------------------------------------------------------------------------------
 // POST-PROCESSING: save
 //--------------------------------------------------------------------------------------------------------------------
-loanSchema.post('save', function(next) {
-  
-  
-  loan.askdufskd.slkdvbl = 2 ;
+loanSchema.post('save', function() {
   
   // Attempt to affix this loan to an existing user
   affixLoansToUser(this) ;
-  
-  next() ;
 });
 
 //--------------------------------------------------------------------------------------------------------------------
