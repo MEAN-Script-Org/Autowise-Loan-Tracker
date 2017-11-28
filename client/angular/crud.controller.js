@@ -146,39 +146,47 @@ angular.module('SWEApp').controller(
       }
 
       // Steven's CSS/jQuery prowess in Material design
-      // Should be in CSS only... oh well
-      $scope.onFocusInput = function(type) {
-        $("#" + type).css('opacity', '1');
-        $("#" + type).css('height', 'auto');
-      }
-
-      $scope.onBlurInput = function(type) {
-        $("#" + type).css('opacity', '0');
-        $("#" + type).css('height', '0');
-      }
-
-      // This is ugly as hell but welp
-      $scope.onEditInput = function(type) {
-        if (type == "type") {
-          if ($rootScope.bo.car_info.type_t != "Used" || $rootScope.bo.car_info.type_t != "New") {
-            $rootScope.bo.car_info.type_t = "";
-          }
-        } else if (type == 'plate') {
-          if ($rootScope.bo.car_info.license_plate != "Used" || $rootScope.bo.car_info.license_plate != "New") {
-            $rootScope.bo.car_info.license_plate = "";
-          }
+      $scope.onFocusInput = function(ind) {
+        switch(ind) {
+            case 0:
+                $("#sudo-select-0").find("ul").css('opacity', '1');
+                $("#sudo-select-0").find("ul").css('height', 'auto');
+                break;
+            case 1:
+                $("#sudo-select-1").find("ul").css('opacity', '1');
+                $("#sudo-select-1").find("ul").css('height', 'auto');
+                break;
+            default:
+                break;
         }
-      }
+    }
 
-      $scope.setCarUsed = function(scopeVar, used) {
-        if (scopeVar === 'type') {
-          $rootScope.bo.car_info.type_t = used ? "Used" : "New";
-        } else {
-          $rootScope.bo.car_info.license_plate = used ? "Used" : "New";
+    $scope.onBlurInput = function() {
+        $(".sudo-select").find("ul").css('opacity', '0');
+        $(".sudo-select").find("ul").css('height', '0');
+    }
+
+    $scope.setCarUsed = function(scopeVar, used) {
+
+        if(scopeVar === 'is_car_used') {
+            $rootScope.bo.is_car_used = used;
+            $rootScope.bo.is_car_used_text = used ? "Used" : "New";
+            $scope.onBlurInput();
         }
+        else {
+            console.log(used);
+            $rootScope.bo.license_plate = used;
+            $rootScope.bo.license_plate_text = used ? "Used" : "New";
+            $scope.onBlurInput();
+        }
+        
+    };
 
-        $scope.onBlurInput(scopeVar);
-      }
+    $scope.onEditInput = function() {
+        if($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
+            $rootScope.bo.is_car_used_text = "";
+        }
+    };
 
       //------------------------------------------------------------------------------------------------------------------
       // Called from the buyer's order modal

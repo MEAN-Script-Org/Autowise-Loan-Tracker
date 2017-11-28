@@ -15,17 +15,31 @@
           <!-- MARCIAL: TODOOOOO -->
           <!-- divide this into admin vs non admin stuff -->
           <ul class="dropdown-menu dropdown-alerts">
-            <li ng-show="isAdmin">
+            <div ng-show="!isAdmin">
               <li> 
-                <a href="#"> <div> 1 New Message (demo) </div> </a> 
+                <a href="/editAccount">Edit your account information</a> 
                 <div class="divider"></div>
               </li>
               <li> 
-                <a href="#"> <div> 12 New Likes (demo) </div> </a> 
+                <a href='#' ng-click="goToWarranties('5a05f274bd153e1c28741e70')">View some cool warranties!</a>
                 <div class="divider"></div>
               </li>
-            </li>
-            <li> <a href="#" id="user-action-logout" ng-click="logout()"> <div> Log out (VERY REAL) </div> </a> </li>
+              <li> 
+                <a href="/customerHub">Check out your loans</a>
+                <div class="divider"></div>
+              </li>
+            </div>
+            <div ng-show="isAdmin">
+              <li> 
+                <a href="#"> 1 New Message (demo) </a> 
+                <div class="divider"></div>
+              </li>
+              <li> 
+                <a href="#"> 12 New Likes (demo) </a> 
+                <div class="divider"></div>
+              </li>
+            </div>
+            <li> <a href="#" ng-click="logout()"> Log out (VERY REAL) </a> </li>
           </ul>
         </li>
       </ul>
