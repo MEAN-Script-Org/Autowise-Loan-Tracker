@@ -20,15 +20,20 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
       loan:  loan,
       
       // Within-loan elements
-      loanHeader:   loan.element(by.css('.loanHeader')),
-      buttonStatus: loan.element(by.id('action-status')),
-      buttonEdit:   loan.element(by.id('action-edit')),
+      loanHeader:     loan.element(by.css('.loanHeader')),
+      warrantyBar:    loan.element(by.css('.warranty-bar')),
+      buttonStatus:   loan.element(by.id('action-status')),
+      buttonEdit:     loan.element(by.id('action-edit')),
+      buttonWarranty: loan.element(by.id('action-warranty')),
+      buttonEmail:    loan.element(by.id('action-email')),
       
       // Modal elements
-      buttonUpdateStatus: element(by.id('update-status')),
-      buttonUpdateBO:     element(by.id('bo-update')),
-      statusDropdown:     element(by.id('status-dropdown')),
-      nameField:          element(by.id('customer-name')),
+      buttonUpdateStatus:   element(by.id('update-status')),
+      buttonUpdateBO:       element(by.id('bo-update')),
+      buttonUpdateWarranty: element(by.id('update-warranty')),
+      statusDropdown:       element(by.id('status-dropdown')),
+      nameField:            element(by.id('customer-name')),
+      monthsFiled:          element(by.id('warranty-months')),
     } 
   }
   
@@ -61,6 +66,8 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   // Test #1.0: Loan status updates
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.0: Loan status updates', function() {
+    console.log('Test #1.0: Loan status updates') ;
+    
     var LE = extractLoanElements() ;
     
     // Expand loan accordion
@@ -86,6 +93,8 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   // Test #1.1: Loan buyer's order editing
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.1: Loan buyer\'s order editing', function() {
+    console.log('Test #1.1: Loan buyer\'s order editing') ;
+    
     var LE = extractLoanElements() ;
     
     // Expand loan accordion
@@ -108,6 +117,38 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
     // Verify that name on buyer's order has changed
     // The entire name won't fit on the header
     expect(LE.loanHeader.getText()).toContain('Oswald the Lucky') ;
+    
+    // Collapse loan accordion
+    LE.loanHeader.click() ;
+  });
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // Test #1.2: Loan warranty editing
+  //--------------------------------------------------------------------------------------------------------------------
+  it('Test #1.2: Loan warranty editing', function() {
+    console.log('Test #1.2: Loan warranty editing') ;
+    
+    var LE = extractLoanElements() ;
+    
+    // Expand loan accordion
+    LE.loanHeader.click() ;
+    
+    // Open 'update warranty' modal dialog
+    LE.buttonWarranty.click() ;
+    
+    // Overwrite months field
+    LE.monthsFiled.clear() ;
+    LE.monthsFiled.sendKeys('48') ;
+    
+    // Confirm updated warranty plan
+    LE.buttonUpdateWarranty.click() ;
+    
+    // Confirm alert
+    browser.driver.sleep(500) ;
+    browser.switchTo().alert().accept() ;
+    
+    // Verify that months on warranty has been added/changed
+    expect(LE.warrantyBar.getText()).toContain('48') ;
     
     // Collapse loan accordion
     LE.loanHeader.click() ;

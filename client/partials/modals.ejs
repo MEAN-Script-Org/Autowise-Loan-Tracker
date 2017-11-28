@@ -1083,7 +1083,7 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="group">
-                  <input class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
+                  <input id="warranty-months" class="inputMODAL" type="number" name="warranty-dur" ng-model="warranty.term.months">
                   <span class="bar"></span>
                   <label>Months</label>
                 </div>
@@ -1109,7 +1109,7 @@
           
           <!-- Footer -->
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="warrantyUpdate()">Update Warranty</button>
+            <button id="update-warranty" class="btn btn-primary" ng-click="warrantyUpdate()">Update Warranty</button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
