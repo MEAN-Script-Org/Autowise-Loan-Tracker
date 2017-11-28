@@ -26,23 +26,18 @@ profile_routes.route('/:token').all(
 });
 
 //----------------------------------------------------------------------------------------------------------------------
+// Admin user permissions routing
+//----------------------------------------------------------------------------------------------------------------------
+profile_routes.route('/changePermissions/:token').all(function(req, res) {
+  res.render("changePermissions", {path: "../../"});
+});
+
+//----------------------------------------------------------------------------------------------------------------------
 // Customer warranty plans routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/warranties/:loan_id/:token')
-              .post(loans.update)
-              .all(function(req, res) {
-
-                // Degugging output ~ needs to go
-                var token = req.body.token;
-                var loan = req.loan;
-                
-                console.log("WARRANTIES ROUTER: ");
-                console.log(token) ;
-                console.log(loan) ;
-                // End of Degugging
-
-                res.render("warranties", {path: "../../../"});
-              });
+profile_routes.route('/warranties/:loan_id/:token').post(loans.update).all(function(req, res) {
+  res.render("warranties", {path: "../../../"});
+});
 
 profile_routes.param('loan_id', loans.loanByID);
 profile_routes.param('token', auth.decodeToken);

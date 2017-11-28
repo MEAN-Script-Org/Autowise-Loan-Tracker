@@ -1,6 +1,6 @@
 angular.module('SWEApp').controller(
-  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-    function($rootScope, $scope, $location, $timeout, Factory) {
+  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', '$window', 'Factory',
+    function($rootScope, $scope, $location, $timeout, $window, Factory) {
 
       // GLOBALS
       // Essentially, anything that goes into an async (Factory) call
@@ -416,6 +416,10 @@ angular.module('SWEApp').controller(
               }
             });
         }
+      }
+
+      $scope.goToPermissions = function() {
+          $window.location.href = '/profile/changePermissions/' + Factory.getToken();
       }
 
       $scope.checkTrigger = function(loanID) {

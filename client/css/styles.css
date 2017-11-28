@@ -2798,3 +2798,23 @@ div.ng-show {
   padding: 0;
   margin: 0;
 }
+
+.user-info-title {
+    font-weight: 600;
+}
+
+/* user info style */
+.user-info-row {
+    padding: 16px;
+/*    background-color: beige;*/
+}
+.user-info-btn button {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+.col-beg h3 {
+    margin: 0;
+    font-weight: 500;
+}
+/* end user info style */
