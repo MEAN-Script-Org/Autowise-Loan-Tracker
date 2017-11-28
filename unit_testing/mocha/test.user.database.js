@@ -10,7 +10,7 @@ if (!process.env.MONGO_URI)
   config_loader.load();
 
 // Dependencies - local files
-var User      = require('../../server/db/user.model.js') ;
+var User      = require('../../server/db/users.model.js') ;
 var express   = require('../../server/express.js') ;
 
 //======================================================================================================================
@@ -33,50 +33,27 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   var test_db_loan ;
   
   // Testing loan objects that are well-defined
-  var test_loan_ok = new Loan({
-    buyers_order: {
-      purchaser: {
-        name:  'Oswald the Lucky Rabbit',
-        dl:    'ABC',
-        dob:   new Date('1923/11/23'),
-        address: {
-          street: '108 Somewhere Lane',
-          city:   'Disney World',
-          state:  'FL',
-          county: 'Orange',
-          zip:    '12345',
-        },
-        phone: {
-          cell: '1234567890',
-        },
-      },
-      car_info: {   
-        year:   1999,
-        make:   'Ford',
-        model:  'T',
-        type_t: 'Old', 
-        color:  'Black & White'
-      },
-      finances: {
-        nada_retail:       1000,
-        admin_fees:        1000,
-        trade_allowance:   1000,
-        trade_difference:  1000,
-        total_sale_price:  1000,
-        bal_owed_on_trade: 1000,
-        total_due:         1000
-      }
-    }
+  var test_user_ok = new User({
+
+    username: 'Chicken Nuggets',
+    password: '123',
+    name: 'Ronald McDonald',
+    dl: 'A123123123123123',
+    dob: new Date('1923/11/23'),
+    email: 'mcNuggets@gmail.com',
+    isAdmin: true,
+    isSuperAdmin: false
+
   });
   
   // Testing loan object that is poorly defined
-  var test_loan_bad = new Loan({});
+  var test_user_bad = new User({});
   
   //--------------------------------------------------------------------------------------------------------------------
   // Test #1.0: Loan is created and saved succesfully
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.0: Loan is created and saved succesfully', function(done) {
-    test_loan_ok.save(function (err) {
+    test_user_ok.save(function (err) {
       should.not.exist(err) ;
       
       done() ;
@@ -87,7 +64,7 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   // Test #1.1: Loan is created AND uploaded successfully (can be fetched from the database)
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #1.1: Loan is created AND uploaded successfully (can be fetched from the database)', function(done) {
-    Loan.find({'buyers_order.purchaser.dl': test_loan_ok.buyers_order.purchaser.dl}, function(err, loans) {
+    User.find({'buyers_order.purchaser.dl': test_user_ok.buyers_order.purchaser.dl}, function(err, loans) {
       should.not.exist(err) ;
       test_db_loan = loans[0] ;
       
