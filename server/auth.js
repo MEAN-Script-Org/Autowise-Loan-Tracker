@@ -2,15 +2,9 @@ var jwt = require('jsonwebtoken');
 var User = require('./db/users.model.js') ;
 var secret = "Lean MEAN Client Machine";
 
-function invalid(req, res, next) {
-  req.body.token = false;
-  res.redirect("/profile");
-  // next();
-}
-
 module.exports = {
-  // split by ","
-  // only do a check in the front end... can't be the most secure thing ever
+
+  // tokens: a string-representation of an array. you split by "," to get its actual values
 
   // User Login Route
   login: function(req, res) {
@@ -42,8 +36,11 @@ module.exports = {
             var token = jwt.sign(user_details, secret, { expiresIn: '3h' });
             res.json(token);
           } 
-          else
-            res.json({ error: 'Invalid Username and password combination' });
+          else {
+            var p = { error: 'Invalid Username and password combination' };
+            console.log(p);
+            res.json(p);
+          }
         }
     });
   },
@@ -62,19 +59,26 @@ module.exports = {
       var md5hash = token_array[1];
 
       jwt.verify(token, secret, function(err, decodedToken) {
-        if (err) {
-          console.log(token, err, decodedToken);
-          console.log("INVALID TOKEN!!!");
-          invalid(req, res, next);
-        }
-        else if (decodedToken.md5hash != md5hash) {
-          console.log(decodedToken, md5hash);
-          console.log("GOOD TRY");
-          invalid(req, res, next);
+
+        if (err || decodedToken.md5hash != md5hash) {
+          if (err) {
+            // console.log(token, err, decodedToken);
+            console.log("INVALID TOKEN!!!");
+          }
+          else if (decodedToken.md5hash != md5hash) {
+            // console.log(decodedToken, md5hash);
+            console.log("GOOD TRY");
+          }
+
+          req.problem = true;
+          req.ejs_msg = "Your session expired. Please log in again";
+          req.ejs_class = "alert bg-warning";
+          next();
         }
         else {
           // REAL NEXT
-          console.log(decodedToken);
+          // console.log(decodedToken);
+          req.no_problem = true
           req.body.token = decodedToken;
           next();
         }
@@ -100,37 +104,32 @@ module.exports = {
 
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err || decodedToken.md5hash != md5hash) {
+
           console.log("Bad Token");
-          console.log(decodedToken, md5hash);
-
-          ejs_msg = "Your session expired. Please log in again";
-          ejs_class = "alert bg-warning";
-
-          // this creates an infinite loopy...
-          res.render('login', {
-              message: ejs_msg,
-              type: ejs_class,
-              path: '',
-          });
+          // console.log(decodedToken, md5hash);
+          
+          req.problem = true;
+          req.ejs_msg = "Your session expired. Please log in again";
+          req.ejs_class = "alert bg-warning";
+          next();
         }
 
         // REAL next
         else {
           // console.log("GUUUD Token");
           // console.log(decodedToken);
+          req.no_problem = true
           req.body.token = decodedToken;
           next();
         }
       });
     } 
     else {
-      // console.log("WHAT ARE YOU DOING HERE?!") ;
-      // this means no token passed at all... go bye bye
-      console.log("no token evah");
-      // console.log(req._parsedOriginalUrl, req.body); // , req.body, req.body.token, req.query);
-      res.json({});
-      // next();
-      // res.redirect('/login');
+      console.log("no token evah", token_array);
+      req.problem = true;
+      req.ejs_msg = "Please log in to access your profile";
+      req.ejs_class = 'alert bg-danger';
+      next();
     }
   },
 }

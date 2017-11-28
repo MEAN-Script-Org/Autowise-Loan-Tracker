@@ -10,10 +10,6 @@ var users = require("./db/users.crud.js") ;
 // AUTHENTICATION, EMAILS, ETC.
 //----------------------------------------------------------------------------------------------------------------------
 
-// Possible reason for the multiple requests...
-// router.route('/auth')
-//       .post(auth.authenticate);
-
 router.route('/email')
       .post(emailHandler);
 
