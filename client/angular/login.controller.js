@@ -98,13 +98,15 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-      
-      if ($rootScope.newUser.verify != $rootScope.newUser.password)
-        alert("Please verify your password");
-      else if ($rootScope.usernames[$rootScope.newUser.username]) 
-        alert("Please change your username to one that hasn't been taken");
-      else if ($scope.funny_dob) 
-        alert("Please fix your DOB");
+
+      if (false)
+        ;
+      // if ($rootScope.newUser.verify != $rootScope.newUser.password)
+      //   alert("Please verify your password");
+      // else if ($rootScope.usernames[$rootScope.newUser.username]) 
+      //   alert("Please change your username to one that hasn't been taken");
+      // else if ($scope.funny_dob) 
+      //   alert("Please fix your DOB");
       else {
         $rootScope.newUser.md5hash = window.fingerprint.md5hash;
         

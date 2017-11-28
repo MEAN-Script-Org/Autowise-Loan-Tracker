@@ -83,7 +83,8 @@ module.exports = {
       if (err) {
         console.log(err);
         res.status(404).send(err);
-      } else res.json(loans);
+      } 
+      else res.json(loans);
     });
   },
 
@@ -91,15 +92,13 @@ module.exports = {
   // Get all loans belonging to a particular user (based on ID)
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserID: function(req, res, next) {
-    // console.log(req.user, req.body, req.body.token);
-
     // Query loans with matching information and send them in a JSON response
-    // TODO: figure out how the return looks like
-    Loan.find({ user_id: { $in: req.body.token.id } }, function(err, loans) {
-      if (err) {
-        console.log(err);
-        res.status(400).send(err);
-      } else { res.json(loans); }
+    Loan.find({user_ids: req.body.token.id },
+      function(err, loans) {
+        if (err) {
+          console.log(err);
+          res.status(400).send(err);
+        } else res.json(loans);
     });
   },
 

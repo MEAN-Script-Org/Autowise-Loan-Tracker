@@ -75,6 +75,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = Object.assign(loan,   {token: getToken()});
         return $http.post('/api/loans', args);
       },
+      getUserLoans: function() {
+        var args = {token: getToken()};
+        return $http.put('/api/loansByUser/', args);
+      },
       getLoans: function() {
         var args = {token: getToken()};
         return $http.put('/api/loans', args);

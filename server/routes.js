@@ -35,8 +35,8 @@ router.route('/loans/:userID')
       .get(loans.loansByUserID);
       
 // Multiple loans under the currently logged-in User
-router.route('/loansByUser/:token')
-      .put(users.userByID, loans.loansByUserID);
+router.route('/loansByUser/')
+      .put(loans.loansByUserID);
       
 //----------------------------------------------------------------------------------------------------------------------
 // USERS
