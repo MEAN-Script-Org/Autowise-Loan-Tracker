@@ -205,7 +205,6 @@ function formatDates(bo) {
   return bo;
 }
 
-
 //--------------------------------------------------------------------------------------------------------------------
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
@@ -224,7 +223,6 @@ loanSchema.pre('save', function(next) {
 
   // CORRECLTY Format all dates
   this.buyers_order = formatDates(this.buyers_order);
-
 
   // Find all loans according to the query, affix this user's id to them
   var loan_id = this.id;
@@ -250,6 +248,14 @@ loanSchema.pre('save', function(next) {
     this.user_ids = temp_users;
 
   next();
+});
+
+//--------------------------------------------------------------------------------------------------------------------
+// POST-PROCESSING: save
+//--------------------------------------------------------------------------------------------------------------------
+loanSchema.post('save', function() {
+  
+  // Attempt to affix this loan to an existing user
 });
 
 //--------------------------------------------------------------------------------------------------------------------

@@ -104,7 +104,7 @@ angular.module('SWEApp').controller(
       $scope.prepareLoanDates = function(bo) {
         // ALL DATES NEED TO BE WRITTEN HERE FOR CORRECT DISPLAY
         // Copied from loan models ~
-        
+
         bo.purchaser.dob = new Date(bo.purchaser.dob);
 
         if (bo.car_info.good_thru)
@@ -112,7 +112,7 @@ angular.module('SWEApp').controller(
 
         if (bo.copurchaser && bo.copurchaser.dob)
           bo.copurchaser.dob = new Date(bo.copurchaser.dob);
-        
+
         if (bo.insr.exp_date)
           bo.insr.exp_date = new Date(bo.insr.exp_date);
 
@@ -150,37 +150,35 @@ angular.module('SWEApp').controller(
       // Steven's CSS/jQuery prowess in Material design
       // Should be in CSS only... oh well
       $scope.onFocusInput = function(number) {
-        $("#sudo-select-"+number).css('opacity', '1');
-        $("#sudo-select-"+number).css('height', 'auto');
+        $("#sudo-select-" + number).css('opacity', '1');
+        $("#sudo-select-" + number).css('height', 'auto');
       }
 
       $scope.onBlurInput = function(number) {
-        $("#sudo-select-"+number).css('opacity', '0');
-        $("#sudo-select-"+number).css('height', '0');
-      }
-
-      // This is ugly as hell but welp
-      $scope.onEditInput = function(type) {
-        if (type == "type") {
-          if ($rootScope.bo.car_info.type_t != "Used" || $rootScope.bo.car_info.type_t != "New") {
-            $rootScope.bo.car_info.type_t = "";
-          }
-        } else if (type == 'plate') {
-          if ($rootScope.bo.car_info.license_plate != "Used" || $rootScope.bo.car_info.license_plate != "New") {
-            $rootScope.bo.car_info.license_plate = "";
-          }
-        }
+        $("#sudo-select-" + number).css('opacity', '0');
+        $("#sudo-select-" + number).css('height', '0');
       }
 
       $scope.setCarUsed = function(scopeVar, used) {
-        if (scopeVar === 'type') {
-          $rootScope.bo.car_info.type_t = used ? "Used" : "New";
+
+        if (scopeVar === 'is_car_used') {
+          $rootScope.bo.is_car_used = used;
+          $rootScope.bo.is_car_used_text = used ? "Used" : "New";
+          $scope.onBlurInput();
         } else {
-          $rootScope.bo.car_info.license_plate = used ? "Used" : "New";
+          console.log(used);
+          $rootScope.bo.license_plate = used;
+          $rootScope.bo.license_plate_text = used ? "Used" : "New";
+          $scope.onBlurInput();
         }
 
-        $scope.onBlurInput(scopeVar);
-      }
+      };
+
+      $scope.onEditInput = function() {
+        if ($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
+          $rootScope.bo.is_car_used_text = "";
+        }
+      };
 
       //------------------------------------------------------------------------------------------------------------------
       // Called from the buyer's order modal
@@ -419,7 +417,7 @@ angular.module('SWEApp').controller(
       }
 
       $scope.goToPermissions = function() {
-          $window.location.href = '/profile/changePermissions/' + Factory.getToken();
+        $window.location.href = '/profile/changePermissions/' + Factory.getToken();
       }
 
       $scope.checkTrigger = function(loanID) {

@@ -11,16 +11,37 @@
     
     <% include partials/nav.ejs %>
   
-    <!-- <p>(I assume this will be in the customer navigation bar)</p> -->
-    <div><a href="/editAccount">Edit your account information</a></div>
-    <div><a href='#' ng-click="goToWarranties('5a05f274bd153e1c28741e70')">View some cool warranties!</a></div>
-    <div><a href="/customerHub">Check out your loans</a></div>
-    
-    {{loans}}
-
-    <!-- 
-      <div><a class="btn btn-danger" ng-click="oops()">Don't you dare press this button</a></div>
-     -->
+    <div class="jumbotron title-container">
+        <div class="row">
+            <h2>
+                WELCOME TO THE <span class="title-brand">AUTOWISE</span>
+            </h2>
+            
+        </div>
+        <div class="row">
+            <h1>
+                Customer Hub
+            </h1>
+        </div>
+        <hr>
+        <div class="hub-items row">
+          <div class="item col-sm-4"> 
+            <a href="/editAccount">
+                <em class="fa fa-5x fa-user"></em>
+                <div>Edit your account information</div></a> 
+            <div class="divider"></div>
+          </div>
+          <div class="item col-sm-4"> 
+            <a href='#' ng-click="goToWarranties('5a05f274bd153e1c28741e70')">
+                <em class="fa fa-5x fa-shield"></em><div>View some cool warranties!</div></a>
+            <div class="divider"></div>
+          </div>
+          <div class="item col-sm-4"> 
+            <a href="/customerHub"><em class="fa fa-5x fa-car"></em><div>Check out your loans</div></a>
+            <div class="divider"></div>
+          </div>
+        </div>
+    </div>
 </div>
 
 <% include partials/footer.ejs %>

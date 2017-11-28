@@ -9,13 +9,13 @@
     <div ng-hide="login_page" class="navbar-drop">
       <ul class="navbar-drop-icon">
         <li class="dropdown">
-          <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+          <a id="user-action-toggle" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
             <em class="fa fa-xl fa-user"></em>
           </a>
           <!-- MARCIAL: TODOOOOO -->
           <!-- divide this into admin vs non admin stuff -->
           <ul class="dropdown-menu dropdown-alerts">
-            <li ng-show="isAdmin">
+            <div ng-show="!isAdmin">
               <li> 
                 <a href="#" ng-click="goToPermissions()"> <div> User Magement </div> </a>
                 <div class="divider"></div>

@@ -232,7 +232,7 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -150%;
+  left: -320%;
 }
 
 
@@ -1905,10 +1905,10 @@ input[type="date"]:valid:before {
   background-color: #6495ed;
 }
 
-.btn-aqua, .btn-aqua:focus, .btn-aqua:hover {
+.btn-cadet, .btn-cadet:focus, .btn-cadet:hover {
   color: white;
-  border-color: aquamarine;  
-  background-color: aquamarine;
+  border-color: cadetblue;  
+  background-color: cadetblue;
 }
 
 
@@ -2827,3 +2827,56 @@ div.ng-show {
 .isSuperAdmin {
   font-weight: bold;
 }
+
+/* TITLE FOR CUSTOMER HUB*/
+.title-container {
+/*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+*/
+    text-align: center;
+    background-color: transparent;
+    border: 0;
+}
+.title-brand {
+    color: #38cc70;
+/*  font-size: 20px;*/
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.hub-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+/*
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+*/
+}
+.hub-items .item {
+    background-color: #eeeeee;
+/*    margin: 4px;*/
+    padding: 4px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.hub-items .item a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hub-items .item a em {
+    color: #444444;
+}
+
+.hub-items .item a:hover em, .hub-items .item a:hover div {
+    color: #38cc70;
+}
+
+/* END TITLE FOR CH*/
