@@ -1,6 +1,6 @@
 angular.module('SWEApp').controller(
-  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-    function($rootScope, $scope, $location, $timeout, Factory) {
+  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', '$window', 'Factory',
+    function($rootScope, $scope, $location, $timeout, $window, Factory) {
 
       // GLOBALS
       // Essentially, anything that goes into an async (Factory) call

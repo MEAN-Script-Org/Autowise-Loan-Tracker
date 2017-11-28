@@ -58,7 +58,7 @@
                          function(err) {
                              alert("Error making user a super admin.");
                              console.log(err);
-                         }
+                         });
                      }
 
                      $scope.makeAdmin = function(userID, isAdmin) {
@@ -73,7 +73,7 @@
                              function(err) {
                                  alert("Error making user an admin.");
                                  console.log(err);
-                             }
+                             });
                          }
 
                          $scope.makeUser = function(userID, isAdmin) {
@@ -88,7 +88,7 @@
                                  function(err) {
                                      alert("Error updating to user.");
                                      console.log(err);
-                                 }
+                                 });
                              }
                          }
                      ]);
