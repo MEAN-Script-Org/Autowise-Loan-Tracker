@@ -26,6 +26,7 @@
                          alert(err);
                      });
 
+
                  $scope.removeUser = function(userID) {
                      Factory.deleteUser(userID).then(
                          function(response) {
@@ -50,14 +51,14 @@
                          function(response) {
                              $rootScope.fake_users.some(function(item, fake_users) {
                                  if (item._id == userID) {
-                                    fake_users.isAdmin == true;
+                                     fake_users.isAdmin == true;
                                  }
                              });
                          },
                          function(err) {
                              alert("Error making user a super admin.");
                              console.log(err);
-                         }
+                         });
                      }
 
                      $scope.makeAdmin = function(userID, isAdmin) {
@@ -65,14 +66,14 @@
                              function(response) {
                                  $rootScope.fake_users.some(function(item, fake_users) {
                                      if (item._id == userID) {
-                                        fake_users.isAdmin == true;
+                                         fake_users.isAdmin == true;
                                      }
                                  });
                              },
                              function(err) {
                                  alert("Error making user an admin.");
                                  console.log(err);
-                             }
+                             });
                          }
 
                          $scope.makeUser = function(userID, isAdmin) {
@@ -87,7 +88,7 @@
                                  function(err) {
                                      alert("Error updating to user.");
                                      console.log(err);
-                                 }
+                                 });
                              }
                          }
                      ]);
