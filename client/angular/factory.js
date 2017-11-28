@@ -6,6 +6,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     }
     
     var addToken = function(token) {
+      console.log(token);
       removeToken();
       $window.localStorage.setItem('token', token);
       $window.location.href = '/login';
@@ -43,9 +44,12 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         
         return $http.post('/new', args).then(
           function(res) {
-            addToken(res.data);
             // alert(Factory.getToken());
-            $window.location.href = '/login';
+            console.log(res.data);
+
+            // For whoever wants to improve the security of this project later on:
+            // https://stackoverflow.com/questions/30498646/how-to-send-json-and-parse-it-on-next-html-page-through-url-in-jquery
+            // do the messages via encoding .... bye
           },
           function(err, message) {
             alert(message + err + JSON.stringify(err));
@@ -75,10 +79,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.put('/api/loans', args);
       },
-      // getLoan: function(id) {
-      //   var args = {token: getToken()};
-      //   return $http.get('/api/loan/' + id, args);
-      // },
       deleteLoan: function(id) {
         var args = {token: getToken()};
         return $http.put('/api/deleteLoan/' + id, args);
@@ -88,11 +88,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = Object.assign(updatedLoan, {token: getToken()});
         return $http.put('/api/loan/' + id, args);
       },
-      // addComment: function(id, newComment) {
-      //   // var args = {token: getToken()};
-      //   var args = Object.assign(newComment, {token: getToken()});
-      //   return $http.post('/api/newComment/' + id, args);
-      // },
       
       //----------------------------------------------------------------------------------------------------------------
       // CRUD operations on loans of specific Users

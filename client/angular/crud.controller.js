@@ -1,6 +1,6 @@
 angular.module('SWEApp').controller(
-  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
-    function($rootScope, $scope, $location, $timeout, Factory) {
+  'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', '$window', 'Factory',
+    function($rootScope, $scope, $location, $timeout, $window, Factory) {
 
       // GLOBALS
       // Essentially, anything that goes into an async (Factory) call
@@ -20,6 +20,7 @@ angular.module('SWEApp').controller(
       $rootScope.bo = {};
       $scope.newBo = {
         insr: {},
+        car_info: {},
         purchaser: {},
         finances: { admin_fees: 489 },
         copurchaser: { invalid: "true" },
@@ -147,14 +148,14 @@ angular.module('SWEApp').controller(
 
       // Steven's CSS/jQuery prowess in Material design
       // Should be in CSS only... oh well
-      $scope.onFocusInput = function(type) {
-        $("#" + type).css('opacity', '1');
-        $("#" + type).css('height', 'auto');
+      $scope.onFocusInput = function(number) {
+        $("#sudo-select-"+number).css('opacity', '1');
+        $("#sudo-select-"+number).css('height', 'auto');
       }
 
-      $scope.onBlurInput = function(type) {
-        $("#" + type).css('opacity', '0');
-        $("#" + type).css('height', '0');
+      $scope.onBlurInput = function(number) {
+        $("#sudo-select-"+number).css('opacity', '0');
+        $("#sudo-select-"+number).css('height', '0');
       }
 
       // This is ugly as hell but welp
@@ -414,6 +415,10 @@ angular.module('SWEApp').controller(
               }
             });
         }
+      }
+
+      $scope.goToPermissions = function() {
+          $window.location.href = '/profile/changePermissions/' + Factory.getToken();
       }
 
       $scope.checkTrigger = function(loanID) {
