@@ -16,11 +16,10 @@
                         <input type="text" name="user" ng-model="query">
                         <br>
                     </div>
-                    <% include partials/modals.ejs %>
                         <div ng-repeat="user in fake_users | filter:query ">
                             <center>
                             <!-- TODO: Align these stuff... -->
-                            <br> {{user.username}} {{user.dob}}
+                            <br> {{user.username}} {{user.dob | date: 'MM/dd/yyyy'}}
                             <!-- TODO: Add ng-click to these -->
                             <button class="btn btn-primary" data-target="#superAdmin" data-toggle="modal">Super Admin</button>
                             <button class="btn btn-warning" data-target="#Admin" data-toggle="modal">Admin</button>
@@ -34,6 +33,7 @@
         </div>
     </div>
     <br>
+    <% include partials/modals.ejs %>
     <% include partials/footer.ejs %>
 </body>
 </html>
