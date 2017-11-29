@@ -113,7 +113,7 @@ angular.module('SWEApp').controller(
         if (bo.copurchaser && bo.copurchaser.dob)
           bo.copurchaser.dob = new Date(bo.copurchaser.dob);
 
-        if (bo.insr.exp_date)
+        if (bo.insr && bo.insr.exp_date)
           bo.insr.exp_date = new Date(bo.insr.exp_date);
 
         if (bo.insr && bo.insr.eff_dates)

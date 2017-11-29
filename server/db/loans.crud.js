@@ -97,8 +97,11 @@ module.exports = {
   // Get all loans belonging to a particular user (based on ID)
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserID: function(req, res, next) {
+    console.log("USER ID:") ;
+    console.log(req.body.token.id) ;
+    
     // Query loans with matching information and send them in a JSON response
-    Loan.find({user_ids: req.body.token.id },
+    Loan.find({user_ids: { $all: [req.body.token.id] }},
       function(err, loans) {
         if (err) {
           console.log(err);

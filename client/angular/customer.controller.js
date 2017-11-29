@@ -33,10 +33,10 @@ angular.module('SWEApp').controller(
       // Loads all loans belonging to the specified user
       Factory.getUserLoans().then(
         function(res) {
-          
           $rootScope.loans = res.data;
-          // if (res.data.length && res.data.length != 0) {
-          // }
+          
+          console.log("FOUND LOANS:") ;
+          console.log(res.data) ;
           
           $timeout(function() {
             $rootScope.loading = false;
@@ -46,6 +46,12 @@ angular.module('SWEApp').controller(
           console.log(err) ;
         }
       );
+      
+      // Get user info for the logged-in user
+      Factory.getUserInfo().then(
+        function(res) {
+          $rootScope.user = res.data;
+      });
     }
     
     //------------------------------------------------------------------------------------------------------------------
