@@ -16,7 +16,7 @@ var express   = require('../../server/express.js') ;
 //======================================================================================================================
 // TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY
 //======================================================================================================================
-describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
+describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   
   // Specify database connection
   before(function(done) {
@@ -29,10 +29,10 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   // Set timeout to 5 seconds
   this.timeout(5000) ;
   
-  // Database loan object
+  // Database User object
   var test_db_user ;
   
-  // Testing loan objects that are well-defined
+  // Testing User objects that are well-defined
   var test_user_ok = new User({
 
     username: 'Chicken Nuggets',
@@ -46,13 +46,13 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
 
   });
   
-  // Testing loan object that is poorly defined
+  // Testing User object that is poorly defined
   var test_user_bad = new User({});
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.0: Loan is created and saved succesfully
+  // Test #1.0: User is created and saved succesfully
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.0: Loan is created and saved succesfully', function(done) {
+  it('Test #1.0: User is created and saved succesfully', function(done) {
     test_user_ok.save(function (err) {
       should.not.exist(err) ;
       
@@ -61,9 +61,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.1: Loan is created AND uploaded successfully (can be fetched from the database)
+  // Test #1.1: User is created AND uploaded successfully (can be fetched from the database)
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.1: Loan is created AND uploaded successfully (can be fetched from the database)', function(done) {
+  it('Test #1.1: User is created AND uploaded successfully (can be fetched from the database)', function(done) {
     User.find({'username': test_user_ok.username}, function(err, users) {
       should.not.exist(err) ;
       test_db_user = users[0] ;
@@ -73,18 +73,18 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   // //--------------------------------------------------------------------------------------------------------------------
-  // // Test #1.2: Loan 'status' field updated to 'RECEIVED' due to unspecified 'status'
+  // // Test #1.2: User 'status' field updated to 'RECEIVED' due to unspecified 'status'
   // //--------------------------------------------------------------------------------------------------------------------
-  // it('Test #1.2: Loan \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
-  //   test_db_loan.status.should.equal('RECEIVED') ;
+  // it('Test #1.2: User \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
+  //   test_db_User.status.should.equal('RECEIVED') ;
     
   //   done() ;
   // });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.3: Other Loan fields match those of uploaded Loan
+  // Test #1.3: Other User fields match those of uploaded User
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.3: Other Loan fields match those of uploaded Loan', function(done) {
+  it('Test #1.3: Other User fields match those of uploaded User', function(done) {
     
 
     // Check a few select fields
@@ -95,9 +95,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.4: Loan can be deleted from the database
+  // Test #1.4: User can be deleted from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.4: Loan can be deleted from the database', function(done) {
+  it('Test #1.4: User can be deleted from the database', function(done) {
     test_db_user.remove(test_db_user, function (err) {
       should.not.exist(err) ;
       
@@ -106,9 +106,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.5: Loan is successfully removed from the database
+  // Test #1.5: User is successfully removed from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.5: Loan is successfully removed from the database', function(done) {
+  it('Test #1.5: User is successfully removed from the database', function(done) {
     User.find({_id: test_db_user._id}, function(err, users) {
       should.not.exist(err) ;
       should.not.exist(users[0]) ;
@@ -118,9 +118,9 @@ describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.6: Poorly-defined Loan cannot be saved in the database
+  // Test #1.6: Poorly-defined User cannot be saved in the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.6: Poorly-defined Loan cannot be saved in the database', function(done) {
+  it('Test #1.6: Poorly-defined User cannot be saved in the database', function(done) {
     test_user_bad.save(function (err) {
       should.exist(err) ;
       

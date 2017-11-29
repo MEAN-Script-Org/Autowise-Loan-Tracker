@@ -16,7 +16,7 @@ var express   = require('../../server/express.js') ;
 //======================================================================================================================
 // TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY
 //======================================================================================================================
-describe('TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY', function () {
+describe('TEST GROUP I - LOAN BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   
   // Specify database connection
   before(function(done) {
