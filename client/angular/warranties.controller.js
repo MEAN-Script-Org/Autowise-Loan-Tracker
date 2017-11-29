@@ -184,8 +184,6 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
     // Email Autowise that the current user is interested in the currently selected warranty plan
     //--------------------------------------------------------------------------------------------------------------------
     $scope.emailWarrantyInterest = function() {
-      console.log("what");
-
       var errorMsg = "There was an error sending the email. Please check the logs";
       var warranty = $scope.chosenWarranty;
 

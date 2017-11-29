@@ -7,36 +7,28 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h3>Change your password</h3>
           </div>
-
           <div class="modal-body">
-            <!-- BUYER'S ORDER TABBED PAGES -->
             <div class="tab-content">
-              
-              <!-- TAB - Password input -->
               <div class="form-group">
-                  <label for="pwd">Current Password:</label>
-                  <input type="password" class="form-control" id="pwd">
+                <label for="pwd">Current Password:</label>
+                <input type="password" class="form-control" id="pwd">
               </div>
-
               <div class="form-group">
-                  <label for="pwd">New Password:</label>
-                  <input type="password" class="form-control" id="pw1" ng-model='pw1' ng-required/>
+                <label for="pwd">New Password:</label>
+                <input type="password" class="form-control" id="pw1" ng-model='pw1' ng-required/>
               </div>
-
               <div class="form-group">
-                  <label for="pwd">Confirm New Password:</label>
-                  <input type="password" class="form-control" id="pw2"  ng-model='pw2' ng-required pw-check='pw1'>
+                <label for="pwd">Confirm New Password:</label>
+                <input type="password" class="form-control" id="pw2" ng-model='pw2' ng-required pw-check='pw1'>
               </div>
-
               <div class='msg-block' ng-show='myForm.$error'>
-                  <span class='msg-error' ng-show='myForm.pw2.$error.pwmatch'>
+                <span class='msg-error' ng-show='myForm.pw2.$error.pwmatch'>
                     Passwords don't match.
                   </span>
               </div>
-              
               <div class="modal-footer">
-                  <button class="btn btn-primary" ng-click="addLoanWithBO()">Submit</button>
-                  <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" ng-click="addLoanWithBO()">Submit</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
               </div>
               <br>
             </div>
@@ -46,8 +38,6 @@
     </div>
   </div>
 </div>
-
-
 <!-- en masse Change status modal -->
 <div class="container">
   <div class="row">
@@ -275,7 +265,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required >
+                        <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>DOB</label>
@@ -283,7 +273,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.copurchaser.dl" required >
+                        <input class="inputMODAL" type="text" name="customer-dl" ng-model="bo.copurchaser.dl" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>DL</label>
@@ -293,7 +283,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="email" name="customer-email" ng-model="bo.copurchaser.email" required >
+                        <input class="inputMODAL" type="email" name="customer-email" ng-model="bo.copurchaser.email" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>Email</label>
@@ -301,7 +291,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="tel" name="customer-phone" ng-model="bo.copurchaser.phone.cell" required >
+                        <input class="inputMODAL" type="tel" name="customer-phone" ng-model="bo.copurchaser.phone.cell" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>Phone Number</label>
@@ -309,7 +299,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="tel" name="customer-home" ng-model="bo.copurchaser.phone.home" required >
+                        <input class="inputMODAL" type="tel" name="customer-home" ng-model="bo.copurchaser.phone.home" required>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Home Number</label>
@@ -321,7 +311,7 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="contact-street-address" ng-model="bo.copurchaser.address.street" required >
+                        <input class="inputMODAL" type="text" name="contact-street-address" ng-model="bo.copurchaser.address.street" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>Street</label>
@@ -331,7 +321,7 @@
                   <div class="row">
                     <div class="col-sm-3">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="contact-city" ng-model="bo.copurchaser.address.city" required >
+                        <input class="inputMODAL" type="text" name="contact-city" ng-model="bo.copurchaser.address.city" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>City</label>
@@ -339,7 +329,7 @@
                     </div>
                     <div class="col-sm-3">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="contact-state" ng-model="bo.copurchaser.address.state" required >
+                        <input class="inputMODAL" type="text" name="contact-state" ng-model="bo.copurchaser.address.state" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>State</label>
@@ -347,7 +337,7 @@
                     </div>
                     <div class="col-sm-3">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="contact-county" ng-model="bo.copurchaser.address.county" required >
+                        <input class="inputMODAL" type="text" name="contact-county" ng-model="bo.copurchaser.address.county" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>County</label>
@@ -355,7 +345,7 @@
                     </div>
                     <div class="col-sm-3">
                       <div class="group">
-                        <input class="inputMODAL" type="number" name="contact-zip" ng-model="bo.copurchaser.address.zip" required >
+                        <input class="inputMODAL" type="number" name="contact-zip" ng-model="bo.copurchaser.address.zip" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>Zip Code</label>
@@ -397,12 +387,7 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required
-                      ng-focus="onFocusInput('0')" 
-                      ng-change="onEditInput('0')"
-                      ng-blur="onBlurInput('0')"
-                      >
-
+                      <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required ng-focus="onFocusInput('0')" ng-change="onEditInput('0')" ng-blur="onBlurInput('0')">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>New or Used?</label>
@@ -417,7 +402,7 @@
                         </ul>
                       </div>
                     </div>
-                  </div>                      
+                  </div>
                   <div class="col-sm-4">
                     <div class="group">
                       <input class="inputMODAL" type="text" name="car-color" ng-model="bo.car_info.color" required>
@@ -480,25 +465,19 @@
                     </div>
                   </div>
                 </div>
-                  
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.license_plate" required 
-                      ng-focus="onFocusInput('1')" 
-                      ng-change="onEditInput('1')"
-                      ng-blur="onBlurInput('1')"
-                      >
-                      
+                      <input class="inputMODAL" type="text" name="car-purchase-new-tag" ng-model="bo.car_info.license_plate" required ng-focus="onFocusInput('1')" ng-change="onEditInput('1')" ng-blur="onBlurInput('1')">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>License Plate (New/Used)</label>
                       <div class="sudo-select">
-                        <ul id="sudo-select-1" class="category-options" >
+                        <ul id="sudo-select-1" class="category-options">
                           <li class="category-option" data-value="false" ng-mousedown="setCarUsed('plate', 'New')">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('plate', 'False')">
+                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('plate', 'Used')">
                             Used
                           </li>
                         </ul>
@@ -700,7 +679,6 @@
                     </h5>
                   </div>
                 </div>
-
                 <!-- TODO:  -->
                 <!-- trying to get the same styling as 'adding a co-purchaser' -->
                 <!-- ng-class="bo.trade.valid ? 'co-purchase-show' : ''"  -->
@@ -898,13 +876,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button id="bo-submit" ng-hide="isEditingLoan" class="btn btn-primary" type="submit" ng-click="addLoanWithBO()"
-                    title="If clicking seems to be doing nothing, check the other tabs">
-                    Submit
+            <button id="bo-submit" ng-hide="isEditingLoan" class="btn btn-primary" type="submit" ng-click="addLoanWithBO()" title="If clicking seems to be doing nothing, check the other tabs">
+              Submit
             </button>
-            <button id="bo-update" ng-show="isEditingLoan" class="btn btn-primary" type="submit" ng-click="updateLoanWithBO()"
-                    title="If clicking seems to be doing nothing, check the other tabs">
-                    Update
+            <button id="bo-update" ng-show="isEditingLoan" class="btn btn-primary" type="submit" ng-click="updateLoanWithBO()" title="If clicking seems to be doing nothing, check the other tabs">
+              Update
             </button>
             <button class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
@@ -1090,20 +1066,17 @@
     </div>
   </div>
 </div>
-
 <!-- Warranties: add admin view -->
 <div class="row">
   <div class="col-xs-12">
     <div class="modal fade" data-keyboard="false" data-backdrop="static" id="warrantyPlanAdmin">
       <div class="modal-dialog">
         <div class="modal-content">
-          
           <!-- Header -->
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="centered-text">Update Warranty Plan</h2>
           </div>
-          
           <!-- Body -->
           <div class="modal-body">
             <div class="row">
@@ -1119,7 +1092,6 @@
                 </div>
               </div>
             </div>
-            
             <div class="row">
               <div class="col-sm-4">
                 <div class="group">
@@ -1128,7 +1100,6 @@
                   <label>Months</label>
                 </div>
               </div>
-              
               <div class="col-sm-4">
                 <div class="group">
                   <input class="inputMODAL" type="number" name="warranty-miles" ng-model="warranty.term.miles">
@@ -1136,7 +1107,6 @@
                   <label>Mileage</label>
                 </div>
               </div>
-              
               <div class="col-sm-4">
                 <div class="group">
                   <input class="inputMODAL" placeholder="0.00" type="number" name="warranty-cost" ng-model="warranty.price">
@@ -1146,7 +1116,6 @@
               </div>
             </div>
           </div>
-          
           <!-- Footer -->
           <div class="modal-footer">
             <button id="update-warranty" class="btn btn-primary" ng-click="warrantyUpdate()">Update Warranty</button>
@@ -1157,7 +1126,6 @@
     </div>
   </div>
 </div>
-
 <!-- Creating Modals for the Change Permissions Page -->
 <div class="container">
   <div class="row">
@@ -1175,8 +1143,10 @@
               </span>
             </div>
             <div class="modal-footer">
-              <center><button class="btn btn-primary" data-dismiss="modal" ng-click="makeSuperAdmin(user.username, user.superAdmin)">Yes</button>
-              <button class="btn btn-primary" data-dismiss="modal">No</button></center>
+              <center>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeSuperAdmin(user.username, user.superAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal">No</button>
+              </center>
             </div>
           </div>
         </div>
@@ -1184,7 +1154,6 @@
     </div>
   </div>
 </div>
-
 <!-- regular admin -->
 <div class="container">
   <div class="row">
@@ -1202,8 +1171,10 @@
               </span>
             </div>
             <div class="modal-footer">
-              <center><button class="btn btn-primary" data-dismiss="modal" ng-click="makeAdmin(user.username, user.isAdmin)">Yes</button>
-              <button class="btn btn-primary" data-dismiss="modal">No</button></center>
+              <center>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeAdmin(user.username, user.isAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal">No</button>
+              </center>
             </div>
           </div>
         </div>
@@ -1211,7 +1182,6 @@
     </div>
   </div>
 </div>
-
 <!-- User -->
 <div class="container">
   <div class="row">
@@ -1224,13 +1194,15 @@
                 &times;
               </button>
               <span>
-                <h3>Are you sure you want to make this user a regular user?</h3>
-                <div class="divider"></div>
-              </span>
+              <h3>Are you sure you want to make this user a regular user?</h3>
+              <div class="divider"></div>
+            </span>
             </div>
             <div class="modal-footer">
-              <center><button class="btn btn-primary" data-dismiss="modal" ng-click="makeUser(user.username, user.isAdmin)">Yes</button>
-              <button class="btn btn-primary" data-dismiss="modal">No</button></center>
+              <center>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeUser(user.username, user.isAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal">No</button>
+              </center>
             </div>
           </div>
         </div>
@@ -1238,7 +1210,6 @@
     </div>
   </div>
 </div>
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -1250,14 +1221,15 @@
                 &times;
               </button>
               <span>
-                <h3>Are you sure you want to <b>DELETE</b> this user? This action cannot be undone.</h3>
-                <div class="divider"></div>
-              </span>
+                  <h3>Are you sure you want to <b>DELETE</b> this user? This action cannot be undone.</h3>
+                  <div class="divider"></div>
+                </span>
             </div>
             <div class="modal-footer">
-              <center><button class="btn btn-primary" data-dismiss="modal" ng-click="removeUser(user.username)">Yes</button>
-              <button class="btn btn-primary" data-dismiss="modal">No</button></center>
-            </div>
+              <center>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeUser(user.username)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal">No</button>
+              </center>
             </div>
           </div>
         </div>

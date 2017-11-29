@@ -2,7 +2,7 @@ var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 require('mongoose-type-email');
 
-var User = require('./users.model.js') ;
+var User_model = require('./users.model.js') ;
 
 //----------------------------------------------------------------------------------------------------------------------
 // LOAN SCHEMA
@@ -228,24 +228,25 @@ loanSchema.pre('save', function(next) {
   var loan_id = this.id;
   // console.log(loan_id);
 
-  if (!User.find({ loans: loan_id }, function(err, users) {
-    var temp_users = [];
-    console.log(users.length);
+  // LOAN TO USER AFFIXING DOESN'T WORK!
+  // if (!User_model.find({ loans: loan_id }, function(err, users) {
+  //   var temp_users = [];
+  //   console.log(users.length);
 
-    if (err) console.log(err);
-    else {
-      // Update found users with loan ID
-      users.forEach(function(user) {
-        user.loans.push(loan_id);
+  //   if (err) console.log(err);
+  //   else {
+  //     // Update found users with loan ID
+  //     users.forEach(function(user) {
+  //       user.loans.push(loan_id);
 
-        User.findByIdAndUpdate(user._id, user, {new: true},
-          function(err, updated) {
-          console.log("NEW!: ", updated);
-        });
-      });
-    }
-  }))
-    this.user_ids = temp_users;
+  //       User_model.findByIdAndUpdate(user._id, user, {new: true},
+  //         function(err, updated) {
+  //         console.log("NEW!: ", updated);
+  //       });
+  //     });
+  //   }
+  // }))
+  //   this.user_ids = temp_users;
 
   next();
 });
