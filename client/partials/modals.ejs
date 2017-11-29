@@ -368,30 +368,6 @@
               <div class="tab-pane" id="car-info">
                 <h3> Wanted Car Information </h3>
                 <hr>
-                
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="group selector">
-                      <input class="inputMODAL" type="text" name="is-car-used" required ng-model="bo.is_car_used_text" ng-focus="onFocusInput(0)" ng-change="onEditInput()">
-                      <span class="highlight required"></span>
-                      <span class="bar"></span>
-                      <label>New or Used? (Choose An Option)</label>
-                      <div class="sudo-select" id="sudo-select-0">
-                        <ul id="type-category-options" class="category-options">
-                          <li class="category-option" data-value="false" ng-click="setCarUsed('is_car_used', false)">
-                            New
-                          </li>
-                          <li class="category-option" data-value="true" ng-click="setCarUsed('is_car_used', true)">
-                            Used
-                          </li>
-                          <a class="sudo-select-btn" ng-click="onBlurInput()"> 
-                            <em class="fa fa-md fa-close"></em>
-                          </a>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="group">
@@ -432,10 +408,10 @@
                       <label>New or Used?</label>
                       <div class="sudo-select type">
                         <ul class="category-options" id="sudo-select-0">
-                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('type', false)">
+                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('type', 'New')">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('type', true)">
+                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('type', 'Used')">
                             Used
                           </li>
                         </ul>
@@ -519,10 +495,10 @@
                       <label>License Plate (New/Used)</label>
                       <div class="sudo-select">
                         <ul id="sudo-select-1" class="category-options" >
-                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('plate', false)">
+                          <li class="category-option" data-value="false" ng-mousedown="setCarUsed('plate', 'New')">
                             New
                           </li>
-                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('plate', true)">
+                          <li class="category-option" data-value="true" ng-mousedown="setCarUsed('plate', 'False')">
                             Used
                           </li>
                         </ul>
@@ -986,7 +962,7 @@
             <br>
             <div class="modal-footer">
               <button class="btn btn-default" data-dismiss="modal">Close</button>
-              <button class="btn btn-primary " data-dismiss="modal" ng-click="emailWarrantyInterest(testUser)">
+              <button class="btn btn-primary " data-dismiss="modal" ng-click="emailWarrantyInterest()">
                 <!-- Confirm this Plan -->
                 I want this plan
               </button>

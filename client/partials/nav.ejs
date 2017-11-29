@@ -15,12 +15,21 @@
           <!-- MARCIAL: TODOOOOO -->
           <!-- divide this into admin vs non admin stuff -->
           <ul class="dropdown-menu dropdown-alerts">
-            <div ng-show="!isAdmin">
-              <li> 
-                <a href="#" ng-click="goToPermissions()"> <div> User Magement </div> </a>
+            <div ng-show="user.isSuperAdmin">
+              <li>
+                <a href="#" ng-click="goToPermissions()">
+                  <div> User Magement </div>
+                </a>
                 <div class="divider"></div>
               </li>
-            <li> <a href="#" ng-click="logout()"> <div> Log out </div> </a> </li>
+            </div>
+            <div>
+              <li>
+                <a href="#" ng-click="logout()">
+                  <div> Log out </div>
+                </a>
+              </li>
+            </div>
           </ul>
         </li>
       </ul>

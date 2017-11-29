@@ -160,24 +160,22 @@ angular.module('SWEApp').controller(
       }
 
       $scope.setCarUsed = function(scopeVar, used) {
-
-        if (scopeVar === 'is_car_used') {
-          $rootScope.bo.is_car_used = used;
-          $rootScope.bo.is_car_used_text = used ? "Used" : "New";
-          $scope.onBlurInput();
+        if (scopeVar === 'type') {
+          $rootScope.bo.car_info.type_t = used;
         } else {
           console.log(used);
-          $rootScope.bo.license_plate = used;
-          $rootScope.bo.license_plate_text = used ? "Used" : "New";
-          $scope.onBlurInput();
+          $rootScope.bo.car_info.license_plate = used;
         }
-
+        $scope.onBlurInput();
       };
 
       $scope.onEditInput = function() {
-        if ($rootScope.bo.is_car_used_text != "Used" || $rootScope.bo.is_car_used_text != "New") {
-          $rootScope.bo.is_car_used_text = "";
+        if ($rootScope.bo.car_info.type_t != "Used" || $rootScope.bo.car_info.type_t != "New") {
+          $rootScope.bo.car_info.type_t = "";
         }
+        else
+          $rootScope.bo.car_info.license_plate = "";
+
       };
 
       //------------------------------------------------------------------------------------------------------------------

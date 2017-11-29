@@ -50,7 +50,12 @@ module.exports = {
 
     if (req.body.note) {
       var newComment = automatedComment(req.body.note);
-      req.body.comments.push(newComment);
+      if (!req.body.comments) {
+        req.body.comments = []
+        req.body.comments.push(newComment);
+      }
+      else
+        req.body.comments.push(newComment);
     }
       
     // Replace old loan's properties with the newly sent ones

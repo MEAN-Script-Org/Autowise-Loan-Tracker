@@ -17,7 +17,6 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
       $scope.matchedWarranties = [];
 
       // FOR TESTING PURPOSES ONLY
-      // $scope.user = { _id: '0001123', username: 'Slugcat' } ;
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
@@ -184,7 +183,9 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
     //--------------------------------------------------------------------------------------------------------------------
     // Email Autowise that the current user is interested in the currently selected warranty plan
     //--------------------------------------------------------------------------------------------------------------------
-    $scope.emailWarrantyInterest = function(user) {
+    $scope.emailWarrantyInterest = function() {
+      console.log("what");
+
       var errorMsg = "There was an error sending the email. Please check the logs";
       var warranty = $scope.chosenWarranty;
 
@@ -231,7 +232,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
         });
 
       // Add comment to loan signifying that Warranty interest has been submitted
-      var newLoanComent = [
+      var newComment = [
         "Customer is interested in the following warranty plan: ",
         converted_war_type, ", ",
         warranty.term.months, " months, ",
