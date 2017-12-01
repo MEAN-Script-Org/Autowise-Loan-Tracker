@@ -26,70 +26,71 @@
         <hr>
         <div class="hub-items row">
           <div class="item col-sm-6"> 
-            <a href="/editAccount">
+            
+            <!-- Link to account page -->
+            <a ng-click="goToAccount()">
                 <em class="fa fa-5x fa-user"></em>
-                <div>Edit your account information</div></a> 
+                <div>View or edit your account information</div></a> 
             <div class="divider"></div>
+          </div>  
+        </div>
+        
+        <!-- LOAN ACCORDIONS -->
+        <div class="container-accordion">
+          
+          <!-- Loading image -->
+          <div ng-show="loading" id="loading">
+            <img id="loader" ng-show="loading" src="<%- path -%>/resources/load.gif">
+            <div class="load-txt">Loading</div>
           </div>
           
-          <!-- LOAN ACCORDIONS -->
-          <div class="container-accordion">
-            
-            <!-- Loading image -->
-            <div ng-show="loading" id="loading">
-              <img id="loader" ng-show="loading" src="<%- path -%>/resources/load.gif">
-              <div class="load-txt">Loading</div>
-            </div>
-            
-            <!-- Loans -->
-            <div ng-hide="loading" class="accordion invisible {{visible}}">
-              <dl ng-show="loans.length > 0">
-                <div class="inverse-tab">
-                  <span>
-                    <!-- need this for spaces sake -->
-                    &nbsp;
-                  </span>
-                  
-                  <div class="loanHeader">
-                    <span> Customer Name </span>
-                    <span> Loan Status </span>
-                    <span> Loan ID # </span>
-                  </div>
-                  <span> Show details </span>
-                </div> 
-                <div ng-repeat="loan in loans">
-                  <div class="tab accordionIn accordionOut">
-                    <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
-                    <label for="tab-{{loan._id}}" class="tab-header">
-                      <label class="container-mass container">
-                        <input type="checkbox" id="{{loan._id}}-checkbox" ng-click="checkTrigger(loan._id)">
-                        <span class="checkmark"></span>
-                      </label>
-                      <div class="loanHeader">
-                        <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
-                        <span> {{loan.status | uppercase}} </span>
-                        <span> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
-                      </div>
+          <!-- Loans -->
+          <div ng-hide="loading" class="accordion invisible {{visible}}">
+            <dl ng-show="loans.length > 0">
+              <div class="inverse-tab">
+                <span>
+                  <!-- need this for spaces sake -->
+                  &nbsp;
+                </span>
+                
+                <div class="loanHeader">
+                  <span> Purchaser </span>
+                  <span> Loan Status </span>
+                  <span> Loan ID # </span>
+                </div>
+                <span> Show details </span>
+              </div> 
+              <div ng-repeat="loan in loans">
+                <div class="tab accordionIn accordionOut">
+                  <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
+                  <label for="tab-{{loan._id}}" class="tab-header">
+                    <label class="container-mass container">
+                      <input type="checkbox" id="{{loan._id}}-checkbox" ng-click="checkTrigger(loan._id)">
                     </label>
-                    <div class="tab-content">
-                      <% include partials/warranty-row.ejs %>
-                      <% include partials/accordion-comments.ejs %>
-                      
-                      <!-- Link to warranties page -->
-                      <div class="item col-sm-6"> 
-                        <a href='#' ng-click="goToWarranties(loan._id)">
-                            <em class="fa fa-5x fa-shield"></em><div>Request a warranty plan</div></a>
-                        <div class="divider"></div>
-                      </div>
+                    <div class="loanHeader">
+                      <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
+                      <span> {{loan.status | uppercase}} </span>
+                      <span> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
+                    </div>
+                  </label>
+                  <div class="tab-content">
+                    <% include partials/warranty-row.ejs %>
+                    <% include partials/accordion-comments.ejs %>
+                    
+                    <!-- Link to warranties page -->
+                    <div class="item col-sm-6"> 
+                      <a href='#' ng-click="goToWarranties(loan._id)">
+                          <em class="fa fa-5x fa-shield"></em><div>Request a warranty plan</div></a>
+                      <div class="divider"></div>
                     </div>
                   </div>
                 </div>
-              </dl>
-              <h3 style="background: #f1f4f7;" 
-                  ng-hide="loans.length > 0" class="centered-text">
-                No results. Either change the filters or log in again
-              </h3>
-            </div>
+              </div>
+            </dl>
+            <h3 style="background: #f1f4f7;" 
+                ng-hide="loans.length > 0" class="centered-text">
+              You currently have no active loans
+            </h3>
           </div>
         </div>
     </div>

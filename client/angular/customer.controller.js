@@ -61,6 +61,13 @@ angular.module('SWEApp').controller(
       $window.location.href = '/profile/warranties/' + loan_id + '/' + Factory.getToken() ;
     }
     
+    //------------------------------------------------------------------------------------------------------------------
+    // Sets the path to the view account info view
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.goToAccount = function() {
+      $window.location.href = '/profile/userinfo/' + Factory.getToken() ;
+    }
+    
     $scope.logout = function() {
       Factory.logout();
     }
