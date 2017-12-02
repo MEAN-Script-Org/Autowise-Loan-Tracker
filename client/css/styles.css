@@ -10,7 +10,7 @@ body {
 p {
   color: #777;
 }
-
+  
 a,
 a:hover,
 a:focus {
@@ -42,7 +42,7 @@ h4 {
 }
 
 .fa-xl {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 
 input.form-control {
@@ -116,7 +116,7 @@ input.form-control {
 
 .navbar-drop {
   margin-right: 15px;
-  width :auto;
+  width: auto;
 }
 
 .navbar-drop-icon {
@@ -154,9 +154,9 @@ input.form-control {
 }
 
 .dropdown a.dropdown-toggle {
+  width: 100%;
+  height: 100%;
   color: #fff;
-  height: 40px;
-  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,17 +232,10 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -100px;
+  left: -80px;
+  padding: 8px;
+  text-align: center;
 }
-
-
-
-
-
-/*Marcial testing*/
-
-
-/*yah.... nope*/
 
 .dropdown-menu li a.danger:hover {
   color: #f9243f;
@@ -748,16 +741,6 @@ a.label:focus {
   overflow: hidden;
 }
 
-.input-group {
-  /*
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-*/
-}
-
-.input-group-btn {}
-
 span.btn-group-icon {
   display: none
 }
@@ -1053,26 +1036,6 @@ span.btn-group-text {
   border-radius: 9999px;
 }
 
-.timeline-badge.primary {
-  background-color: #38cc70 !important;
-}
-
-.timeline-badge.success {
-  background-color: #8ad919 !important;
-}
-
-.timeline-badge.warning {
-  background-color: #ffb53e !important;
-}
-
-.timeline-badge.danger {
-  background-color: #f9243f !important;
-}
-
-.timeline-badge.info {
-  background-color: #38cc70 !important;
-}
-
 .progress {
   height: 12px;
   margin-bottom: 20px;
@@ -1127,7 +1090,6 @@ span.btn-group-text {
 
 .warranty-bar {
   width: 0;
-  /*float: left;*/
   color: #fff;
   height: 100%;
   font-size: 16px;
@@ -1138,7 +1100,7 @@ span.btn-group-text {
   display: grid;
 
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  transition        : width .6s ease;
+  transition: width .6s ease;
   -webkit-transition: width .6s ease;
 }
 
@@ -1237,328 +1199,6 @@ span.btn-group-text {
   color: #38cc70;
 }
 
-.user-menu {
-  display: inline-block;
-  margin-top: 14px;
-  margin-right: 10px;
-  float: right;
-  list-style: none;
-  padding: 0;
-}
-
-.user-menu a {
-  color: #fff;
-}
-
-.user-menu a:hover,
-.user-menu a:focus {
-  text-decoration: none;
-}
-
-.sidebar {
-  display: block;
-  padding: 0;
-  display: none;
-  box-shadow: none;
-  background: #fff;
-}
-
-.sidebar ul {
-  margin: 20px 0px;
-}
-
-.sidebar form {
-  padding: 10px 0 0 0;
-  margin: 10px 10px 20px 10px;
-}
-
-@media (min-width: 768px) {
-  .sidebar {
-    display: block;
-    position: fixed;
-    top: 60px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-
-  .navbar-header {
-    width: 100%;
-  }
-}
-
-.sidebar ul.nav a:hover,
-.sidebar ul.nav li.parent ul li a:hover {
-  text-decoration: none;
-  background-color: #38cc70;
-  color: #fff;
-}
-
-.sidebar ul.nav .active a,
-.sidebar ul.nav li.parent a.active,
-.sidebar ul.nav .active>a:hover,
-.sidebar ul.nav li.parent a.active:hover,
-.sidebar ul.nav .active>a:focus,
-.sidebar ul.nav li.parent a.active:focus {
-  color: #fff;
-  background-color: #38cc70;
-}
-
-.sidebar ul.nav ul,
-.sidebar ul.nav ul li {
-  list-style: none;
-  list-style-type: none;
-}
-
-.sidebar ul.nav li a {
-  height: 50px;
-  font-size: 15px;
-  line-height: 2em;
-  color: #444444;
-}
-
-.sidebar ul.nav ul.children {
-  width: auto;
-  padding: 0;
-  margin: 0;
-  background: #f9f9f9;
-}
-
-.sidebar ul.nav ul.children li a {
-  height: 40px;
-  background: #f1f4f7;
-  color: #444444;
-}
-
-.sidebar ul.nav li.current a {
-  background-color: #38cc70;
-  color: #fff !important;
-}
-
-.sidebar ul.nav li.parent ul li a {
-  border: none;
-  display: block;
-  padding-left: 30px;
-  line-height: 40px;
-  border-radius: 0;
-}
-
-.sidebar ul.nav li.divider {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin: 0px 0;
-}
-
-.profile-sidebar {
-  padding: 10px 0;
-  border-bottom: 1px solid #e9ecf2;
-}
-
-.indicator {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  border-radius: 9999px;
-  margin-right: 5px;
-}
-
-.profile-userpic img {
-  float: left;
-  margin: 10px 0px 0px 15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 9999px !important;
-}
-
-.profile-usertitle {
-  float: left;
-  text-align: left;
-  margin: 10px 0 0 12px;
-}
-
-.profile-usertitle-name {
-  font-size: 20px;
-  margin-bottom: 0px;
-}
-
-.profile-usertitle-status {
-  text-transform: uppercase;
-  color: #AAA;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.breadcrumb {
-  border-radius: 0;
-  padding: 10px 15px 10px 15px;
-  background: #e9ecf2;
-  margin: 0;
-}
-
-h1.page-header {
-  margin-top: 20px;
-  border-bottom: 0;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-.main-chart {
-  background: #fff;
-}
-
-.easypiechart-panel {
-  text-align: center;
-  padding: 1px 0;
-  margin-bottom: 20px;
-}
-
-.placeholder h2 {
-  margin-bottom: 0px;
-}
-
-.donut {
-  width: 100%;
-}
-
-.easypiechart {
-  position: relative;
-  text-align: center;
-  width: 120px;
-  height: 120px;
-  margin: 20px auto 10px auto;
-}
-
-.easypiechart .percent {
-  display: block;
-  position: absolute;
-  font-size: 26px;
-  top: 38px;
-  width: 120px;
-}
-
-#easypiechart-blue .percent {
-  color: #38cc70;
-}
-
-#easypiechart-teal .percent {
-  color: #1ebfae;
-}
-
-#easypiechart-orange .percent {
-  color: #ffb53e;
-}
-
-#easypiechart-red .percent {
-  color: #ef4040;
-}
-
-#calendar,
-.datepicker-inline {
-  width: 100%;
-}
-
-#calendar table {
-  width: 100%;
-}
-
-.datepicker-switch {
-  font-size: 16px;
-  height: 46px !important;
-}
-
-.datepicker table tr td.old,
-.datepicker table tr td.new {
-  color: #c5c7cc;
-}
-
-.datepicker table tr td {
-  padding: 10px !important;
-}
-
-.datepicker table tr td.active,
-.datepicker table tr td.active:hover,
-.datepicker table tr td.active.disabled,
-.datepicker table tr td.active.disabled:hover,
-.datepicker table tr td.active:hover,
-.datepicker table tr td.active:hover:hover,
-.datepicker table tr td.active.disabled:hover,
-.datepicker table tr td.active.disabled:hover:hover,
-.datepicker table tr td.active:focus,
-.datepicker table tr td.active:hover:focus,
-.datepicker table tr td.active.disabled:focus,
-.datepicker table tr td.active.disabled:hover:focus,
-.datepicker table tr td.active:active,
-.datepicker table tr td.active:hover:active,
-.datepicker table tr td.active.disabled:active,
-.datepicker table tr td.active.disabled:hover:active,
-.datepicker table tr td.active.active,
-.datepicker table tr td.active:hover.active,
-.datepicker table tr td.active.disabled.active,
-.datepicker table tr td.active.disabled:hover.active,
-.open .dropdown-toggle.datepicker table tr td.active,
-.open .dropdown-toggle.datepicker table tr td.active:hover,
-.open .dropdown-toggle.datepicker table tr td.active.disabled,
-.open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
-  color: #ffffff;
-  background-color: #38cc70;
-  text-shadow: none;
-  border-color: #285e8e;
-}
-
-.datepicker table tr td span:hover,
-.datepicker thead tr:first-child th:hover,
-.datepicker tfoot tr th:hover,
-.datepicker table tr td.day:hover,
-.datepicker table tr td.day.focused {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.todo-list {
-  padding: 0;
-  margin: -15px;
-  background: #fff;
-  color: #444444;
-}
-
-.todo-list .checkbox input[type=checkbox] {
-  margin: 0;
-}
-
-.todo-list .checkbox {
-  display: inline-block;
-  margin: 0px;
-}
-
-.panel-body input[type=checkbox]:checked+label {
-  text-decoration: line-through;
-  color: #777;
-}
-
-.todo-list-item {
-  list-style: none;
-  line-height: 0.9;
-  padding: 14px 15px 8px 15px;
-}
-
-.todo-list-item:hover,
-a.todo-list-item:focus {
-  text-decoration: none;
-  background-color: #f6f6f6;
-}
-
-.todo-list .fa-trash {
-  color: #444444;
-}
-
-.todo-list .fa-trash:hover {
-  color: #ef4040;
-}
-
 .chat .panel-body ul {
   list-style: none;
   margin: -15px;
@@ -1592,45 +1232,6 @@ a.todo-list-item:focus {
   margin-left: 5px;
 }
 
-.table {
-  background: #fff;
-}
-
-.fixed-table-container {
-  border: 1px solid #e9ecf2;
-}
-
-.fixed-table-container thead th {
-  background: #f7f7f8;
-  border-color: #ddd;
-  color: #444444;
-  font-weight: 300;
-  font-size: 16px;
-}
-
-.fixed-table-container tbody td {
-  border: 1px solid #e9ecf2;
-}
-
-.fixed-table-container tbody td:last-child {
-  border-right: none;
-}
-
-.table>thead>tr>th {
-  border-bottom: 1px solid #e6e7e8;
-  vertical-align: middle;
-  height: 50px;
-}
-
-.fixed-table-pagination .pagination {
-  margin-top: 10px;
-  margin-bottom: 0px;
-}
-
-.fixed-table-pagination .pagination-detail {
-  margin-top: 20px;
-}
-
 p.back-link {
   text-align: center;
   margin-bottom: 20px;
@@ -1638,6 +1239,10 @@ p.back-link {
   text-transform: uppercase;
 }
 
+.panel-body input[type=checkbox]:checked+label {
+  text-decoration: line-through;
+  color: #777;
+}
 
 
 
@@ -1660,33 +1265,8 @@ p.back-link {
   text-align: center;
 }
 
-.large {
-  font-size: 2em;
-}
-
 .text-muted {
   color: #c5c7cc;
-}
-
-.color-gray {
-  color: #444444;
-}
-
-.color-blue {
-  /*    actually green*/
-  color: #38cc70;
-}
-
-.color-teal {
-  color: #1ebfae;
-}
-
-.color-orange {
-  color: #ffb53e;
-}
-
-.color-red {
-  color: #f9243f;
 }
 
 
@@ -1701,8 +1281,8 @@ dt {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 1fr 1fr;
-  /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
 }
+
 
 
 
@@ -1762,7 +1342,7 @@ img#loader {
 
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 60%;
+    width: 80%;
     margin: 30px auto;
   }
 }
@@ -1783,7 +1363,7 @@ img#loader {
 }
 
 .modal-footer {
-    padding: 16px;
+  padding: 16px;
 }
 
 .tab-content,
@@ -1792,6 +1372,9 @@ img#loader {
 .modal-footer {
   padding-top: 0px;
 }
+
+
+
 
 
 /* Login style */
@@ -1826,7 +1409,6 @@ div.right-text {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 2fr;
-  /*height: 100%;*/
 }
 
 
@@ -1845,10 +1427,12 @@ input[type="date"]:valid:before {
 }
 
 .dateInput {
-    color: transparent !important;
+  color: transparent !important;
 }
-.dateInput:focus, .dateInput:valid {
-    color: rgb(68, 68, 68) !important;
+
+.dateInput:focus,
+.dateInput:valid {
+  color: rgb(68, 68, 68) !important;
 }
 
 
@@ -1887,7 +1471,6 @@ input[type="date"]:valid:before {
 
 
 
-
 /* Progress bar styles */
 
 .received-progress {
@@ -1905,14 +1488,13 @@ input[type="date"]:valid:before {
   background-color: #6495ed;
 }
 
-.btn-cadet, .btn-cadet:focus, .btn-cadet:hover {
+.btn-cadet,
+.btn-cadet:focus,
+.btn-cadet:hover {
   color: white;
-  border-color: cadetblue;  
+  border-color: cadetblue;
   background-color: cadetblue;
 }
-
-
-/* This color is too light */
 
 .verified-progress {
   width: 75%;
@@ -1930,7 +1512,6 @@ input[type="date"]:valid:before {
          -o-animation: progress-bar-stripes 2s linear infinite;
             animation: progress-bar-stripes 2s linear infinite;
     */
-  /*TODO: Delete?? too much work~*/
   /*attributes from bootstrap's progress-bar-striped */
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
@@ -1968,16 +1549,6 @@ input[type="date"]:valid:before {
   grid-template-columns: 1fr 3fr 4fr 1fr 4fr 1fr 1fr;
 }
 
-/*can't get this to work yet*/
-
-/*
-.tab-pane>div {
-  overflow: hidden;
-}
-*/
-
-
-
 .tab-pane>div>span,
 .tab-pane>div>div>span {
   padding: 0 10px 0 0;
@@ -2003,6 +1574,9 @@ input[type="date"]:valid:before {
 }
 
 
+
+
+
 /* Hide the browser's default checkbox */
 
 .container input {
@@ -2026,6 +1600,7 @@ input[type="date"]:valid:before {
 
 
 
+
 /* Create a custom checkbox */
 
 .checkmark {
@@ -2042,6 +1617,8 @@ input[type="date"]:valid:before {
 .container:hover input~.checkmark {
   background-color: #ccc;
 }
+
+
 
 
 /* When the checkbox is checked, add a blue background */
@@ -2062,12 +1639,12 @@ input[type="date"]:valid:before {
 
 
 
-
 /* Show the checkmark when checked */
 
 .container input:checked~.checkmark:after {
   display: block;
 }
+
 
 
 
@@ -2094,13 +1671,11 @@ input[type="date"]:valid:before {
 
 
 
-
 /*FLOATING MENU*/
 
 .label-container {
   position: fixed;
   display: table;
-  /*    visibility: hidden;*/
 }
 
 .label-container.AddTip {
@@ -2138,7 +1713,6 @@ input[type="date"]:valid:before {
   color: #333;
   opacity: 0.5;
 }
-
 
 
 
@@ -2236,13 +1810,6 @@ a#menu-share:hover+#float-list {
   bottom: 60px;
 }
 
-div.label-container {
-  /*
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s ease;
-*/
-}
-
 a#menu-share em {
   animation: rotate-in 0.5s;
 }
@@ -2299,12 +1866,9 @@ div.ng-show {
 .required:after {
   content: "*";
   color: #f9243f;
-  /*This looks bad on windows*/
   margin-left: -8px;
-  /*ahh... so it's for the material design ones..*/
   padding: 0 0 0 0px;
 }
-
 
 .inputMODAL {
   font-size: 12px;
@@ -2314,12 +1878,10 @@ div.ng-show {
   border: none;
   border-bottom: 1px solid #757575;
   color: rgb(68, 68, 68);
-  /*color: #FFFFFF;*/
 }
 
 .inputMODAL:focus {
   outline: none;
-  /*color: rgb(68, 68, 68);*/
 }
 
 .inputMODAL:after {
@@ -2327,6 +1889,9 @@ div.ng-show {
   color: #f9243f;
   padding: 0 0 0 2px;
 }
+
+
+
 
 
 /* LABEL ======================================= */
@@ -2339,7 +1904,6 @@ div.ng-show {
   pointer-events: none;
   left: 5px;
   top: 10px;
-/*  background-color: #FFFFFF;*/
   width: 80%;
 
   transition: 0.2s ease all;
@@ -2347,20 +1911,26 @@ div.ng-show {
   -webkit-transition: 0.2s ease all;
 }
 
+
+
+
 /* active state */
-.inputMODAL:valid~label ,
+
+.inputMODAL:valid~label,
 .inputMODAL:focus~label {
   top: -2px;
   font-size: 10px;
   color: #38cc70;
 }
 
+
+
+
 /* BOTTOM BARS ================================= */
 
 .bar {
   position: relative;
   display: block;
-  /*    width:300px; */
   top: 1px;
 }
 
@@ -2406,25 +1976,8 @@ div.ng-show {
   top: 30%;
   left: 0;
   pointer-events: none;
-  /*
-  -webkit-transition:opacity 0.3s ease;
-  -moz-transition:opacity 0.3s ease;
-  transition:opacity 0.3s ease;
-*/
 }
 
-
-
-/* active state => this looks bad on Windows */
-
-
-/*
-.inputMODAL:focus~.highlight {
-  -webkit-animation: inputHighlighter 0.3s ease;
-  -moz-animation: inputHighlighter 0.3s ease;
-  animation: inputHighlighter 0.3s ease;
-}
-*/
 
 
 /* END INPUT FORM */
@@ -2437,10 +1990,6 @@ div.ng-show {
 
   background-repeat: no-repeat;
   background-position: right 0 center;
-  /*
-  height: 24px;
-  width: 24px;
-*/
   -webkit-transition-property: background;
   transition-property: background;
 }
@@ -2448,7 +1997,6 @@ div.ng-show {
 .selector .sudo-select {
   position: absolute;
   width: 100%;
-  /*    top: 16px;*/
   height: auto;
   opacity: 1;
   -webkit-transition-property: height, opacity;
@@ -2484,13 +2032,6 @@ div.ng-show {
 }
 
 
-/*
-.selector .inputMODAL:focus ~ .sudo-select {
-  height: auto;
-  opacity: 1;
-}
-*/
-
 .sudo-select li:hover {
   background-color: #38cc70;
   color: white;
@@ -2510,6 +2051,9 @@ div.ng-show {
 .sudo-select-btn:hover {
   background-color: #38cc70;
 }
+
+
+
 
 
 /* END SELECTOR OPTION */
@@ -2536,7 +2080,6 @@ div.ng-show {
   background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
   background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
   border-radius: 18px;
-  /*  box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
   cursor: pointer;
   box-sizing: content-box;
 }
@@ -2607,7 +2150,6 @@ div.ng-show {
   background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
   background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
   border-radius: 100%;
-  /*  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
 }
 
 .switch-handle:before {
@@ -2628,6 +2170,9 @@ div.ng-show {
   left: 74px;
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 
 /* Transition
@@ -2664,7 +2209,6 @@ div.ng-show {
   text-align: center;
   padding-top: 10%;
   font-weight: 500;
-  /*  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
 }
 
 .switch-slide .switch-label:after {
@@ -2699,6 +2243,9 @@ div.ng-show {
   background: #38cc70;
   color: #FFFFFF;
 }
+
+
+
 
 
 /*specific functionality*/
@@ -2792,6 +2339,9 @@ div.ng-show {
 }
 
 
+
+
+
 /* For presedence */
 
 .no-padding {
@@ -2800,83 +2350,140 @@ div.ng-show {
 }
 
 .user-info-title {
-    font-weight: 600;
+  font-weight: 600;
 }
 
+
+
+
 /* user info style */
+
 .user-info-row {
-    padding: 16px;
-/*    background-color: beige;*/
+  padding: 16px;
+  /*    background-color: beige;*/
 }
+
 .user-info-btn button {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
 }
+
 .col-beg h3 {
-    margin: 0;
-    font-weight: 500;
+  margin: 0;
+  font-weight: 500;
 }
+
+
+
 /* end user info style */
 
 
-.isAdmin {
-  color: crimson;
-}
-
-.isSuperAdmin {
-  font-weight: bold;
-}
-
 /* TITLE FOR CUSTOMER HUB*/
+
 .title-container {
-/*
-    display: flex;
-    justify-content: center;
-    align-items: center;
-*/
-    text-align: center;
-    background-color: transparent;
-    border: 0;
+  text-align: center;
+  background-color: transparent;
+  border: 0;
 }
+
 .title-brand {
-    color: #38cc70;
-/*  font-size: 20px;*/
-    text-transform: uppercase;
-    font-weight: 500;
+  color: #38cc70;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .hub-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-/*
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-*/
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
 .hub-items .item {
-    background-color: #eeeeee;
-/*    margin: 4px;*/
-    padding: 4px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+  background-color: #eeeeee;
+  padding: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .hub-items .item a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .hub-items .item a em {
-    color: #444444;
+  color: #444444;
 }
 
-.hub-items .item a:hover em, .hub-items .item a:hover div {
-    color: #38cc70;
+.hub-items .item a:hover em,
+.hub-items .item a:hover div {
+  color: #38cc70;
 }
+
+
 
 /* END TITLE FOR CH*/
+
+
+/* User Permissions page styles */
+
+.users-header {
+  margin-bottom: 5px;
+}
+
+.users-header>* {
+  font-weight: bold;
+}
+
+.users-table>*>* {
+  margin: 5px 0px;
+}
+
+.m-col-1 {
+  width: 0%;
+}
+
+.m-col-2 {
+  width: 16.6666667%;
+}
+
+.m-col-3 {
+  width: 29%;
+}
+
+.m-col-1,
+.m-col-2,
+.m-col-3 {
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+/* Final touches: auto increased font size, and better responsiveness */
+
+html {
+  zoom: 125%;
+}
+
+@media (min-width: 1200px) {
+  #buyersOrderModal {
+    /*zoom: 125%;*/
+  }
+}
+
+@media (max-width: 700px) {
+  .hidden-in-mobile {
+    display: none;
+  }
+
+  .loanHeader {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 1fr;
+  }
+}

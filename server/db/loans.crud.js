@@ -119,7 +119,8 @@ module.exports = {
       Loan.findById(id).exec(function(err, loan) {
         if (err) {
           console.log(err);
-          res.status(400).send(err);
+          // res.status(400).send(err);
+          res.redirect("/profile/"+req.body.old_token);
         } else {
           req.loan = loan;
           next();

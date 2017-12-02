@@ -29,20 +29,23 @@ angular.module('SWEApp').filter('date_filter', function() {
   }
 });
 
+// always active, don't show archived ones by default
 angular.module('SWEApp').filter('archived_filter', function() {
   return function(loans, active) {
 
-    if (active) {
-      var item = {};
-      var size = loans.length;
+    var item = {};
+    var size = loans.length;
+    var isArchived = false;
 
-      // reverse loop, preserves index positions
-      for (var index = size-1 ; index > -1 ; index--) {
-        item = loans[index];
-        if (item.status.toLowerCase() != 'archived') {
-          loans.splice(index, 1);
-        }
-      }
+    // reverse loop, preserves index positions
+    for (var index = size-1 ; index > -1 ; index--) {
+      item = loans[index];
+      isArchived = item.status.toLowerCase() == 'archived';
+
+      // nifty trick, hehehe
+      // I'm liking these Bitwise operators haha
+      if (active ^ isArchived)
+        loans.splice(index, 1);
     }
 
     return loans;

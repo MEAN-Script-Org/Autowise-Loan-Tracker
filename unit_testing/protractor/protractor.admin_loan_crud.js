@@ -50,7 +50,7 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   
   // Before all tests, load the admin hub page and assign 
   beforeAll(function() {
-    browser.get('http://localhost:5001/login') ;
+    browser.get('http://localhost:5001/') ;
     
     // Fill out username and password fields
     element(by.model('username')).sendKeys('super') ;

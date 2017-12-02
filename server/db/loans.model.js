@@ -77,7 +77,7 @@ var loanSchema = new mongoose.Schema({
       invalid: {type: Boolean},
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
-      dob:     {type:   String,   /*required: false*/},
+      dob:     {type:   String, /*required: false*/},
 
       // Contact information
       address: {
@@ -199,7 +199,7 @@ function formatDates(bo) {
   if (bo.car_info.good_thru)
     bo.car_info.good_thru = mm_dd_yyyy(bo.car_info.good_thru);
 
-  if (bo.insr.eff_dates)
+  if (bo.insr && bo.insr.eff_dates)
     bo.insr.eff_dates = mm_dd_yyyy(bo.insr.eff_dates);
 
   return bo;
@@ -222,10 +222,11 @@ loanSchema.pre('save', function(next) {
     this.created_at = currentDate;
 
   // CORRECLTY Format all dates
-  this.buyers_order = formatDates(this.buyers_order);
+  if (!(this.buyers_order = formatDates(this.buyers_order)))
+    next();
 
   // Find all loans according to the query, affix this user's id to them
-  var loan_id = this.id;
+  // var loan_id = this.id;
   // console.log(loan_id);
 
   // LOAN TO USER AFFIXING DOESN'T WORK!
@@ -247,28 +248,27 @@ loanSchema.pre('save', function(next) {
   //   }
   // }))
   //   this.user_ids = temp_users;
-
-  next();
 });
 
 //--------------------------------------------------------------------------------------------------------------------
 // POST-PROCESSING: save
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.post('save', function() {
-  
   // Attempt to affix this loan to an existing user
 });
 
 //--------------------------------------------------------------------------------------------------------------------
 // RE-PROCESSING: update
 //--------------------------------------------------------------------------------------------------------------------
-loanSchema.pre('update', function() {
-  this.status = this.status.toUpperCase();
+loanSchema.pre('findOneAndUpdate', function() {
+  this._update.status = this._update.status.toUpperCase();
 
   // CORRECLTY Format all dates
   // ALL THE TIME!
-  this.updated_at = new Date();
-  this.buyers_order = formatDates(this.buyers_order);
+  // this.updated_at = new Date();
+  if (!(this._update.buyers_order = formatDates(this._update.buyers_order))) {
+    next();
+  }
 });
 
 // Create loan model from schema

@@ -27,6 +27,7 @@
                 </strong>
               </span>
             </div>
+
             <div class="chat-body clearfix">
               <!-- Comment Data -->
               <span>{{comment.content}}</span>
@@ -41,7 +42,8 @@
                 <!-- 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular -->
                 
                 <!-- Remove comment -->
-                <span ng-hide="(comment.writer.id != user.id) && !user.isSuperAdmin">
+                <span ng-hide="((comment.writer.id != user.id) && !user.isSuperAdmin) 
+                               || comment.writer.name.toLowerCase() == 'system'">
                   <button class="btn btn-danger btn-xs" title="Delete this comment" ng-click="removeComment(loan._id, loan.comments, comment)">
                     <em class="fa fa-trash"></em>
                   </button>

@@ -11,13 +11,13 @@
     <% include partials/nav.ejs %>
     
     <div>
-      <% include partials/admin_filters.ejs %>
+      <% include partials/admin-filters.ejs %>
       <!-- Start of accordion content -->
       <div class="row">
         <div class="col-md-12">
           <div id="sb-search" class="sb-search">
             <form>
-              <input class="sb-search-input" placeholder="Search criteria" ng-model="query" type="text" id="search">
+              <input class="sb-search-input" placeholder="Search anything inside loans" ng-model="query" type="text" id="search">
               <input class="sb-search-submit" type="submit">
             </form>
           </div>
@@ -35,9 +35,8 @@
                   </span>
                   <div class="loanHeader">
                     <span> Customer Name </span>
-                    <!-- <span> Loan Type </span> -->
                     <span> Loan Status </span>
-                    <span> Loan ID # </span>
+                    <span class="hidden-in-mobile"> Loan ID # </span>
                   </div>
                   <span> Show details </span>
                 </div> 
@@ -56,9 +55,8 @@
                       </label>
                       <div class="loanHeader">
                         <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
-                        <!-- <span> {{loan.type | uppercase}} </span> -->
                         <span> {{loan.status | uppercase}} </span>
-                        <span> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
+                        <span class="hidden-in-mobile"> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
                       </div>
                     </label>
                     <div class="tab-content">
@@ -82,6 +80,7 @@
     <% include partials/google_buttons.ejs %>
     <!-- Loan CRUD Modals -->
     <% include partials/modals.ejs %>
+    <% include partials/buyers-order.ejs %>
   </div>
   <% include partials/footer.ejs %>
 </body>

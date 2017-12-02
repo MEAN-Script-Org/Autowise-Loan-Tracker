@@ -22,12 +22,13 @@ angular.module('SWEApp').controller('LoginController',
           if (res.data.error || error_message || type) {
             // useless error..
             // console.log(res.data.error);
-            Factory.removeToken();
+            // if (type != "btn-danger")
+              Factory.removeToken();
           } 
           
           var token_array = Factory.getToken();
           if (token_array) {
-            window.location.href = '/profile/' + Factory.getToken();
+            window.location.href = '/profile/' + token_array;
           }
         },
         function(err, error) {
@@ -99,17 +100,18 @@ angular.module('SWEApp').controller('LoginController',
 
     $scope.register = function() {
 
-      if (false)
-        ;
-      // if ($rootScope.newUser.verify != $rootScope.newUser.password)
-      //   alert("Please verify your password");
-      // else if ($rootScope.usernames[$rootScope.newUser.username]) 
-      //   alert("Please change your username to one that hasn't been taken");
-      // else if ($scope.funny_dob) 
-      //   alert("Please fix your DOB");
+      // if (false)
+      //   ;
+      if ($rootScope.newUser.verify != $rootScope.newUser.password)
+        alert("Please verify your password");
+      else if ($rootScope.usernames[$rootScope.newUser.username]) 
+        alert("Please change your username to one that hasn't been taken");
+      else if ($scope.funny_dob) 
+        alert("Please fix your DOB");
       else {
         $rootScope.newUser.md5hash = window.fingerprint.md5hash;
         
+        // on good, add token and tada!
         Factory.newUser($rootScope.newUser);
       }
     }

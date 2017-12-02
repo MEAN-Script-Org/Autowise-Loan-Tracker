@@ -35,47 +35,25 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // User CRUD funtionality
-  app.use('/crud', function(req, res) {
-    res.render('crud-email-test', { path: '' });
-  });
+  // TODO: correctly implement in profile routes, and DELETE!!
+  // app.use('/account', function(req, res) {
+  //   res.render('userInfo', { path: '' });
+  // });
 
-  // Customer hub
-  app.use('/home', function(req, res) {
-    res.render('customerHub', { path: '' });
-  });
+  // DO NOT PERFORM AUTH ON ON THESE  BY DEFAULT
+  // ALLOW non-logged in to:
+  //   retrieve usernames
+  //   create new profiles
+  app.use('/', login_routes);
+  app.use('/login', auth.login);
 
-  //customer account info
-  app.use('/account', function(req, res) {
-    res.render('userInfo', { path: '' });
-  });
-
-  // Warranties plan view for a customer
-  app.use('/warranties', function(req, res) {
-    res.render('warranties', { path: '' });
-  });
-
-  // DO NOT PERFORM AUTH ON SERVER SIDE BY DEFAULT
-  app.use('/login', login_routes);
+  app.use('/new', users.create, auth.login);
+  app.use('/usernames', users.getAll, users.getAllUsernames);
 
   // automatic reroute here
   app.use('/profile', profile_routes);
 
-  // TODO: Add master admin hardcoded link (Harrisons work)
-  app.use('/perm', function(req, res) {
-    res.render('changePermissions', { path: '' });
-  });
-
-  // TODO: Add master admin hardcoded link (Harrisons work)
-  app.use('/admin', function(req, res) {
-    res.render("admin", { path: "../" });
-  });
-
-  // ALLOW non-logged in to retrieve usernames, and create new profiles
-  app.use('/usernames', users.getAll, users.getAllUsernames);
-  app.use('/new', users.create, auth.login);
-
-  // Token-Based Auth
+  // Token-Based Auth starts here
   // Backend API routes
   app.use('/api', auth.authenticate, login_routes.login, api_routes);
 

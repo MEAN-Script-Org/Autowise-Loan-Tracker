@@ -62,9 +62,11 @@
                 <div class="form-group">
                   <span style="color:red" ng-show="funny_dob"> {{funny_dob_message}} </span>
                   <input ng-model="newUser.dob" placeholder="Date of Birth*" required type="date"
-                         class="{{funny_dob ? 'has-error' : ''}} form-control" ng-change="checkDOB()">
+                         class="{{funny_dob ? 'has-error' : ''}} form-control" ng-blur="checkDOB()">
                 </div>
+                <!-- ng blur vs ng change here... decisions decisions.. -->
 
+                <!-- 
                 <div class="form-group">
                   <span>Admin?</span>
                   <input ng-model="newUser.isAdmin" type="checkbox">
@@ -74,6 +76,7 @@
                   <span>Super Admin? (can delete everyone's comments)</span>
                   <input ng-model="newUser.isSuperAdmin" type="checkbox">
                 </div>
+                 -->
 
                 <div class="left-text" id="required"></div>
                 <button class="btn btn-primary" type="submit"> Register </button>

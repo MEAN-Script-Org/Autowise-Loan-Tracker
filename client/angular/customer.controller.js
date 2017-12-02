@@ -2,6 +2,9 @@ angular.module('SWEApp').controller(
   'CustomerController', ['$rootScope', '$scope', '$location', '$window', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $window, $timeout, Factory) {
 
+    if (!Factory.getToken())
+      window.location.href = "/profile/badtoken";
+    
     // GLOBALS
     $rootScope.loans = [];
     $rootScope.loading = true;
@@ -9,20 +12,8 @@ angular.module('SWEApp').controller(
     Factory.getUserInfo().then(
       function(res) {
         $rootScope.user = res.data;
-      });
+    });
 
-    //------------------------------------------------------------------------------------------------------------------
-    // Testing function
-    //------------------------------------------------------------------------------------------------------------------
-    // $scope.oops = function() {
-    //   Factory.getLoan('5a1106ca3854dd0c2cb3d818').then(
-    //     function(res) {
-    //       console.log(res) ;
-    //     },
-    //     function(err) { console.log(err) }
-    //   );
-    // }
-    
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
     //------------------------------------------------------------------------------------------------------------------
@@ -34,9 +25,6 @@ angular.module('SWEApp').controller(
       Factory.getUserLoans().then(
         function(res) {
           $rootScope.loans = res.data;
-          
-          console.log("FOUND LOANS:") ;
-          console.log(res.data) ;
           
           $timeout(function() {
             $rootScope.loading = false;
