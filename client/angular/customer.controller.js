@@ -24,20 +24,22 @@ angular.module('SWEApp').controller(
       // Loads all loans belonging to the specified user
       Factory.getUserLoans().then(
         function(res) {
-          
-          // Keep this
-          if (res.data.length && res.data.length != 0) {
-            $rootScope.loans = res.data;
-          }
+          $rootScope.loans = res.data;
           
           $timeout(function() {
             $rootScope.loading = false;
-          }, 200);
+          }, 500);
         },
         function(err) {
           console.log(err) ;
         }
       );
+      
+      // Get user info for the logged-in user
+      Factory.getUserInfo().then(
+        function(res) {
+          $rootScope.user = res.data;
+      });
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -45,6 +47,13 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     $scope.goToWarranties = function(loan_id) {
       $window.location.href = '/profile/warranties/' + loan_id + '/' + Factory.getToken() ;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // Sets the path to the view account info view
+    //------------------------------------------------------------------------------------------------------------------
+    $scope.goToAccount = function() {
+      $window.location.href = '/profile/userinfo/' + Factory.getToken() ;
     }
     
     $scope.logout = function() {

@@ -42,6 +42,14 @@ profile_routes.route('/warranties/:token/:loan_id')
     res.render("warranties", {path: "../../../"});
 });
 
+//----------------------------------------------------------------------------------------------------------------------
+// Account info routing
+//----------------------------------------------------------------------------------------------------------------------
+profile_routes.route('/userinfo/:token')
+  .all(function(req, res) {
+    res.render("userInfo", {path: "../../"});
+});
+
 profile_routes.param('token', auth.decodeToken);
 profile_routes.param('loan_id', loans.loanByID);
 
