@@ -16,18 +16,25 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
 
       $scope.changePasswordSubmit = function(pwd, pw1, pw2) {
 
-        if (pw1 == pw2) {
+
+        if (pwd==null || pw1==null || pw2==null) {
+          alert("Password cannot be blank!")
+        }
+
+        else if (pw1 == pw2) {
           alert("New password is: '" + pw1 + "'");
         }
 
         else {
           alert("Passwords do not match!")
         } 
+
       }
 
       $scope.resetForm = function() {
      //$scope.resetme.reset();
         document.getElementById('resetme').reset();
+        alert = function() {};
       };
 
     }
