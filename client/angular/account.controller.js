@@ -13,5 +13,22 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
           $rootScope.user = res.data; console.log(res.data) ;
         });
       }
+
+      $scope.changePasswordSubmit = function(pwd, pw1, pw2) {
+
+        if (pw1 == pw2) {
+          alert("New password is: '" + pw1 + "'");
+        }
+
+        else {
+          alert("Passwords do not match!")
+        } 
+      }
+
+      $scope.resetForm = function() {
+     //$scope.resetme.reset();
+        document.getElementById('resetme').reset();
+      };
+
     }
 ]);
