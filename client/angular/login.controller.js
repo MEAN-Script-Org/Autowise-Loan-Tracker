@@ -22,7 +22,8 @@ angular.module('SWEApp').controller('LoginController',
           if (res.data.error || error_message || type) {
             // useless error..
             // console.log(res.data.error);
-            Factory.removeToken();
+            // if (type != "btn-danger")
+              Factory.removeToken();
           } 
           
           var token_array = Factory.getToken();
@@ -110,6 +111,7 @@ angular.module('SWEApp').controller('LoginController',
       else {
         $rootScope.newUser.md5hash = window.fingerprint.md5hash;
         
+        // on good, add token and tada!
         Factory.newUser($rootScope.newUser);
       }
     }

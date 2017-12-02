@@ -35,7 +35,6 @@
                   </span>
                   <div class="loanHeader">
                     <span> Customer Name </span>
-                    <!-- <span> Loan Type </span> -->
                     <span> Loan Status </span>
                     <span class="hidden-in-mobile"> Loan ID # </span>
                   </div>
@@ -56,7 +55,6 @@
                       </label>
                       <div class="loanHeader">
                         <span> {{loan.buyers_order.purchaser.name | limitTo: 18}} </span>
-                        <!-- <span> {{loan.type | uppercase}} </span> -->
                         <span> {{loan.status | uppercase}} </span>
                         <span class="hidden-in-mobile"> #{{loan._id.toUpperCase() | limitTo:8:loan._id.length-8}} </span>
                       </div>

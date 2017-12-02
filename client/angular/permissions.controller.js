@@ -1,4 +1,4 @@
-angular.module('SWEApp').controller('userPerm', 
+angular.module('SWEApp').controller('Permissions', 
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
@@ -29,6 +29,7 @@ angular.module('SWEApp').controller('userPerm',
 
     $scope.init = function() {
       $scope.query = [];
+      $scope.isAdmin = true;
       $scope.visible = "visible";
 
       $timeout(function() {

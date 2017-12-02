@@ -89,11 +89,20 @@ userSchema.pre('save', function(next) {
 
   // console.log(this);
   var user_id = this.id;
-  console.log(user_id);
 
+  Loan.find({}, function(err, dale) {
+    dale.forEach(function(item) {
+      console.log(item);
+      console.log(item.buyers_order.purchaser.dob);
+      console.log(typeof item.buyers_order.purchaser.dob);
+    })
+  })
+  
   // Find all loans according to the query, affix this user's id to them
-  if (!Loan.find({ $or: [query, co_query]}, function(err, loans) {
+  // if (!Loan.find({ $or: [query, co_query]}, function(err, loans) {
+  if (!Loan.find({ query }, function(err, loans) {
     var temp_loans = [];
+    console.log(query);
     console.log(loans.length);
 
     if (err) console.log(err);
@@ -113,10 +122,10 @@ userSchema.pre('save', function(next) {
   }))
     this.loans = temp_loans;
   
-  next();
+  // next();
 });
 
-  userSchema.methods.comparePassword = function(password) {
+userSchema.methods.comparePassword = function(password) {
   var is_same_password = bcrypt.compareSync(password, this.password)
   return is_same_password;
 };

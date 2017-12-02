@@ -79,6 +79,7 @@ module.exports = {
           // REAL NEXT
           // console.log(decodedToken);
           req.no_problem = true
+          req.body.old_token = req.body.token;
           req.body.token = decodedToken;
           next();
         }
@@ -118,8 +119,9 @@ module.exports = {
         else {
           // console.log("GUUUD Token");
           // console.log(decodedToken);
-          req.no_problem = true
+          req.body.old_token = req.body.token;
           req.body.token = decodedToken;
+          req.no_problem = true
           next();
         }
       });
