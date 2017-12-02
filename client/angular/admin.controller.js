@@ -67,10 +67,6 @@ angular.module('SWEApp').controller(
         });
     }
 
-    $scope.logout = function() {
-      Factory.logout();
-    }
-
     $scope.convert_warranties = function(type) {
       // 'any-year' are drivetrains...
       if (type)

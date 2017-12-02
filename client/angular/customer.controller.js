@@ -56,10 +56,6 @@ angular.module('SWEApp').controller(
       $window.location.href = '/profile/userinfo/' + Factory.getToken() ;
     }
     
-    $scope.logout = function() {
-      Factory.logout();
-    }
-    
     //------------------------------------------------------------------------------------------------------------------
     // Adds a customer comment to the loan
     // Taken from "admin.controller.js"

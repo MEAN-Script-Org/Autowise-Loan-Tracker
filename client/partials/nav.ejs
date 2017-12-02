@@ -1,33 +1,37 @@
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation" ng-app="SWEApp" ng-controller="Navigation">
   <div class="nav-container">
+    
+    <!-- NAVIGATION BAR TITLE -->
     <div class="navbar-title">
       <div class="navbar-brand" href="#">
         <div> Autowise </div>
         <span ng-show="isAdmin">Admin</span>
       </div>
     </div>
+    
+    <!-- DROP-DOWN NAVIGATION MENU -->
     <div ng-hide="login_page" class="navbar-drop">
       <ul class="navbar-drop-icon">
         <li class="dropdown">
           <a id="user-action-toggle" href="#" data-toggle="dropdown" class="dropdown-toggle count-info">
             <em class="fa fa-xl fa-user"></em>
           </a>
+          
           <ul class="dropdown-menu">
             <li>
-              <!-- gotta implement this on warranties and on userperm -->
-              <a href="#" ng-click="goToProfile()">
-                Profile
+              <a href="#" ng-click="goTo('loans')">
+                Loans
               </a>
               <div class="divider"></div>
             </li>
             <li>
-              <a href="#" ng-click="">
+              <a href="#" ng-click="goTo('account')">
                 Account
               </a>
               <div class="divider"></div>
             </li>
             <li ng-show="user.isSuperAdmin">
-              <a href="#" ng-click="goToPermissions()">
+              <a href="#" ng-click="goTo('perm')">
                 User Magement
               </a>
               <div class="divider"></div>

@@ -36,16 +36,8 @@ angular.module('SWEApp').controller('Permissions',
           $rootScope.loading = false;
       }, 300);
     }
-
-    $scope.goToProfile = function() {
-        window.location.href = "/profile/" + Factory.getToken();
-    }
-
-    $scope.logout = function() {
-      Factory.logout();
-    }
-
-
+    
+    
     // TODO: copy 'prepare' thing
     // only have a delete frontend thing
     // have a color coding for 'isAdmin'
