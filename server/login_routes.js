@@ -55,7 +55,6 @@ login_routes.login = function(req, res, next) {
 // login_routes.route("/")
   
 login_routes.route("/")
-  .post(auth.login)
   .all(login_routes.login);
 
 module.exports = login_routes;

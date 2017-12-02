@@ -42,7 +42,7 @@ h4 {
 }
 
 .fa-xl {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 
 input.form-control {
@@ -116,7 +116,7 @@ input.form-control {
 
 .navbar-drop {
   margin-right: 15px;
-  width :auto;
+  width: auto;
 }
 
 .navbar-drop-icon {
@@ -154,9 +154,9 @@ input.form-control {
 }
 
 .dropdown a.dropdown-toggle {
+  width: 100%;
+  height: 100%;
   color: #fff;
-  height: 40px;
-  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,17 +232,8 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -100px;
+  left: -80px;
 }
-
-
-
-
-
-/*Marcial testing*/
-
-
-/*yah.... nope*/
 
 .dropdown-menu li a.danger:hover {
   color: #f9243f;
@@ -748,16 +739,6 @@ a.label:focus {
   overflow: hidden;
 }
 
-.input-group {
-  /*
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-*/
-}
-
-.input-group-btn {}
-
 span.btn-group-icon {
   display: none
 }
@@ -1127,7 +1108,6 @@ span.btn-group-text {
 
 .warranty-bar {
   width: 0;
-  /*float: left;*/
   color: #fff;
   height: 100%;
   font-size: 16px;
@@ -1138,7 +1118,7 @@ span.btn-group-text {
   display: grid;
 
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  transition        : width .6s ease;
+  transition: width .6s ease;
   -webkit-transition: width .6s ease;
 }
 
@@ -1637,10 +1617,6 @@ p.back-link {
   font-size: 12px;
   text-transform: uppercase;
 }
-
-
-
-
 /* Above are template styles */
 
 
@@ -1673,7 +1649,6 @@ p.back-link {
 }
 
 .color-blue {
-  /*    actually green*/
   color: #38cc70;
 }
 
@@ -1689,8 +1664,6 @@ p.back-link {
   color: #f9243f;
 }
 
-
-
 /* Accordion rows get selectable hand-pointy guy */
 
 dt {
@@ -1701,9 +1674,7 @@ dt {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 1fr 1fr;
-  /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
 }
-
 
 
 /* loading... *animated* */
@@ -1756,8 +1727,6 @@ img#loader {
   }
 }
 
-
-
 /* Modified Bootstrap Modal style */
 
 @media (min-width: 768px) {
@@ -1783,7 +1752,7 @@ img#loader {
 }
 
 .modal-footer {
-    padding: 16px;
+  padding: 16px;
 }
 
 .tab-content,
@@ -1792,6 +1761,7 @@ img#loader {
 .modal-footer {
   padding-top: 0px;
 }
+
 
 
 /* Login style */
@@ -1826,10 +1796,7 @@ div.right-text {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 2fr;
-  /*height: 100%;*/
 }
-
-
 
 /* This will force placeholders to show in type 'dates' */
 
@@ -1845,13 +1812,13 @@ input[type="date"]:valid:before {
 }
 
 .dateInput {
-    color: transparent !important;
-}
-.dateInput:focus, .dateInput:valid {
-    color: rgb(68, 68, 68) !important;
+  color: transparent !important;
 }
 
-
+.dateInput:focus,
+.dateInput:valid {
+  color: rgb(68, 68, 68) !important;
+}
 
 /* some login styles reuse buyer's order required etc */
 
@@ -1885,9 +1852,6 @@ input[type="date"]:valid:before {
   text-align: left;
 }
 
-
-
-
 /* Progress bar styles */
 
 .received-progress {
@@ -1905,14 +1869,13 @@ input[type="date"]:valid:before {
   background-color: #6495ed;
 }
 
-.btn-cadet, .btn-cadet:focus, .btn-cadet:hover {
+.btn-cadet,
+.btn-cadet:focus,
+.btn-cadet:hover {
   color: white;
-  border-color: cadetblue;  
+  border-color: cadetblue;
   background-color: cadetblue;
 }
-
-
-/* This color is too light */
 
 .verified-progress {
   width: 75%;
@@ -1930,7 +1893,6 @@ input[type="date"]:valid:before {
          -o-animation: progress-bar-stripes 2s linear infinite;
             animation: progress-bar-stripes 2s linear infinite;
     */
-  /*TODO: Delete?? too much work~*/
   /*attributes from bootstrap's progress-bar-striped */
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
@@ -1958,8 +1920,6 @@ input[type="date"]:valid:before {
   padding: 0 0 0 20px;
 }
 
-
-
 /* Buyers order styles */
 
 #tabContent2 {
@@ -1968,22 +1928,10 @@ input[type="date"]:valid:before {
   grid-template-columns: 1fr 3fr 4fr 1fr 4fr 1fr 1fr;
 }
 
-/*can't get this to work yet*/
-
-/*
-.tab-pane>div {
-  overflow: hidden;
-}
-*/
-
-
-
 .tab-pane>div>span,
 .tab-pane>div>div>span {
   padding: 0 10px 0 0;
 }
-
-
 
 /*CHECK BOX*/
 
@@ -2001,6 +1949,7 @@ input[type="date"]:valid:before {
   justify-content: center;
   -webkit-user-select: none;
 }
+
 
 
 /* Hide the browser's default checkbox */
@@ -2025,7 +1974,6 @@ input[type="date"]:valid:before {
 }
 
 
-
 /* Create a custom checkbox */
 
 .checkmark {
@@ -2035,10 +1983,7 @@ input[type="date"]:valid:before {
   background-color: #eee;
 }
 
-
-
 /* On mouse-over, add a grey background color */
-
 .container:hover input~.checkmark {
   background-color: #ccc;
 }
@@ -2050,8 +1995,6 @@ input[type="date"]:valid:before {
   background-color: #38cc70;
 }
 
-
-
 /* Create the checkmark/indicator (hidden when not checked) */
 
 .checkmark:after {
@@ -2060,15 +2003,11 @@ input[type="date"]:valid:before {
   display: none;
 }
 
-
-
-
 /* Show the checkmark when checked */
 
 .container input:checked~.checkmark:after {
   display: block;
 }
-
 
 
 /* Style the checkmark/indicator */
@@ -2092,15 +2031,11 @@ input[type="date"]:valid:before {
   margin: 0;
 }
 
-
-
-
 /*FLOATING MENU*/
 
 .label-container {
   position: fixed;
   display: table;
-  /*    visibility: hidden;*/
 }
 
 .label-container.AddTip {
@@ -2138,9 +2073,6 @@ input[type="date"]:valid:before {
   color: #333;
   opacity: 0.5;
 }
-
-
-
 
 /* NG-ANIMATION for tooltips */
 
@@ -2236,13 +2168,6 @@ a#menu-share:hover+#float-list {
   bottom: 60px;
 }
 
-div.label-container {
-  /*
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s ease;
-*/
-}
-
 a#menu-share em {
   animation: rotate-in 0.5s;
 }
@@ -2277,8 +2202,6 @@ div.ng-show {
   animation: 0.5s fadeIn;
 }
 
-
-
 /* INPUT FORM */
 
 
@@ -2299,9 +2222,7 @@ div.ng-show {
 .required:after {
   content: "*";
   color: #f9243f;
-  /*This looks bad on windows*/
   margin-left: -8px;
-  /*ahh... so it's for the material design ones..*/
   padding: 0 0 0 0px;
 }
 
@@ -2314,12 +2235,10 @@ div.ng-show {
   border: none;
   border-bottom: 1px solid #757575;
   color: rgb(68, 68, 68);
-  /*color: #FFFFFF;*/
 }
 
 .inputMODAL:focus {
   outline: none;
-  /*color: rgb(68, 68, 68);*/
 }
 
 .inputMODAL:after {
@@ -2327,6 +2246,7 @@ div.ng-show {
   color: #f9243f;
   padding: 0 0 0 2px;
 }
+
 
 
 /* LABEL ======================================= */
@@ -2339,7 +2259,6 @@ div.ng-show {
   pointer-events: none;
   left: 5px;
   top: 10px;
-/*  background-color: #FFFFFF;*/
   width: 80%;
 
   transition: 0.2s ease all;
@@ -2347,20 +2266,22 @@ div.ng-show {
   -webkit-transition: 0.2s ease all;
 }
 
+
 /* active state */
-.inputMODAL:valid~label ,
+
+.inputMODAL:valid~label,
 .inputMODAL:focus~label {
   top: -2px;
   font-size: 10px;
   color: #38cc70;
 }
 
+
 /* BOTTOM BARS ================================= */
 
 .bar {
   position: relative;
   display: block;
-  /*    width:300px; */
   top: 1px;
 }
 
@@ -2386,16 +2307,12 @@ div.ng-show {
   right: 50%;
 }
 
-
-
 /* active state */
 
 .inputMODAL:focus~.bar:before,
 .inputMODAL:focus~.bar:after {
   width: 50%;
 }
-
-
 
 /* HIGHLIGHTER ================================== */
 
@@ -2406,27 +2323,7 @@ div.ng-show {
   top: 30%;
   left: 0;
   pointer-events: none;
-  /*
-  -webkit-transition:opacity 0.3s ease;
-  -moz-transition:opacity 0.3s ease;
-  transition:opacity 0.3s ease;
-*/
 }
-
-
-
-/* active state => this looks bad on Windows */
-
-
-/*
-.inputMODAL:focus~.highlight {
-  -webkit-animation: inputHighlighter 0.3s ease;
-  -moz-animation: inputHighlighter 0.3s ease;
-  animation: inputHighlighter 0.3s ease;
-}
-*/
-
-
 /* END INPUT FORM */
 
 
@@ -2437,10 +2334,6 @@ div.ng-show {
 
   background-repeat: no-repeat;
   background-position: right 0 center;
-  /*
-  height: 24px;
-  width: 24px;
-*/
   -webkit-transition-property: background;
   transition-property: background;
 }
@@ -2448,7 +2341,6 @@ div.ng-show {
 .selector .sudo-select {
   position: absolute;
   width: 100%;
-  /*    top: 16px;*/
   height: auto;
   opacity: 1;
   -webkit-transition-property: height, opacity;
@@ -2484,13 +2376,6 @@ div.ng-show {
 }
 
 
-/*
-.selector .inputMODAL:focus ~ .sudo-select {
-  height: auto;
-  opacity: 1;
-}
-*/
-
 .sudo-select li:hover {
   background-color: #38cc70;
   color: white;
@@ -2510,6 +2395,7 @@ div.ng-show {
 .sudo-select-btn:hover {
   background-color: #38cc70;
 }
+
 
 
 /* END SELECTOR OPTION */
@@ -2536,7 +2422,6 @@ div.ng-show {
   background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
   background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
   border-radius: 18px;
-  /*  box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);*/
   cursor: pointer;
   box-sizing: content-box;
 }
@@ -2607,7 +2492,6 @@ div.ng-show {
   background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
   background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
   border-radius: 100%;
-  /*  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);*/
 }
 
 .switch-handle:before {
@@ -2628,6 +2512,7 @@ div.ng-show {
   left: 74px;
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
+
 
 
 /* Transition
@@ -2664,7 +2549,6 @@ div.ng-show {
   text-align: center;
   padding-top: 10%;
   font-weight: 500;
-  /*  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);*/
 }
 
 .switch-slide .switch-label:after {
@@ -2699,6 +2583,7 @@ div.ng-show {
   background: #38cc70;
   color: #FFFFFF;
 }
+
 
 
 /*specific functionality*/
@@ -2792,6 +2677,7 @@ div.ng-show {
 }
 
 
+
 /* For presedence */
 
 .no-padding {
@@ -2800,83 +2686,126 @@ div.ng-show {
 }
 
 .user-info-title {
-    font-weight: 600;
+  font-weight: 600;
 }
 
+
 /* user info style */
+
 .user-info-row {
-    padding: 16px;
-/*    background-color: beige;*/
+  padding: 16px;
+  /*    background-color: beige;*/
 }
+
 .user-info-btn button {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
 }
+
 .col-beg h3 {
-    margin: 0;
-    font-weight: 500;
+  margin: 0;
+  font-weight: 500;
 }
+
 /* end user info style */
 
 
-.isAdmin {
-  color: crimson;
-}
-
-.isSuperAdmin {
-  font-weight: bold;
-}
-
 /* TITLE FOR CUSTOMER HUB*/
+
 .title-container {
-/*
-    display: flex;
-    justify-content: center;
-    align-items: center;
-*/
-    text-align: center;
-    background-color: transparent;
-    border: 0;
+  text-align: center;
+  background-color: transparent;
+  border: 0;
 }
+
 .title-brand {
-    color: #38cc70;
-/*  font-size: 20px;*/
-    text-transform: uppercase;
-    font-weight: 500;
+  color: #38cc70;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .hub-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-/*
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-*/
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
 .hub-items .item {
-    background-color: #eeeeee;
-/*    margin: 4px;*/
-    padding: 4px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+  background-color: #eeeeee;
+  padding: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .hub-items .item a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .hub-items .item a em {
-    color: #444444;
+  color: #444444;
 }
 
-.hub-items .item a:hover em, .hub-items .item a:hover div {
-    color: #38cc70;
+.hub-items .item a:hover em,
+.hub-items .item a:hover div {
+  color: #38cc70;
 }
-
 /* END TITLE FOR CH*/
+
+
+/* User Permissions page styles */
+
+.users-header {
+  margin-bottom: 5px;
+}
+
+.users-header > * {
+  font-weight: bold;
+}
+
+.users-table > * > * {
+  margin: 5px 0px ;
+}
+
+.m-col-1 {
+  width: 0%;
+}
+
+.m-col-2 {
+  width: 16.6666667%;
+}
+
+.m-col-3 {
+  width: 29%;
+}
+
+.m-col-1,
+.m-col-2,
+.m-col-3 {
+  float: left; 
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;  
+}
+
+/* Final touches: auto increased font size, and better responsiveness */
+
+html {
+  zoom: 115%;
+}
+
+@media (max-width: 700px) {
+  .hidden-in-mobile {
+    display: none;
+  }
+
+  .loanHeader {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 1fr;
+  }
+}

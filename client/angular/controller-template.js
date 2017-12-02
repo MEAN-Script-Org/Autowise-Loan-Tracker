@@ -1,7 +1,16 @@
 angular.module('SWEApp').controller('newController',
-  ['$rootScope', '$scope', '$location', 'Factory',
-  function($rootScope, $scope, $location, Factory) {
+  ['$rootScope', '$scope', 'Factory',
+  function($rootScope, $scope, Factory) {
+    // Other Useful angular 'adds' not included by default
+    //    BUT used in this project:
+    // 
+    //        $window
+    //        $timeout
+    //        $location
 
-    // Code will go here
+    // Normal Angular Code / F(x)s
+    // $scope.fx = function(something) {
+    //   // body...
+    // }
   }
 ]);

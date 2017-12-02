@@ -83,7 +83,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     }
     
     // Gimme' a token
-    agent.post('/login').send(args).expect(200).end(function(err, res) {
+    agent.post('/').send(args).expect(200).end(function(err, res) {
       token_ok = res.body ;
       test_loan_ok.token = token_ok ;
       

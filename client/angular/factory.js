@@ -9,7 +9,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       console.log(token);
       removeToken();
       $window.localStorage.setItem('token', token);
-      $window.location.href = '/login';
+      $window.location.href = '/profile/' + getToken();
     }
 
     var getToken = function() {
@@ -131,7 +131,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       },
       logout: function() {
         removeToken();
-        $window.location.href = '/login';
+        $window.location.href = '/';
       },
     };
     

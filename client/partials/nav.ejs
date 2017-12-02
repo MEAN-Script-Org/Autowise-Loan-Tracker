@@ -9,12 +9,22 @@
     <div ng-hide="login_page" class="navbar-drop">
       <ul class="navbar-drop-icon">
         <li class="dropdown">
-          <a id="user-action-toggle" class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+          <a id="user-action-toggle" href="#" 
+             data-toggle="dropdown" 
+             class="dropdown-toggle count-info">
             <em class="fa fa-xl fa-user"></em>
           </a>
-          <!-- MARCIAL: TODOOOOO -->
-          <!-- divide this into admin vs non admin stuff -->
-          <ul class="dropdown-menu dropdown-alerts">
+
+          <ul class="dropdown-menu">
+            <div>
+              <li>
+                <!-- gotta implement this on warranties and on userperm -->
+                <a href="#" ng-click="goToProfile()">
+                  Profile
+                </a>
+              <div class="divider"></div>
+              </li>
+            </div>
             <div ng-show="user.isSuperAdmin">
               <li>
                 <a href="#" ng-click="goToPermissions()">
@@ -31,6 +41,7 @@
               </li>
             </div>
           </ul>
+
         </li>
       </ul>
     </div>

@@ -1,25 +1,50 @@
-angular.module('SWEApp').controller('userPerm', ['$rootScope', '$scope', '$location', 'Factory',
-  function($rootScope, $scope, $location, Factory) {
+angular.module('SWEApp').controller('userPerm', 
+  ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
+  function($rootScope, $scope, $location, $timeout, Factory) {
 
-    $rootScope.users = {};
+    if (!Factory.getToken())
+      window.location.href = "/profile/badtoken";
+    
+    $scope.visible = 'visible';
+    $rootScope.users = [];
+    $rootScope.loading = true;
+
+    Factory.getUserInfo().then(
+      function(res) {
+        $rootScope.user = res.data;
+    });
 
     Factory.getAllUsers().then(
       function(res) {
-        //  buttons will modify 'isAdmin'
         $rootScope.users = res.data;
+
+        // Formatting dates
         $rootScope.users.forEach(function(item, index, obj) {
           obj[index].dob = new Date(item.dob).toLocaleDateString('en-IR');
-        })
+        });
       },
       function(err) {
         alert(err);
-    });
+      });
 
     $scope.init = function() {
       $scope.query = [];
       $scope.visible = "visible";
+
+      $timeout(function() {
+          $rootScope.loading = false;
+      }, 300);
     }
-    
+
+    $scope.goToProfile = function() {
+        window.location.href = "/profile/" + Factory.getToken();
+    }
+
+    $scope.logout = function() {
+      Factory.logout();
+    }
+
+
     // TODO: copy 'prepare' thing
     // only have a delete frontend thing
     // have a color coding for 'isAdmin'
