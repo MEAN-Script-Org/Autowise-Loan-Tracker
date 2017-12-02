@@ -6,7 +6,7 @@
       </div>
       <div class="panel-body">
         <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
-          <li class="left clearfix">
+          <li ng-hide="comment.isAdmin && !user.isAdmin" class="left clearfix">
             <div class="comment-writer">
               <!-- For amins: names -->
               <!-- For users: you vs 'Autowise' -->
@@ -64,7 +64,7 @@
               <span class="btn-group-text">Save Comment</span>
               <span class="btn-group-icon"><em class="fa fa-xl fa-send"></em></span>
             </button>
-            <button class="btn btn-md" ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')" ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
+            <button class="btn btn-md" ng-show="user.isAdmin" ng-class="(loan.commentAsAdmin ? 'btn-dark' : 'btn-info')" ng-click="loan.commentAsAdmin = !loan.commentAsAdmin">
               <span class="btn-group-text" ng-if="loan.commentAsAdmin">NOT</span>
               <span class="btn-group-text">Visible To Customer</span>
               <span class="btn-group-icon" ng-if="loan.commentAsAdmin"><em class="fa fa-xl fa-eye-slash"></em></span>

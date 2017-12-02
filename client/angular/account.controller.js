@@ -23,6 +23,9 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
 
         else if (pw1 == pw2) {
           alert("New password is: '" + pw1 + "'");
+          
+          // Need a factory call (or the like) to update user password
+          // I'd do this, but I'm not sure about hashing and all that...
         }
 
         else {
