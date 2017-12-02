@@ -37,7 +37,6 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
       $scope.resetForm = function() {
      //$scope.resetme.reset();
         document.getElementById('resetme').reset();
-        alert = function() {};
       };
 
     }
