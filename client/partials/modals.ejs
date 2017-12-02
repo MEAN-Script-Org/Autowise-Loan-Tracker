@@ -1,43 +1,28 @@
-
 <div class="row">
   <div class="col-xs-12">
-    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="changePasswordModal" tabindex="-1">
+    <div class="modal fade" id="changePasswordModal" tabindex="-1">
       <div class="modal-dialog" style="width: 60%; min-width: 615px;">
         <div class="modal-content">
           <div class="modal-header centered-text">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-              
-              <b><h3>Change your password</h3><b>
-              <br>
-            <ul class="nav nav-tabs" id="tabContent">
-            </ul>
+            <button type="button" class="close" ng-click="resetForm()" data-dismiss="modal">&times;</button>
+            <h3>Change your password</h3>
           </div>
-
           <div class="modal-body">
-            <!-- BUYER'S ORDER TABBED PAGES -->
             <div class="tab-content">
               <form name="resetme" id="resetme"> 
-              <!-- TAB - Password input -->
               <div class="form-group">
                   <label for="pwd">Current Password:</label>
                   <input type="password" required="required" class="form-control" id="pwd">
               </div>
-
               <div class="form-group">
                   <label for="pwd">New Password:</label>
                   <input type="password" class="form-control" id="pw1" ng-model='pw1' ng-required pw-check='pwd'>
               </div>
-
               <div class="form-group">
                   <label for="pwd">Confirm New Password:</label>
                   <input type="password" class="form-control" id="pw2"  ng-model='pw2' ng-required pw-check='pw1'>
               </div>
               </form>
-
-              </div>
-           
-              </div>
-
               <div class="modal-footer">
                   <button class="btn btn-primary" ng-click="changePasswordSubmit(pwd, pw1, pw2)">Submit</button>
                   <button class="btn btn-default" ng-click="resetForm()" data-dismiss="modal">Cancel</button>
@@ -50,7 +35,6 @@
     </div>
   </div>
 </div>
-
 <!-- en masse Change status modal -->
 <div class="container">
   <div class="row">
