@@ -205,8 +205,8 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
       // Email object
       var email = {
         type: 'warranty',
-        // to: "dunevitz32@gmail.com",
-        to: "marcial.abrahantes@gmail.com",
+        to: "dunevitz32@gmail.com",
+        //to: "marcial.abrahantes@gmail.com",
         // to: "brightfuture89@yahoo.com",
         name: $rootScope.user.name,
         userID: $rootScope.user.id,
@@ -222,24 +222,24 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
           } else {
             alert("Email was sent to Autowise! Please allow up to 3 days for an update on your loan application");
           }
+          
+          // Add comment to loan signifying that Warranty interest has been submitted
+          var newComment = [
+            "Customer is interested in the following warranty plan: ",
+            converted_war_type, ", ",
+            warranty.term.months, " months, ",
+            warranty.term.miles * 1000, " miles. ",
+            "Starting at $", warranty.price, ". "
+          ].join('');
+          
+          // Add on comment and return to customer hub page
+          $http.post(window.location.href, {note: newComment, token: Factory.getToken()}).then(
+            function(res) { $window.location.href = '/profile/' + Factory.getToken(); });
         },
-
         function(error) {
           console.log(error);
           alert(errorMsg);
         });
-
-      // Add comment to loan signifying that Warranty interest has been submitted
-      var newComment = [
-        "Customer is interested in the following warranty plan: ",
-        converted_war_type, ", ",
-        warranty.term.months, " months, ",
-        warranty.term.miles * 1000, " miles. ",
-        "Starting at $", warranty.price, ". "
-      ].join('');
-
-      // this is a fast Factory call
-      $http.post(window.location.href, {note: newComment, token: Factory.getToken()});
     };
   }
 ]);
