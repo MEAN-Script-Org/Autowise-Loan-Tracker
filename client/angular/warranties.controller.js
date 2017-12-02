@@ -233,7 +233,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
           ].join('');
           
           // Add on comment and return to customer hub page
-          $http.post(window.location.href, {note: newComment, isAdminNote: false, token: Factory.getToken()}).then(
+          $http.post(window.location.href, {note: newComment, isAdminNote: true, token: Factory.getToken()}).then(
             function(res) { $window.location.href = '/profile/' + Factory.getToken(); });
         },
         function(error) {
