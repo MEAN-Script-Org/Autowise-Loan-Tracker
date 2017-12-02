@@ -6,9 +6,9 @@ mongoose.Promise = global.Promise;
 var Loan = require('./loans.model.js');
 
 // strategy ... create the comment content on the frontend... bye!
-function automatedComment(comment) {
+function automatedComment(comment, isAdmin = true) {
   var newComment = {
-    admin: true,
+    admin: isAdmin,
     writer: {
       name : "System",
     },
@@ -49,7 +49,7 @@ module.exports = {
     var oldLoan = req.loan;
 
     if (req.body.note) {
-      var newComment = automatedComment(req.body.note);
+      var newComment = automatedComment(req.body.note, req.body.isAdminNote);
       if (!req.body.comments) {
         req.body.comments = []
         req.body.comments.push(newComment);
