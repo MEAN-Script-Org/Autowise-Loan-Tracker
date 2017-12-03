@@ -1,96 +1,32 @@
-# Lean MEAN Client Machine
-
-## Sprint ~ 1.5 ~
+# Lean MEAN Client Machine Presents: 
+<center> <h1>Autowise Loan Tracking</h1> </center>
 
 ## Dependencies
-- [npm 6.x](https://nodejs.org/en/)
-- TBNeeded soon: [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- [Node.js and npm](https://nodejs.org/en/download)
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- [Python 3.x](https://www.python.org/downloads/) for automated tests
+<!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
+<!-- - All nodes packages listed [here](network/dependencies) (these are auto installed once you run the instructions below) -->
 
-## Installation
-- Clone
-- First Installation
-    - Run `npm run first-install`
-    - on Windows, MAKE SURE to have admin access on cmd/powershell when running this
-- Any other time
-    - Run `gulp` for automatic server and front end restart every time after that
-- Deployments will happen on every push to master (`git push origin master`)
+## Use
+- Clone or Download
+- Installation
+    - First time: `npm run first-install`
+        + **Note:** make sure **NOT** to have the project open in an IDE/Text Edition (e.g. [Sublime Text](sublimetext.com) or any of the other crappier alternatives out there). If issues persist after closing it, try to run the command with admin privileges.
+    + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
+        + For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
++ Deployments
+    + Automatically on every push to master if you have set up automatic deployment in Heroku
+        * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+            *  Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+    + Once connected with Heroku's git  (`git push heroku master`)
+- Testing
+    + First time: `npm run first-tests`
+    + Later: `npm run tests`
 
-## TODO
-### Profile Creation:
-- Required: First+Last Name, DOB, and Drivers License #
-- Optional: email (should still be there)
-- CHANGE TO MOCKUP: No adds on signup page
-- Need Different signup for admins (same view, different backend implementation). **to figure out**.
-    - Basic admin email: autowisecars@yahoo.com. 
+<!-- Popular Heroku Command -->
+<!-- For a Bigger DB: https://devcenter.heroku.com/articles/mongolab#changing-plans -->
 
-### DB Structure
-- Users
-    + username : string
-    + passwords : hash
-    + isAdmin : bool
-    + loans : other DB object/array of ids of loans, 1+ possible
 
-+ Loans
-    - Status : enum?/strings. 
-        - MUST BE VISIBLE on description/without clicking on them
-        - They can be
-            + RECEIVED/SUBMITTED
-                - RECEIVED => FROM OFFICE
-                - SUBMITTED => FROM BANK
-            + APPROVED/DENIED
-            + ^ most important ones
-            + PENDING => everything in the process
-            + VERIFIED => REVIEWED APP, things are ok
-        + Archived : bool. True if (APPROVED/DENIED)
-    - Costs
-        - Taxes
-        - Warranties ? => CHECK PICTURES. NEED MORE DETAILS
-    - Types
-        - Auto Loan => default
-        - Repair
-        - Admin - need more details on this. Administrative fees?
-    - Trades
-        - default to false/'[]' (empty array - which is 'falsey')
-        - ADMIN puts in trade information later
-    - Messages
-        - Content : array with messages in reverse chronological order (easy to flip in angular)
-            + Need more clafication of what to put 'on top' as important message
-        - Date/timestamps - format tba later. not that important
-        - visibleToConsumer : bool
-        - important : bool
-        - CHANGE TO MOCKUP: Same area as normal info
-
-* Admin view:
-    - Have to be able to change/add the above
-    - On edit, there should an checkbox that decides whether to email the customer (if they have an email) or not about the update.
-    - **REACH**: Option to text the customer. This will **co$t** (twilio etc).
-
-### Ads were never mentioned on the last phone call
-
-### Admin Portal
-- Should be able to see ALL loans
-    + One tab for current ones
-    + One for archived ones (APPROVED/DENIED)
-    + **REACH**: Search for them. maybe it'll be simple with angular filtering??
-- Be able to put notes
-    - Common ones that need to be put as part of dropdown of possible options:
-        - INSURANCE
-        - CO-SIGNER
-        - TAG #
-        - COPY OF DD - need to handle image submission - need a Heroku add-on (S3 from AWS?)
-            + There's a bower module called `ng-file-upload` in the public folder
-    - Display this on the top under the basic loan info as 'WHAT WE NEED NEXT'
-    - Multiple/1+ of these possible
-
-I'm thinking of something like this, with *click* and expand functionality
-![bleh_mockup](blah_mockup.png)
-
-### Later need to figure out CNAME subdomain forwarding
-
-### Agreed Development/Git Information
-- Naming Conventions
-    - Code: CamelCase
-    - Branch Names: ALL LOWERCASE, '_' FOR SPACES, **sprint'#'_feature_name**
-    - On sprint end: Optionally, merge feature branches with the master
-
-Others from [*sprint 1 README*](https://github.com/MEAN-Script-Org/sprint1/blob/master/README.md)
+<!-- - Basic admin email: autowisecars@yahoo.com.  -->
+## Documentation
