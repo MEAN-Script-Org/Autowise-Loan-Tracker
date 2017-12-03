@@ -32,6 +32,10 @@ describe('TEST GROUP III - GENERAL NAVIGATION: ', function() {
   // TESTING FUNCTIONS
   //--------------------------------------------------------------------------------------------------------------------
   
+  onPrepare: function() {
+    browser.manage().window().setSize(1600, 1000);
+  }
+  
   // Before all tests, load the admin hub page
   beforeAll(function() {
     browser.get('http://localhost:5001/') ;
@@ -40,8 +44,11 @@ describe('TEST GROUP III - GENERAL NAVIGATION: ', function() {
     element(by.model('username')).sendKeys('super') ;
     element(by.model('password')).sendKeys('admin') ;
     
+    var EC = protractor.ExpectedConditions;
+    browser.wait(EC.elementToBeClickable(by.id('button-login')), 5000);
+    
     // Click 'Login' button
-    element(by.buttonText('Login')).click() ;
+    element(by.id('button-login')).click() ;
     
     browser.waitForAngular() ;
   });
@@ -65,70 +72,5 @@ describe('TEST GROUP III - GENERAL NAVIGATION: ', function() {
       // Verify page title is the destination page
       //expect(LE.loanHeader.getText()).toContain('Oswald the Lucky') ;
     }
-  });
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.1: Loan buyer's order editing
-  //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.1: Loan buyer\'s order editing', function() {
-    console.log('Test #1.1: Loan buyer\'s order editing') ;
-    
-    var LE = extractLoanElements() ;
-    
-    // Expand loan accordion
-    LE.loanHeader.click() ;
-    
-    // Open 'edit buyer's order' modal dialog
-    LE.buttonEdit.click() ;
-    
-    // Overwrite name field
-    LE.nameField.clear() ;
-    LE.nameField.sendKeys('Oswald the Lucky Rabbit') ;
-    
-    // Confirm updated buyer's order
-    LE.buttonUpdateBO.click() ;
-    
-    // Confirm alert
-    browser.driver.sleep(500) ;
-    browser.switchTo().alert().accept() ;
-    
-    // Verify that name on buyer's order has changed
-    // The entire name won't fit on the header
-    expect(LE.loanHeader.getText()).toContain('Oswald the Lucky') ;
-    
-    // Collapse loan accordion
-    LE.loanHeader.click() ;
-  });
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.2: Loan warranty editing
-  //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.2: Loan warranty editing', function() {
-    console.log('Test #1.2: Loan warranty editing') ;
-    
-    var LE = extractLoanElements() ;
-    
-    // Expand loan accordion
-    LE.loanHeader.click() ;
-    
-    // Open 'update warranty' modal dialog
-    LE.buttonWarranty.click() ;
-    
-    // Overwrite months field
-    LE.monthsFiled.clear() ;
-    LE.monthsFiled.sendKeys('48') ;
-    
-    // Confirm updated warranty plan
-    LE.buttonUpdateWarranty.click() ;
-    
-    // Confirm alert
-    browser.driver.sleep(500) ;
-    browser.switchTo().alert().accept() ;
-    
-    // Verify that months on warranty has been added/changed
-    expect(LE.warrantyBar.getText()).toContain('48') ;
-    
-    // Collapse loan accordion
-    LE.loanHeader.click() ;
   });
 });
