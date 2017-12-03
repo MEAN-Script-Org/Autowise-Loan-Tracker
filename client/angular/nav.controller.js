@@ -12,7 +12,7 @@ angular.module('SWEApp').controller('Navigation',
       // Determine URL from specified key
       switch (key) {
         case 'loans'   : url = '/profile/'             + token ; break ;
-        case 'account' : url = '/profile/userinfo/'    + token ; break ;
+        case 'account' : url = '/profile/account/'     + token ; break ;
         case 'perm'    : url = '/profile/permissions/' + token ; break ;
         default        : ;
       }
