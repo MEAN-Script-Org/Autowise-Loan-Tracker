@@ -20,7 +20,7 @@ router.route('/email')
 // Multiple loans
 router.route('/loans')
       .put(loans.getAll)
-      .post(loans.create);
+      .post(loans.create, users.affixLoans);
       
 // Individual loan
 router.route('/loan/:loanID')

@@ -3,8 +3,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 require('mongoose-type-email');
 
-var Loan = require('./loans.model.js') ;
-
 // Define user schema
 var userSchema = new mongoose.Schema({
   username: {

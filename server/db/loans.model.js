@@ -2,8 +2,6 @@ var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 require('mongoose-type-email');
 
-var User_model = require('./users.model.js') ;
-
 //----------------------------------------------------------------------------------------------------------------------
 // LOAN SCHEMA
 //======================================================================================================================
@@ -218,66 +216,34 @@ function formatDates(bo) {
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('save', function(next) {
-  // console.log("HEY!") ;
-  
   // Forcing this
   this.status = "RECEIVED";
   
   var currentDate = new Date();
-  // these could be used for filtering ~ but idk too fancy no time
+  // these could be used for filtering ~ but too fancy, no time
   this.updated_at = currentDate;
 
   if (!this.created_at)
     this.created_at = currentDate;
 
   // CORRECLTY Format all dates
-  if (!(this.buyers_order = formatDates(this.buyers_order)))
-    next();
+  this.buyers_order = formatDates(this.buyers_order);
 
-  // Find all loans according to the query, affix this user's id to them
-  // var loan_id = this.id;
-  // console.log(loan_id);
-
-  // LOAN TO USER AFFIXING DOESN'T WORK!
-  // if (!User_model.find({ loans: loan_id }, function(err, users) {
-  //   var temp_users = [];
-  //   console.log(users.length);
-
-  //   if (err) console.log(err);
-  //   else {
-  //     // Update found users with loan ID
-  //     users.forEach(function(user) {
-  //       user.loans.push(loan_id);
-
-  //       User_model.findByIdAndUpdate(user._id, user, {new: true},
-  //         function(err, updated) {
-  //         console.log("NEW!: ", updated);
-  //       });
-  //     });
-  //   }
-  // }))
-  //   this.user_ids = temp_users;
-});
-
-//--------------------------------------------------------------------------------------------------------------------
-// POST-PROCESSING: save
-//--------------------------------------------------------------------------------------------------------------------
-loanSchema.post('save', function() {
-  // Attempt to affix this loan to an existing user
+  next();
 });
 
 //--------------------------------------------------------------------------------------------------------------------
 // RE-PROCESSING: update
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('findOneAndUpdate', function() {
-  this._update.status = this._update.status.toUpperCase();
+  var loan = this._update;
+  loan.status = loan.status.toUpperCase();
 
   // CORRECLTY Format all dates
   // ALL THE TIME!
-  // this.updated_at = new Date();
-  if (!(this._update.buyers_order = formatDates(this._update.buyers_order))) {
-    next();
-  }
+  loan.buyers_order = formatDates(loan.buyers_order);
+  this._update = loan;
+  next();
 });
 
 // Create loan model from schema

@@ -25,8 +25,8 @@ angular.module('SWEApp').controller(
       insr: {},
       car_info: {},
       purchaser: {},
+      copurchaser: {},
       finances: { admin_fees: 489 },
-      copurchaser: { invalid: "true" },
     };
 
     $scope.init = function() {
