@@ -5,15 +5,14 @@
 - Quick local links to subtitles
 TBA
 
-<!-- @Marcial: Images stored at "Documentation/Images" -->
 <!-- ![image](documentation/images/test.png) -->
-<!-- no caps folder names :p (cuz y not)  -->
+<!-- no need for forced section separators/dividors  -->
 
 # Site Access and Deployment
 
-## Proejct Dependencies
+## Project Dependencies
 - [Node.js and npm](https://nodejs.org/en/download)
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-clii#download-and-install)
 - [Python 3.x](https://www.python.org/downloads/) for automated tests
 <!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
 <!-- - All nodes packages listed [here](network/dependencies) (these are auto installed once you run the instructions below) -->
@@ -21,21 +20,27 @@ TBA
 ## Local Installation and Execution
 - Clone or Download
 - Installation
+    * Connect to Heroku
+        - Run `heroku login` to authenticate into your Heroku account
+        - Connect to the app: `heroku git:remote -a autowise`
+            + **NOTE:** Gulp, will **NOT** work if you don't do this (and by extension **NOTHING WILL**)
     - First time: `npm run first-install`
         + **Note:** make sure **NOT** to have the project open in an IDE/Text Edition (e.g. [Sublime Text](sublimetext.com) or any of the other crappier alternatives out there). If issues persist after closing it, try to run the command with admin privileges.
     + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
         + For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
-+ Deployments
+- Deployments
     + Automatically on every push to master if you have set up automatic deployment in Heroku
         * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-            *  Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
-    + Once connected with Heroku's git  (`git push heroku master`)
+            *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+    + Or, manually once connected with Heroku's git: `git push heroku master`
 - Testing
     + First time: `npm run first-tests`
     + Later: `npm run tests`
 
 <!-- Popular Heroku Command -->
 <!-- For a Bigger DB: hfttps://devcenter.heroku.com/articles/mongolab#changing-plans -->
+
+
 
 # App Functionality
 
@@ -82,10 +87,14 @@ If a Loan is selected, when you hover over the circular "+" button in the lower 
 
 (Add screenshot)
 
+
+
 ## User Management
 TBD
 
-----
+
+
+
 # Database Structures
 
 ## Loan Schema
