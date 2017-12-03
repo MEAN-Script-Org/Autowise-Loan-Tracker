@@ -1,7 +1,9 @@
+<!-- # Lean MEAN Client Machine Presents:  -->
+# Autowise Loan Tracking
 
 <!-- @Marcial: Images stored at "Documentation/Images" -->
-
 <!-- ![Image](Documentation/Images/Test.png) -->
+
 # Site Access and Deployment
 
 ## Proejct Dependencies
