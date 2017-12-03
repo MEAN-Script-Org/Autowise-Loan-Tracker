@@ -6,7 +6,8 @@
 TBA
 
 <!-- @Marcial: Images stored at "Documentation/Images" -->
-<!-- ![Image](Documentation/Images/Test.png) -->
+<!-- ![image](documentation/images/test.png) -->
+<!-- no caps folder names :p (cuz y not)  -->
 
 # Site Access and Deployment
 
