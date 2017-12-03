@@ -181,14 +181,14 @@ var loanSchema = new mongoose.Schema({
 //   return new Date(string).toLocaleDateString('km-KH');
 // }
 
-function american_date(string) {
-  // mm/dd/YYYY with missing zeros if mm and dd < 10
-  return new Date(string).toLocaleDateString();
-}
-
 function mm_dd_yyyy(string) {
   // mm/dd/YYYY
   return new Date(string).toLocaleDateString('es-PA');
+}
+
+function american_date(string) {
+  // mm/dd/YYYY with missing zeros if mm and dd < 10
+  return new Date(string).toLocaleDateString();
 }
 
 function formatDates(bo) {

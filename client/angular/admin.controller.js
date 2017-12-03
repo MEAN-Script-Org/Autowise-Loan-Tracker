@@ -396,10 +396,6 @@ angular.module('SWEApp').controller(
       }
     }
 
-    $scope.goToPermissions = function() {
-      $window.location.href = '/profile/permissions/' + Factory.getToken();
-    }
-
     $scope.checkTrigger = function(loanID) {
       let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
       if (stateUpdate != -1) {

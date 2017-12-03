@@ -47,7 +47,7 @@ module.exports.init = function() {
   app.use('/', login_routes);
   app.use('/login', auth.login);
 
-  app.use('/new', users.create, auth.login);
+  app.use('/new', users.create, loans.affix, auth.login);
   app.use('/usernames', users.getAll, users.getAllUsernames);
 
   // automatic reroute here

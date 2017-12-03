@@ -38,6 +38,7 @@ module.exports = {
           } 
         } else {
           console.log(realNewUser);
+          req.new = newUser;
           next();
         }
       });
