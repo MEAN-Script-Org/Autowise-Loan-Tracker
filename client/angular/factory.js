@@ -44,8 +44,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         
         return $http.post('/new', args).then(
           function(res) {
-            // alert(Factory.getToken());
-            console.log(res.data);
+            addToken(res.data);
 
             // For whoever wants to improve the security of this project later on:
             // https://stackoverflow.com/questions/30498646/how-to-send-json-and-parse-it-on-next-html-page-through-url-in-jquery

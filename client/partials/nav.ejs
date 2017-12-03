@@ -19,25 +19,25 @@
           
           <ul class="dropdown-menu">
             <li>
-              <a href="#" ng-click="goTo('loans')">
+              <a id="nav-loans" href="#" ng-click="goTo('loans')">
                 Loans
               </a>
               <div class="divider"></div>
             </li>
             <li>
-              <a href="#" ng-click="goTo('account')">
+              <a id="nav-account" href="#" ng-click="goTo('account')">
                 Account
               </a>
               <div class="divider"></div>
             </li>
             <li ng-show="user.isSuperAdmin">
-              <a href="#" ng-click="goTo('perm')">
-                User Magement
+              <a id="nav-manage" href="#" ng-click="goTo('perm')">
+                User Management
               </a>
               <div class="divider"></div>
             </li>
             <li>
-              <a href="#" ng-click="logout()">
+              <a id="nav-logout" href="#" ng-click="logout()">
                 Log out
               </a>
             </li>

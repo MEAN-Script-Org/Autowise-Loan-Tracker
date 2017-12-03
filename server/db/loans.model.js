@@ -55,7 +55,8 @@ var loanSchema = new mongoose.Schema({
       name:     {type:   String, required: true},
       email:    {type:   mongoose.SchemaTypes.Email, required: false},
       dl:       {type:   String, required: true},
-      dob:      {type:   String,   required: true},
+      dob:      {type:   String, required: true},
+      dob_extra:{type:   String, },
 
       // Contact information
       address: {
@@ -78,6 +79,7 @@ var loanSchema = new mongoose.Schema({
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
       dob:     {type:   String, /*required: false*/},
+     dob_extra:{type:   String, /*required: false*/},
 
       // Contact information
       address: {
@@ -171,7 +173,6 @@ var loanSchema = new mongoose.Schema({
       good_thru:   String,
     },
   }
-
 });
 
 // function yyyy_mm_dd(string) {
@@ -182,16 +183,24 @@ var loanSchema = new mongoose.Schema({
 
 function mm_dd_yyyy(string) {
   // mm/dd/YYYY
-  return new Date(string).toLocaleDateString('en-IR');
+  return new Date(string).toLocaleDateString('es-PA');
 }
 
+function american_date(string) {
+  // mm/dd/YYYY with missing zeros if mm and dd < 10
+  return new Date(string).toLocaleDateString();
+}
 
 function formatDates(bo) {
+  // forming dates to string-friendly searchable formate
 
   bo.purchaser.dob = mm_dd_yyyy(bo.purchaser.dob);
+  bo.purchaser.dob_extra = american_date(bo.purchaser.dob);
 
-  if (bo.copurchaser.dob)
+  if (bo.copurchaser.dob) {
     bo.copurchaser.dob = mm_dd_yyyy(bo.copurchaser.dob);
+    bo.copurchaser.dob_extra = american_date(bo.copurchaser.dob);
+  }
   
   if (bo.car_info.exp_date)
     bo.car_info.exp_date = mm_dd_yyyy(bo.car_info.exp_date);
