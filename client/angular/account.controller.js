@@ -9,14 +9,15 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
       // Fetch user information
       Factory.getUserInfo().then(
         function(res) {
-          $rootScope.user = res.data;
-          $rootScope.isAdmin = $rootScope.user.isAdmin;
-          // console.log(res.data);
+          if (res.data) {
+            $rootScope.user = res.data;
+            $rootScope.isAdmin = $rootScope.user.isAdmin;
+            $rootScope.user.dob = new Date(res.data.dob).toLocaleDateString("es-PA");
+          }
       });
     }
 
     $scope.changePasswordSubmit = function(pwd, pw1, pw2) {
-
       // TODO: Implement this the way login/register is done ~
       if (pwd == null || pw1 == null || pw2 == null) {
         alert("Password cannot be blank!")

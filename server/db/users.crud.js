@@ -47,7 +47,8 @@ module.exports = {
   },
 
   read: function(req, res) {
-    res.json(req.body.token) ;
+    // console.log(req.body.token);
+    res.json(req.body.token);
   },
 
   update: function(req, res) {
@@ -112,12 +113,6 @@ module.exports = {
   },
   
   userByID: function(req, res, next, id) {
-    if (!id && req.body.token)
-      id = req.body.token.id;
-
-    console.log(id, req.body, req.body.token);
-
-    if (id) {
     User.findById(id).exec(function(err, user) {
       if (err) {
         console.log(err) ;
@@ -128,6 +123,5 @@ module.exports = {
         next() ;
       }
     });
-    }
   }
 };

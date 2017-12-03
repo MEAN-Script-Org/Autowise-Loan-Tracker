@@ -20,7 +20,7 @@ angular.module('SWEApp').controller('Permissions',
 
         // Formatting dates
         $rootScope.users.forEach(function(item, index, obj) {
-          obj[index].dob = new Date(item.dob).toLocaleDateString('en-IR');
+          obj[index].dob = new Date(item.dob).toLocaleDateString('es-PA');
         });
       },
       function(err) {

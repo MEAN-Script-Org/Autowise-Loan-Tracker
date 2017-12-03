@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var auth = require("./auth.js");
-var api_routes = require('./routes.js');
+var api_routes = require('./api_routes.js');
 var login_routes = require('./login_routes.js');
 var profile_routes = require('./profile_routes.js');
 
