@@ -6,68 +6,97 @@
 </head>
 
 <body>
-  <div class="">
-    <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1" 
-      ng-app="SWEApp" ng-controller="Permissions" ng-init="init()">
-      <% include partials/nav.ejs %>
+  <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1" 
+    ng-app="SWEApp" ng-controller="Permissions" ng-init="init()">
+    <% include partials/nav.ejs %>
 
-      <div class="">
-        <div class="centered-text">
-          <h1>User Permissions</h1>
+    <div id="permissionsTable">
+      <div class="centered-text">
+        <h1>User Permissions</h1>
+      </div>
+
+      <!-- 
+      <div>
+        <b>Legend:</b> 
+        <ul>
+          <div class="m-col-1"> &nbsp; </div>
+          <div class="m-col-3"> Customer </div>
+          <div class="m-col-3"> <b>Admin User</b> </div>
+          <div class="m-col-3"> <span class="isSuperAdmin"><b>Super Admin User</b></span> </div>
+        </ul>
+      </div>
+       -->
+        
+      <br>
+
+      <input class="sb-search-input" placeholder="Search for a customer or employee" ng-model="query" type="text">
+
+      <br>
+      <br>
+
+      <div ng-show="loading" id="loading">
+        <img id="loader" ng-show="loading" src="<%- path -%>/resources/load.gif">
+        <div class="load-txt">Loading</div>
+      </div>
+
+      <div class="centered-text users-header invisible {{visible}}" ng-show="!loading && filtered_users.length > 0">
+        <span class="m-col-2">
+          Name 
+          <a href="">
+          <em class="fa fa-info-circle" 
+              ng-mouseenter="InfoTip=true" 
+              ng-mouseleave="InfoTip=false"></em>
+          </a>
+        </span>
+        <span class="m-col-2">DOB</span>
+        <span class="m-col-3">Option #1</span>
+        <span class="m-col-3">Option #2</span>
+        <span class="m-col-1" style="left: -7px">Delete</span>
+      </div>
+
+      <div class="users-table invisible {{visible}}" ng-hide="loading" >
+        <div ng-repeat="user in filtered_users = (users | filter: query)" 
+             class="centered-text" style="clear: both">
+          <!-- I have classes isAdmin isSuperAdmin that distinguishes them ~ -->
+          <span class="btn m-col-2 {{user.isAdmin ? 'isAdmin' : ''}} {{user.isSuperAdmin ? 'isSuperAdmin' : ''}}"> {{user.name}} </span>
+
+          <span class="btn m-col-2"> {{user.dob}} </span>
+          <!-- TODO: Add ng-click to these -->
+          <span class="m-col-3" ng-show="user.isAdmin">
+            <button class="btn btn-md" data-target="#regUser" data-toggle="modal">Make Customer</button>
+          </span>
+          <span class="m-col-3" ng-show="user.isSuperAdmin || !user.isAdmin">
+            <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal">Make Admin</button>
+          </span>
+          <span class="m-col-3" ng-hide="user.isSuperAdmin">
+            <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal">Make Super Admin</button>
+          </span>
+          <span class="m-col-1">
+            <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal"> <em class="fa fa-trash"></em></button>
+          </span>
+          <span></span>
         </div>
-          
-        <br>
+        <h3 style="background: #f1f4f7;" ng-hide="filtered_users.length > 0" class="centered-text">
+          No results. Either change the filters or log in again
+        </h3>
+      </div>
 
-        <input class="sb-search-input" placeholder="Search for a customer or employee" ng-model="query" type="text">
-  
-        <br>
-        <br>
+    </div>
 
-        <div ng-show="loading" id="loading">
-          <img id="loader" ng-show="loading" src="<%- path -%>/resources/load.gif">
-          <div class="load-txt">Loading</div>
-        </div>
-
-        <div class="centered-text users-header invisible {{visible}}" ng-show="!loading && filtered_users.length > 0">
-          <span class="m-col-2">Name</span>
-          <span class="m-col-2">DOB</span>
-          <span class="m-col-3">Option #1</span>
-          <span class="m-col-3">Option #2</span>
-          <span class="m-col-1" style="left: -7px">Delete</span>
-        </div>
-
-        <div class="users-table invisible {{visible}}" ng-hide="loading" >
-          <div ng-repeat="user in filtered_users = (users | filter: query)" 
-               class="centered-text" style="clear: both">
-            <!-- I have classes isAdmin isSuperAdmin that distinguishes them ~ -->
-            <span class="m-col-2"> {{user.name}} </span>
-            <span class="m-col-2"> {{user.dob}} </span>
-            <!-- TODO: Add ng-click to these -->
-            <span class="m-col-3" ng-show="user.isAdmin">
-              <button class="btn btn-md" data-target="#regUser" data-toggle="modal">Make Customer</button>
-            </span>
-            <span class="m-col-3" ng-show="user.isSuperAdmin || !user.isAdmin">
-              <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal">Make Admin</button>
-            </span>
-            <span class="m-col-3" ng-hide="user.isSuperAdmin">
-              <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal">Make Super Admin</button>
-            </span>
-            <span class="m-col-1">
-              <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal"> <em class="fa fa-trash"></em></button>
-            </span>
-            <span></span>
-          </div>
-          <h3 style="background: #f1f4f7;" ng-hide="filtered_users.length > 0" class="centered-text">
-            No results. Either change the filters or log in again
-          </h3>
-        </div>
-
+    <div class="invisible {{visible}}">
+      <div class="label-container fadeTip label-text InfoTip" ng-show="InfoTip">
+        Legend:
+          <li> Customers </li>
+          <li> <b>Admins</b> </li>
+          <li> <b style="color: red">Super Admins</b> </li>
       </div>
     </div>
+
   </div>
+  <!-- style="position: absolute; top: 87%; left: 2%;" -->
   <br>
   <% include partials/modals.ejs %>
-    <% include partials/footer.ejs %>
+  <% include partials/footer.ejs %>
 </body>
 
 </html>

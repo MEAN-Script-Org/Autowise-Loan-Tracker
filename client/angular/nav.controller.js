@@ -1,5 +1,5 @@
-
-angular.module('SWEApp').controller('Navigation', ['$rootScope', '$scope', '$location', '$window', 'Factory',
+angular.module('SWEApp').controller('Navigation', 
+  ['$rootScope', '$scope', '$location', '$window', 'Factory',
   function($rootScope, $scope, $location, $window, Factory) {
     
     //--------------------------------------------------------------------------------------------------------------------
@@ -18,7 +18,9 @@ angular.module('SWEApp').controller('Navigation', ['$rootScope', '$scope', '$loc
       }
       
       // Assign URL and load destination page
-      $window.location.href = url ;
+      if ($window.location.pathname != url){
+        $window.location.href = url ;
+      }
     }
     
     //--------------------------------------------------------------------------------------------------------------------

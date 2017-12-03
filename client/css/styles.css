@@ -232,9 +232,8 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -80px;
+  left: -85px;
   padding: 8px;
-  text-align: center;
 }
 
 .dropdown-menu li a.danger:hover {
@@ -1698,6 +1697,17 @@ input[type="date"]:valid:before {
   right: 78px;
 }
 
+.label-container.InfoTip {
+  background: black;
+  list-style: none;
+  z-index: 1;
+  top: 19%;
+  left: 21%;
+}
+.label-container.InfoTip > * {
+  padding-left: 15px;
+}
+
 .label-text {
   color: #FFF;
   background: rgba(51, 51, 51, 0.5);
@@ -2429,6 +2439,18 @@ div.ng-show {
 
 /* User Permissions page styles */
 
+.isAdmin {
+  font-weight: bold;
+}
+
+.isSuperAdmin {
+  color: red;
+}
+
+.isSuperAdmin:hover {
+  color: red;
+}
+
 .users-header {
   margin-bottom: 5px;
 }
@@ -2457,12 +2479,22 @@ div.ng-show {
 .m-col-2,
 .m-col-3 {
   float: left;
+  cursor: text;
+  user-select: text;
+  
   position: relative;
   min-height: 1px;
-  padding-right: 15px;
   padding-left: 15px;
+  padding-right: 15px;
+  white-space: normal;
 }
 
+.m-col-1:active,
+.m-col-2:active,
+.m-col-3:active {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
 
 /* Final touches: auto increased font size, and better responsiveness */
 
