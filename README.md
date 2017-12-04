@@ -136,3 +136,78 @@ TBD
     + passwords : hash
     + isAdmin : bool
     + loans : other DB object/array of ids of loans, 1+ possible
+    
+# File Descriptions & Folder Structure
+The following details the folder structure of the application and the purposes of each file
+Files are _italicized_
+
+- client: files and scripts run or viewed on the client (user) side
+  + angular: Angular code driving customer views
+    * _account.controller.js:_ drives functionality of the user info view
+    * _admin.controller.js:_ drives functionality of the admin loan database view
+    * _app.js:_ registers the module app which all controllers belong to
+    * _controller-template.js:_ template file for additional controllers
+    * _customer.controller.js:_ drives functionality of the customer loan view
+    * _custom-filters.js:_ drives functionality of the admin loan filtering
+    * _factory.js:_ handles requests from the client to the server and back. Methods defined here are used in nearly every controller
+    * _login.controller.js:_ drives functionality of the login and registration view
+    * _nav.controller.js:_ drives functionality of webiste navigation
+    * _permissions.controller.js:_ drives functionality of the super admin edit account permissions view
+    * _warranties.controller.js:_ drives functionality of the customer warranties request view
+  + css: files of css stylings
+  + dependencies: Angular javascript dependencies
+  + fonts: fonts used by the css stylings
+  + js: additional javascript dependences
+  + partials: smaller chuncks of HTML content included by the main views
+    * _accordion-comments.ejs:_ HTML for loan comment functionality
+    * _account-contact-autowise.ejs:_ ??
+    * _actions-row.ejs:_ action buttons appearing under the header of a loan visible to admins
+    * _admin-filters.ejs:_ admin loan filtering and search bar
+    * _buyers-order.ejs:_ dialog displaying the Buyer's Order
+    * _footer.ejs:_ script include statements used in main views
+    * _google_buttons.ejs:_ admin loan create/edit buttons
+    * _header.ejs:_ ??
+    * _modals.ejs:_ various modal dialogs
+    * _nav.ejs:_ website navigation in the top right corner of each page
+    * _progress-row.ejs:_ unused now??
+    * _warranty-row.ejs:_ the warranty plan on a loan under the loan header
+  + resources: images and other miscellaneous files
+  + _account.ejs:_ user account information view 
+  + _admin.ejs:_ admin loan database view (also referred to as the **admin view**)
+  + _customer.ejs:_ customer loan view (also referred to as the **customer view**)
+  + _login.ejs:_ login and register view
+  + _permissions.ejs:_ super admin account management view
+  + _warranties.ejs:_ customer warranty plan request view
+  + _md5-device-fingerprint.js:_ ?? (no idea why this is here AND in the 'js' folder...)
+- documentation: resources used in this document
+- node_modules: imported javascript libraries. There should be no need to access the contents of this folder
+- server: files and scripts run on the server side
+  + db: files defining database objects and server-side database operations
+    * _loans.crud.js:_ details CRUD operations on Loan database objects
+    * _loans.model.js:_ defines the Loan database schema and several server side Loan operations
+    * _users.crud.js:_ details CRUD operations on User database objects
+    * _users.model.js:_ defines the User database schema and several server side User operations
+  + _api_routes.js:_ defines routing for api requests including loan and user management
+  + _app.js:_ server side application initialization, called from the'server.js' file at the top-level directory
+  + _auth.js:_ provides authentication functionality including password verification and hashing
+  + _emailing.js:_ provides emailing functionality
+  + _express.js:_ defines top-level routing which is further detailed by one of the other routing files
+  + _login_routes.js:_ defines routing for user login and registration requests
+  + _profile_routes.js:_ defines routing for "logged-in" pages, such as the user account info view
+- unit_testing: files and scripts used in app testing. More detail is presented in the Testing Specifications section
+- _.env:_ ??
+- _.env.example:_ ??
+- _Procfile:_ ??
+- _gulpfile.js:_ details configuration of gulp when the 'gulp' command is executed
+- _server.js:_ top-level file that starts the server and runs the application
+- _app.json:_ ??
+- _package.json:_ details dependencies and libraries that are installed to the 'node_modules' folder
+- _package-lock.json:_ ??
+- _README.md:_ open it and find out
+- _test.py:_ master testing file to be run in a Python environment (i.e. `python test.py` to run)
+- _.gitignore:_ git ignore file
+- _final client meeting notes.text:_ WHY IS THIS HERE
+
+# Testing Specifications
+
+TBD
