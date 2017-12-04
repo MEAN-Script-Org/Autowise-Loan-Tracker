@@ -4,7 +4,6 @@
   <% include partials/header.ejs %>
 </head>
 <body>
-  <!-- col-sm-offset-1 col-lg-offset-1 -->
   <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main" ng-app="SWEApp" ng-controller="CustomerController" ng-init="init()">
     <% include partials/nav.ejs %>
     
@@ -14,6 +13,7 @@
       </div>
       <hr>
       <div class="container-accordion">
+        
         <!-- Loading image -->
         <div ng-show="loading" id="loading">
           <img id="loader" ng-show="loading" src="<%- path -%>/resources/load.gif">
@@ -22,23 +22,26 @@
         
         <!-- Loans -->
         <div ng-hide="loading" class="accordion invisible {{visible}}">
+
           <!-- TODO: restructure this COMPLETELY  -->
           <!-- ng-show="loans.length > 0"  -->
           <div ng-repeat="loan in loans">
             <div class="tab-content">
-              <!-- TODO: custom view for these?? -->
-              <% include partials/warranty-row.ejs %>
-              <% include partials/accordion-comments.ejs %>
-              
+
+              <!-- TODO: implement this ~ beautifully ~ -->
               <!-- Link to warranties page -->
               <div class="item col-sm-6">
                 <a href='#' ng-click="goToWarranties(loan._id)">
                       <em class="fa fa-5x fa-shield"></em><div>Request a warranty plan</div></a>
                 <div class="divider"></div>
+              
               </div>
+              <!-- TODO: fix these for customer -->
+              <% include partials/progress-row.ejs %>
+              <% include partials/warranty-row.ejs %>
+              <% include partials/accordion-comments.ejs %>
             </div>
           </div>
-          <!-- end -->
 
           <h3 style="background: #f1f4f7;" ng-hide="loans.length > 0" class="centered-text">
             You currently have no active loans

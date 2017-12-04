@@ -1914,7 +1914,7 @@ div.ng-show {
 .inputMODAL:valid~label,
 .inputMODAL:focus~label {
   top: -2px;
-  font-size: 10px;
+  font-size: 10.5px;
   color: #38cc70;
 }
 

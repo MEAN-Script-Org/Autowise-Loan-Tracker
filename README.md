@@ -1,62 +1,73 @@
-<!-- # Lean MEAN Client Machine Presents:  -->
-# Autowise Loan Tracking
+<!-- Move this to the top?? -->
+# TODOs for successful client transition
+  + Sign up for [Heroku](https://signup.heroku.com/)
+  + Be added as a collaborator to our current project (need email)
+  + Transfer project ownership
+  + Know how to modify/remove Heroku variables
+    + [Instructions](#later)
+  + Get email variables for automated emailing 
+    + [Instructions](#later)
+  + Link inventory website to https://autowise.herokuapp.com
+  + All of this will cost you:
+    + $0/month **_for now_**, until DB capacity (512MB) is reached
+    + Prices given current DB provider (mLab) then go to $15/month/GB
+  + Enjoy
 
-## Table of Contents
-- Quick local links to subtitles
-TBA
+## Technical Recommendations
+- Scaling: Transitioning to a bigger database of the same provider [instructions](https://devcenter.heroku.com/articles/mongolab#changing-plans)
+  - Recommendation: Have archived loans as a static JSON/mongodump file in a S3 bucket or similar storage/CDN service. Only retrieve them when searching for them, and modify that file as such. 
+  - Implementation: Change 'archived_filter' on *custom-filters.js*, reset loading for this, add a new Factory ↔ Express interaction, add/remove loans to active MongoDB on loan 'revival' or death. Done.
+    - *Learning opportunity* if no prior experience with these services
+
+
+<!-- # Lean MEAN Client Machine Presents:  -->
+# Autowise Loan Tracking Documentation
 
 <!-- 
 Definitions table?
 Popup == modal == dialog?
  -->
-
-<!-- ![image](documentation/images/test.png) -->
 <!-- no need for forced section separators/dividors  -->
+<!-- ![image](documentation/images/test.png) -->
 
-# Site Access and Deployment
-
-## Project Dependencies
-- [Node.js and npm](https://nodejs.org/en/download)
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-clii#download-and-install)
-- [Python 3.x](https://www.python.org/downloads/) for automated tests
-<!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
-<!-- - All nodes packages listed [here](network/dependencies) (these are auto installed once you run the instructions below) -->
-
-## Local Installation and Execution
-- Clone or Download
-- Installation
-    * Connect to Heroku
-        - Run `heroku login` to authenticate into your Heroku account
-        - Connect to the app: `heroku git:remote -a autowise`
-            + **NOTE:** Gulp, will **NOT** work if you don't do this (and by extension **NOTHING WILL**)
-    - First time: `npm run first-install`
-        + **Note:** make sure **NOT** to have the project open in an IDE/Text Edition (e.g. [Sublime Text](sublimetext.com) or any of the other crappier alternatives out there). If issues persist after closing it, try to run the command with admin privileges.
-    + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
-        + For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
-- Deployments
-    + Automatically on every push to master if you have set up automatic deployment in Heroku
-        * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-            *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
-    + Or, manually once connected with Heroku's git: `git push heroku master`
-- Testing
-    + First time: `npm run first-tests`
-    + Later: `npm run tests`
-
-<!-- Popular Heroku Command -->
-<!-- For a Bigger DB: hfttps://devcenter.heroku.com/articles/mongolab#changing-plans -->
-
+# Table of Contents
+<!-- 
+  easily done in sublime by: 
+    Multi selecting all "# ", then select current line (Ctrl+Shift+L)
+    then paste to another page, edit there, then paste back here :D
+-->
++ [App Functionality](#app-functionality)
+    * [Loan Management](#loan-management)
+        - [Creating Loans](#creating-loans)
+        - [Buyer's Order](#buyers-order)
+        - [Modifying Loans](#modifying-loans)
+        - [Comments on Loans](#comments-on-loans)
+        - [Mass Loan Operations](#mass-loan-operations)
+    * [Warranties](#warranties)
+    * [User Management](#user-management)
++ [Technical details](#technical-details)
+    * [Project Dependencies](#project-dependencies)
+    * [Local Installation and Execution](#local-installation-and-execution)
+    * [Borrowed Code](#borrowed-code)
+    * [Project Structure](#project-structure)
+    * [Extra project comments](#extra-project-comments)
+    * [Testing](#testing)
 
 
 # App Functionality
 
 ## Loan Management
 ### Creating Loans
-A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal (see [Buyer's Order](#) for more information).
+A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal (see [Buyer's Order](#buyers-order) for more information).
 
 (Add screenshot)
 
 Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#) for more information).
-- Note: We did **not** use DL #, as defined by our client, although this can be easily changed with in 2 lines of *loans.crud.js*.
+- Note: We did **not** use DL #, as defined by our client, although this can be a 2 line change in *loans.crud.js*.
+
+
+### Buyer's Order
+TBD
 
 
 ### Modifying Loans
@@ -93,64 +104,84 @@ Each Loan header has a checkbox to the left. Click this box to select or unselec
 If a Loan is selected, when you hover over the circular "+" button in the lower right corner of the **admin view**, several additional buttons are revealed.
 - The pencil button opens the change status popup as discussed in the Modifying Loans section. Confirming this popup will change all selected Loans to the status specified in the dropdown.
 - The box button archives all selected Loans.
-- The trash button (only visible to a _Super Admin_) deletes all selected Loans permanately.
+- The trash button (only visible to a _Super Admin_) deletes all selected Loans permanently.
 
 (Add screenshot)
 
+
+## Warranties
+TBD
 
 
 ## User Management
 TBD
 
 
+# Technical details
+
+## Project Dependencies
+- [Node.js and npm](https://nodejs.org/en/download)
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-clii#download-and-install)
+- [Python 3.x](https://www.python.org/downloads/) for automated tests
+<!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
+<!-- - All nodes packages listed [here](network/dependencies) (these are auto installed once you run the instructions below) -->
+
+## Local Installation and Execution
+- Clone or Download
+- Installation
+    * Connect to Heroku
+        - Run `heroku login` to authenticate into your Heroku account.
+        - Connect to a app: `heroku git:remote -a [heroku app name]`
+            + Gulp will **NOT** work if you don't do this (and by extension **NOTHING WILL**). There are ways around this once you acquire the environmental variables
+        - For project duplication: You **MUST** be added as a collaborator on the project, and have predefined config variables in order for it to work. These variables are referred in the code as `process.env.VARIABLE_NAME`, and they are:
+            + Database: MONGODB_URI
+            + Emailing:
+                * Yahoo: YAHOO_USERNAME and YAHOO_PASSWORD (not real password, see instructions)
+                * Gmail: GMAIL_USERNAME, GMAIL_PASSWORD (**real password**) and CLIENT_ID. I'd recommend to at least b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
+                * Instructions how to obtain these: [here](#somewhere)
+                <!-- Marcial: TODO soon -->
+* First time: `npm run first-install`
+    + Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
+- Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
+    + For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
+- Deployments
+    + Automatically on every push to master if you have set up automatic deployment in Heroku:
+        * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+            *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+    + Manually once connected with Heroku's git: 
+        + `git push heroku master`
+- Testing
+    + First time: `npm run first-tests`
+    + Later: `npm run tests`
+
+## Borrowed Code
+- Boilerplate project was based off a modified [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
+- Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
+- Styling templates: Bootstrap, and the [insert name here] template. (@Steven: go back into your search history).
+- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash, [source](https://gist.github.com/splosch/eaacc83f245372ae98fe)
 
 
-# Database Structures
+## Extra project comments
+- TBFinished
+- Main parts of the app (Factory monolith, Express)
+- EJS and path passing
+- Authentication description
+- @Steven: technical comments on special frontend selection/checkbox f(x)nality
+- Pass Docs thru word/grammarly
+- Done
 
-## Loan Schema
-TBD
-+ Loans
-    - Status : enum?/strings. 
-        - MUST BE VISIBLE on description/without clicking on them
-        - They can be
-            + RECEIVED/SUBMITTED
-                - RECEIVED => FROM OFFICE
-                - SUBMITTED => FROM BANK
-            + APPROVED/DENIED
-            + ^ most important ones
-            + PENDING => everything in the process
-            + VERIFIED => REVIEWED APP, things are ok
-        + Archived : bool. True if (APPROVED/DENIED)
-    - Costs
-        - Taxes
-        - Warranties ? => CHECK PICTURES. NEED MORE DETAILS
-    - Types
-        - Auto Loan => default
-        - Repair
-        - Admin - need more details on this. Administrative fees?
-    - Trades
-        - default to false/'[]' (empty array - which is 'falsey')
-        - ADMIN puts in trade information later
-    - Messages
-        - Content : array with messages in reverse chronological order (easy to flip in angular)
-            + Need more clafication of what to put 'on top' as important message
-        - Date/timestamps - format tba later. not that important
-        - visibleToConsumer : bool
-        - important : bool
-        - CHANGE TO MOCKUP: Same area as normal info
-        
-## User Schema
-TBD      
-- Users
-    + username : string
-    + passwords : hash
-    + isAdmin : bool
-    + loans : other DB object/array of ids of loans, 1+ possible
-    
-# File Descriptions & Folder Structure
-The following details the folder structure of the application and the purposes of each file
-Files are _italicized_
 
+## Project Structure
+The following details the folder structure of the application and the purposes of each file. File names are _italicized_
+
+- _.env:_ Sensitive environment variables hosted in Heroku (present in compiled project, not on Git repo)
+- _Procfile:_ Heroku installation instructions
+- _gulpfile.js:_ Gulp settings. Automatic server and browser reload on local file changes
+- _server.js:_ top-level file that starts the server and runs the application
+- _package.json:_ Details Node.js dependencies that will be downloaded under 'node_modules'
+- _package-lock.json:_ Extension of above *package.json*
+- _README.md:_ Open it and find out
+- _test.py:_ Automated testing logic
 - client: files and scripts run or viewed on the client (user) side
   + angular: Angular code driving customer views
     * _account.controller.js:_ drives functionality of the user info view
@@ -164,11 +195,11 @@ Files are _italicized_
     * _nav.controller.js:_ drives functionality of website navigation
     * _permissions.controller.js:_ drives functionality of the super admin edit account permissions view
     * _warranties.controller.js:_ drives functionality of the customer warranties request view
-  + css: files of CSS styles
+  + css: CSS styles
+  + fonts: fonts used by CSS styles
   + dependencies: Angular JavaScript dependencies
-  + fonts: fonts used by the CSS styles
   + js: additional JavaScript dependences
-  + partials: smaller chunks of HTML content incorporated into main views
+  + partials: smaller chunks of HTML content later incorporated into main views
     * _header.ejs:_ Global HTML `<head>` content
     * _footer.ejs:_ Global JavaScript dependencies
     * _nav.ejs:_ Navigation bar atop each page
@@ -188,36 +219,24 @@ Files are _italicized_
   + _login.ejs:_ login and register view
   + _permissions.ejs:_ super admin account management view
   + _warranties.ejs:_ customer warranty plan request view
-  + _md5-device-fingerprint.js:_ ?? (no idea why this is here AND in the 'js' folder...)
+  + _md5-device-fingerprint.js:_ Priorly explained external dependency used with each token (fancy authentication).
 - documentation: resources used in this document
-- node_modules: imported JavaScript libraries. There should be no need to access the contents of this folder
+- node_modules: Imported required Node modules. Don't mess with this folder (present in compiled project, not on Git repo).
 - server: files and scripts run on the server side
   + db: files defining database objects and server-side database operations
     * _loans.crud.js:_ details CRUD operations on Loan database objects
     * _loans.model.js:_ defines the Loan database schema and several server side Loan operations
     * _users.crud.js:_ details CRUD operations on User database objects
     * _users.model.js:_ defines the User database schema and several server side User operations
-  + _api_routes.js:_ defines routing for api requests including loan and user management
+  + _api_routes.js:_ defines routing for API requests including loan and user management
   + _app.js:_ server side application initialization, called from the'server.js' file at the top-level directory
-  + _auth.js:_ provides authentication functionality including password verification and hashing
+  + _auth.js:_ provides authentication functionality
   + _emailing.js:_ provides emailing functionality
   + _express.js:_ defines top-level routing which is further detailed by one of the other routing files
   + _login_routes.js:_ defines routing for user login and registration requests
   + _profile_routes.js:_ defines routing for "logged-in" pages, such as the user account info view
-- unit_testing: files and scripts used in app testing. More detail is presented in the Testing Specifications section
-- _.env:_ ??
-- _.env.example:_ ??
-- _Procfile:_ ??
-- _gulpfile.js:_ details configuration of gulp when the 'gulp' command is executed
-- _server.js:_ top-level file that starts the server and runs the application
-- _app.json:_ ??
-- _package.json:_ details dependencies and libraries that are installed to the 'node_modules' folder
-- _package-lock.json:_ ??
-- _README.md:_ open it and find out
-- _test.py:_ master testing file to be run in a Python environment (i.e. `python test.py` to run)
-- _.gitignore:_ git ignore file
-- _final client meeting notes.text:_ WHY IS THIS HERE
+- unit_testing: files and scripts used in app testing. More details: [Testing Specifications](#testing-specifications).
 
-# Testing Specifications
 
+## Testing
 TBD
