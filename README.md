@@ -35,8 +35,6 @@
 Definitions table?
 Popup == modal == dialog?
  -->
-<!-- no need for forced section separators/dividors  -->
-<!-- ![image](documentation/images/test.png) -->
 
 # Table of Contents
 <!-- 
@@ -52,7 +50,7 @@ Popup == modal == dialog?
         - [Comments on Loans](#comments-on-loans)
         - [Warranties - Admin](#warranties---admin)
         - [Mass Loan Operations](#mass-loan-operations)
-    * [Warranties - User](#warranties---user)
+    * [Warranties - User](#warranties---Customer)
     * [User Management](#user-management)
 + [Technical details](#technical-details)
     * [Project Dependencies](#project-dependencies)
@@ -69,23 +67,22 @@ Popup == modal == dialog?
 ### Creating Loans
 A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal (see [Buyer's Order](#buyers-order) for more information).
 
-(Add screenshot)
-
-Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#user-management) for more information).
-- Note: We did **not** use DL #, as defined by our client, although this can be a 2 line change in *loans.crud.js*.
+Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described by the purchaser on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#user-management) for more information).
+> _Note: The Loan-User match does **not** take driver's license (DL #) into consideration, although this may be imeplemented in *loans.crud.js*._
 
 
 ### Buyer's Order
 TBD
 
+![Buyer's_Order](documentation/images/Buyer's_Order_modal.png)
 
 ### Modifying Loans
+
+![Loan_Admin](documentation/images/Expanded_Loan_Accordion_Admin.png)
+
 All Loans in the database can be accessed from the **admin view**. When a loan is expanded, you have the option to edit the original Buyer's Order with the _Buyer's Order_ button underneath the Loan header. This brings up the Buyer's Order popup again. Any *submitted* changes made here are saved as modifications to the current Loan.
 <!-- make this into an anchor, since it will be quoted A LOT  -->
-- Note: Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty).
-
-(Add screenshot)
-<!-- of ??? Buyers order? -->
+> _Note: Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty)._
 
 A Loan's status may be changed with the _Change Status_ button under the Loan header. A popup appears that prompts you to select one of the 7 Loan statuses which are as follows:
 - Received
@@ -98,38 +95,52 @@ A Loan's status may be changed with the _Change Status_ button under the Loan he
 
 Confirming this popup updates the Loan to the selected status
 
-A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
+![Loan_Status](documentation/images/Change_Status_Modal.png)
 
 When a customer is logged in, they are presented with the **customer view**. A customer cannot create, modify, or delete any loans and may only see loans associated with their account. A customer may publish comments, as discussed in the following section.
 
-### Comments on Loans
-TBD
+![Loan_Customer](documentation/images/Expanded_Loan_Accordion_Customer.png)
 
+### Comments on Loans
+Comments are added on loans using the comment bar near the bottom of an expanded loan. Comments appear top to down within the body of the loan with newer comments appearing above older ones. Both customers and admins can create and see normal comments. As an admin user, you have the option of posting a comment as _admin-only_ which can only be viewed by admins.
+
+Comments may only be deleted by the original poster (even admins cannot delete other admins' comments). Except that super admins may delete any comments from any user.
+
+![Loan_Comments](documentation/images/Loan_Comments.png)
 
 ### Warranties - Admin
-TBD
+A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
 
+![Admin_Warranty](documentation/images/Update_warranty_plan_modal.png)
 
 ### Mass Loan Operations
 Each Loan header has a checkbox to the left. Click this box to select or unselect the Loan.
-
-(Add screenshot)
 
 If a Loan is selected, when you hover over the circular "+" button in the lower right corner of the **admin view**, several additional buttons are revealed.
 - The pencil button opens the change status popup as discussed in the Modifying Loans section. Confirming this popup will change all selected Loans to the status specified in the dropdown.
 - The box button archives all selected Loans.
 - The trash button (only visible to a _Super Admin_) deletes all selected Loans permanently.
 
-(Add screenshot)
+### Warranties - Customer
+A customer may request a warranty plan on a specific loan by clicking the _Request a warranty plan_ button near the top of the loan. This takes the customer to the **customer loan view**. In this area, the customer searches for a warranty plan of interest based on criteria of plan type and car age and make. Available warranty plans are automaticaly filtered below and a customer selects one they are interested in. Upon selecting, a popup appears listing the warranty plan details and a confirmation button. When the button is clicked, an email with the warranty plan details is sent to Autowise and a comment is added to the loan with the requested plan information.
 
-
-## Warranties - User
-TBD
-
+Once an admin reviews the plan, they may approve it by added a warranty plan to the specified loan, as described in the (Warranties---Admin) section
 
 ## User Management
-TBD
 
+### User Creation and Types
+Users are created by _registering_ on the login page. To create an account, a person must specify thier name, a username, their DOB, and DL # (email is optional). To access your account, you log in on the **login page** with your specified username and password. The app does not have the ability to recover passwords, so _do not forget your password!_
+
+![Login](documentation/images/Login_view.png)
+
+![Register](documentation/images/Register_view.png)
+
+Upon registering, a User is assigned the role of a _customer_ who may view their loans and request warranty plans. When logged in as an _admin_, you may see all the loans in the database and make modifications to them. When logged in as a _super admin_, you have all of the priveleges of admins in addition to the ability to delete loans, delete any users's comments, and change permissions of other users.
+
+### User Permissions and Account Management
+To change permissions, access the *user permissions view* as a super admin. Here you may search for an existing user based on name or username and change their role to customer, admin, or super admin. You may also delete User accounts (note that deleted accounts _may not be recovered_)
+
+![Permissions](documentation/images/User_Permissions_change_view.png)
 
 # Technical details
 
