@@ -232,8 +232,9 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -85px;
+  left: -93px;
   padding: 8px;
+  margin: 0;
 }
 
 .dropdown-menu li a.danger:hover {
@@ -1889,6 +1890,10 @@ div.ng-show {
   margin-left: -8px;
   color: #f9243f;
   padding: 0 0 0 2px;
+}
+
+.warranties .inputMODAL {
+    background-color: transparent;
 }
 
 /* LABEL ======================================= */
