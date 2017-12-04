@@ -1,7 +1,7 @@
 <!-- Move this to the top?? -->
 # TODOs for successful client transition
   + Sign up for [Heroku](https://signup.heroku.com/)
-  + Be added as a collaborator to our current project (need email)
+  + Become a collaborator to our current project (need email)
   + Transfer project ownership
   + Know how to modify/remove Heroku variables
     + [Instructions](#soon)
@@ -14,10 +14,18 @@
   + Enjoy
 
 ## Technical Recommendations
-- Scaling: Transitioning to a bigger database of the same provider [instructions](https://devcenter.heroku.com/articles/mongolab#changing-plans)
+- Scaling: Instructions to move to a bigger database of the current provider can be found [here](https://devcenter.heroku.com/articles/mongolab#changing-plans)
   - Recommendation: Have archived loans as a static JSON/mongodump file in a S3 bucket or similar storage/CDN service. Only retrieve them when searching for them, and modify that file as such. 
   - Implementation: Change 'archived_filter' on *custom-filters.js*, reset loading for this, add a new Factory ↔ Express interaction, add/remove loans to active MongoDB on loan 'revival' or death. Done.
     - *Learning opportunity* if no prior experience with these services
+
+
+<!-- Requested Features not implemented -->
+<!-- Possibly 'fun' future features -->
+<!-- auto logout ... etc -->
+<!-- TO Add to heroku vars: -->
+<!-- token time!!! -->
+<!-- email text!!! -->
 
 
 <!-- # Lean MEAN Client Machine Presents:  -->
@@ -42,8 +50,9 @@ Popup == modal == dialog?
         - [Buyer's Order](#buyers-order)
         - [Modifying Loans](#modifying-loans)
         - [Comments on Loans](#comments-on-loans)
+        - [Warranties - Admin](#warranties---admin)
         - [Mass Loan Operations](#mass-loan-operations)
-    * [Warranties](#warranties)
+    * [Warranties - User](#warranties---user)
     * [User Management](#user-management)
 + [Technical details](#technical-details)
     * [Project Dependencies](#project-dependencies)
@@ -62,7 +71,7 @@ A Loan is created from a Buyer's Order. Loans are created from the **admin view*
 
 (Add screenshot)
 
-Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#) for more information).
+Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#user-management) for more information).
 - Note: We did **not** use DL #, as defined by our client, although this can be a 2 line change in *loans.crud.js*.
 
 
@@ -96,6 +105,11 @@ When a customer is logged in, they are presented with the **customer view**. A c
 ### Comments on Loans
 TBD
 
+
+### Warranties - Admin
+TBD
+
+
 ### Mass Loan Operations
 Each Loan header has a checkbox to the left. Click this box to select or unselect the Loan.
 
@@ -109,7 +123,7 @@ If a Loan is selected, when you hover over the circular "+" button in the lower 
 (Add screenshot)
 
 
-## Warranties
+## Warranties - User
 TBD
 
 
@@ -126,30 +140,30 @@ TBD
 <!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
 <!-- - All nodes packages listed [here](network/dependencies) (these are auto installed once you run the instructions below) -->
 
-## Local Installation and Execution
+## Development
 - Clone or Download
-- Installation
-    * Connect to Heroku
-        - Run `heroku login` to authenticate into your Heroku account.
-        - Connect to a app: `heroku git:remote -a [heroku app name]`
-            + Gulp will **NOT** work if you don't do this (and by extension **NOTHING WILL**). There are ways around this once you acquire the environmental variables
-        - For project duplication: You **MUST** be added as a collaborator on the project, and have predefined config variables in order for it to work. These variables are referred in the code as `process.env.VARIABLE_NAME`, and they are:
-            + Database: MONGODB_URI
-            + Emailing:
-                * Yahoo: YAHOO_USERNAME and YAHOO_PASSWORD (not real password, see instructions)
-                * Gmail: GMAIL_USERNAME, GMAIL_PASSWORD (**real password**) and CLIENT_ID. I'd recommend to at least b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
-                * Instructions how to obtain these: [here](#somewhere)
-                <!-- Marcial: TODO soon -->
-* First time: `npm run first-install`
-    + Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
-- Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
-    + For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
+- Connect to Heroku
+    + Run `heroku login` to authenticate into your Heroku account.
+    + Connect to a app: `heroku git:remote -a [heroku app name]`
+        * Gulp will **NOT** work if you don't do this (and by extension **NOTHING WILL**). There are ways around this once you acquire the environmental variables
+    + For project duplication: You **MUST** be added as a collaborator on the project, and have specific config variables defined in order for this to work. These variables are referred in the backend code as `process.env.VARIABLE_NAME`, and they are:
+        * Database: MONGODB_URI
+        * Emailing:
+            - Yahoo: YAHOO_USERNAME and YAHOO_PASSWORD (not real password, see instructions)
+            - Gmail: GMAIL_USERNAME, GMAIL_PASSWORD (**real password**) and CLIENT_ID. I'd recommend to at least b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
+            - Instructions how to obtain these can be found [here](#somewhere)
+            <!-- Marcial: TODO soon -->
+- Installation and Execution
+  + First run: `npm run first-install`
+      * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
+  + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
+      * For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
 - Deployments
-    + Automatically on every push to master if you have set up automatic deployment in Heroku:
-        * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-            *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
-    + Manually once connected with Heroku's git: 
-        + `git push heroku master`
+  + Automatically on every push to master if you have set up automatic deployment in Heroku:
+  + [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+    *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+  + Manually once connected with Heroku's git: 
+    * `git push heroku master`
 - Testing
     + First time: `npm run first-tests`
     + Later: `npm run tests`
@@ -237,7 +251,7 @@ The following details the folder structure of the application and the purposes o
   + _express.js:_ defines top-level routing which is further detailed by one of the other routing files
   + _login_routes.js:_ defines routing for user login and registration requests
   + _profile_routes.js:_ defines routing for "logged-in" pages, such as the user account info view
-- unit_testing: files and scripts used in app testing. More details: [Testing Specifications](#testing-specifications).
+- unit_testing: files and scripts used in app testing. More details [here](#testing)
 
 
 ## Testing
