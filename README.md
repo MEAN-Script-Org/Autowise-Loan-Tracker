@@ -5,6 +5,11 @@
 - Quick local links to subtitles
 TBA
 
+<!-- 
+Definitions table?
+Popup == modal == dialog?
+ -->
+
 <!-- ![image](documentation/images/test.png) -->
 <!-- no need for forced section separators/dividors  -->
 
@@ -46,18 +51,23 @@ TBA
 
 ## Loan Management
 ### Creating Loans
-A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right of the view. Clicking this button opens the Buyer's Order dialog (see the section on the Buyer's Order for more information).
+A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal (see [Buyer's Order](#) for more information).
 
 (Add screenshot)
 
-Upon creating a Loan, it is automatically assigned to an existing User in the database. If a User has a matching DL # and DOB as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information, the Loan can be resolved to the created User (see User Management for more information).
+Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#) for more information).
+- Note: We did **not** use DL #, as defined by our client, although this can be easily changed with in 2 lines of *loans.crud.js*.
+
 
 ### Modifying Loans
-All Loans in the database can be accessed from the **admin view**. When a loan is expanded, you have the option to edit the original Buyer's Order with the _Buyer's Order_ button underneath the Loan header. This brings up the Buyer's Order dialog again. Any changes made here are saved as modifications to the current Loan.
+All Loans in the database can be accessed from the **admin view**. When a loan is expanded, you have the option to edit the original Buyer's Order with the _Buyer's Order_ button underneath the Loan header. This brings up the Buyer's Order popup again. Any *submitted* changes made here are saved as modifications to the current Loan.
+<!-- make this into an anchor, since it will be quoted A LOT  -->
+- Note: Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty).
 
 (Add screenshot)
+<!-- of ??? Buyers order? -->
 
-A Loan's status may be changed with the _Change Status_ button under the Loan header. A dialog appears that prompts you to select one of the 7 Loan statuses which are as follows:
+A Loan's status may be changed with the _Change Status_ button under the Loan header. A popup appears that prompts you to select one of the 7 Loan statuses which are as follows:
 - Received
 - Submitted
 - Pending
@@ -66,9 +76,9 @@ A Loan's status may be changed with the _Change Status_ button under the Loan he
 - Denied
 - Archived
 
-Confirming this dialog updates the Loan to the selected status
+Confirming this popup updates the Loan to the selected status
 
-A warranty plan may also be added to a Loan with the _Change Warranty_ button. A dialog appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this dialog updates the Loan with a warranty plan, or updates the existing plan if there was already one.
+A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
 
 When a customer is logged in, they are presented with the **customer view**. A customer cannot create, modify, or delete any loans and may only see loans associated with their account. A customer may publish comments, as discussed in the following section.
 
@@ -81,7 +91,7 @@ Each Loan header has a checkbox to the left. Click this box to select or unselec
 (Add screenshot)
 
 If a Loan is selected, when you hover over the circular "+" button in the lower right corner of the **admin view**, several additional buttons are revealed.
-- The pencil button opens the change status dialog as discussed in the Modifying Loans section. Confirming this dialog will change all selected Loans to the status specified in the dropdown.
+- The pencil button opens the change status popup as discussed in the Modifying Loans section. Confirming this popup will change all selected Loans to the status specified in the dropdown.
 - The box button archives all selected Loans.
 - The trash button (only visible to a _Super Admin_) deletes all selected Loans permanately.
 
@@ -151,25 +161,25 @@ Files are _italicized_
     * _custom-filters.js:_ drives functionality of the admin loan filtering
     * _factory.js:_ handles requests from the client to the server and back. Methods defined here are used in nearly every controller
     * _login.controller.js:_ drives functionality of the login and registration view
-    * _nav.controller.js:_ drives functionality of webiste navigation
+    * _nav.controller.js:_ drives functionality of website navigation
     * _permissions.controller.js:_ drives functionality of the super admin edit account permissions view
     * _warranties.controller.js:_ drives functionality of the customer warranties request view
-  + css: files of css stylings
-  + dependencies: Angular javascript dependencies
-  + fonts: fonts used by the css stylings
-  + js: additional javascript dependences
-  + partials: smaller chuncks of HTML content included by the main views
-    * _accordion-comments.ejs:_ HTML for loan comment functionality
-    * _account-contact-autowise.ejs:_ ??
+  + css: files of CSS styles
+  + dependencies: Angular JavaScript dependencies
+  + fonts: fonts used by the CSS styles
+  + js: additional JavaScript dependences
+  + partials: smaller chunks of HTML content incorporated into main views
+    * _header.ejs:_ Global HTML `<head>` content
+    * _footer.ejs:_ Global JavaScript dependencies
+    * _nav.ejs:_ Navigation bar atop each page
+    * _accordion-comments.ejs:_ HTML for loan content and comments functionality
+    * _account-contact-autowise.ejs:_ **TODO** Delete this file if there's no use for it
     * _actions-row.ejs:_ action buttons appearing under the header of a loan visible to admins
     * _admin-filters.ejs:_ admin loan filtering and search bar
-    * _buyers-order.ejs:_ dialog displaying the Buyer's Order
-    * _footer.ejs:_ script include statements used in main views
-    * _google_buttons.ejs:_ admin loan create/edit buttons
-    * _header.ejs:_ ??
-    * _modals.ejs:_ various modal dialogs
-    * _nav.ejs:_ website navigation in the top right corner of each page
-    * _progress-row.ejs:_ unused now??
+    * _buyers-order.ejs:_ popup displaying the Buyer's Order
+    * _google_buttons.ejs:_ admin loan hover create/edit/delete buttons
+    * _modals.ejs:_ various modals/popups/dialogs
+    * _progress-row.ejs:_ unused now?? -> will be used for customer view
     * _warranty-row.ejs:_ the warranty plan on a loan under the loan header
   + resources: images and other miscellaneous files
   + _account.ejs:_ user account information view 
@@ -180,7 +190,7 @@ Files are _italicized_
   + _warranties.ejs:_ customer warranty plan request view
   + _md5-device-fingerprint.js:_ ?? (no idea why this is here AND in the 'js' folder...)
 - documentation: resources used in this document
-- node_modules: imported javascript libraries. There should be no need to access the contents of this folder
+- node_modules: imported JavaScript libraries. There should be no need to access the contents of this folder
 - server: files and scripts run on the server side
   + db: files defining database objects and server-side database operations
     * _loans.crud.js:_ details CRUD operations on Loan database objects
