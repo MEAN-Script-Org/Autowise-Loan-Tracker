@@ -30,7 +30,7 @@ angular.module('SWEApp').controller(
     };
 
     $scope.init = function() {
-      console.log("MEAN App on it's way!");
+      // console.log("MEAN App on it's way!");
 
       $scope.commentAsAdmin = false;
 

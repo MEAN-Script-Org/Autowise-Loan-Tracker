@@ -4,13 +4,13 @@
   + Be added as a collaborator to our current project (need email)
   + Transfer project ownership
   + Know how to modify/remove Heroku variables
-    + [Instructions](#later)
+    + [Instructions](#soon)
   + Get email variables for automated emailing 
-    + [Instructions](#later)
+    + [Instructions](#soon)
   + Link inventory website to https://autowise.herokuapp.com
   + All of this will cost you:
-    + $0/month **_for now_**, until DB capacity (512MB) is reached
-    + Prices given current DB provider (mLab) then go to $15/month/GB
+    + $0/month **_for now_**, until database capacity is reached (512MB)
+    + Prices of current database provider (mLab) then start at $15/month/GB
   + Enjoy
 
 ## Technical Recommendations
@@ -196,9 +196,12 @@ The following details the folder structure of the application and the purposes o
     * _permissions.controller.js:_ drives functionality of the super admin edit account permissions view
     * _warranties.controller.js:_ drives functionality of the customer warranties request view
   + css: CSS styles
-  + fonts: fonts used by CSS styles
-  + dependencies: Angular JavaScript dependencies
+    * _styles.css_: Main CSS file
+    * _accord.css_ & _component.css_: Other CSS files
+  + fonts: fonts used by CSS files, primarily called from _component.css_
+  + dependencies: Angular JavaScript source
   + js: additional JavaScript dependences
+    + _md5-device-fingerprint.js:_ Priorly explained external dependency used with for custom token-based authentication.
   + partials: smaller chunks of HTML content later incorporated into main views
     * _header.ejs:_ Global HTML `<head>` content
     * _footer.ejs:_ Global JavaScript dependencies
@@ -219,7 +222,6 @@ The following details the folder structure of the application and the purposes o
   + _login.ejs:_ login and register view
   + _permissions.ejs:_ super admin account management view
   + _warranties.ejs:_ customer warranty plan request view
-  + _md5-device-fingerprint.js:_ Priorly explained external dependency used with each token (fancy authentication).
 - documentation: resources used in this document
 - node_modules: Imported required Node modules. Don't mess with this folder (present in compiled project, not on Git repo).
 - server: files and scripts run on the server side
