@@ -75,10 +75,12 @@ Upon creating a Loan, a User it's automatically assigned to it if the User alrea
 TBD
 
 ![Buyer's_Order](documentation/images/Buyer's_Order_modal.png)
+> _This is a screenshot of a Buyer's Order that is already filled out for a customer. A Co-Purchaser may be added at the bottom if necessary.
 
 ### Modifying Loans
 
 ![Loan_Admin](documentation/images/Expanded_Loan_Accordion_Admin.png)
+> _This is a screenshot of a customers loan expanded from the accordion. Inside of this accordion tab you are able to change the status of the loan, edit the Buyer's order, change the warranty, and email the customer. Also comments may be left for the customer if needed.
 
 All Loans in the database can be accessed from the **admin view**. When a loan is expanded, you have the option to edit the original Buyer's Order with the _Buyer's Order_ button underneath the Loan header. This brings up the Buyer's Order popup again. Any *submitted* changes made here are saved as modifications to the current Loan.
 <!-- make this into an anchor, since it will be quoted A LOT  -->
@@ -96,10 +98,12 @@ A Loan's status may be changed with the _Change Status_ button under the Loan he
 Confirming this popup updates the Loan to the selected status
 
 ![Loan_Status](documentation/images/Change_Status_Modal.png)
+> _This is a screenshot of the "Change Status" button. This will allow you to change the customers loan status to any option in the drop down menu. The status will update once you press the update button.
 
 When a customer is logged in, they are presented with the **customer view**. A customer cannot create, modify, or delete any loans and may only see loans associated with their account. A customer may publish comments, as discussed in the following section.
 
 ![Loan_Customer](documentation/images/Expanded_Loan_Accordion_Customer.png)
+> _This is a screenshot of the customer view when they log in. It will show their loan status, their warranty plan if they have one, as well as the comments.
 
 ### Comments on Loans
 Comments are added on loans using the comment bar near the bottom of an expanded loan. Comments appear top to down within the body of the loan with newer comments appearing above older ones. Both customers and admins can create and see normal comments. As an admin user, you have the option of posting a comment as _admin-only_ which can only be viewed by admins.
@@ -107,11 +111,13 @@ Comments are added on loans using the comment bar near the bottom of an expanded
 Comments may only be deleted by the original poster (even admins cannot delete other admins' comments). Except that super admins may delete any comments from any user.
 
 ![Loan_Comments](documentation/images/Loan_Comments.png)
+> _This is a screenshot of what comments look like on a loan. Admins can leave comments that are visible to the customer or not visible to the customer.
 
 ### Warranties - Admin
 A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
 
 ![Admin_Warranty](documentation/images/Update_warranty_plan_modal.png)
+> _This is a screenshot of the "update warranty" modal. In this modal admins can change the information on the warranty that the customer has.
 
 ### Mass Loan Operations
 Each Loan header has a checkbox to the left. Click this box to select or unselect the Loan.
@@ -132,8 +138,10 @@ Once an admin reviews the plan, they may approve it by added a warranty plan to 
 Users are created by _registering_ on the login page. To create an account, a person must specify thier name, a username, their DOB, and DL # (email is optional). To access your account, you log in on the **login page** with your specified username and password. The app does not have the ability to recover passwords, so _do not forget your password!_
 
 ![Login](documentation/images/Login_view.png)
+> _This is a screenshot of the login page. You must enter a valid username and password in order to log in.
 
 ![Register](documentation/images/Register_view.png)
+> _This is a screenshot of the Registration page. You must enter something valid for all of the required fields in order to register.
 
 Upon registering, a User is assigned the role of a _customer_ who may view their loans and request warranty plans. When logged in as an _admin_, you may see all the loans in the database and make modifications to them. When logged in as a _super admin_, you have all of the priveleges of admins in addition to the ability to delete loans, delete any users's comments, and change permissions of other users.
 
@@ -141,6 +149,7 @@ Upon registering, a User is assigned the role of a _customer_ who may view their
 To change permissions, access the *user permissions view* as a super admin. Here you may search for an existing user based on name or username and change their role to customer, admin, or super admin. You may also delete User accounts (note that deleted accounts _may not be recovered_)
 
 ![Permissions](documentation/images/User_Permissions_change_view.png)
+> _This is a screenshot of the admin user permissions page. On this page super admins can change the status of any user to a regular customer, admin, or super admin, as well as delete users completely.
 
 # Technical details
 
