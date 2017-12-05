@@ -22,8 +22,7 @@ var format_email_html = function (req) {
     subject = "NEW Warranty interest from " + req.name ;
     
     message = [
-      "*This is an automatically generated message*"
-      "",
+      "*This is an automatically generated message*",
       req.message,
     ];
       
