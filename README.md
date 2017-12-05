@@ -173,7 +173,7 @@ TBD
 - Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
 - Styling templates: Bootstrap, and the [insert name here] template. (@Steven: go back into your search history).
 - *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash, [source](https://gist.github.com/splosch/eaacc83f245372ae98fe)
-
+- Other code sections were borrowed from StackOverflow, and used throughout our app. A link to their source was provided if so.
 
 ## Extra project comments
 - TBFinished

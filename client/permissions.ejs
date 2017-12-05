@@ -15,18 +15,6 @@
         <h1>User Permissions</h1>
       </div>
 
-      <!-- 
-      <div>
-        <b>Legend:</b> 
-        <ul>
-          <div class="m-col-1"> &nbsp; </div>
-          <div class="m-col-3"> Customer </div>
-          <div class="m-col-3"> <b>Admin User</b> </div>
-          <div class="m-col-3"> <span class="isSuperAdmin"><b>Super Admin User</b></span> </div>
-        </ul>
-      </div>
-       -->
-        
       <br>
 
       <input class="sb-search-input" placeholder="Search for a customer or employee" ng-model="query" type="text">
@@ -83,12 +71,17 @@
 
     </div>
 
+    <!-- diff lines for description -->
+    <!-- Delete long ass descriptions? -->
     <div class="invisible {{visible}}">
       <div class="label-container fadeTip label-text InfoTip" ng-show="InfoTip">
         Legend:
-          <li> Customers </li>
-          <li> <b>Admins</b> </li>
-          <li> <b style="color: red">Super Admins</b> </li>
+          <li> Customers: </li>
+          <li> Can make comments, request warranties, and delete their own comments </li>
+          <li> <b>Admins</b> : </li>
+          <li> Can create/update loans, make comments as 'admin only' </li>
+          <li> <b style="color: red">Super Admins</b>: </li>
+          <li> Can change users permissions, delete users, delete loans and anyone's comments</li>
       </div>
     </div>
 

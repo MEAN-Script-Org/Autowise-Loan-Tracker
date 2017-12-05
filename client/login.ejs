@@ -21,7 +21,7 @@
           </ul>
         </div>
         <br>
-        
+
         <div class="tab-content" id="registration">
           <div class="tab-pane active" id="login">
             <form role="form" ng-submit="login()">
@@ -64,6 +64,23 @@
                   <input ng-model="newUser.dob" placeholder="Date of Birth*" required type="date"
                          class="{{funny_dob ? 'has-error' : ''}} form-control" ng-blur="checkDOB()">
                 </div>
+
+                <!-- Here for now ~ -->
+                <!-- make this a route-specific thing?? -->
+                <!-- just in case -->
+
+                <!--
+                <div class="form-group">
+                  <span>Admin?</span>
+                  <input ng-model="newUser.isAdmin" type="checkbox">
+                </div>
+
+                <div class="form-group">
+                  <span>Super Admin? (can delete loans and  everyone's comments)</span>
+                  <input ng-model="newUser.isSuperAdmin" type="checkbox">
+                </div>
+                 -->
+
 
                 <div class="left-text" id="required"></div>
                 <button class="btn btn-primary" type="submit"> Register </button>

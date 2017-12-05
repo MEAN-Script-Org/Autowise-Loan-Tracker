@@ -1696,8 +1696,9 @@ input[type="date"]:valid:before {
   left: 21%;
 }
 
-.label-container.InfoTip  >  * {
+.label-container.InfoTip > * {
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 .label-text {
