@@ -168,6 +168,29 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
       $scope.matchedWarranties = plans;
     }
 
+    /* WARRANTIES SELECTOR */
+    function setWarrantiesYear(year)
+      {
+          $scope.query.age = year;
+      }
+      
+    function setWarrantiesMake(make)
+      {
+          $scope.query.make = make;
+      }
+      
+    function onFocusInputWarr(ind) {
+        console.log("happenin");
+      $("#sudo-select-warranties").css('opacity', '1');
+      $("#sudo-select-warranties").css('height', 'auto');
+    }
+    
+    function onBlurInputWarr(ind) {
+        $("#sudo-select-warr-" + ind).css('opacity', '0');
+      $("#sudo-select-warr-" + ind).css('height', '0');
+    }
+    /* END WARRANTIES SELECTOR */
+    
     //--------------------------------------------------------------------------------------------------------------------
     // Filter function for warranty querying
     //--------------------------------------------------------------------------------------------------------------------
