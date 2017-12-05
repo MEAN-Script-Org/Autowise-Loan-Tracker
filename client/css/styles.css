@@ -2377,6 +2377,20 @@ div.ng-show {
   border: 0;
 }
 
+.title-container ~ hr {
+    margin-bottom: 0;
+}
+
+.customer-row {
+    overflow: hidden;
+    margin: -8px;
+    margin-bottom: 8px;
+}
+.customer-row .row-child {
+    background-color: #38cc70;
+    color: white;
+}
+
 .title-brand {
   color: #38cc70;
   text-transform: uppercase;

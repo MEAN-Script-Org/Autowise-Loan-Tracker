@@ -7,8 +7,8 @@
   <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main" ng-app="SWEApp" ng-controller="CustomerController" ng-init="init()">
     <% include partials/nav.ejs %>
     
-    <div class="jumbotron title-container">
-      <div class="row">
+    <div class="jumbotron">
+      <div class="row title-container">
         <h2> WELCOME TO <span class="title-brand">AUTOWISE</span> </h2>
       </div>
       <hr>
@@ -27,7 +27,14 @@
           <div ng-repeat="loan in loans">
             <div class="tab-content">
               <!-- TODO: implement this ~ beautifully ~ -->
-              Your Loan, ID #{{loan._id | uppercase | limitTo:6:loan._id.length-6}}
+             <div class="row customer-row">
+                 <div class="col-sm-6 row-child">
+                     Your Loan ID
+                 </div>
+                 <div class="col-sm-6">
+                     #{{loan._id | uppercase | limitTo:6:loan._id.length-6}}
+                 </div>
+             </div>
               
               <% include partials/progress-row.ejs %>
               <% include partials/actions-row-customer.ejs %>
