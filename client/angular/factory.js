@@ -64,6 +64,14 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.put('/api/userinfo/', args);
       },
+      setUserPrivileges: function(type, id) {
+        var args = {token: getToken()};
+        return $http.put('/api/priv/' + type + "/" + id, args);
+      },
+      deleteUser: function(id) {
+        var args = {token: getToken()};
+        return $http.put('/api/deleteUser/' + id, args);
+      },
       
       //----------------------------------------------------------------------------------------------------------------
       // Loans CRUD

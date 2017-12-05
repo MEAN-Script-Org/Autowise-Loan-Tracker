@@ -46,6 +46,15 @@ router.route('/loansByUser/')
 router.route('/user/:userID')
       .put(users.update);
 
+router.route('/priv/super-admin/:userID')
+      .put(users.makeSuperAdmin, users.update);
+
+router.route('/priv/admin/:userID')
+      .put(users.makeAdmin, users.update);
+
+router.route('/priv/customer/:userID')
+      .put(users.makeCustomer, users.update);
+
 router.route('/deleteUser/:userID')
       .put(users.delete) ;
 

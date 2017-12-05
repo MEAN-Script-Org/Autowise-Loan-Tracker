@@ -56,15 +56,17 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 200);
+          }, 500);
         }
       );
 
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
-          // user = res.data;
-        });
+
+          if (!$rootScope.user.isAdmin)
+            window.location.href = "/profile/wrongUserType";
+      });
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -189,6 +191,9 @@ angular.module('SWEApp').controller(
 
         if (!confirmation)
           return;
+        else
+          ;
+          // add insurance note here ~
       }
 
       // Create new loan and upload it to the database

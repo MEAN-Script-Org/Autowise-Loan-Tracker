@@ -51,12 +51,31 @@ module.exports = {
     res.json(req.body.token);
   },
 
+  makeSuperAdmin: function(req, res, next) {
+    req.user.isSuperAdmin = true;
+    req.user.isAdmin = true;
+    next();
+  },
+
+  makeAdmin: function(req, res, next) {
+    req.user.isSuperAdmin = false;
+    req.user.isAdmin = true;
+    next();
+  },
+
+  makeCustomer: function(req, res, next) {
+    req.user.isSuperAdmin = false;
+    req.user.isAdmin = false;
+    next();
+  },
+
   update: function(req, res) {
     var oldUser = req.user;
     // console.log(req.body);
 
     // Replace old user's properties with the newly sent ones
     var userToBeUpdated = Object.assign(oldUser, req.body);
+    console.log(userToBeUpdated);
     
     // {new: true} => Returns the real/actual updated version
     //             => 'updatedUser'

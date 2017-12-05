@@ -49,18 +49,29 @@
           <span class="btn m-col-2 {{user.isAdmin ? 'isAdmin' : ''}} {{user.isSuperAdmin ? 'isSuperAdmin' : ''}}"> {{user.name}} </span>
 
           <span class="btn m-col-2"> {{user.dob}} </span>
-          <!-- TODO: Add ng-click to these -->
           <span class="m-col-3" ng-show="user.isAdmin">
-            <button class="btn btn-md" data-target="#regUser" data-toggle="modal">Make Customer</button>
+            <button class="btn btn-md" data-target="#regUser" data-toggle="modal" 
+                    ng-click="assignCurrentUser(user)">
+              Make Customer
+            </button>
           </span>
           <span class="m-col-3" ng-show="user.isSuperAdmin || !user.isAdmin">
-            <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal">Make Admin</button>
+            <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal" 
+                    ng-click="assignCurrentUser(user)">
+              Make Admin
+            </button>
           </span>
           <span class="m-col-3" ng-hide="user.isSuperAdmin">
-            <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal">Make Super Admin</button>
+            <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal" 
+                    ng-click="assignCurrentUser(user)">
+              Make Super Admin
+            </button>
           </span>
           <span class="m-col-1">
-            <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal"> <em class="fa fa-trash"></em></button>
+            <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal" 
+                    ng-click="assignCurrentUser(user)">
+               <em class="fa fa-trash"></em>
+            </button>
           </span>
           <span></span>
         </div>
@@ -85,10 +96,10 @@
       </div>
     </div>
 
+  <% include partials/modals.ejs %>
   </div>
   <!-- style="position: absolute; top: 87%; left: 2%;" -->
   <br>
-  <% include partials/modals.ejs %>
   <% include partials/footer.ejs %>
 </body>
 

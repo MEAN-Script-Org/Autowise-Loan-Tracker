@@ -356,13 +356,19 @@
                 &times;
               </button>
               <span>
-                <h3>Are you sure you want to make this user a Super Admin?</h3>
+                <h3>
+                  Are you sure you want to make this user 
+                  <br>
+                  ({{currentUser.name}})
+                  <br>
+                  a Super Admin?
+                </h3>
                 <div class="divider"></div>
               </span>
             </div>
             <div class="modal-footer">
               <center>
-                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeSuperAdmin(user.username, user.superAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeSuperAdmin(currentUser._id)">Yes</button>
                 <button class="btn btn-primary" data-dismiss="modal">No</button>
               </center>
             </div>
@@ -384,13 +390,19 @@
                 &times;
               </button>
               <span>
-                <h3>Are you sure you want to make this user an Admin?</h3>
+                <h3>
+                  Are you sure you want to make this user 
+                  <br>
+                  ({{currentUser.name}}) 
+                  <br>
+                  an Admin?
+                </h3>
                 <div class="divider"></div>
               </span>
             </div>
             <div class="modal-footer">
               <center>
-                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeAdmin(user.username, user.isAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeAdmin(currentUser._id)">Yes</button>
                 <button class="btn btn-primary" data-dismiss="modal">No</button>
               </center>
             </div>
@@ -412,13 +424,19 @@
                 &times;
               </button>
               <span>
-              <h3>Are you sure you want to make this user a Customer?</h3>
+              <h3>
+                Are you sure you want to make this user 
+                <br>
+                ({{currentUser.name}})
+                <br>
+                a Customer?
+              </h3>
               <div class="divider"></div>
             </span>
             </div>
             <div class="modal-footer">
               <center>
-                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeUser(user.username, user.isAdmin)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="makeCustomer(currentUser._id)">Yes</button>
                 <button class="btn btn-primary" data-dismiss="modal">No</button>
               </center>
             </div>
@@ -439,13 +457,19 @@
                 &times;
               </button>
               <span>
-                  <h3>Are you sure you want to <b>DELETE</b> this user? This action cannot be undone.</h3>
+                  <h3>
+                    Are you sure you want to <b style="color: red">DELETE</b> this user 
+                    <br>
+                    ({{currentUser.name}})? 
+                    <br>
+                    This action <b>CANNOT</b> be undone
+                  </h3>
                   <div class="divider"></div>
                 </span>
             </div>
             <div class="modal-footer">
               <center>
-                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeUser(user.username)">Yes</button>
+                <button class="btn btn-primary" data-dismiss="modal" ng-click="removeUser(currentUser._id)">Yes</button>
                 <button class="btn btn-primary" data-dismiss="modal">No</button>
               </center>
             </div>
