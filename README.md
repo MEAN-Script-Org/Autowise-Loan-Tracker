@@ -191,7 +191,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
 ## Borrowed Code
 - Boilerplate project was based off a modified [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
 - Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
-- Styling templates: Bootstrap, and the [insert name here] template. (@Steven: go back into your search history).
+- Styling templates: Bootstrap, and the [Lumino](https://medialoot.com/item/lumino-admin-bootstrap-template/) template.
 - *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash, [source](https://gist.github.com/splosch/eaacc83f245372ae98fe)
 
 
@@ -200,7 +200,11 @@ To change permissions, access the *user permissions view* as a super admin. Here
 - Main parts of the app (Factory monolith, Express)
 - EJS and path passing
 - Authentication description
-- @Steven: technical comments on special frontend selection/checkbox f(x)nality
+- Custom Frontend:
+  - Checkbox to search query functionality
+  - Material design floating (& hidden) menu button(s)
+  - Selection/checkbox for mass data manipulation (mass update, delete, archive, etc.)
+  - Material design inputs and drop down selectors
 - Pass Docs thru word/grammarly
 - Done
 
