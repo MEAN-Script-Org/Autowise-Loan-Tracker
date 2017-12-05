@@ -86,9 +86,9 @@ Autowise managers ('super admins'), in addition to admins privileges, have the a
 
 ### Loan Management
 #### Creating Loans
-A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal (see [Buyer's Order](#buyers-order) for more information).
+A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal. More information [here](#buyers-order).
 
-Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described by the purchaser on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it (see [User Management](#user-management) for more information).
+Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described by the purchaser on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it. More information [here](#user-management).
 > The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
 
 
