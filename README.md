@@ -199,9 +199,9 @@ To change permissions, access the *user permissions view* as a super admin. Here
   + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
       * For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
 - Deployments
-  + Automatically on every push to master if you have set up automatic deployment in Heroku:
-  + [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-    *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+  + Automatically on every push to master if you have set up automatic deployment in Heroku
+    * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+    * TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
   + Manually once connected with Heroku's git: 
     * `git push heroku master`
 - Testing
@@ -210,10 +210,10 @@ To change permissions, access the *user permissions view* as a super admin. Here
 
 
 ### Borrowed Code
-- Boilerplate project was based off a modified [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
+- Boilerplate project was based off a modified and completed [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
 - Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
 - Styling templates: Bootstrap, and the [Lumino](https://medialoot.com/item/lumino-admin-bootstrap-template/) template.
-- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash, [source](https://gist.github.com/splosch/eaacc83f245372ae98fe)
+- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe).
 - Other code sections were borrowed from StackOverflow, and used throughout our app. A their source was provided in a comment if so.
 
 

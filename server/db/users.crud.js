@@ -68,10 +68,17 @@ module.exports = {
   },
 
   delete: function(req, res) {
-    User.findByIdAndRemove(req.user._id, function(err) {
-      if (err) res.status(404).send(err);
-      else res.json(req.user);
-    });
+    if (req.body.token.isSuperAdmin)
+      User.findByIdAndRemove(req.user._id, function(err) {
+        if (err) res.status(404).send(err);
+        else res.json(req.user);
+      });
+    else {
+      console.log("ATTEMP TO DELETE USER!");
+      console.log(req.body.token)
+      console.log("TRIED TO DELETE USER:", req.user);
+      res.json({error: "nope, you can't do that"});
+    }
   },
 
   returnUsers: function(req, res) {
