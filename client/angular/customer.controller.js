@@ -12,12 +12,11 @@ angular.module('SWEApp').controller(
     Factory.getUserInfo().then(
       function(res) {
         $rootScope.user = res.data;
-
-        alert(res.data);
-
+        
         if ($rootScope.user.isAdmin)
           window.location.href = "/profile/wrongUserType";
     });
+    
 
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user

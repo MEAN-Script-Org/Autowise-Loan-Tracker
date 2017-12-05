@@ -12,6 +12,7 @@ angular.module('SWEApp').controller(
     $rootScope.massLoans = []; // All loans currently selected (checked)
     $rootScope.loanWithNewComments = {}; // Loan with comments used to update the existing loan
 
+    $rootScope.user = {} // current user
     $rootScope.loading = true; // shows the loading car animation
     $rootScope.warranty = {}; // Warranty plan placeholder object
     $rootScope.filtered_loans = {}; // Filtered Loans placeholder object
@@ -63,7 +64,7 @@ angular.module('SWEApp').controller(
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
-
+          
           if (!$rootScope.user.isAdmin)
             window.location.href = "/profile/wrongUserType";
       });

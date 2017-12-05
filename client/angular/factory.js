@@ -37,13 +37,12 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       // Users CRUD
       //----------------------------------------------------------------------------------------------------------------
       newUser: function(User) {
-        console.log(User);
+        // console.log(User);
         var args = Object.assign(User, {token: getToken()});
         
         return $http.post('/new', args).then(
           function(res) {
             addToken(res.data);
-
             // For whoever wants to improve the security of this project later on:
             // https://stackoverflow.com/questions/30498646/how-to-send-json-and-parse-it-on-next-html-page-through-url-in-jquery
             // do the messages via encoding .... bye
@@ -99,14 +98,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       },
       
       //----------------------------------------------------------------------------------------------------------------
-      // CRUD operations on loans of specific Users
-      //----------------------------------------------------------------------------------------------------------------
-      getLoansOfUser: function() {
-        var args = {token: getToken()};
-        return $http.put('/api/loansByUser/', args);
-      },
-
-      //----------------------------------------------------------------------------------------------------------------
       // Authentication
       //----------------------------------------------------------------------------------------------------------------
       addToken: function(token) {
@@ -121,10 +112,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       isLoggedIn: function() {
         var token = getToken();
         return $http.post('/', {token});
-      },
-      register: function(loginData) {
-        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
-        return $http.post('/api/users', args);
       },
       login: function(loginData) {
         var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});

@@ -46,9 +46,18 @@ module.exports = {
     }
   },
 
-  read: function(req, res) {
-    // console.log(req.body.token);
-    res.json(req.body.token);
+  userByToken: function(req, res) {
+    console.log("what the fuck");
+    
+    User.findById(req.body.token.id).exec(function(err, user) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      }
+      else {
+        res.json(user);
+      }
+    });
   },
 
   makeSuperAdmin: function(req, res, next) {

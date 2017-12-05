@@ -28,7 +28,9 @@ module.exports = {
     // Add a new comment to the loan saying who made it
     var user_t = req.body.token;
     var firstComment = user_t.name + " created this loan";
-    newLoan.comments = [automatedComment(firstComment, true)];
+    firstComment = automatedComment(firstComment, true);
+    newLoan.comments = [];
+    newLoan.push(firstComment);
     
     if (req.body.note) {
       // In the case of no insurance, change status and add note
