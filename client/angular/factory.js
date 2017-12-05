@@ -38,7 +38,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       //----------------------------------------------------------------------------------------------------------------
       newUser: function(User) {
         // console.log(User);
-        var args = Object.assign(User, {token: getToken()});
+        var args = Object.assign(User, {token: getToken(), md5hash: window.fingerprint.md5hash});
         
         return $http.post('/new', args).then(
           function(res) {

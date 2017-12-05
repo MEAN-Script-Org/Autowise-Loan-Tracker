@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <% include partials/header.ejs %>
 </head>
 
 <body>
-  <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1" 
+  <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1"
     ng-app="SWEApp" ng-controller="Permissions" ng-init="init()">
     <% include partials/nav.ejs %>
 
@@ -14,11 +13,9 @@
       <div class="centered-text">
         <h1>User Permissions</h1>
       </div>
-
+      
       <br>
-
       <input class="sb-search-input" placeholder="Search for a customer or employee" ng-model="query" type="text">
-
       <br>
       <br>
 
@@ -29,10 +26,10 @@
 
       <div class="centered-text users-header invisible {{visible}}" ng-show="!loading && filtered_users.length > 0">
         <span class="m-col-2">
-          Name 
+          Name
           <a href="#">
-          <em class="fa fa-info-circle" 
-              ng-mouseenter="InfoTip=true" 
+          <em class="fa fa-info-circle"
+              ng-mouseenter="InfoTip=true"
               ng-mouseleave="InfoTip=false"></em>
           </a>
         </span>
@@ -43,32 +40,34 @@
       </div>
 
       <div class="users-table invisible {{visible}}" ng-hide="loading" >
-        <div ng-repeat="user in filtered_users = (users | filter: query)" 
-             class="centered-text" style="clear: both">
-          <!-- I have classes isAdmin isSuperAdmin that distinguishes them ~ -->
-          <span class="btn m-col-2 {{user.isAdmin ? 'isAdmin' : ''}} {{user.isSuperAdmin ? 'isSuperAdmin' : ''}}"> {{user.name}} </span>
+        <div ng-repeat="user in filtered_users = (users | filter: query)"
+             class="centered-text cleafix" style="clear: both">
+
+          <span class="btn m-col-2 {{user.isAdmin ? 'isAdmin' : ''}} {{user.isSuperAdmin ? 'isSuperAdmin' : ''}}">
+            {{user.name | limitTo: 15}}
+          </span>
 
           <span class="btn m-col-2"> {{user.dob}} </span>
           <span class="m-col-3" ng-show="user.isAdmin">
-            <button class="btn btn-md" data-target="#regUser" data-toggle="modal" 
-                    ng-click="assignCurrentUser(user)">
-              Make Customer
+            <button class="btn btn-md" data-target="#regUser" data-toggle="modal"
+                    ng-click="assignCurrentUser(user)" title="Make user a Customer">
+               Customer
             </button>
           </span>
           <span class="m-col-3" ng-show="user.isSuperAdmin || !user.isAdmin">
-            <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal" 
-                    ng-click="assignCurrentUser(user)">
-              Make Admin
+            <button class="btn btn-info btn-md" data-target="#Admin" data-toggle="modal"
+                    ng-click="assignCurrentUser(user)" title="Make user a Admin">
+               Admin
             </button>
           </span>
           <span class="m-col-3" ng-hide="user.isSuperAdmin">
-            <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal" 
-                    ng-click="assignCurrentUser(user)">
-              Make Super Admin
+            <button class="btn btn-warning btn-md" data-target="#superAdmin" data-toggle="modal"
+                    ng-click="assignCurrentUser(user)" title="Make user a Super Admin">
+               Super Admin
             </button>
           </span>
           <span class="m-col-1">
-            <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal" 
+            <button class="btn btn-danger btn-md" data-target="#delUser" data-toggle="modal"
                     ng-click="assignCurrentUser(user)">
                <em class="fa fa-trash"></em>
             </button>
@@ -83,23 +82,19 @@
     </div>
 
     <!-- diff lines for description -->
-    <!-- Delete long ass descriptions? -->
     <div class="invisible {{visible}}">
       <div class="label-container fadeTip label-text InfoTip" ng-show="InfoTip">
-        Legend:
-          <li> Customers: </li>
-          <li> Can make comments, request warranties, and delete their own comments </li>
-          <li> <b>Admins</b> : </li>
-          <li> Can create/update loans and make comments as 'admin only' </li>
-          <li> <b style="color: red">Super Admins</b>: </li>
-          <li> Can change users permissions, delete users, delete loans, and anyone's comments</li>
+        Customers:
+        <br> &nbsp;&nbsp;&nbsp; Can make comments, request warranties, and delete their own comments
+        <br> <b>Admins</b> :
+        <br> &nbsp;&nbsp;&nbsp; Can create/update loans and make comments as 'admin only'
+        <br> <b class="isSuperAdmin">Super Admins</b>:
+        <br> &nbsp;&nbsp;&nbsp; Can change users permissions, delete users, delete loans, and anyone's comments
       </div>
     </div>
 
   <% include partials/modals.ejs %>
   </div>
-  <!-- style="position: absolute; top: 87%; left: 2%;" -->
-  <br>
   <% include partials/footer.ejs %>
 </body>
 

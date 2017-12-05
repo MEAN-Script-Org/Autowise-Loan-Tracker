@@ -219,7 +219,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
 
 ### Overall comments & Implementation tweaks
 - TBFuther explained
-- *Main parts of the app (Factory monolith, Express)*
+- *Main parts of the app (Factory and Modals monolith, Express)*
 - *EJS and path passing*
 - *Authentication description*
 - Custom Frontend:
