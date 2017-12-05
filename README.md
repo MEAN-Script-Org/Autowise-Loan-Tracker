@@ -302,5 +302,22 @@ The following details the folder structure of the application and the purposes o
 - unit_testing: files and scripts used in app testing. More details [below](#testing)
 
 
-### Testing
-TBD
+## Testing
+Two classes of tests are developed: back-end and end-to-end tests. A total of 5 tests are provided (4 back-end and 1 end-to-end) each of which are described in detail below
+
+All 5 tests may be run by running the master python test script located at the top-level directory of the project. Use the command `python test.py` to do so.
+> Note that you must have Python installed to execute this file.
+
+### Back-end testing
+Two sets of back-end tests are developed.
+
+The first is the server-side back-end mocha tests _mocha.loan.server_ and _mocha.user.server_. These two tests check for loan and user creation, modification, and deletion respectively using purely server-side database commands.
+
+The second set of tests is the client-side back-end mocha tests _mocha.loan.client_ and _mocha.user.client_. These test loan and user creation, modification, and deletion respectively using client-side HTTP requests. These tests also validate the functionality of server side routing.
+
+These test sets are found in _unit_testing/mocha_ and can be run individually with the command `mocha [filename]`.
+
+### End-to-end testing
+A single end-to-end test is developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
+
+This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
