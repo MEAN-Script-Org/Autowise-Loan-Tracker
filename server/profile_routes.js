@@ -36,8 +36,8 @@ profile_routes.route('/permissions/:token')
 //----------------------------------------------------------------------------------------------------------------------
 // Account view/edit routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/userinfo/:token').all(function(req, res) {
-  res.render("userInfo", {path: "../../"});
+profile_routes.route('/account/:token').all(function(req, res) {
+  res.render("account", {path: "../../"});
 });
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -52,9 +52,9 @@ profile_routes.route('/warranties/:token/:loan_id')
 //----------------------------------------------------------------------------------------------------------------------
 // Account info routing
 //----------------------------------------------------------------------------------------------------------------------
-profile_routes.route('/userinfo/:token')
+profile_routes.route('/account/:token')
   .all(function(req, res) {
-    res.render("userInfo", {path: "../../"});
+    res.render("account", {path: "../../"});
 });
 
 profile_routes.param('token', auth.decodeToken);

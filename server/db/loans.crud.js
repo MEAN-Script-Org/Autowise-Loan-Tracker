@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Loan = require('./loans.model.js');
+var User = require('./users.model.js');
 
 // strategy ... create the comment content on the frontend... bye!
 function automatedComment(comment, isAdmin = true) {
@@ -21,12 +22,12 @@ function automatedComment(comment, isAdmin = true) {
 
 module.exports = {
 
-  create: function(req, res) {
+  create: function(req, res, next) {
     var newLoan = new Loan(req.body);
 
     // Add a new comment to the loan saying who made it
-    var user = req.body.token;
-    var firstComment = user.name + " created this loan";
+    var user_t = req.body.token;
+    var firstComment = user_t.name + " created this loan";
     newLoan.comments = [automatedComment(firstComment)];
     // !(insurance.company && insurance.policy_no)
     // etc etc.. add another comment and change status??
@@ -35,7 +36,12 @@ module.exports = {
       if (err) {
         console.log(err);
         res.status(400).send(err);
-      } else res.json(realNewLoan);
+      } 
+      else {
+        // res.json(realNewLoan);
+        req.new = realNewLoan;
+        next();
+      }
     });
   },
 
@@ -131,5 +137,53 @@ module.exports = {
       console.log("NO IDDDD");
       console.log(req.body, req.body.token);
     }
+  },
+
+  affixUsers: function(req, res, next) {
+    // Affixing possible already existing loans
+    var temp_loans = [];
+    var wanted = {
+      id: req.new.id,
+      dob: new Date(req.new.dob).toLocaleDateString('es-PA'),
+      name: req.new.name,
+    };
+
+    // TODO LATEEERRR: Use DLs too
+    var query = {
+      "buyers_order.purchaser.name": wanted.name,
+      "buyers_order.purchaser.dob": wanted.dob,
+    };
+
+    var co_query = {
+      "buyers_order.copurchaser.name": wanted.name,
+      "buyers_order.copurchaser.dob": wanted.dob,
+    };
+
+    // Find all loans according to the query, affix this user's id to them
+    Loan.find({$or: [query, co_query]}).exec(function(err, loans) {
+      // console.log(query);
+      console.log(loans.length);
+
+      if (err) console.log(err);
+      else {
+        // Update found loans with user ID
+        loans.forEach(function(loan) {
+          temp_loans.push(loan._id);
+          loan.user_ids.push(req.new.id);
+          
+          Loan.findByIdAndUpdate(loan._id, loan, {new: true}).exec();
+        });
+
+        var new_loans = {loans: temp_loans};
+
+        // update users
+        User.findByIdAndUpdate(req.new.id, new_loans, {new: true}).exec(
+          function(err, updated) {
+            console.log("DALE!", updated);
+            // User.findByIdAndRemove(req.new.id).exec();
+            next();
+        });
+      }
+    });
   },
 };

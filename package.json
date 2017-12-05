@@ -3,8 +3,9 @@
   "author": "Marcial Abrahantes",
   "scripts": {
     "first-install": "npm install -g gulp && npm run start",
+    "first-tests": "npm install -g mocha && npm install -g protractor && npm run test",
     "start": "npm install && gulp",
-    "test": "python test.py"
+    "tests": "python test.py"
   },
   "dependencies": {
     "angular-animate": "^1.4.14",
@@ -22,14 +23,11 @@
     "mongoose": "4.12.3",
     "mongoose-type-email": "1.0.5",
     "morgan": "1.8.2",
-    "nodemailer": "4.1.0",
-    "supertest": "3.0.0"
+    "nodemailer": "4.1.0"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
-    "nyc": "^11.3.0",
-    "request": "^2.81.0",
     "should": "13.1.2",
-    "tape": "^4.7.0"
+    "supertest": "3.0.0"
   }
 }

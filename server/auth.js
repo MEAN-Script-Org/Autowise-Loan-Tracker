@@ -23,7 +23,9 @@ module.exports = {
 
           if (validPassword) {
             var user_details = {
+              dl: user.dl,
               id: user._id,
+              dob: user.dob,
               name: user.name,
               email: user.email,
               isAdmin: user.isAdmin,

@@ -3,8 +3,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 require('mongoose-type-email');
 
-var Loan = require('./loans.model.js') ;
-
 // Define user schema
 var userSchema = new mongoose.Schema({
   username: {
@@ -51,78 +49,23 @@ var userSchema = new mongoose.Schema({
   // Assign it to the token user?? idk yet
 });
 
-function mm_dd_yyyy(string) {
-  // mm/dd/YYYY
-  return new Date(string).toLocaleDateString('en-IR');
-}
-
 //--------------------------------------------------------------------------------------------------------------------
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
 userSchema.pre('save', function(next) {
+  // General Fields
+  this.loans = []
+  this.isAdmin = false;
+  this.isSuperAdmin = false;
+  
   var currentDate = new Date();
   this.updated_at = currentDate;
-  
-  if (!this.isAdmin)
-    this.isAdmin = false;
-  
-  if (!this.isSuperAdmin)
-    this.isSuperAdmin = false;
   
   // Before saving user, hash password
   var hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync());
   this.password = hash;
 
-  // Affixing possible already existing loans
-  // console.log(this);
-
-  // not using the DL for now... but could!
-  var query = {
-    "buyers_order.purchaser.name": this.name,
-    "buyers_order.purchaser.dob": mm_dd_yyyy(this.dob),
-  };
-
-  var co_query = {
-    "buyers_order.copurchaser.name": this.name,
-    "buyers_order.copurchaser.dob": mm_dd_yyyy(this.dob),
-  };
-
-  // console.log(this);
-  var user_id = this.id;
-
-  Loan.find({}, function(err, dale) {
-    dale.forEach(function(item) {
-      console.log(item);
-      console.log(item.buyers_order.purchaser.dob);
-      console.log(typeof item.buyers_order.purchaser.dob);
-    })
-  })
-  
-  // Find all loans according to the query, affix this user's id to them
-  // if (!Loan.find({ $or: [query, co_query]}, function(err, loans) {
-  if (!Loan.find({ query }, function(err, loans) {
-    var temp_loans = [];
-    console.log(query);
-    console.log(loans.length);
-
-    if (err) console.log(err);
-    else {
-      // Update found loans with user ID
-      loans.forEach(function(loan) {
-        loan.user_id = user_id;
-
-        Loan.findByIdAndUpdate(loan._id, loan, {new: true},
-          function(err, updated) {
-          console.log("NEW!: ", updated);
-        });
-        
-        temp_loans.push(loan._id);
-      });
-    }
-  }))
-    this.loans = temp_loans;
-  
-  // next();
+  next();
 });
 
 userSchema.methods.comparePassword = function(password) {

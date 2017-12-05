@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var auth = require("./auth.js");
-var api_routes = require('./routes.js');
+var api_routes = require('./api_routes.js');
 var login_routes = require('./login_routes.js');
 var profile_routes = require('./profile_routes.js');
 
@@ -35,10 +35,10 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // TODO: correctly implement in profile routes, and DELETE!!
-  // app.use('/account', function(req, res) {
-  //   res.render('userInfo', { path: '' });
-  // });
+  // TODO: finish styling this then DELETE!!
+  app.use('/warranties', function(req, res) {
+    res.render('warranties', { path: '' });
+  });
 
   // DO NOT PERFORM AUTH ON ON THESE  BY DEFAULT
   // ALLOW non-logged in to:
@@ -47,7 +47,7 @@ module.exports.init = function() {
   app.use('/', login_routes);
   app.use('/login', auth.login);
 
-  app.use('/new', users.create, auth.login);
+  app.use('/new', users.create, loans.affixUsers, auth.login);
   app.use('/usernames', users.getAll, users.getAllUsernames);
 
   // automatic reroute here

@@ -25,12 +25,12 @@ angular.module('SWEApp').controller(
       insr: {},
       car_info: {},
       purchaser: {},
+      copurchaser: {},
       finances: { admin_fees: 489 },
-      copurchaser: { invalid: "true" },
     };
 
     $scope.init = function() {
-      console.log("MEAN App on it's way!");
+      // console.log("MEAN App on it's way!");
 
       $scope.commentAsAdmin = false;
 
@@ -67,13 +67,15 @@ angular.module('SWEApp').controller(
         });
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    // CONVINIENT FUNCTIONS
+    //------------------------------------------------------------------------------------------------------------------
     $scope.convert_warranties = function(type) {
       // 'any-year' are drivetrains...
-      if (type)
-        return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+      return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
     }
 
-    // Simple Filters. 
+    // Simple Filter Toggles
     $scope.toggleArchiveFilter = function() {
       $scope.looking_for_archived = !$scope.looking_for_archived;
     }
@@ -100,22 +102,22 @@ angular.module('SWEApp').controller(
     }
 
     $scope.prepareLoanDates = function(bo) {
-      // ALL DATES NEED TO BE WRITTEN HERE FOR CORRECT DISPLAY
+      // All dates need to be reformated for correct display
       // Copied from loan models ~
 
-      bo.purchaser.dob = new Date(bo.purchaser.dob);
+      bo.purchaser.dob_t = new Date(bo.purchaser.dob);
 
       if (bo.copurchaser && bo.copurchaser.dob)
-        bo.copurchaser.dob = new Date(bo.copurchaser.dob);
+        bo.copurchaser.dob_t = new Date(bo.copurchaser.dob);
 
       if (bo.car_info.good_thru)
-        bo.car_info.good_thru = new Date(bo.car_info.good_thru);
+        bo.car_info.good_thru_t = new Date(bo.car_info.good_thru);
 
       if (bo.insr && bo.insr.exp_date)
-        bo.insr.exp_date = new Date(bo.insr.exp_date);
+        bo.insr.exp_date_t = new Date(bo.insr.exp_date);
 
       if (bo.insr && bo.insr.eff_dates)
-        bo.insr.eff_dates = new Date(bo.insr.eff_dates);
+        bo.insr.eff_dates_t = new Date(bo.insr.eff_dates);
 
       return bo;
     }
@@ -154,6 +156,7 @@ angular.module('SWEApp').controller(
       $("#sudo-select-" + number).css('height', '0');
     }
 
+    // TODO: delete this, implement it in the frontend only
     $scope.setCarUsed = function(scopeVar, used) {
       if (scopeVar === 'type') {
         $rootScope.bo.car_info.type_t = used;
@@ -271,9 +274,9 @@ angular.module('SWEApp').controller(
     // Removes a single loan of the specified ID
     //------------------------------------------------------------------------------------------------------------------
     $scope.removeLoan = function(loanID, uncofirmedDeletion) {
-      // TODO Sprint 3:
-      // Delete should send things to archieve...
-      //        Delete from active DB, Add to 'archieve.json' in server
+      // TODO Later:
+      // Delete should send things to archieve?
+      //        Delete from active DB, Add to 'archieve.json' in server or etc
       if (uncofirmedDeletion) {
         if (confirm("Are you sure you want to delete this loan? Doing so will delete ALL records of it"))
           $scope.removeLoan(loanID, true);
@@ -396,20 +399,12 @@ angular.module('SWEApp').controller(
       }
     }
 
-    $scope.goToPermissions = function() {
-      $window.location.href = '/profile/permissions/' + Factory.getToken();
-    }
-
     $scope.checkTrigger = function(loanID) {
       let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
       if (stateUpdate != -1) {
         $scope.updateCheckList(loanID, stateUpdate);
       }
     };
-
-    $scope.clearMassLoans = function() {
-      $rootScope.massLoans = [];
-    }
 
     // Clearing frontend checkboxes
     $scope.clearCheckbox = function(loanID) {
@@ -419,20 +414,6 @@ angular.module('SWEApp').controller(
     }
 
     function addCommentFrontend(loanID, newCommentContent) {
-      // JS time int to string options... but chose to go with Angular
-      // DO NOT DELETE THESE COMMENTS
-      // var time_options = {
-      //     minute: "numeric",
-      //     month: "short",
-      //     day: "numeric",
-      //     hour: "numeric",
-      //     year: "numeric",
-      //     hour12: true,
-      //     timeZone: "America/New_York",
-      //     timeZoneName: "short",
-      // };
-      // check 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular
-
       return $rootScope.loans.some(function(item, index, loans) {
         if (item._id) {
           if (item._id == loanID) {
@@ -461,17 +442,16 @@ angular.module('SWEApp').controller(
         The following uses jQuery
         No suitable Angular way found
       */
+      // Saving message content, clearing input field
       var wantedInputField = ["#", loanID, "-new-comment"].join("");
       var newCommentContent = $(wantedInputField).val();
       $(wantedInputField).val("");
       console.log(newCommentContent);
-      // saving text message content, clearing input field
 
       if (newCommentContent) {
         // update frontend
         if (addCommentFrontend(loanID, newCommentContent)) {
           // and DB
-          // TODO: change this to simple add comment
           Factory.modifyLoan(loanID, $rootScope.loanWithNewComments).then(
             function(res) {
               console.log("Returned new loan with updated comments:");
@@ -481,8 +461,8 @@ angular.module('SWEApp').controller(
       }
     }
 
-    // TODO: Clear or figure out why I wrote the 'if (item.id)'s...
     $scope.removeComment = function(loanID, comments, nonwanted) {
+      // update frontend
       comments.some(function(item, index, array) {
         if (nonwanted.content == item.content && nonwanted.newtime == item.newtime) {
           array.splice(index, 1);
@@ -490,7 +470,7 @@ angular.module('SWEApp').controller(
         }
       });
 
-      // update DB after Frontend
+      // update DB
       Factory.modifyLoan(loanID, { comments: comments }).then(
         function(response) {
           return;

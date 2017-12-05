@@ -1,6 +1,7 @@
 angular.module('SWEApp').factory('Factory', ['$http', '$window',
   function($http, $window) {
     
+    // Authentication Helper methods
     var removeToken = function() {
       $window.localStorage.removeItem('token');
     }
@@ -13,13 +14,10 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     }
 
     var getToken = function() {
-
       var token = $window.localStorage.getItem('token');
       if (token)
-      {
         if (Object.keys(token).length > 0)
           token = [token, $window.fingerprint.md5hash];
-      }
       return token;
     }
 
@@ -44,8 +42,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         
         return $http.post('/new', args).then(
           function(res) {
-            // alert(Factory.getToken());
-            console.log(res.data);
+            addToken(res.data);
 
             // For whoever wants to improve the security of this project later on:
             // https://stackoverflow.com/questions/30498646/how-to-send-json-and-parse-it-on-next-html-page-through-url-in-jquery
@@ -100,7 +97,6 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         var args = {token: getToken()};
         return $http.put('/api/loansByUser/', args);
       },
-      // Bug => get requests don't seem to be accepting args.... interesting
 
       //----------------------------------------------------------------------------------------------------------------
       // Authentication
@@ -114,20 +110,17 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       removeToken: function() {
         removeToken();
       },
+      isLoggedIn: function() {
+        var token = getToken();
+        return $http.post('/', {token});
+      },
       register: function(loginData) {
-        // var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
-        // console.log(args);
+        var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
         return $http.post('/api/users', args);
       },
       login: function(loginData) {
         var args = Object.assign(loginData, {md5hash: window.fingerprint.md5hash});
-        // console.log(args);
         return $http.post('/login', args);
-      },
-      isLoggedIn: function() {
-        var token = getToken();
-        // console.log(token);
-        return $http.post('/', {token});
       },
       logout: function() {
         removeToken();

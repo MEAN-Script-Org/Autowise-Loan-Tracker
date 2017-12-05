@@ -2,8 +2,6 @@ var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 require('mongoose-type-email');
 
-var User_model = require('./users.model.js') ;
-
 //----------------------------------------------------------------------------------------------------------------------
 // LOAN SCHEMA
 //======================================================================================================================
@@ -55,7 +53,8 @@ var loanSchema = new mongoose.Schema({
       name:     {type:   String, required: true},
       email:    {type:   mongoose.SchemaTypes.Email, required: false},
       dl:       {type:   String, required: true},
-      dob:      {type:   String,   required: true},
+      dob:      {type:   String, required: true},
+      dob_extra:{type:   String, },
 
       // Contact information
       address: {
@@ -78,6 +77,7 @@ var loanSchema = new mongoose.Schema({
       name:    {type:   String, /*required: false*/},
       dl:      {type:   String, /*required: false*/},
       dob:     {type:   String, /*required: false*/},
+     dob_extra:{type:   String, /*required: false*/},
 
       // Contact information
       address: {
@@ -171,7 +171,6 @@ var loanSchema = new mongoose.Schema({
       good_thru:   String,
     },
   }
-
 });
 
 // function yyyy_mm_dd(string) {
@@ -182,16 +181,24 @@ var loanSchema = new mongoose.Schema({
 
 function mm_dd_yyyy(string) {
   // mm/dd/YYYY
-  return new Date(string).toLocaleDateString('en-IR');
+  return new Date(string).toLocaleDateString('es-PA');
 }
 
+function american_date(string) {
+  // mm/dd/YYYY with missing zeros if mm and dd < 10
+  return new Date(string).toLocaleDateString();
+}
 
 function formatDates(bo) {
+  // forming dates to string-friendly searchable formate
 
   bo.purchaser.dob = mm_dd_yyyy(bo.purchaser.dob);
+  bo.purchaser.dob_extra = american_date(bo.purchaser.dob);
 
-  if (bo.copurchaser.dob)
+  if (bo.copurchaser.dob) {
     bo.copurchaser.dob = mm_dd_yyyy(bo.copurchaser.dob);
+    bo.copurchaser.dob_extra = american_date(bo.copurchaser.dob);
+  }
   
   if (bo.car_info.exp_date)
     bo.car_info.exp_date = mm_dd_yyyy(bo.car_info.exp_date);
@@ -209,66 +216,34 @@ function formatDates(bo) {
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('save', function(next) {
-  // console.log("HEY!") ;
-  
   // Forcing this
   this.status = "RECEIVED";
   
   var currentDate = new Date();
-  // these could be used for filtering ~ but idk too fancy no time
+  // these could be used for filtering ~ but too fancy, no time
   this.updated_at = currentDate;
 
   if (!this.created_at)
     this.created_at = currentDate;
 
   // CORRECLTY Format all dates
-  if (!(this.buyers_order = formatDates(this.buyers_order)))
-    next();
+  this.buyers_order = formatDates(this.buyers_order);
 
-  // Find all loans according to the query, affix this user's id to them
-  // var loan_id = this.id;
-  // console.log(loan_id);
-
-  // LOAN TO USER AFFIXING DOESN'T WORK!
-  // if (!User_model.find({ loans: loan_id }, function(err, users) {
-  //   var temp_users = [];
-  //   console.log(users.length);
-
-  //   if (err) console.log(err);
-  //   else {
-  //     // Update found users with loan ID
-  //     users.forEach(function(user) {
-  //       user.loans.push(loan_id);
-
-  //       User_model.findByIdAndUpdate(user._id, user, {new: true},
-  //         function(err, updated) {
-  //         console.log("NEW!: ", updated);
-  //       });
-  //     });
-  //   }
-  // }))
-  //   this.user_ids = temp_users;
-});
-
-//--------------------------------------------------------------------------------------------------------------------
-// POST-PROCESSING: save
-//--------------------------------------------------------------------------------------------------------------------
-loanSchema.post('save', function() {
-  // Attempt to affix this loan to an existing user
+  next();
 });
 
 //--------------------------------------------------------------------------------------------------------------------
 // RE-PROCESSING: update
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('findOneAndUpdate', function() {
-  this._update.status = this._update.status.toUpperCase();
+  var loan = this._update;
+  loan.status = loan.status.toUpperCase();
 
   // CORRECLTY Format all dates
   // ALL THE TIME!
-  // this.updated_at = new Date();
-  if (!(this._update.buyers_order = formatDates(this._update.buyers_order))) {
-    next();
-  }
+  loan.buyers_order = formatDates(loan.buyers_order);
+  this._update = loan;
+  next();
 });
 
 // Create loan model from schema

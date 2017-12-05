@@ -84,6 +84,11 @@ module.exports = function (req, res) {
       pass: process.env.YAHOO_PASSWORD,
     }
     // Gmail Instructions: Get a Gmail API key, adjust valid urls
+    // clientId: process.env.CLIENT_ID,
+    // auth: {
+    //   user: process.env.GMAIL_USERNAME,
+    //   pass: process.env.GMAIL_PASSWORD,
+    // }
   });
   
   // Token generation/retrival

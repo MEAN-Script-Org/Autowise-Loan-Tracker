@@ -24,7 +24,6 @@ module.exports = {
 
         if (err) {
           if (err.toJSON().code == 11000) {
-            console.log("oink same shit..", err);
             res.json({ 
               err,
               message: 'Username or email already exist!' ,
@@ -38,6 +37,7 @@ module.exports = {
           } 
         } else {
           console.log(realNewUser);
+          req.new = newUser;
           next();
         }
       });
@@ -47,7 +47,8 @@ module.exports = {
   },
 
   read: function(req, res) {
-    res.json(req.body.token) ;
+    // console.log(req.body.token);
+    res.json(req.body.token);
   },
 
   update: function(req, res) {
@@ -55,10 +56,7 @@ module.exports = {
     // console.log(req.body);
 
     // Replace old user's properties with the newly sent ones
-    var userToBeUpdated = Object.assign(oldUser, req.body, function(former, replacement){
-      if (!replacement) return former;
-      else return replacement;
-    });
+    var userToBeUpdated = Object.assign(oldUser, req.body);
     
     // {new: true} => Returns the real/actual updated version
     //             => 'updatedUser'
@@ -112,12 +110,6 @@ module.exports = {
   },
   
   userByID: function(req, res, next, id) {
-    if (!id && req.body.token)
-      id = req.body.token.id;
-
-    console.log(id, req.body, req.body.token);
-
-    if (id) {
     User.findById(id).exec(function(err, user) {
       if (err) {
         console.log(err) ;
@@ -128,6 +120,57 @@ module.exports = {
         next() ;
       }
     });
+  },
+
+  affixLoans: function(req, res, next) {
+    // Affixing possible already existing loans
+    // given a new loan, attach loan to (co)purchaser customers
+
+    var p = req.new.buyers_order.purchaser;
+    var cop = req.new.buyers_order.copurchaser;
+    var wanted_id = req.new.id;
+    var temp_users = [];
+
+    // TODO LATEEERRR: Use DLs too
+    var query = {
+      name: p.name,
+      dob: new Date(p.dob).toLocaleDateString('es-PA'),
+    };
+
+    var all_qs = [query];
+
+    if (cop.name && cop.dob) {
+      var co_query = {
+        name: cop.name,
+        dob: new Date(cop.dob).toLocaleDateString('es-PA'),
+      };
+
+      all_qs.push(co_query);
     }
-  }
+
+    // TODO: Test this!
+    // Find all users according to the query, affix this user's id to them
+    User.find({$or: all_qs}).exec(function(err, users) {
+      console.log(loans.length);
+
+      if (err) console.log(err);
+      else {
+        // Update found users with loan ID
+        users.forEach(function(user) {
+          temp_users.push(user._id);
+          user.loans.push(req.new.id);
+
+          User.findByIdAndUpdate(user._id, user, {new: true}).exec();
+        });
+        var new_users = {user_ids: temp_users};
+
+        // update loan
+        Loan.findByIdAndUpdate(req.new.id, new_users, {new: true}).exec(
+          function(err, updated) {
+            console.log("DALE!", updated);
+            next();
+        });
+      }
+    });
+  },
 };

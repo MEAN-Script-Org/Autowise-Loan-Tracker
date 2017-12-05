@@ -6,18 +6,18 @@ directories = [f for f in os.listdir(".")
                  and "test" in f]
 
 # Load Mocha files
-mocha_files = {  os.path.join(path, f)
+mocha_files = { os.path.join(path, f)
                 for dir in directories
                 for path, dirs, files in os.walk(dir)
                 for f in files
                 if f.endswith(".js") and f.startswith("mocha") }
                 
 # Load Protractor files (just the config file)
-prtctr_files = {  os.path.join(path, f)
-                for dir in directories
-                for path, dirs, files in os.walk(dir)
-                for f in files
-                if f == "protractor.config.js" }
+prtctr_files = { os.path.join(path, f)
+                 for dir in directories
+                 for path, dirs, files in os.walk(dir)
+                 for f in files
+                 if f == "protractor.config.js" }
 
 # open ONLY if gulp is already there...
 try:
