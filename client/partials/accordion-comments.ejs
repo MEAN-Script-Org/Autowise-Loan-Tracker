@@ -23,7 +23,16 @@
                   You:
                 </strong>
                 <strong ng-show="comment.writer.id != user.id">
-                  {{comment.writer.name}}:
+                  {{comment.writer.name}} 
+                  <span ng-hide="comment.writer.name == 'System'">
+                    <span ng-show="comment.writer.id == loan.buyers_order.purchaser.name">
+                      (Purchaser)
+                    </span>
+                    <span ng-show="comment.writer.id == loan.buyers_order.copurchaser.name">
+                      (Copurchaser)
+                    </span>
+                  </span>
+                  :
                 </strong>
               </span>
             </div>

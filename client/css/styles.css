@@ -704,9 +704,8 @@ a.label:focus {
 .panel-heading {
   font-size: 20px;
   font-weight: 300;
-  letter-spacing: 0.025em;
-  height: 60px;
   line-height: 38px;
+  letter-spacing: 0.025em;
 }
 
 .panel-default .panel-heading {
@@ -1439,7 +1438,7 @@ input[type="date"]:valid:before {
 
 .warrantyDescription {
   font-size: 78%;
-  height: 600px;
+  height: 525px;
   line-height: 105%;
   font-weight: 500;
   text-align: justify;

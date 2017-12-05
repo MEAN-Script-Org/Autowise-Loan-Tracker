@@ -49,6 +49,11 @@ angular.module('SWEApp').controller(
       $window.location.href = '/profile/warranties/' + Factory.getToken() + '/' + loan_id ;
     }
     
+    $scope.convert_warranties = function(type) {
+      // 'any-year' are drivetrains...
+      return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+    }
+    
     //------------------------------------------------------------------------------------------------------------------
     // Adds a customer comment to the loan
     // Taken from "admin.controller.js"

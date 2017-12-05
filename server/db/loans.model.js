@@ -216,13 +216,13 @@ function formatDates(bo) {
 // PRE-PROCESSING: Save
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('save', function(next) {
-  // Forcing this
-  this.status = "RECEIVED";
-  
   var currentDate = new Date();
   // these could be used for filtering ~ but too fancy, no time
   this.updated_at = currentDate;
 
+  if (!this.status)
+    this.status = "RECEIVED";
+  
   if (!this.created_at)
     this.created_at = currentDate;
 
@@ -235,15 +235,19 @@ loanSchema.pre('save', function(next) {
 //--------------------------------------------------------------------------------------------------------------------
 // RE-PROCESSING: update
 //--------------------------------------------------------------------------------------------------------------------
-loanSchema.pre('findOneAndUpdate', function() {
+loanSchema.pre('findOneAndUpdate', function(next) {
   var loan = this._update;
   loan.status = loan.status.toUpperCase();
 
   // CORRECLTY Format all dates
   // ALL THE TIME!
   loan.buyers_order = formatDates(loan.buyers_order);
-  this._update = loan;
-  next();
+  console.log(loan);
+
+  if(this._update = loan) {
+    console.log("here~");
+    next();
+  }
 });
 
 // Create loan model from schema
