@@ -228,7 +228,8 @@ angular.module('SWEApp').controller('Warranties',
         ", ID# " + $rootScope.user.id + ") is interested in the following warranty plan:",
         "<b>Type</b>: " + converted_war_type,
         "<b>Plan length</b>: " + warranty.term.months,
-        "<b>Plan mileage</b>: " + warranty.term.miles * 1000
+        "<b>Plan mileage</b>: " + warranty.term.miles * 1000,
+        "<b>Starting at:</b> $" + warranty.price,
       ].join("<br>");
 
       // Email object

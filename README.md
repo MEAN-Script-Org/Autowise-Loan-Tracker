@@ -219,7 +219,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
 
 ### Overall comments & Implementation tweaks
 - TBFuther explained
-- *Main parts of the app (Factory monolith, Express)*
+- *Main parts of the app (Factory and Modals monolith, Express)*
 - *EJS and path passing*
 - *Authentication description*
 - Custom Frontend:
@@ -270,7 +270,6 @@ The following details the folder structure of the application and the purposes o
     * _footer.ejs:_ Global JavaScript dependencies
     * _nav.ejs:_ Navigation bar atop each page
     * _accordion-comments.ejs:_ HTML for loan content and comments functionality
-    * _account-contact-autowise.ejs:_ **TODO** Delete this file if there's no use for it
     * _actions-row.ejs:_ action buttons appearing under the header of a loan visible to admins
     * _admin-filters.ejs:_ admin loan filtering and search bar
     * _buyers-order.ejs:_ popup displaying the Buyer's Order
@@ -294,7 +293,7 @@ The following details the folder structure of the application and the purposes o
     * _users.crud.js:_ details CRUD operations on User database objects
     * _users.model.js:_ defines the User database schema and several server side User operations
   + _api_routes.js:_ defines routing for API requests including loan and user management
-  + _app.js:_ server side application initialization, called from the'server.js' file at the top-level directory
+  + _app.js:_ server side application initialization, called from 'server.js' at the top-level directory
   + _auth.js:_ provides authentication functionality
   + _emailing.js:_ provides emailing functionality
   + _express.js:_ defines top-level routing which is further detailed by one of the other routing files

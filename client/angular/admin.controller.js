@@ -12,6 +12,7 @@ angular.module('SWEApp').controller(
     $rootScope.massLoans = []; // All loans currently selected (checked)
     $rootScope.loanWithNewComments = {}; // Loan with comments used to update the existing loan
 
+    $rootScope.user = {} // current user
     $rootScope.loading = true; // shows the loading car animation
     $rootScope.warranty = {}; // Warranty plan placeholder object
     $rootScope.filtered_loans = {}; // Filtered Loans placeholder object
@@ -56,15 +57,17 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 200);
+          }, 500);
         }
       );
 
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
-          // user = res.data;
-        });
+          
+          if (!$rootScope.user.isAdmin)
+            window.location.href = "/profile/wrongUserType";
+      });
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -161,7 +164,7 @@ angular.module('SWEApp').controller(
       if (scopeVar === 'type') {
         $rootScope.bo.car_info.type_t = used;
       } else {
-        console.log(used);
+        // console.log(used);
         $rootScope.bo.car_info.license_plate = used;
       }
       $scope.onBlurInput();
@@ -189,6 +192,9 @@ angular.module('SWEApp').controller(
 
         if (!confirmation)
           return;
+        else
+          ;
+          // add insurance note here ~
       }
 
       // Create new loan and upload it to the database
@@ -227,7 +233,7 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     $scope.updateLoanWithBO = function() {
       if (!$rootScope.currLoan) return;
-      console.log($rootScope.currLoan);
+      // console.log($rootScope.currLoan);
 
       // Update loan in the database with updated buyer's order
       // On back-end, the loan may be reassigned to a user if the purchaser information has changed
@@ -446,7 +452,7 @@ angular.module('SWEApp').controller(
       var wantedInputField = ["#", loanID, "-new-comment"].join("");
       var newCommentContent = $(wantedInputField).val();
       $(wantedInputField).val("");
-      console.log(newCommentContent);
+      // console.log(newCommentContent);
 
       if (newCommentContent) {
         // update frontend
@@ -482,10 +488,10 @@ angular.module('SWEApp').controller(
       );
     }
 
-    $scope.emailClient = function(loanID, userEmail, clientName) {
+    $scope.emailClient = function(loanID, userEmail, clientName, couserName, couserEmail) {
 
       if (!userEmail) {
-        alert("Customer has no email associated with their account");
+        alert("No purchaser email found");
         return;
       }
 
@@ -514,7 +520,11 @@ angular.module('SWEApp').controller(
         function(error) {
           console.log(error);
           alert(errorMsg);
-        });
+      });
+
+      // email to copurchaser too...
+      if (couserName && couserEmail)
+        $scope.emailClient(loanID, couserName, couserEmail, false, false);
     };
   }
 ]);

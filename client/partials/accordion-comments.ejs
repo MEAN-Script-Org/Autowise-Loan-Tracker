@@ -11,24 +11,24 @@
               <!-- For amins: names -->
               <!-- For users: you vs 'Autowise' -->
               <span ng-hide="isAdmin">
-                <strong ng-show="comment.writer.id != user.id">
+                <strong ng-show="comment.writer.id != user._id">
                   Autowise: 
                 </strong>
-                <strong ng-show="comment.writer.id == user.id">
+                <strong ng-show="comment.writer.id == user._id">
                   You: 
                 </strong>
               </span>
               <span ng-show="isAdmin">
-                <strong ng-show="comment.writer.id == user.id">
+                <strong ng-show="comment.writer.id == user._id">
                   You:
                 </strong>
-                <strong ng-show="comment.writer.id != user.id">
-                  {{comment.writer.name}} 
+                <strong ng-show="comment.writer.id != user._id">
+                  {{comment.writer.name}}
                   <span ng-hide="comment.writer.name == 'System'">
-                    <span ng-show="comment.writer.id == loan.buyers_order.purchaser.name">
+                    <span ng-show="comment.writer.name == loan.buyers_order.purchaser.name">
                       (Purchaser)
                     </span>
-                    <span ng-show="comment.writer.id == loan.buyers_order.copurchaser.name">
+                    <span ng-show="comment.writer.name == loan.buyers_order.copurchaser.name">
                       (Copurchaser)
                     </span>
                   </span>
@@ -51,8 +51,9 @@
                 <!-- 'https://docs.angularjs.org/api/ng/filter/date' for future changes using angular -->
                 
                 <!-- Remove comment -->
-                <span ng-hide="((comment.writer.id != user.id) && !user.isSuperAdmin) 
-                               || comment.writer.name.toLowerCase() == 'system'">
+                <span ng-hide="((comment.writer.id != user._id) && !user.isSuperAdmin) 
+                               || comment.writer.name.toLowerCase() == 'system'
+                               || !user.isAdmin">
                   <button class="btn btn-danger btn-xs" title="Delete this comment" ng-click="removeComment(loan._id, loan.comments, comment)">
                     <em class="fa fa-trash"></em>
                   </button>

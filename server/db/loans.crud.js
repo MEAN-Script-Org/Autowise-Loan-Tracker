@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 var Loan = require('./loans.model.js');
 var User = require('./users.model.js');
 
-// strategy ... create the comment content on the frontend... bye!
+// Create the comment content on the frontend
 function automatedComment(comment, isAdmin) {
   var newComment = {
     admin: isAdmin,
@@ -28,10 +28,14 @@ module.exports = {
     // Add a new comment to the loan saying who made it
     var user_t = req.body.token;
     var firstComment = user_t.name + " created this loan";
-    newLoan.comments = [automatedComment(firstComment)];
-    // !(insurance.company && insurance.policy_no)
-    // etc etc.. add another comment and change status??
-    // newLoan.comments.push(automatedComment(firstComment));
+    firstComment = automatedComment(firstComment, true);
+    newLoan.comments = [];
+    newLoan.push(firstComment);
+    
+    if (req.body.note) {
+      // In the case of no insurance, change status and add note
+      newLoan.comments.push(automatedComment(req.body.note, true));
+    }
 
     newLoan.save(function(err, realNewLoan) {
       if (err) {
@@ -57,13 +61,13 @@ module.exports = {
 
     if (req.body.note) {
       var newComment = automatedComment(req.body.note, req.body.isAdminNote);
-      req.body.comments = [newComment]
+      oldLoan.comments.push(newComment);
      
       // // if more than 1
       // if (req.body.notes) {
       //   req.body.note.forEach(function(item) {
       //     var newComment = automatedComment(item, req.body.isAdminNote);
-      //     req.body.comments.push(newComment);
+      //     oldLoan.comments.push(newComment);
       //   })
       // }
       // else {

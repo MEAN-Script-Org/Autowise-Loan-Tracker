@@ -94,6 +94,7 @@ module.exports = {
   //      IF not valid, display you need to log in again
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
+    
     var token_array = req.body.token;
     
     if (token_array) {
