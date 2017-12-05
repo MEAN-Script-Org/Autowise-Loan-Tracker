@@ -52,10 +52,10 @@
     * [User Management](#user-management)
 + [Technical details](#technical-details)
     * [Project Dependencies](#project-dependencies)
-    * [Local Installation and Execution](#local-installation-and-execution)
+    * [Development](#development)
     * [Borrowed Code](#borrowed-code)
     * [Project Structure](#project-structure)
-    * [Overall Comments & Implementation Tweaks](#overall-comments---implementation-tweaks)
+    * [Overall Comments & Implementation Tweaks](#overall-comments--implementation-tweaks)
     * [Testing](#testing)
 
 
@@ -176,7 +176,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
 
 ### Project Dependencies
 - [Node.js and npm](https://nodejs.org/en/download)
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-clii#download-and-install)
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 - [Python 3.x](https://www.python.org/downloads/) for automated tests
 <!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
 
@@ -195,7 +195,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
             <!-- Marcial: TODO soon -->
 - Installation and Execution
   + First run: `npm run first-install`
-      * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
+      * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](http://sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
   + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
       * For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
 - Deployments
