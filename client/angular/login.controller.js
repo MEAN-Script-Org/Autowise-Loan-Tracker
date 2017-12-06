@@ -55,7 +55,6 @@ angular.module('SWEApp').controller('LoginController',
       var day = 1000 * 60 * 60 * 24;
       var year = Math.floor(day * 365.25);
       var diff = Math.floor($scope.rn - $scope.newUser.dob.getTime());
-      // alert(diff + "\n" + diff/year);
 
       if (diff > 18 * year && diff < 115 * year) {
         $scope.funny_dob = false;
@@ -93,7 +92,7 @@ angular.module('SWEApp').controller('LoginController',
           }
         },
         function(err) {
-          return alert(err);
+          alert(err);
       });
     }
 

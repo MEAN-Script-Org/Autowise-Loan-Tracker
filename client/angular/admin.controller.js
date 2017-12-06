@@ -16,6 +16,7 @@ angular.module('SWEApp').controller(
     $rootScope.loading = true; // shows the loading car animation
     $rootScope.warranty = {}; // Warranty plan placeholder object
     $rootScope.filtered_loans = {}; // Filtered Loans placeholder object
+    $rootScope.newStatus = null;
 
     // Max's Variable to handle BO edits
     $rootScope.isEditingLoan = false;
@@ -75,7 +76,9 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     $scope.convert_warranties = function(type) {
       // 'any-year' are drivetrains...
-      return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+      // LEAVE THE IF!! CLEANER CONSOLE
+      if (type)
+        return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
     }
 
     // Simple Filter Toggles
@@ -141,7 +144,7 @@ angular.module('SWEApp').controller(
       $rootScope.currLoan = loan;
       $rootScope.bo = loan.buyers_order;
       $rootScope.bo = $scope.prepareLoanDates($rootScope.bo);
-      $scope.newStatus = loan.status;
+      $rootScope.newStatus = loan.status;
 
       // Set editing flag to 'true'
       $rootScope.isEditingLoan = true;
@@ -427,7 +430,7 @@ angular.module('SWEApp').controller(
             var newComment = {
               admin: loans[index].commentAsAdmin,
               writer: {
-                id: $rootScope.user.id,
+                id: $rootScope.user._id,
                 name: $rootScope.user.name,
               },
               content: newCommentContent,

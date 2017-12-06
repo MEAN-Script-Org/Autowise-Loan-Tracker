@@ -22,6 +22,7 @@
                 <strong ng-show="comment.writer.id == user._id">
                   You:
                 </strong>
+                <!-- {{comment}} -->
                 <strong ng-show="comment.writer.id != user._id">
                   {{comment.writer.name}}
                   <span ng-hide="comment.writer.name == 'System'">
