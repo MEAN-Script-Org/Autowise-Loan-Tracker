@@ -6,6 +6,7 @@ angular.module('SWEApp').controller(
       window.location.href = "/profile/badtoken";
     
     // GLOBALS
+    $rootScope.bo = {};
     $rootScope.loans = [];
     $rootScope.loading = true;
 
@@ -47,6 +48,31 @@ angular.module('SWEApp').controller(
       });
     }
     
+
+    $scope.prepareLoanDates = function(bo) {
+      // All dates need to be reformated for correct display
+      // Copied from loan models ~
+      bo.purchaser.dob = new Date(bo.purchaser.dob);
+
+      if (bo.copurchaser && bo.copurchaser.dob)
+        bo.copurchaser.dob = new Date(bo.copurchaser.dob);
+
+      if (bo.car_info.exp_date)
+        bo.car_info.exp_date = new Date(bo.car_info.exp_date);
+
+      if (bo.trade_in && bo.trade_in.good_thru)
+        bo.trade_in.good_thru = new Date(bo.trade_in.good_thru);
+
+      if (bo.insr && bo.insr.eff_dates)
+        bo.insr.eff_dates = new Date(bo.insr.eff_dates);
+
+      return bo;
+    }
+
+    $scope.prepareLoanView = function(bo) {
+      $rootScope.bo = $scope.prepareLoanDates(bo);
+    }
+
     //------------------------------------------------------------------------------------------------------------------
     // Sets the path to the warranty plans view
     //------------------------------------------------------------------------------------------------------------------

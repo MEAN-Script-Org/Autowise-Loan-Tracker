@@ -1917,6 +1917,7 @@ div.ng-show {
 
 /* active state */
 
+.inputMODAL:disabled~label,
 .inputMODAL:valid~label,
 .inputMODAL:focus~label {
   top: -2px;

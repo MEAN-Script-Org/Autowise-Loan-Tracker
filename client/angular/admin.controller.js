@@ -110,20 +110,19 @@ angular.module('SWEApp').controller(
     $scope.prepareLoanDates = function(bo) {
       // All dates need to be reformated for correct display
       // Copied from loan models ~
-
-      bo.purchaser.dob_t = new Date(bo.purchaser.dob);
+      bo.purchaser.dob = new Date(bo.purchaser.dob);
 
       if (bo.copurchaser && bo.copurchaser.dob)
-        bo.copurchaser.dob_t = new Date(bo.copurchaser.dob);
+        bo.copurchaser.dob = new Date(bo.copurchaser.dob);
 
-      if (bo.car_info.good_thru)
-        bo.car_info.good_thru_t = new Date(bo.car_info.good_thru);
+      if (bo.car_info.exp_date)
+        bo.car_info.exp_date = new Date(bo.car_info.exp_date);
 
-      if (bo.insr && bo.insr.exp_date)
-        bo.insr.exp_date_t = new Date(bo.insr.exp_date);
+      if (bo.trade_in && bo.trade_in.good_thru)
+        bo.trade_in.good_thru = new Date(bo.trade_in.good_thru);
 
       if (bo.insr && bo.insr.eff_dates)
-        bo.insr.eff_dates_t = new Date(bo.insr.eff_dates);
+        bo.insr.eff_dates = new Date(bo.insr.eff_dates);
 
       return bo;
     }
@@ -131,12 +130,7 @@ angular.module('SWEApp').controller(
     //------------------------------------------------------------------------------------------------------------------
     // Assigns the current buyer's order to that of the specified loan and sets the 'isEditingLoan' property to 'true'
     //------------------------------------------------------------------------------------------------------------------
-    // TODO: divide this into 3 methods, cuz it's gonna get MESSY with dates
-    // need: newStatus, _id, purcharser.name, warranty
-    // do this tomorrow .... oink
     $scope.prepareLoanEdit = function(loan) {
-      // console.log(loan);
-
       // Assign global warranty object
       $rootScope.warranty = loan.warranty ? loan.warranty : {};
 
@@ -162,7 +156,7 @@ angular.module('SWEApp').controller(
       $("#sudo-select-" + number).css('height', '0');
     }
 
-    // TODO: delete this, implement it in the frontend only
+    // TODO LATERRR: delete this, implement it in the frontend only
     $scope.setCarUsed = function(scopeVar, used) {
       if (scopeVar === 'type') {
         $rootScope.bo.car_info.type_t = used;

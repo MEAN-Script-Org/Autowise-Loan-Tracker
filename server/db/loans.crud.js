@@ -149,6 +149,8 @@ module.exports = {
   },
 
   affixUsers: function(req, res, next) {
+    // TODO: fix this
+
     // Affixing possible already existing loans
     var temp_loans = [];
     var wanted = {

@@ -131,10 +131,8 @@ module.exports = {
   },
 
   // Get all user names
-  // TODO: maybe leave to frontend
   getAllUsernames: function(req, res, data) {
     var users = req.users;
-    // console.log(users);
     
     var user_names = [];
     users.forEach(function(item, index) {

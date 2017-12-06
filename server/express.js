@@ -35,11 +35,6 @@ module.exports.init = function() {
   // serve static files
   app.use('/', express.static(__dirname + '/../client'));
 
-  // TODO: finish styling this then DELETE!!
-  app.use('/warranties', function(req, res) {
-    res.render('warranties', { path: '' });
-  });
-
   // DO NOT PERFORM AUTH ON ON THESE  BY DEFAULT
   // ALLOW non-logged in to:
   //   retrieve usernames

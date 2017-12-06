@@ -49,7 +49,6 @@
               <span>
                 <h3>Change the selected loans' status to</h3>
                 <!-- <br> -->
-                <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
                 <select name="Loan Status" id="status-dropdown-enMasse" ng-model="newStatusMass">
                     <!-- <option disabled selected>New Status</option> -->
                     <option value="RECEIVED">Received</option>
@@ -84,8 +83,6 @@
               </button>
               <span>
                 <h3>Change {{currLoan.buyers_order.purchaser.name}}'s loan status to:</h3>
-                <!-- TODO: Figure the angular way to default to something instead of common html of 'selected' -->
-                {{newStatus}}
                 <select name="Loan Status" id="status-dropdown" ng-model="newStatus">
                     <!-- <option disabled selected>New Status</option> -->
                     <option value="RECEIVED">Received</option>

@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.purchaser.dob_t" required>
+                      <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.purchaser.dob" required>
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>DOB</label>
@@ -125,7 +125,7 @@
                   </div>
                 </div>
                 <br>
-                <div class="row">
+                <div class="row" ng-show="isAdmin">
                   <div class="col-sm-10">
                     <h5 class="header-switch"> Adding a Co-Purchaser?
                       <label class="switch switch-slide">
@@ -136,7 +136,10 @@
                     </h5>
                   </div>
                 </div>
-                <div ng-class="bo.copurchaser.valid ? 'visible' : 'invisible'">
+                <div ng-hide="isAdmin">
+                  <h4>Copurchaser information</h4>
+                </div>
+                <div class="{{bo.copurchaser.valid ? 'visible' : 'invisible'}} {{isAdmin ? '' : 'visible'}}">
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="group">
@@ -148,7 +151,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob_t" required>
+                        <input class="dateInput inputMODAL" type="date" name="customer-dob" ng-model="bo.copurchaser.dob" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>DOB</label>
@@ -270,7 +273,7 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="group selector">
-                      <input class="inputMODAL" type="text" name="car-type" ng-model="bo.car_info.type_t" required ng-focus="onFocusInput('0')" ng-blur="onBlurInput('0')">
+                      <input class="inputMODAL" type="text" name="car-type_t" ng-model="bo.car_info.type_t" required ng-focus="onFocusInput('0')" ng-blur="onBlurInput('0')">
                       <span class="highlight required"></span>
                       <span class="bar"></span>
                       <label>New or Used?</label>
@@ -395,7 +398,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="dateInput inputMODAL" type="date" name="car-expdate" ng-model="bo.car_info.exp_date_t" required>
+                      <input class="dateInput inputMODAL" type="date" name="car-expdate" ng-model="bo.car_info.exp_date" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Expiration Date</label>
@@ -550,7 +553,7 @@
                 <br>
                 <h4> Trade Information </h4>
                 <hr>
-                <div class="row">
+                <div class="row" ng-show="isAdmin">
                   <div class="col-sm-4">
                     <h5 class="header-switch"> Adding a Trade?
                   </div>
@@ -563,7 +566,7 @@
                     </h5>
                   </div>
                 </div>
-                <div ng-class="bo.trade.valid ? 'visible' : 'invisible'">
+                <div class="{{bo.trade.valid ? 'visible' : 'invisible'}} {{isAdmin ? '' : 'visible'}}">
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="group">
@@ -593,7 +596,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="inputMODAL" type="text" name="car-type_t" ng-model="bo.trade_in.type_t" required>
+                        <input class="inputMODAL" type="text" name="car-type" ng-model="bo.trade_in.type" required>
                         <span class="highlight required"></span>
                         <span class="bar"></span>
                         <label>Type</label>
@@ -687,7 +690,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="group">
-                        <input class="dateInput inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru_t" required>
+                        <input class="dateInput inputMODAL" type="date" name="good-thru" ng-model="bo.trade_in.good_thru" required>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Good Through</label>
@@ -720,7 +723,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="group">
-                      <input class="dateInput inputMODAL" type="date" name="eff-dates" ng-model="bo.insr.eff_dates_t" required>
+                      <input class="dateInput inputMODAL" type="date" name="eff-dates" ng-model="bo.insr.eff_dates" required>
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Eff Dates</label>
@@ -757,7 +760,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer {{isAdmin ? '' : 'invisible'}}"">
             <button id="bo-submit" ng-hide="isEditingLoan" class="btn btn-primary" type="submit" ng-click="addLoanWithBO()" title="If clicking seems to be doing nothing, check the other tabs">
               Submit
             </button>

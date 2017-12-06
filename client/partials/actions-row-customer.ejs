@@ -4,7 +4,9 @@
     <a href='#' ng-click="goToWarranties(loan._id)" class="btn btn-cadet btn-md">
       Request warranty plan
     </a>
-    <a href='#' ng-click="viewBuyersOrder(loan)" class="btn btn-info btn-md">
+    <a href='#' class="btn btn-info btn-md"
+       data-target="#buyersOrderModal" data-toggle="modal"
+       title="View your application's details" ng-click="prepareLoanView(loan.buyers_order)">
       Application Details
     </a>
     <a href='http://www.autowiseonline.com' target='_blank' class="btn btn-primary btn-md">

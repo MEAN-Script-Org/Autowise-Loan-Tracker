@@ -203,8 +203,8 @@ function formatDates(bo) {
   if (bo.car_info.exp_date)
     bo.car_info.exp_date = mm_dd_yyyy(bo.car_info.exp_date);
 
-  if (bo.car_info.good_thru)
-    bo.car_info.good_thru = mm_dd_yyyy(bo.car_info.good_thru);
+  if (bo.trade_in && bo.trade_in.good_thru)
+    bo.trade_in.good_thru = mm_dd_yyyy(bo.trade_in.good_thru);
 
   if (bo.insr && bo.insr.eff_dates)
     bo.insr.eff_dates = mm_dd_yyyy(bo.insr.eff_dates);
