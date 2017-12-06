@@ -238,6 +238,7 @@ loanSchema.pre('save', function(next) {
 loanSchema.pre('findOneAndUpdate', function(next) {
   // CORRECLTY Format all dates
   // ALL THE TIME!
+  
   if (this._update.buyers_order = formatDates(this._update.buyers_order))
     next();
 });
