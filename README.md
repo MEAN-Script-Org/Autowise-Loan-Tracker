@@ -223,7 +223,11 @@ To change permissions, access the *user permissions view* as a super admin. Here
 - *EJS and path passing*
 - *Authentication description*
 - Custom Frontend:
-  - *non-obvious parts*
+  - Checkbox to search query functionality
+  - Material design floating (& hidden) menu button(s)
+  - Selection/checkbox for mass data manipulation (mass update, delete, archive, etc.)
+    - On click event for checkbox and updates local mass list based on the checkbox's checked value.
+  - Material design inputs and drop down selectors
 
 <!-- 
   @Max: check if you can put this somewhere else in the app functionality. Gotta AT LEAST STRESS Material design somewhere.

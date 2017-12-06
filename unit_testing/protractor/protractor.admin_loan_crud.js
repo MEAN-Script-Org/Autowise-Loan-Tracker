@@ -1,4 +1,6 @@
 
+protractor = require('protractor') ;
+
 //======================================================================================================================
 // TEST GROUP I - ADMINISTRATOR LOAN CRUD
 //======================================================================================================================
@@ -56,8 +58,13 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
     element(by.model('username')).sendKeys('super') ;
     element(by.model('password')).sendKeys('admin') ;
     
+    
+    var EC = protractor.ExpectedConditions;
+    browser.wait(EC.elementToBeClickable(by.id('button-login')), 5000);
+    
+    
     // Click 'Login' button
-    element(by.buttonText('Login')).click() ;
+    element(by.id('button-login')).click() ;
     
     browser.waitForAngular() ;
   });
