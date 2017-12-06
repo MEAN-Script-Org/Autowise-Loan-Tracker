@@ -4,14 +4,18 @@ angular.module('SWEApp').controller('Permissions',
 
     if (!Factory.getToken())
       window.location.href = "/profile/badtoken";
-    
+
     $scope.visible = 'visible';
     $rootScope.users = [];
     $rootScope.loading = true;
+    $rootScope.currentUser = {};
 
     Factory.getUserInfo().then(
       function(res) {
-        $rootScope.user = res.data;
+        $rootScope.this_user = res.data;
+
+        if (!$rootScope.this_user.isSuperAdmin)
+          window.location.href = "/profile/wrongUserType";
     });
 
     Factory.getAllUsers().then(
@@ -25,7 +29,7 @@ angular.module('SWEApp').controller('Permissions',
       },
       function(err) {
         alert(err);
-      });
+    });
 
     $scope.init = function() {
       $scope.query = [];
@@ -33,63 +37,85 @@ angular.module('SWEApp').controller('Permissions',
       $scope.visible = "visible";
 
       $timeout(function() {
-          $rootScope.loading = false;
-      }, 300);
+        $rootScope.loading = false;
+      }, 1000);
     }
-    
-    
-    // TODO: copy 'prepare' thing
-    // only have a delete frontend thing
-    // have a color coding for 'isAdmin'
 
-    // $scope.removeUser = function(userID) {
-    //   Factory.deleteUser(userID).then(
-    //     function(response) {
-    //       $rootScope.users.some(function(item, index, users) {
-    //         if (item._id) {
-    //           if (item._id == userID) {
-    //             users.splice(index, 1);
-    //             return true;
-    //           }
-    //         }
-    //       });
-    //     },
-    //     function(err) {
-    //       alert("There was a problem deleting this User.");
-    //       console.log(err);
-    //     }
-    //   );
-    // }
+    // 'prepare' selected use
+    $scope.assignCurrentUser = function(user) {
+      $rootScope.currentUser = user;
+    }
 
+    $scope.removeUser = function(userID) {
+      // DB
+      Factory.deleteUser(userID).then(
+        function(response) {
+          // Frontend
+          $rootScope.users.some(function(item, index, users) {
+            if (item._id) {
+              if (item._id == userID) {
+                users.splice(index, 1);
+                return true;
+              }
+            }
+          });
+        },
+        function(err) {
+          alert("There was a problem deleting this User.");
+          console.log(err);
+        }
+      );
+    }
 
-    // $scope.makeAdmin = function(userID, isAdmin) {
-    //   Factory.makeAdmin(userID).then(
-    //     function(response) {
-    //       $rootScope.users.some(function(item, users) {
-    //         if (item._id == userID) {
-    //           users.isAdmin == true;
-    //         }
-    //       });
-    //     },
-    //     function(err) {
-    //       alert("Error making user an admin.");
-    //       console.log(err);
-    //     });
-    // }
+    $scope.makeSuperAdmin = function(userID) {
+      Factory.setUserPrivileges('super-admin', userID).then(
+        function(response) {
+          $rootScope.users.some(function(item, index, users) {
+            if (item._id == userID) {
+              users[index].isSuperAdmin = true;
+              users[index].isAdmin= true;
+              console.log(users[index]);
+            }
+          });
+        },
+        function(err) {
+          alert("Error making user a super admin");
+          console.log(err);
+        });
+    }
 
-    // $scope.makeUser = function(userID, isAdmin) {
-    //   Factory.makeUser(userID).then(
-    //     function(response) {
-    //       $rootScope.users.some(function(item, users) {
-    //         if (item._id == userID) {
-    //           users.isAdmin = false;
-    //         }
-    //       });
-    //     },
-    //     function(err) {
-    //       alert("Error updating to user.");
-    //       console.log(err);
-    //     });
-    // }
+    $scope.makeAdmin = function(userID) {
+      Factory.setUserPrivileges('admin', userID).then(
+        function(response) {
+          $rootScope.users.some(function(item, index, users) {
+            if (item._id == userID) {
+              users[index].isSuperAdmin = false;
+              users[index].isAdmin = true;
+              console.log(users[index]);
+            }
+          });
+        },
+        function(err) {
+          alert("Error making user an admin");
+          console.log(err);
+        });
+    }
+
+    $scope.makeCustomer = function(userID) {
+      Factory.setUserPrivileges('customer', userID).then(
+        function(response) {
+          $rootScope.users.some(function(item, index, users) {
+            if (item._id == userID) {
+              users[index].isSuperAdmin = false;
+              users[index].isAdmin = false;
+              console.log(users[index]);
+            }
+          });
+        },
+        function(err) {
+          alert("Error turning into customer");
+          console.log(err);
+        });
+    }
   }
 ]);

@@ -4,15 +4,16 @@
   <% include partials/header.ejs %>
 </head>
 <body>
+  <!-- ng-show="loans.length > 0" -->
   <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1 col-lg-offset-1 col-lg-10 col-lg-offset-1 main" ng-app="SWEApp" ng-controller="CustomerController" ng-init="init()">
     <% include partials/nav.ejs %>
     
-    <div class="jumbotron title-container">
-      <div class="row">
-        <h2> WELCOME TO THE <span class="title-brand">AUTOWISE</span> </h2>
+    <div class="jumbotron">
+      <div class="row title-container">
+        <h2> WELCOME TO <span class="title-brand">AUTOWISE</span> </h2>
       </div>
       <hr>
-      <div class="container-accordion">
+      <div class="container-accordion" style="padding: 0px">
         
         <!-- Loading image -->
         <div ng-show="loading" id="loading">
@@ -20,24 +21,21 @@
           <div class="load-txt">Loading</div>
         </div>
         
-        <!-- Loans -->
         <div ng-hide="loading" class="accordion invisible {{visible}}">
-
-          <!-- TODO: restructure this COMPLETELY  -->
-          <!-- ng-show="loans.length > 0"  -->
-          <div ng-repeat="loan in loans">
+          <div ng-repeat="loan in loans" ng-show="loans.length > 0">
             <div class="tab-content">
-
-              <!-- TODO: implement this ~ beautifully ~ -->
-              <!-- Link to warranties page -->
-              <div class="item col-sm-6">
-                <a href='#' ng-click="goToWarranties(loan._id)">
-                      <em class="fa fa-5x fa-shield"></em><div>Request a warranty plan</div></a>
-                <div class="divider"></div>
-              </div>
+             <div class="row customer-row">
+                 <div class="col-sm-6 row-child">
+                     Your Loan ID
+                 </div>
+                 <div class="col-sm-6">
+                     #{{loan._id | uppercase | limitTo:6:loan._id.length-6}}
+                 </div>
+             </div>
               
-              <!-- TODO: fix these for customer -->
               <% include partials/progress-row.ejs %>
+              <% include partials/actions-row-customer.ejs %>
+
               <% include partials/warranty-row.ejs %>
               <% include partials/accordion-comments.ejs %>
             </div>

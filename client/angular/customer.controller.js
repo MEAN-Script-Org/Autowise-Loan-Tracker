@@ -12,7 +12,11 @@ angular.module('SWEApp').controller(
     Factory.getUserInfo().then(
       function(res) {
         $rootScope.user = res.data;
+        
+        if ($rootScope.user.isAdmin)
+          window.location.href = "/profile/wrongUserType";
     });
+    
 
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
@@ -20,6 +24,7 @@ angular.module('SWEApp').controller(
     $scope.init = function() {
       $scope.visible = "visible";
       $scope.isAdmin = false;
+      $scope.reverse_comments = true;
       
       // Loads all loans belonging to the specified user
       Factory.getUserLoans().then(
@@ -49,6 +54,11 @@ angular.module('SWEApp').controller(
       $window.location.href = '/profile/warranties/' + Factory.getToken() + '/' + loan_id ;
     }
     
+    $scope.convert_warranties = function(type) {
+      // 'any-year' are drivetrains...
+      return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+    }
+    
     //------------------------------------------------------------------------------------------------------------------
     // Adds a customer comment to the loan
     // Taken from "admin.controller.js"
@@ -56,9 +66,7 @@ angular.module('SWEApp').controller(
     $scope.addComment = function(loanID) {
       var wantedInputField = ["#", loanID, "-new-comment"].join("");
       var newCommentContent = $(wantedInputField).val();
-      
       $(wantedInputField).val("");
-      console.log(newCommentContent);
       
       // saving text message content, clearing input field
       if (newCommentContent) {

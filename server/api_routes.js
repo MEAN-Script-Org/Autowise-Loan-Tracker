@@ -30,10 +30,6 @@ router.route('/loan/:loanID')
 router.route('/deleteLoan/:loanID')
       .put(loans.delete) ;
       
-// Multiple loans under the specified user
-router.route('/loans/:userID')
-      .get(loans.loansByUserID);
-      
 // Multiple loans under the currently logged-in User
 router.route('/loansByUser/')
       .put(loans.loansByUserID);
@@ -43,14 +39,20 @@ router.route('/loansByUser/')
 //----------------------------------------------------------------------------------------------------------------------
 
 // > Individual user
-router.route('/user/:userID')
-      .put(users.update);
+router.route('/priv/super-admin/:userID')
+      .put(users.makeSuperAdmin, users.update);
+
+router.route('/priv/admin/:userID')
+      .put(users.makeAdmin, users.update);
+
+router.route('/priv/customer/:userID')
+      .put(users.makeCustomer, users.update);
 
 router.route('/deleteUser/:userID')
       .put(users.delete) ;
 
 router.route('/userinfo/')
-      .put(users.read);
+      .put(users.userByToken);
 
 // > 'Multiple' users
 router.route('/users')

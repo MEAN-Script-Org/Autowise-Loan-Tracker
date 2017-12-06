@@ -1,6 +1,6 @@
-// WARRANTIES MODULE ~
 // Provides raw warranty plan data and functions for querying warranty plans based on user-inputted information
-angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$http', '$location', '$window', 'Factory',
+angular.module('SWEApp').controller('Warranties', 
+  ['$rootScope', '$scope', '$http', '$location', '$window', 'Factory',
   function($rootScope, $scope, $http, $location, $window, Factory) {
 
     // GLOBALS
@@ -15,6 +15,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
       $scope.query = { age: '-1', mileage: 0, make: 'Domestic' };
       $scope.warrantyInfo = "Warranty information will go here";
       $scope.matchedWarranties = [];
+
+      $scope.car_year_convertor = {
+        "-1": "Any year",
+        "2007": "2007 or newer",
+        "2011": "2011 or newer",
+      };
 
       // FOR TESTING PURPOSES ONLY
       Factory.getUserInfo().then(
@@ -168,6 +174,29 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
       $scope.matchedWarranties = plans;
     }
 
+    /* WARRANTIES SELECTOR */
+    $scope.setWarrantiesYear = function(year) {
+      $scope.query.age = year;
+      $scope.query.age_text = $scope.car_year_convertor[year];
+      $scope.queryWarrantyPlan();
+    }
+
+    $scope.setWarrantiesMake = function(make) {
+      $scope.query.make = make;
+      $scope.queryWarrantyPlan();
+    }
+
+    $scope.onFocusInputWarr = function(ind) {
+      $("#sudo-select-warr-" + ind).css('opacity', '1');
+      $("#sudo-select-warr-" + ind).css('height', 'auto');
+    }
+
+    $scope.onBlurInputWarr = function(ind) {
+      $("#sudo-select-warr-" + ind).css('opacity', '0');
+      $("#sudo-select-warr-" + ind).css('height', '0');
+    }
+    /* END WARRANTIES SELECTOR */
+
     //--------------------------------------------------------------------------------------------------------------------
     // Filter function for warranty querying
     //--------------------------------------------------------------------------------------------------------------------
@@ -194,19 +223,20 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
         converted_war_type = warranty.type;
 
       var bodyMessage = [
-        "Customer " + $rootScope.user.name + 
+        "Customer " + $rootScope.user.name +
         " (username: " + $rootScope.user.username +
         ", ID# " + $rootScope.user.id + ") is interested in the following warranty plan:",
         "<b>Type</b>: " + converted_war_type,
         "<b>Plan length</b>: " + warranty.term.months,
-        "<b>Plan mileage</b>: " + warranty.term.miles * 1000
+        "<b>Plan mileage</b>: " + warranty.term.miles * 1000,
+        "<b>Starting at:</b> $" + warranty.price,
       ].join("<br>");
 
       // Email object
       var email = {
         type: 'warranty',
-        to: "dunevitz32@gmail.com",
-        //to: "marcial.abrahantes@gmail.com",
+        // to: "dunevitz32@gmail.com",
+        to: "marcial.abrahantes@gmail.com",
         // to: "brightfuture89@yahoo.com",
         name: $rootScope.user.name,
         userID: $rootScope.user.id,
@@ -222,7 +252,7 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
           } else {
             alert("Email was sent to Autowise! Please allow up to 3 days for an update on your loan application");
           }
-          
+
           // Add comment to loan signifying that Warranty interest has been submitted
           var newComment = [
             "Customer is interested in the following warranty plan: ",
@@ -231,10 +261,12 @@ angular.module('SWEApp').controller('Warranties', ['$rootScope', '$scope', '$htt
             warranty.term.miles * 1000, " miles. ",
             "Starting at $", warranty.price, ". "
           ].join('');
-          
+
           // Add on comment and return to customer hub page
-          $http.post(window.location.href, {note: newComment, isAdminNote: true, token: Factory.getToken()}).then(
-            function(res) { $window.location.href = '/profile/' + Factory.getToken(); });
+          $http.post(window.location.href, { note: newComment, isAdminNote: false, token: Factory.getToken() })
+          .then(function(res) { 
+            $window.location.href = '/profile/' + Factory.getToken(); 
+          });
         },
         function(error) {
           console.log(error);

@@ -232,8 +232,9 @@ input.form-control {
 }
 
 .dropdown-menu {
-  left: -85px;
+  left: -93px;
   padding: 8px;
+  margin: 0;
 }
 
 .dropdown-menu li a.danger:hover {
@@ -703,9 +704,8 @@ a.label:focus {
 .panel-heading {
   font-size: 20px;
   font-weight: 300;
-  letter-spacing: 0.025em;
-  height: 60px;
   line-height: 38px;
+  letter-spacing: 0.025em;
 }
 
 .panel-default .panel-heading {
@@ -1438,7 +1438,7 @@ input[type="date"]:valid:before {
 
 .warrantyDescription {
   font-size: 78%;
-  height: 600px;
+  height: 525px;
   line-height: 105%;
   font-weight: 500;
   text-align: justify;
@@ -1696,10 +1696,12 @@ input[type="date"]:valid:before {
   left: 21%;
 }
 
+/*
 .label-container.InfoTip > * {
   padding-left: 15px;
   padding-right: 15px;
 }
+*/
 
 .label-text {
   color: #FFF;
@@ -1890,6 +1892,10 @@ div.ng-show {
   margin-left: -8px;
   color: #f9243f;
   padding: 0 0 0 2px;
+}
+
+.warranties .inputMODAL {
+    background-color: transparent;
 }
 
 /* LABEL ======================================= */
@@ -2371,6 +2377,20 @@ div.ng-show {
   text-align: center;
   background-color: transparent;
   border: 0;
+}
+
+.title-container ~ hr {
+    margin-bottom: 0;
+}
+
+.customer-row {
+    overflow: hidden;
+    margin: -8px;
+    margin-bottom: 8px;
+}
+.customer-row .row-child {
+    background-color: #38cc70;
+    color: white;
 }
 
 .title-brand {

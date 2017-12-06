@@ -6,6 +6,7 @@ angular.module('SWEApp').controller('LoginController',
     $rootScope.users = [];
     $rootScope.newUser = {isAdmin: false, isSuperAdmin: false};
     $rootScope.usernames = {};
+    // $rootScope.forgotUsername = "";
 
     $scope.init = function(error_message, type) {
       $scope.login_page = true;
@@ -83,13 +84,11 @@ angular.module('SWEApp').controller('LoginController',
         function(res) {
           if (!res.data.error) {
             Factory.addToken(res.data);
-          } else {
+          }
+          else {
+            // username it's ok not to be cleared here
             if (res.data.error.indexOf("Invalid") > -1)
-            {
-              // username it's ok not to be cleared here
               $scope.password = null;
-            }
-
             alert(res.data.error);
           }
         },
@@ -99,9 +98,6 @@ angular.module('SWEApp').controller('LoginController',
     }
 
     $scope.register = function() {
-
-      // if (false)
-      //   ;
       if ($rootScope.newUser.verify != $rootScope.newUser.password)
         alert("Please verify your password");
       else if ($rootScope.usernames[$rootScope.newUser.username]) 
@@ -109,8 +105,6 @@ angular.module('SWEApp').controller('LoginController',
       else if ($scope.funny_dob) 
         alert("Please fix your DOB");
       else {
-        $rootScope.newUser.md5hash = window.fingerprint.md5hash;
-        
         // on good, add token and tada!
         Factory.newUser($rootScope.newUser);
       }

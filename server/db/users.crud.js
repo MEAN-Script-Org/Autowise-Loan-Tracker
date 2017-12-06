@@ -46,9 +46,36 @@ module.exports = {
     }
   },
 
-  read: function(req, res) {
-    // console.log(req.body.token);
-    res.json(req.body.token);
+  userByToken: function(req, res) {
+    console.log("what the fuck");
+    
+    User.findById(req.body.token.id).exec(function(err, user) {
+      if (err) {
+        console.log(err) ;
+        res.status(400).send(err) ;
+      }
+      else {
+        res.json(user);
+      }
+    });
+  },
+
+  makeSuperAdmin: function(req, res, next) {
+    req.user.isSuperAdmin = true;
+    req.user.isAdmin = true;
+    next();
+  },
+
+  makeAdmin: function(req, res, next) {
+    req.user.isSuperAdmin = false;
+    req.user.isAdmin = true;
+    next();
+  },
+
+  makeCustomer: function(req, res, next) {
+    req.user.isSuperAdmin = false;
+    req.user.isAdmin = false;
+    next();
   },
 
   update: function(req, res) {
@@ -57,6 +84,7 @@ module.exports = {
 
     // Replace old user's properties with the newly sent ones
     var userToBeUpdated = Object.assign(oldUser, req.body);
+    console.log(userToBeUpdated);
     
     // {new: true} => Returns the real/actual updated version
     //             => 'updatedUser'
@@ -68,10 +96,17 @@ module.exports = {
   },
 
   delete: function(req, res) {
-    User.findByIdAndRemove(req.user._id, function(err) {
-      if (err) res.status(404).send(err);
-      else res.json(req.user);
-    });
+    if (req.body.token.isSuperAdmin)
+      User.findByIdAndRemove(req.user._id, function(err) {
+        if (err) res.status(404).send(err);
+        else res.json(req.user);
+      });
+    else {
+      console.log("ATTEMP TO DELETE USER!");
+      console.log(req.body.token)
+      console.log("TRIED TO DELETE USER:", req.user);
+      res.json({error: "nope, you can't do that"});
+    }
   },
 
   returnUsers: function(req, res) {

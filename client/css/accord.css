@@ -112,7 +112,6 @@ a:focus {
 
 .accordion {
   width: 100%;
-  max-height: 500px;
   position: relative;
   background-color: #eee;
 }
@@ -120,7 +119,6 @@ a:focus {
 .container-accordion {
   max-width: 100%;
   margin: 0 auto;
-  /*margin-right: 76px;*/
   padding: 2em 0 2em 0;
   padding-top: 100px;
 }

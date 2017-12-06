@@ -22,13 +22,8 @@ var format_email_html = function (req) {
     subject = "NEW Warranty interest from " + req.name ;
     
     message = [
-      "",
+      "*This is an automatically generated message*",
       req.message,
-      /*
-      "",
-      "",
-      "This is an automatically generated email message"
-      */
     ];
       
   } else {
@@ -36,7 +31,7 @@ var format_email_html = function (req) {
     subject = "Autowise: Your loan application has been updated";
     
     // Create and insert a link to the user's loan inside the message body
-    var app_link = ["<a href='", process.env.BASE_URL, "loan/", req.id, "' target='_blank'>here</a>."].join("");
+    var app_link = ["<a href='", process.env.BASE_URL, "' target='_blank'>here</a>."].join("");
     console.log(app_link);
     
     message = [
@@ -44,8 +39,7 @@ var format_email_html = function (req) {
       "Hi " + req.name + "!",
       "",
       req.message,
-      "",
-      "You can check your application by clicking " + app_link,
+      "You can check your loan application and its comment by logging in to our website " + app_link,
       "",
       "",
       "Sincerely,",

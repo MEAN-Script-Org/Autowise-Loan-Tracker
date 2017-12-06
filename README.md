@@ -199,9 +199,9 @@ To change permissions, access the *user permissions view* as a super admin. Here
   + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
       * For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
 - Deployments
-  + Automatically on every push to master if you have set up automatic deployment in Heroku:
-  + [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-    *  TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+  + Automatically on every push to master if you have set up automatic deployment in Heroku
+    * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+    * TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
   + Manually once connected with Heroku's git: 
     * `git push heroku master`
 - Testing
@@ -210,16 +210,16 @@ To change permissions, access the *user permissions view* as a super admin. Here
 
 
 ### Borrowed Code
-- Boilerplate project was based off a modified [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
+- Boilerplate project was based off a modified and completed [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
 - Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
 - Styling templates: Bootstrap, and the [Lumino](https://medialoot.com/item/lumino-admin-bootstrap-template/) template.
-- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash, [source](https://gist.github.com/splosch/eaacc83f245372ae98fe)
+- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe).
 - Other code sections were borrowed from StackOverflow, and used throughout our app. A their source was provided in a comment if so.
 
 
 ### Overall comments & Implementation tweaks
 - TBFuther explained
-- *Main parts of the app (Factory monolith, Express)*
+- *Main parts of the app (Factory and Modals monolith, Express)*
 - *EJS and path passing*
 - *Authentication description*
 - Custom Frontend:
@@ -270,7 +270,6 @@ The following details the folder structure of the application and the purposes o
     * _footer.ejs:_ Global JavaScript dependencies
     * _nav.ejs:_ Navigation bar atop each page
     * _accordion-comments.ejs:_ HTML for loan content and comments functionality
-    * _account-contact-autowise.ejs:_ **TODO** Delete this file if there's no use for it
     * _actions-row.ejs:_ action buttons appearing under the header of a loan visible to admins
     * _admin-filters.ejs:_ admin loan filtering and search bar
     * _buyers-order.ejs:_ popup displaying the Buyer's Order
@@ -294,7 +293,7 @@ The following details the folder structure of the application and the purposes o
     * _users.crud.js:_ details CRUD operations on User database objects
     * _users.model.js:_ defines the User database schema and several server side User operations
   + _api_routes.js:_ defines routing for API requests including loan and user management
-  + _app.js:_ server side application initialization, called from the'server.js' file at the top-level directory
+  + _app.js:_ server side application initialization, called from 'server.js' at the top-level directory
   + _auth.js:_ provides authentication functionality
   + _emailing.js:_ provides emailing functionality
   + _express.js:_ defines top-level routing which is further detailed by one of the other routing files
@@ -303,5 +302,22 @@ The following details the folder structure of the application and the purposes o
 - unit_testing: files and scripts used in app testing. More details [below](#testing)
 
 
-### Testing
-TBD
+## Testing
+Two classes of tests are developed: back-end and end-to-end tests. A total of 5 tests are provided (4 back-end and 1 end-to-end) each of which are described in detail below
+
+All 5 tests may be run by running the master python test script located at the top-level directory of the project. Use the command `python test.py` to do so.
+> Note that you must have Python installed to execute this file.
+
+### Back-end testing
+Two sets of back-end tests are developed.
+
+The first is the server-side back-end mocha tests _mocha.loan.server_ and _mocha.user.server_. These two tests check for loan and user creation, modification, and deletion respectively using purely server-side database commands.
+
+The second set of tests is the client-side back-end mocha tests _mocha.loan.client_ and _mocha.user.client_. These test loan and user creation, modification, and deletion respectively using client-side HTTP requests. These tests also validate the functionality of server side routing.
+
+These test sets are found in _unit_testing/mocha_ and can be run individually with the command `mocha [filename]`.
+
+### End-to-end testing
+A single end-to-end test is developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
+
+This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
