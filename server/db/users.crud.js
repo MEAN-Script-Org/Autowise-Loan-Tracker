@@ -48,8 +48,6 @@ module.exports = {
   },
 
   userByToken: function(req, res) {
-    console.log("what the fuck");
-    
     User.findById(req.body.token.id).exec(function(err, user) {
       if (err) {
         console.log(err) ;

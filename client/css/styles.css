@@ -1205,7 +1205,6 @@ span.btn-group-text {
 }
 
 .chat .panel-body ul li {
-  margin-bottom: 10px;
   padding: 15px 5px;
   border-bottom: 1px solid #e9ecf2;
 }
@@ -2384,8 +2383,9 @@ div.ng-show {
 }
 
 .customer-row {
-    overflow: hidden;
     margin: -8px;
+    padding: 10px;
+    overflow: hidden;
     margin-bottom: 8px;
 }
 .customer-row .row-child {
@@ -2490,6 +2490,10 @@ div.ng-show {
 }
 
 /* Final touches: auto increased font size, and better responsiveness */
+
+.hidden {
+  display: none;
+}
 
 html {
   zoom: 125%;

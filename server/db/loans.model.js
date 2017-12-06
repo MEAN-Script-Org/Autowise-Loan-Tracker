@@ -236,18 +236,11 @@ loanSchema.pre('save', function(next) {
 // RE-PROCESSING: update
 //--------------------------------------------------------------------------------------------------------------------
 loanSchema.pre('findOneAndUpdate', function(next) {
-  var loan = this._update;
-  loan.status = loan.status.toUpperCase();
-
   // CORRECLTY Format all dates
   // ALL THE TIME!
-  loan.buyers_order = formatDates(loan.buyers_order);
-  //console.log(loan);
-
-  if(this._update = loan) {
-    console.log("here~");
+  
+  if (this._update.buyers_order = formatDates(this._update.buyers_order))
     next();
-  }
 });
 
 // Create loan model from schema

@@ -7,7 +7,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     }
     
     var addToken = function(token) {
-      console.log(token);
+      // console.log(token);
       removeToken();
       $window.localStorage.setItem('token', token);
       $window.location.href = '/profile/' + getToken();

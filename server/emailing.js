@@ -23,7 +23,7 @@ var format_email_html = function (req) {
     
     message = [
       "*This is an automatically generated message*",
-      req.message,
+      req.message
     ];
       
   } else {

@@ -56,7 +56,8 @@ angular.module('SWEApp').controller(
     
     $scope.convert_warranties = function(type) {
       // 'any-year' are drivetrains...
-      return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
+      if (type)
+        return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;  
     }
     
     //------------------------------------------------------------------------------------------------------------------
@@ -97,7 +98,7 @@ angular.module('SWEApp').controller(
             var newComment = {
               admin: false,
               writer: {
-                id: $rootScope.user.id,
+                id: $rootScope.user._id,
                 name: $rootScope.user.name,
               },
               content: newCommentContent,

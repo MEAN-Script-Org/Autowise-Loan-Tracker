@@ -62,7 +62,6 @@ module.exports = {
     if (req.body.note) {
       var newComment = automatedComment(req.body.note, req.body.isAdminNote);
       oldLoan.comments.push(newComment);
-     
       // // if more than 1
       // if (req.body.notes) {
       //   req.body.note.forEach(function(item) {
@@ -112,18 +111,17 @@ module.exports = {
 
   //--------------------------------------------------------------------------------------------------------------------
   // Get all loans belonging to a particular user (based on ID)
+  // That are not archived
   //--------------------------------------------------------------------------------------------------------------------
   loansByUserID: function(req, res, next) {
-    // console.log("USER ID:") ;
-    // console.log(req.body.token.id) ;
-    
-    // Query loans with matching information and send them in a JSON response
-    Loan.find({user_ids: { $all: [req.body.token.id] }},
+    Loan.find({user_ids: req.body.token.id, status: { $ne : "ARCHIVED"} },
       function(err, loans) {
         if (err) {
           console.log(err);
           res.status(400).send(err);
-        } else res.json(loans);
+        } else {
+          res.json(loans);
+        }
     });
   },
 
