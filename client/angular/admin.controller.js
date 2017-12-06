@@ -260,14 +260,21 @@ angular.module('SWEApp').controller(
     // Called from the admin warranty modal
     // Updates the loan with warranty information
     //------------------------------------------------------------------------------------------------------------------
+    $scope.resetWarranty = function() {
+      $scope.warrantyBase({price: 0});
+    }
+
     $scope.warrantyUpdate = function() {
+      $scope.warrantyBase($rootScope.warranty);
+    }
+
+    $scope.warrantyBase = function(newWarranty) {
       // ADD NOTE
-      Factory.modifyLoan($rootScope.currLoan._id, { warranty: $rootScope.warranty }).then(
+      Factory.modifyLoan($rootScope.currLoan._id, { warranty: newWarranty }).then(
         function(res) {
 
           // Assign warranty object to loan on the front-end 
-          // TODO: fix this
-          $rootScope.currLoan.warranty = $rootScope.warranty;
+          $rootScope.currLoan.warranty = newWarranty;
           alert("Warranty plan was updated successfully!");
           // AND Close modal
           $("#warrantyPlanAdmin").modal('hide');

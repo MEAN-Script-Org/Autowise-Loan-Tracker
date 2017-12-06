@@ -5,8 +5,9 @@
         Comments
       </div>
       <div class="panel-body">
-        <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments">
-          <li ng-hide="comment.admin && !user.isAdmin" class="left clearfix">
+        <ul ng-repeat="comment in loan.comments | orderBy:'time':reverse_comments"
+            class="{{comment.admin && !user.isAdmin ? 'hidden' : ''}}">
+          <li class="left clearfix" ng-hide="comment.admin && !user.isAdmin">
             <div class="comment-writer">
               <!-- For amins: names -->
               <!-- For users: you vs 'Autowise' -->
