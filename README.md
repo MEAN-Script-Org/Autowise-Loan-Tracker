@@ -307,10 +307,10 @@ The following details the folder structure of the application and the purposes o
 
 
 ## Testing
-Two classes of tests are developed: back-end and end-to-end tests. A total of 5 tests are provided (4 back-end and 1 end-to-end) each of which are described in detail below
+Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided (3 back-end and 1 end-to-end) each of which are described in detail below
 
-All 5 tests may be run by running the master python test script located at the top-level directory of the project. Use the command `python test.py` to do so.
-> Note that you must have Python installed to execute this file.
+All 3 tests may be run by running the master python test script located at the top-level directory of the project. Use the command `python test.py` to do so.
+> Note that you must have Python installed to execute this file. Also you must be running a selenium server to execute the protractor test, as described below.
 
 ### Back-end testing
 Two sets of back-end tests are developed.
@@ -323,5 +323,11 @@ These test sets are found in _unit_testing/mocha_ and can be run individually wi
 
 ### End-to-end testing
 A single end-to-end test is developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
+
+To run this test individually, follow these instructions
+1. Open a command line window and run `webdriver-manager update` to update the selenium webdiver package
+2. Run `webdriver-manager start` to set up a selenium server in parallel with the test
+3. Open a _second_ command line window and navigate to the top-level directory of the project
+4. Here, run `protractor unit_testing/protractor/protractor.config.js`
 
 This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
