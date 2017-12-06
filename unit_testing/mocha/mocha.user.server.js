@@ -50,9 +50,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   var test_user_bad = new User({});
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.0: User is created and saved succesfully
+  // Test #3.0: User is created and saved succesfully
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.0: User is created and saved succesfully', function(done) {
+  it('Test #3.0: User is created and saved succesfully', function(done) {
     test_user_ok.save(function (err) {
       should.not.exist(err) ;
       
@@ -61,9 +61,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.1: User is created AND uploaded successfully (can be fetched from the database)
+  // Test #3.1: User is created AND uploaded successfully (can be fetched from the database)
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.1: User is created AND uploaded successfully (can be fetched from the database)', function(done) {
+  it('Test #3.1: User is created AND uploaded successfully (can be fetched from the database)', function(done) {
     User.find({'username': test_user_ok.username}, function(err, users) {
       should.not.exist(err) ;
       test_db_user = users[0] ;
@@ -73,18 +73,18 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   // //--------------------------------------------------------------------------------------------------------------------
-  // // Test #1.2: User 'status' field updated to 'RECEIVED' due to unspecified 'status'
+  // // Test #3.2: User 'status' field updated to 'RECEIVED' due to unspecified 'status'
   // //--------------------------------------------------------------------------------------------------------------------
-  // it('Test #1.2: User \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
+  // it('Test #3.2: User \'status\' field updated to \'RECEIVED\' due to unspecified \'status\'', function(done) {
   //   test_db_User.status.should.equal('RECEIVED') ;
     
   //   done() ;
   // });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.3: Other User fields match those of uploaded User
+  // Test #3.3: Other User fields match those of uploaded User
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.3: Other User fields match those of uploaded User', function(done) {
+  it('Test #3.3: Other User fields match those of uploaded User', function(done) {
     
 
     // Check a few select fields
@@ -95,9 +95,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.4: User can be deleted from the database
+  // Test #3.4: User can be deleted from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.4: User can be deleted from the database', function(done) {
+  it('Test #3.4: User can be deleted from the database', function(done) {
     test_db_user.remove(test_db_user, function (err) {
       should.not.exist(err) ;
       
@@ -106,9 +106,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.5: User is successfully removed from the database
+  // Test #3.5: User is successfully removed from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.5: User is successfully removed from the database', function(done) {
+  it('Test #3.5: User is successfully removed from the database', function(done) {
     User.find({_id: test_db_user._id}, function(err, users) {
       should.not.exist(err) ;
       should.not.exist(users[0]) ;
@@ -118,9 +118,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #1.6: Poorly-defined User cannot be saved in the database
+  // Test #3.6: Poorly-defined User cannot be saved in the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #1.6: Poorly-defined User cannot be saved in the database', function(done) {
+  it('Test #3.6: Poorly-defined User cannot be saved in the database', function(done) {
     test_user_bad.save(function (err) {
       should.exist(err) ;
       
