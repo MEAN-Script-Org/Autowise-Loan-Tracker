@@ -195,7 +195,7 @@ function formatDates(bo) {
   bo.purchaser.dob = mm_dd_yyyy(bo.purchaser.dob);
   bo.purchaser.dob_extra = american_date(bo.purchaser.dob);
 
-  if (bo.copurchaser.dob) {
+  if (bo.copurchaser && bo.copurchaser.dob) {
     bo.copurchaser.dob = mm_dd_yyyy(bo.copurchaser.dob);
     bo.copurchaser.dob_extra = american_date(bo.copurchaser.dob);
   }
@@ -242,7 +242,7 @@ loanSchema.pre('findOneAndUpdate', function(next) {
   // CORRECLTY Format all dates
   // ALL THE TIME!
   loan.buyers_order = formatDates(loan.buyers_order);
-  console.log(loan);
+  //console.log(loan);
 
   if(this._update = loan) {
     console.log("here~");

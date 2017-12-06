@@ -108,7 +108,6 @@ module.exports = {
 
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err || decodedToken.md5hash != md5hash) {
-
           console.log("Bad Token");
           // console.log(decodedToken, md5hash);
           
