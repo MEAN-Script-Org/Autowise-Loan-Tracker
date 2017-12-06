@@ -22,9 +22,9 @@ prtctr_files = { os.path.join(path, f)
 # open ONLY if gulp is already there...
 try:
     # HEAD request
-    urllib2.urlopen("http://localhost:5001/").info()
+    urllib2.urlopen("http://autowise.herokuapp.com").info()
 except urllib2.URLError:
-    print("RUN GULP IN PARALLEL FIRST")
+    print("There was an issue loading the website. Tests aborted...")
     sys.exit()
 
 # Execute Protractor tests (just run the config file)
