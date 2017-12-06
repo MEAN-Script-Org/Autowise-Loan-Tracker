@@ -30,7 +30,7 @@ module.exports = {
     var firstComment = user_t.name + " created this loan";
     firstComment = automatedComment(firstComment, true);
     newLoan.comments = [];
-    newLoan.push(firstComment);
+    newLoan.comments.push(firstComment);
     
     if (req.body.note) {
       // In the case of no insurance, change status and add note

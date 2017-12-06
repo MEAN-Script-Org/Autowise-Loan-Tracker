@@ -4,6 +4,7 @@
 var mongoose = require('mongoose') ;
 mongoose.Promise = global.Promise;
 var User = require('./users.model.js') ;
+var Loan = require('./loans.model.js') ;
 
 module.exports = {
 
@@ -186,7 +187,7 @@ module.exports = {
     // TODO: Test this!
     // Find all users according to the query, affix this user's id to them
     User.find({$or: all_qs}).exec(function(err, users) {
-      console.log(loans.length);
+      console.log(users.length);
 
       if (err) console.log(err);
       else {
