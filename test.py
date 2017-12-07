@@ -34,7 +34,7 @@ for test_file in prtctr_files:
     process.wait()
 
 # Execute mocha tests
-for test_file in mocha_files:
+for test_file in sorted(mocha_files):
     cmd = ["mocha", os.path.abspath(test_file)]
     process = sp.Popen(cmd, shell=True)
     process.wait()

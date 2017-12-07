@@ -14,7 +14,7 @@ var User      = require('../../server/db/users.model.js') ;
 var express   = require('../../server/express.js') ;
 
 //======================================================================================================================
-// TEST GROUP I - BACK-END DATABASE CRUD FUNCTIONALITY
+// TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY
 //======================================================================================================================
 describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function () {
   
@@ -82,9 +82,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   // });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #3.3: Other User fields match those of uploaded User
+  // Test #3.2: Other User fields match those of uploaded User
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #3.3: Other User fields match those of uploaded User', function(done) {
+  it('Test #3.2: Other User fields match those of uploaded User', function(done) {
     
 
     // Check a few select fields
@@ -95,9 +95,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #3.4: User can be deleted from the database
+  // Test #3.3: User can be deleted from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #3.4: User can be deleted from the database', function(done) {
+  it('Test #3.3: User can be deleted from the database', function(done) {
     test_db_user.remove(test_db_user, function (err) {
       should.not.exist(err) ;
       
@@ -106,9 +106,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #3.5: User is successfully removed from the database
+  // Test #3.4: User is successfully removed from the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #3.5: User is successfully removed from the database', function(done) {
+  it('Test #3.4: User is successfully removed from the database', function(done) {
     User.find({_id: test_db_user._id}, function(err, users) {
       should.not.exist(err) ;
       should.not.exist(users[0]) ;
@@ -118,9 +118,9 @@ describe('TEST GROUP III - USER BACK-END DATABASE CRUD FUNCTIONALITY', function 
   });
   
   //--------------------------------------------------------------------------------------------------------------------
-  // Test #3.6: Poorly-defined User cannot be saved in the database
+  // Test #3.5: Poorly-defined User cannot be saved in the database
   //--------------------------------------------------------------------------------------------------------------------
-  it('Test #3.6: Poorly-defined User cannot be saved in the database', function(done) {
+  it('Test #3.5: Poorly-defined User cannot be saved in the database', function(done) {
     test_user_bad.save(function (err) {
       should.exist(err) ;
       
