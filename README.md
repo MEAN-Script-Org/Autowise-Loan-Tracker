@@ -1,4 +1,5 @@
-<!-- Move this to the top?? -->
+<!-- make non-local hrefs open new tabs -->
+
 # TODOs for successful client transition
   + Sign up for [Heroku](https://signup.heroku.com/)
   + Become a collaborator to our current project (need email)
@@ -13,12 +14,10 @@
     + Prices of current database provider (mLab) then start at $15/month/GB
   + Enjoy your paperless loan tracking application
 
-## Technical Recommendations
-- Scaling: Instructions to move to a bigger database of the current provider can be found [here](https://devcenter.heroku.com/articles/mongolab#changing-plans)
-  - Recommendation: Have archived loans as a static JSON/mongodump file in a S3 bucket or similar storage/CDN service. Only retrieve them when searching for them, and modify that file as such. 
-  - Implementation: Change 'archived_filter' on *custom-filters.js*, reset loading for this, add a new Factory ↔ Express interaction, add/remove loans to active MongoDB on loan 'revival' or death. Done.
+## Scaling Recommendations
+- Instructions to move to a bigger database of the current provider can be found [here](https://devcenter.heroku.com/articles/mongolab#changing-plans)
+  - Recommended Implementation: Have archived loans as a static JSON/mongodump file in a S3 bucket or similar storage/CDN service. Only retrieve them when searching for them, and modify that file as such. Then accordingly modify 'archived_filter' on *custom-filters.js*, reset loading, add a new Factory ↔ Express interaction, and add/remove loans to active MongoDB on loan 'revival' or death.
     - *Learning opportunity* if no prior experience with these services
-
 
 <!-- TO Add to heroku vars: -->
 <!-- email text!!! -->
