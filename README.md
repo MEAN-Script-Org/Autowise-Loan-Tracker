@@ -40,7 +40,7 @@
     then paste to another page, edit there, then paste back here :D
 -->
 + [Summary](#summary)
-+ [App Functionality](#app-functionality)
++ [App Functionality Abridged](#app-functionality-abridged)
     * [Loan Management](#loan-management)
         - [Creating Loans](#creating-loans)
         - [Buyer's Order](#buyers-order)
@@ -66,48 +66,61 @@ This application is intended as the paperless replacement for loan applications 
 Autowise customers (further referred to as 'customers') are able to:
 - Create an account
 - View their loan application status and their loan's buyer's order details
-- See any comments they wrote, along with any system and non-admin comments.
-<!-- If I get to it -->
-<!-- - Change their password once account is created -->
+- Make and see any comments they wrote, along with seeing non-admin comments
+- View the account details they signed up with
 
 Autowise employees ('admins') are also be able to: 
-- Change loans status (even archive them)
-- Find and update loans and warranty information
+- Change loans status - even archive them
+- Find and update loans
+- Assign and update warranty plans to loans
 - Make and remove their own comments
+- Email customer(s) about changes to their application
 
 Autowise managers ('super admins'), in addition to admins privileges, have the ability to:
-- Remove any comments (expect for system's)
-- Remove Loans
-- Assign and revoke 'customer', 'admin', and 'super admin' privileges to any created user account.
+- Delete any comments (expect for system's)
+- Delete Loans
+- Delete any user account
+- Assign and revoke 'customer', 'admin', and 'super admin' privileges to any  user account.
 
-<!-- Anything else? -->
-
-## App Functionality
+## App Functionality Abridged
 
 ### Loan Management
 #### Creating Loans
-A Loan is created from a Buyer's Order. Loans are created from the **admin view** using the circular "+" button on the lower right corner of the page. Clicking this button opens the Buyer's Order modal. More information [here](#buyers-order).
+![New Loan Button](documentation/add-button.png)
 
-Upon creating a Loan, a User it's automatically assigned to it if the User already exists in the database. If a User has a matching full name (*case sensitive*) and DOB, as described by the purchaser on the Buyer's Order, the Loan will be attached to this User and it will appear on their account. If there is no User with this matching information, the loan will be *dangling* and not assigned to any User. However, if a customer creates an account with matching information later on, the Loan will be assigned to it. More information [here](#user-management).
-> The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
-
+From the **admin view**, you start the load creation process by first clicking the button on the lower right corner of the page (as pictured above). Clicking this button opens the Buyer's Order modal.
 
 #### Buyer's Order
+
+![Buyer's_Order](documentation/Buyer's_Order_modal.png)
+
 Modal that once completed, creates a loan in the system.
 
-![Buyer's_Order](documentation/images/Buyer's_Order_modal.png)
-> Screenshot of a Buyer's Order that is already filled out for a customer. A Co-Purchaser may be added at the bottom if necessary.
+Loans will be automatically assigned to customers **once a customer creates an account with matching full name (they must be EXACT, case and empty spaces included) and DOB of an EXISITING purchaser or copurchaser's name and DOB buyers order.** The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
 
 #### Modifying Loans
 
-![Loan_Admin](documentation/images/Expanded_Loan_Accordion_Admin.png)
-> Screenshot of a customers loan expanded from the accordion. Inside of this accordion tab you are able to change the status of the loan, edit the Buyer's order, change the warranty, and email the customer. Also comments may be left for the customer if needed.
+![Loan_Admin](documentation/Expanded_Loan_Accordion_Admin.png)
 
-All Loans in the database can be accessed from the **admin view**. When a loan is expanded, you have the option to edit the original Buyer's Order with the _Buyer's Order_ button underneath the Loan header. This brings up the Buyer's Order popup again. Any *submitted* changes made here are saved as modifications to the current Loan.
-<!-- make this into an anchor, since it will be quoted A LOT  -->
+If you're an admin, all Loans in the database can be accessed be seen once you login. When a loan *row* is click, it will expand and the picture above will appear. From there you can:
+- Edit the original Buyer's Order with the _Buyer's Order_ button. Changing names and DOBs here will **not** connect this loan to customer accounts with the new information. See more [here](#somewhere)
+- Send a generic email to the purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order.
+- Assign a warranty to this loan. After one is assigned, the grey section under "Warranty plan" will appear.
+- Change the loan status
+
 > Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty).
 
-A Loan's status may be changed with the _Change Status_ button under the Loan header. A popup appears that prompts you to select one of the 7 Loan statuses which are as follows:
+#### Comments on Loans
+
+Comments are created by clicking "Save comment". Comments are shown reverse chronological order. Both customers and admins can create and see normal comments. Admin can also create comments that will only be visible other admins and not the customer. This is shown in each row as '**Admin Only**'.
+
+- Customers **cannot** delete their comments.
+- Admins can only delete their  **own** comments.
+- Super admins can delete everyone's comments, except for System's.
+
+
+#### Changing Loan Status
+A Loan's status can be changed with the _Change Status_ button. The popup below will then later appear and that prompt you to select one of the 7 Loan statuses:
 - Received
 - Submitted
 - Pending
@@ -116,29 +129,24 @@ A Loan's status may be changed with the _Change Status_ button under the Loan he
 - Denied
 - Archived
 
+![Loan_Status](documentation/Change_Status_Modal.png)
+
 Confirming this popup updates the Loan to the selected status
 
-![Loan_Status](documentation/images/Change_Status_Modal.png)
-> Screenshot of the "Change Status" button. This will allow you to change the customers loan status to any option in the drop down menu. The status will update once you press the update button.
-
+<!-- have a user section -->
+<!-- 
 When a customer is logged in, they are presented with the **customer view**. A customer cannot create, modify, or delete any loans and may only see loans associated with their account. A customer may publish comments, as discussed in the following section.
+![Loan_Customer](documentation/Expanded_Loan_Accordion_Customer.png)
+> Screenshot of the customer view when they login. It will show their loan status, their warranty plan if they have one, as well as the comments.
+ -->
 
-![Loan_Customer](documentation/images/Expanded_Loan_Accordion_Customer.png)
-> Screenshot of the customer view when they log in. It will show their loan status, their warranty plan if they have one, as well as the comments.
-
-#### Comments on Loans
-Comments are added on loans using the comment bar near the bottom of an expanded loan. Comments appear top to down within the body of the loan with newer comments appearing above older ones. Both customers and admins can create and see normal comments. As an admin user, you have the option of posting a comment as _admin-only_ which can only be viewed by admins.
-
-Comments may only be deleted by the original poster (even admins cannot delete other admins' comments). Super admins, however, may delete comments from any user.
-
-![Loan_Comments](documentation/images/Loan_Comments.png)
-> Screenshot of what comments look like on a loan. Admins can leave comments that are visible to the customer or not visible to the customer.
+<!-- I stop 'abridging' here -->
 
 #### Warranties - Admin
+![Admin_Warranty](documentation/Update_warranty_plan_modal.png)
+
 A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
 
-![Admin_Warranty](documentation/images/Update_warranty_plan_modal.png)
-> Screenshot of the "update warranty" modal. In this modal admins can change the information on the warranty that the customer has.
 
 #### Mass Loan Operations
 Each Loan header has a checkbox to the left. Click this box to select or unselect the Loan.
@@ -156,12 +164,12 @@ Once an admin reviews the plan, they may approve it by added a warranty plan to 
 ### User Management
 
 #### User Creation and Types
-Users are created by _registering_ on the login page. To create an account, a person must specify their name, a username, their DOB, and DL number (email is optional). To access your account, you log in on the **login page** with your specified username and password. The app does not have the ability to recover passwords, so _do not forget your password!_
+Users are created by _registering_ on the login page. To create an account, a person must specify their name, a username, their DOB, and DL number (email is optional). To access your account, you login on the **login page** with your specified username and password. The app does not have the ability to recover passwords, so _do not forget your password!_
 
-![Login](documentation/images/Login_view.png)
-> Screenshot of the login page. You must enter a valid username and password in order to log in.
+![Login](documentation/Login_view.png)
+> Screenshot of the login page. You must enter a valid username and password in order to login.
 
-![Register](documentation/images/Register_view.png)
+![Register](documentation/Register_view.png)
 > Screenshot of the Registration page. You must enter something valid for all of the required fields in order to register.
 
 Upon registering, a User is assigned the role of a _customer_ who may view their loans and request warranty plans. When logged in as an _admin_, you may see all the loans in the database and make modifications to them. When logged in as a _super admin_, you have all of the privileges of admins in addition to the ability to delete loans, delete any comments, and change permissions of other users.
@@ -169,7 +177,7 @@ Upon registering, a User is assigned the role of a _customer_ who may view their
 #### User Permissions and Account Management
 To change permissions, access the *user permissions view* as a super admin. Here you may search for an existing user based on name or username and change their role to customer, admin, or super admin. You may also delete User accounts (note that deleted accounts _may not be recovered_)
 
-![Permissions](documentation/images/User_Permissions_change_view.png)
+![Permissions](documentation/User_Permissions_change_view.png)
 > Screenshot of the admin user permissions page. On this page super admins can change the status of any user to a regular customer, admin, or super admin, as well as delete users completely.
 
 ## Technical details
@@ -307,27 +315,25 @@ The following details the folder structure of the application and the purposes o
 
 
 ## Testing
-Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided (3 back-end and 1 end-to-end) each of which are described in detail below
+Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
 
-All 3 tests may be run by running the master python test script located at the top-level directory of the project. Use the command `python test.py` to do so.
-> Note that you must have Python installed to execute this file. Also you must be running a selenium server to execute the protractor test, as described below.
+All 3 backend tests (located at *unit_testing/mocha*) can be run automatically with one command, described [here](#development), or individually with  `mocha [filename]`. The protractor/end-to-end test requires a bit more work.
 
-### Back-end testing
-Two sets of back-end tests are developed.
+### Backend testing
+Two sets of back-end tests were developed.
 
 The first is the server-side back-end mocha tests _mocha.loan.server_ and _mocha.user.server_. These two tests check for loan and user creation, modification, and deletion respectively using purely server-side database commands.
 
 The second set of tests is the client-side back-end mocha tests _mocha.loan.client_ and _mocha.user.client_. These test loan and user creation, modification, and deletion respectively using client-side HTTP requests. These tests also validate the functionality of server side routing.
 
-These test sets are found in _unit_testing/mocha_ and can be run individually with the command `mocha [filename]`.
-
 ### End-to-end testing
-A single end-to-end test is developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
+A single end-to-end test was developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
 
+This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
+
+<!-- imma fix all this on the python file ~ too much work -->
 To run this test individually, follow these instructions
 1. Open a command line window and run `webdriver-manager update` to update the selenium webdiver package
 2. Run `webdriver-manager start` to set up a selenium server in parallel with the test
 3. Open a _second_ command line window and navigate to the top-level directory of the project
 4. Here, run `protractor unit_testing/protractor/protractor.config.js`
-
-This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
