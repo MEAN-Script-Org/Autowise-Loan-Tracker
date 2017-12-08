@@ -5,10 +5,9 @@
   + Become a collaborator to our current project (need email)
   + Transfer project ownership
   + Know how to modify/remove Heroku variables
-    + [Instructions](#soon)
+    + [Instructions will be available soon](#soon)
   + Get email variables for automated emailing 
-    + [Instructions](#soon)
-  + Link inventory website to https://autowise.herokuapp.com
+    + [Instructions will be available soon](#soon)
   + All of this will cost you:
     + $0/month **_for now_**, until database capacity is reached (512MB)
     + Prices of current database provider (mLab) then start at $15/month/GB
