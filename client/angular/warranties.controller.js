@@ -1,3 +1,16 @@
+var money_formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  // the default value for minimumFractionDigits depends on the currency
+  minimumFractionDigits: 0,
+});
+
+function mm_dd_yyyy(string) {
+  // mm/dd/YYYY with missing zeros if mm and dd < 10
+  return new Date(string).toLocaleDateString('es-PA');
+}
+
+// Disclaimer: This view wasn't the most effecient written, but welp it does the job
 // Provides raw warranty plan data and functions for querying warranty plans based on user-inputted information
 angular.module('SWEApp').controller('Warranties', 
   ['$rootScope', '$scope', '$http', '$location', '$window', 'Factory',
@@ -31,6 +44,9 @@ angular.module('SWEApp').controller('Warranties',
 
       $scope.queryWarrantyPlan();
     }
+
+    // TODO LATERRR:
+    // Move this mess to the backend
 
     // Tabulation of warranty plan prices according to car age, period of warranty plan, and mileage
     var warranties_table = [
@@ -141,25 +157,23 @@ angular.module('SWEApp').controller('Warranties',
     // Matching warranties to the 'matchedWarranties' object
     //--------------------------------------------------------------------------------------------------------------------
     $scope.queryWarrantyPlan = function() {
-
-      // console.log("~~~~~~~~~~~~~~~~~~~~~~~HEY!") ;
-      // console.log($window.localStorage.getItem('token')) ;
-
-      console.log("Query age:         " + $scope.query.age);
-      console.log("Query max milegae: " + $scope.query.mileage);
-      console.log("Query make:        " + $scope.query.make);
+      // console.log("Query age:         " + $scope.query.age);
+      // console.log("Query max milegae: " + $scope.query.mileage);
+      // console.log("Query make:        " + $scope.query.make);
 
       // Select possible warranties
-      var warranties = warranties_table.filter(checkWarrantyAgainstQuery);
       var plans = [];
+      var warranties = warranties_table.filter(checkWarrantyAgainstQuery);
 
       // Assign 'plan' items from warranty length, miles, and price
       warranties.forEach(function(warranty) {
-        var plan = { term: {} };
-
-        plan.type = warranty.type;
-        plan.term.months = warranty.term.months;
-        plan.term.miles = warranty.term.miles;
+        var plan = { 
+          type: warranty.type,
+          term: {
+            months: warranty.term.months,
+            miles: warranty.term.miles,
+          } 
+        };
 
         // Refine 'price' field if a country of origin is requried
         if (typeof warranty.price === 'object')
@@ -174,6 +188,21 @@ angular.module('SWEApp').controller('Warranties',
       $scope.matchedWarranties = plans;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------
+    // Filter function for warranty querying
+    //--------------------------------------------------------------------------------------------------------------------
+    function checkWarrantyAgainstQuery(warranty) {
+      return (
+        $scope.query.age === warranty.age.toString()) 
+        && ($scope.query.mileage >= warranty.mileage.min * 1000 
+        && ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0)
+      );
+    }
+
+    $scope.setChosenWarranty = function(warranty) {
+      $scope.chosenWarranty = warranty;
+    }
+
     /* WARRANTIES SELECTOR */
     $scope.setWarrantiesYear = function(year) {
       $scope.query.age = year;
@@ -186,6 +215,7 @@ angular.module('SWEApp').controller('Warranties',
       $scope.queryWarrantyPlan();
     }
 
+    // Should be in CSS only... but welp
     $scope.onFocusInputWarr = function(ind) {
       $("#sudo-select-warr-" + ind).css('opacity', '1');
       $("#sudo-select-warr-" + ind).css('height', 'auto');
@@ -198,18 +228,6 @@ angular.module('SWEApp').controller('Warranties',
     /* END WARRANTIES SELECTOR */
 
     //--------------------------------------------------------------------------------------------------------------------
-    // Filter function for warranty querying
-    //--------------------------------------------------------------------------------------------------------------------
-    function checkWarrantyAgainstQuery(warranty) {
-      return ($scope.query.age === warranty.age.toString()) && ($scope.query.mileage > warranty.mileage.min * 1000 &&
-        ($scope.query.mileage <= warranty.mileage.max * 1000 || warranty.mileage.max < 0));
-    }
-
-    $scope.setChosenWarranty = function(warranty) {
-      $scope.chosenWarranty = warranty;
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------
     // Email Autowise that the current user is interested in the currently selected warranty plan
     //--------------------------------------------------------------------------------------------------------------------
     $scope.emailWarrantyInterest = function() {
@@ -217,15 +235,18 @@ angular.module('SWEApp').controller('Warranties',
       var warranty = $scope.chosenWarranty;
 
       // what about the link to the insurance website??
+      // ^ Dind't add it. it looks awful anyways
       if (warranty.type == "Any-Year")
         converted_war_type = "Drivetrain";
       else
         converted_war_type = warranty.type;
 
       var bodyMessage = [
-        "Customer " + $rootScope.user.name +
+        "Customer " + $rootScope.user.name,
         " (username: " + $rootScope.user.username +
-        ", ID# " + $rootScope.user.id + ") is interested in the following warranty plan:",
+        ", DOB " + mm_dd_yyyy($rootScope.user.dob) + ")",
+        "is interested in the following warranty plan:",
+        "",
         "<b>Type</b>: " + converted_war_type,
         "<b>Plan length</b>: " + warranty.term.months,
         "<b>Plan mileage</b>: " + warranty.term.miles * 1000,
@@ -235,11 +256,7 @@ angular.module('SWEApp').controller('Warranties',
       // Email object
       var email = {
         type: 'warranty',
-        // to: "dunevitz32@gmail.com",
-        to: "marcial.abrahantes@gmail.com",
-        // to: "brightfuture89@yahoo.com",
         name: $rootScope.user.name,
-        userID: $rootScope.user.id,
         message: bodyMessage,
       };
 
@@ -249,29 +266,36 @@ angular.module('SWEApp').controller('Warranties',
           if (response.data.error) {
             console.log(response.data.error);
             alert(errorMsg);
-          } else {
+          } 
+          else {
             alert("Email was sent to Autowise! Please allow up to 3 days for an update on your loan application");
+
+            // Add comment to LOAN signifying that Warranty interest has been submitted
+            var newComment = [
+              "Customer is interested in the following warranty plan: ",
+              converted_war_type, ", ",
+              warranty.term.months, " months, ",
+              warranty.term.miles * 1000, " miles. ",
+              "Starting at ", money_formatter.format(warranty.price), ". "
+            ].join('');
+
+            // Add on comment and return to customer hub page
+            $http.post(window.location.href, { 
+              note: newComment, 
+              isAdminNote: false, 
+              token: Factory.getToken(),
+            })
+            .then(function(res) { 
+              $window.location.href = '/profile/' + Factory.getToken(); 
+            });
           }
-
-          // Add comment to loan signifying that Warranty interest has been submitted
-          var newComment = [
-            "Customer is interested in the following warranty plan: ",
-            converted_war_type, ", ",
-            warranty.term.months, " months, ",
-            warranty.term.miles * 1000, " miles. ",
-            "Starting at $", warranty.price, ". "
-          ].join('');
-
-          // Add on comment and return to customer hub page
-          $http.post(window.location.href, { note: newComment, isAdminNote: false, token: Factory.getToken() })
-          .then(function(res) { 
-            $window.location.href = '/profile/' + Factory.getToken(); 
-          });
         },
-        function(error) {
-          console.log(error);
-          alert(errorMsg);
-        });
+      function(error) {
+        console.log(error);
+        alert(errorMsg);
+      });
     };
+
+    
   }
 ]);

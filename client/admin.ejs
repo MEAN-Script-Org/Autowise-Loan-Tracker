@@ -16,7 +16,8 @@
       <div class="col-md-12">
         <div id="sb-search" class="sb-search">
           <form>
-            <input class="sb-search-input" placeholder="Search anything inside loans" ng-model="query" type="text" id="search">
+            <input class="sb-search-input" placeholder="Search anything inside loans" type="text" id="search"
+                   ng-model="query" >
             <input class="sb-search-submit" type="submit">
           </form>
         </div>
@@ -30,6 +31,9 @@
               <div class="inverse-tab">
                 <!-- need this for grid's sake -->
                 <span> &nbsp; </span>
+                <!-- TODO LATEEEEER: -->
+                <!-- Implement a 'select all' here -->
+
                 <div class="loanHeader">
                   <span> Customer Name </span>
                   <span> Loan Status </span>
@@ -37,14 +41,18 @@
                 </div>
                 <span> Show Details </span>
               </div> 
+              <!-- never finished this filter ~ too complicated -->
+              <!-- | date_filter:looking_for_dates:start:end:createdEh -->
               <div ng-repeat="loan in filtered_loans = (loans 
                 | orderBy:'updated_at':reverse
                 | filter: query
-                | date_filter:looking_for_dates:start:end:createdEh
-                | archived_filter:looking_for_archived
-                | important_filter:looking_for_important)">
+                | selected_filter:looking_for_selected:massLoans
+                | archived_filter:looking_for_archived:looking_for_selected
+                | important_filter:looking_for_important)"
+                >
                 <div class="tab accordionIn accordionOut">
                   <input id="tab-{{loan._id}}" type="checkbox" name="tabs" class="checkSelector">
+
                   <label for="tab-{{loan._id}}" class="tab-header">
                     <label class="container-mass container">
                       <input type="checkbox" id="{{loan._id}}-checkbox" ng-click="checkTrigger(loan._id)">
@@ -56,6 +64,7 @@
                       <span class="hidden-in-mobile"> #{{loan._id.toUpperCase() | limitTo:6:loan._id.length-6}} </span>
                     </div>
                   </label>
+
                   <div class="tab-content">
                     <% include partials/actions-row.ejs %>
                     <% include partials/warranty-row.ejs %>

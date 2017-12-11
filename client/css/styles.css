@@ -912,8 +912,10 @@ span.btn-group-text {
   border-top: 1px solid #dadbda;
 }
 
-.border-right {
-  border-right: 1px solid #dadbda;
+@media (min-width: 990px) {
+  .border-right {
+    border-right: 1px solid #dadbda;
+  }
 }
 
 .border-bottom {
@@ -1441,7 +1443,7 @@ input[type="date"]:valid:before {
   line-height: 105%;
   font-weight: 500;
   text-align: justify;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .warrantiesQueryText > div > h4,

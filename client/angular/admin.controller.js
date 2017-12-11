@@ -11,12 +11,12 @@ angular.module('SWEApp').controller(
     $rootScope.currLoan = {}; // Single loan of a current operation (creating, updating, etc.)
     $rootScope.massLoans = []; // All loans currently selected (checked)
     $rootScope.loanWithNewComments = {}; // Loan with comments used to update the existing loan
-
+    
     $rootScope.user = {} // current user
     $rootScope.loading = true; // shows the loading car animation
     $rootScope.warranty = {}; // Warranty plan placeholder object
-    $rootScope.filtered_loans = {}; // Filtered Loans placeholder object
     $rootScope.newStatus = null;
+    $scope.filtered_loans = {}; // Filtered Loans placeholder object
 
     // Max's Variable to handle BO edits
     $rootScope.isEditingLoan = false;
@@ -45,8 +45,18 @@ angular.module('SWEApp').controller(
       $scope.isAdmin = true;
       $scope.visible = "visible";
 
+      // Filtering variables
       $scope.looking_for_archived = false;
+      $scope.looking_for_selected = false;
       $scope.looking_for_important = false;
+
+      // query + Variable names of above, needed for bug described below
+      $scope.filterss = [
+        "looking_for_archived",
+        "looking_for_selected",
+        "looking_for_important",
+        "query"
+      ];
 
       Factory.getLoans().then(
         function(res) {
@@ -69,6 +79,19 @@ angular.module('SWEApp').controller(
           if (!$rootScope.user.isAdmin)
             window.location.href = "/profile/wrongUserType";
       });
+
+      // This fixes bug when a SELECTED loan goes out of sight, 
+      // and then comes back unselected
+      // Better feature than simply clearing filtered_loans on query change
+      $scope.$watchGroup($scope.filterss, function() {
+        $rootScope.massLoans.forEach(function(loanID) {
+          var checkbox = $("#" + loanID + "-checkbox")[0];
+
+          if (checkbox)
+            checkbox.checked = true;
+        });
+      });
+
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -81,8 +104,18 @@ angular.module('SWEApp').controller(
         return type.toLowerCase().indexOf("any") > -1 ? "Drivetrain" : type;
     }
 
-    // Simple Filter Toggles
-    $scope.toggleArchiveFilter = function() {
+    // show ALL types of selected loans, reset archived filter and query
+    $scope.toggleSelectedFilter = function() {
+      $scope.looking_for_selected = !$scope.looking_for_selected;
+
+      if ($scope.looking_for_selected) {
+        $scope.query = undefined;
+        $scope.looking_for_archived = false;
+        $("#archived-filter").prop('checked', false);
+      }
+    }
+
+    $scope.toggleArchivedFilter = function() {
       $scope.looking_for_archived = !$scope.looking_for_archived;
     }
 
@@ -398,7 +431,10 @@ angular.module('SWEApp').controller(
     // MARK: CHECK LIST
     $rootScope.updateCheckList = function(loanID, add) {
       if (add) {
-        $rootScope.massLoans.push(loanID);
+        if ($rootScope.massLoans.indexOf(loanID) < 0)
+        {
+          $rootScope.massLoans.push(loanID);
+        }
       } else {
         $rootScope.massLoans.forEach(
           function(value, index, loans) {
@@ -410,10 +446,10 @@ angular.module('SWEApp').controller(
     }
 
     $scope.checkTrigger = function(loanID) {
-      let stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
-      if (stateUpdate != -1) {
+      var stateUpdate = $("#" + loanID + "-checkbox")[0].checked;
+
+      if (stateUpdate != -1)
         $scope.updateCheckList(loanID, stateUpdate);
-      }
     };
 
     // Clearing frontend checkboxes
@@ -530,5 +566,6 @@ angular.module('SWEApp').controller(
       if (couserName && couserEmail)
         $scope.emailClient(loanID, couserName, couserEmail, false, false);
     };
+
   }
 ]);

@@ -76,12 +76,13 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
     agent = request.agent(express.init()) ;
     
-    // Login arguments
-    var args = {
-      username: 'super',
-      password: 'admin',
-      md5hash: test_hash,
-    }
+    // yeah... change this!
+    // // Login arguments
+    // var args = {
+    //   username: 'super',
+    //   password: 'admin',
+    //   md5hash: test_hash,
+    // }
     
     // Gimme' a token
     // Append hash to it as well as dictated by the authentication module
@@ -96,7 +97,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.0: Loan is created and saved succesfully -> HTTP response is empty object
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.0: Loan is created and saved succesfully -> HTTP response is empty object', function(done) {
-    agent.post('/api/loans/').send({token: token_hash_ok, buyers_order: test_loan_ok.buyers_order}).expect(200).end(function(err, res) {
+    agent.post('/api/loans/').send({token: token_hash_ok, buyers_order: test_loan_ok.buyers_order}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err) ;
       
       should.exist(res) ;
@@ -110,7 +112,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.1: Loan was created AND uploaded successfully -> HTTP response body is JSON of posted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.1: Loan was created AND uploaded successfully -> HTTP response body is JSON of posted Loan', function(done) {
-    agent.put('/api/loans').send({token: token_hash_ok}).expect(200).end(function(err, res) {
+    agent.put('/api/loans').send({token: token_hash_ok}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err)
       
       should.exist(res) ;
@@ -137,7 +140,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.2: All Loans may be retrieved -> HTTP response body is JSON array of Loans
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.2: All Loans may be retrieved -> HTTP response body is JSON array of Loans', function(done) {
-    agent.put('/api/loans').send({token: token_hash_ok}).expect(200).end(function(err, res) {
+    agent.put('/api/loans').send({token: token_hash_ok}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err)
       
       should.exist(res) ;
@@ -152,7 +156,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.3: May update a loan successfully -> HTTP response body is JSON of posted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.3: May update a loan successfully -> HTTP response body is JSON of posted Loan', function(done) {
-    agent.put('/api/loan/' + test_loan_id).send({token: token_hash_ok, status: 'PENDING', buyers_order: test_loan_ok.buyers_order}).expect(200).end(function(err, res) {
+    agent.put('/api/loan/' + test_loan_id).send({token: token_hash_ok, status: 'PENDING', buyers_order: test_loan_ok.buyers_order})
+    .expect(200).end(function(err, res) {
       should.not.exist(err) ;
       
       should.exist(res) ;
@@ -168,7 +173,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.5: May delete a Loan -> HTTP response body is JSON deleted Loan
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.5: May delete a Loan -> HTTP response body is JSON deleted Loan', function(done) {
-    agent.put('/api/deleteLoan/' + test_loan_id).send({token: token_hash_ok}).expect(200).end(function(err, res) {
+    agent.put('/api/deleteLoan/' + test_loan_id).send({token: token_hash_ok}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err) ;
       
       should.exist(res) ;
@@ -181,7 +187,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.6: Loan is successfully removed from database
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.6: Loan is successfully removed from database', function(done) {
-    agent.put('/api/loans').send({token: token_hash_ok}).expect(200).end(function(err, res) {
+    agent.put('/api/loans').send({token: token_hash_ok}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err)
       
       should.exist(res) ;
@@ -200,7 +207,8 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   // Test #2.6: Loan routing fails with illegal token -> HTTP response is empty object
   //--------------------------------------------------------------------------------------------------------------------
   it('Test #2.6: Loan routing fails with illegal token -> HTTP response is empty object', function(done) {
-    agent.put('/api/loan/' + test_loan_id).send({token: token_haxxor}).expect(200).end(function(err, res) {
+    agent.put('/api/loan/' + test_loan_id).send({token: token_haxxor}).expect(200)
+    .end(function(err, res) {
       should.not.exist(err) ;
       
       should.exist(res) ;

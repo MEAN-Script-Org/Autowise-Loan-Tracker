@@ -7,7 +7,8 @@
       </div>
       <div class="col-md-12">&nbsp;</div>
       <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
+
+        <div class="col-xs-12 col-md-4 col-lg-4 no-padding">
           <div class="panel panel-teal panel-widget border-right">
             <div class="row no-padding">
               <div> <em class="fa fa-xl fa-exclamation-circle"></em> </div>
@@ -19,19 +20,36 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-6 col-lg-6 no-padding">
-          <!-- border-right only on the last column -->
-          <div class="panel panel-teal panel-widget">
+
+        <div class="col-xs-12 col-md-4 col-lg-4 no-padding">
+          <div class="panel panel-teal panel-widget border-right">
             <div class="row no-padding">
               <div> <em class="fa fa-xl fa-archive"></em> </div>
               <div> <label class="text-muted"> archived loans </label> </div>
               <label class="container">
-                <input type="checkbox" ng-click="toggleArchiveFilter()">
+                <input type="checkbox" ng-click="toggleArchivedFilter()" id="archived-filter">
                 <span class="checkmark"></span>
               </label>
             </div>
           </div>
         </div>
+
+        <div class="col-xs-12 col-md-4 col-lg-4 no-padding">
+          <div class="panel panel-teal panel-widget">
+          <!-- border-right NOT on the last column -->
+            <div class="row no-padding">
+              <div> <em class="fa fa-xl fa-check-square"></em> </div>
+              <div> <label class="text-muted"> selected loans </label> </div>
+              <label class="container">
+                <input type="checkbox" ng-click="toggleSelectedFilter()">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- one more? -->
+
       </div>
     </div>
   </div>

@@ -32,10 +32,10 @@ module.exports = {
     newLoan.comments = [];
     newLoan.comments.push(firstComment);
     
-    if (req.body.note) {
-      // In the case of no insurance, change status and add note
-      newLoan.comments.push(automatedComment(req.body.note, true));
-    }
+    // In the case of no insurance, change status and add note
+    // if (req.body.note) {
+    //   newLoan.comments.push(automatedComment(req.body.note, true));
+    // }
 
     newLoan.save(function(err, realNewLoan) {
       if (err) {

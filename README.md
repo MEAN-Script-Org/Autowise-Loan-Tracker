@@ -45,6 +45,7 @@
         - [Modifying Loans](#modifying-loans)
         - [Comments on Loans](#comments-on-loans)
         - [Warranties - Admin](#warranties---admin)
+        - [Email updates](#email-updates)
         - [Mass Loan Operations](#mass-loan-operations)
     * [Warranties - customer](#warranties---customer)
     * [User Management](#user-management)
@@ -99,6 +100,7 @@ Loans will be automatically assigned to customers **once a customer creates an a
 #### Modifying Loans
 
 ![Loan_Admin](documentation/Expanded_Loan_Accordion_Admin.png)
+<!-- update pic -->
 
 If you're an admin, all Loans in the database can be accessed be seen once you login. When a loan *row* is click, it will expand and the picture above will appear. From there you can:
 - Edit the original Buyer's Order with the _Buyer's Order_ button. Changing names and DOBs here will **not** connect this loan to customer accounts with the new information. See more [here](#somewhere)
@@ -138,12 +140,19 @@ When a customer is logged in, they are presented with the **customer view**. A c
 > Screenshot of the customer view when they login. It will show their loan status, their warranty plan if they have one, as well as the comments.
  -->
 
-<!-- I stop 'abridging' here -->
-
 #### Warranties - Admin
 ![Admin_Warranty](documentation/Update_warranty_plan_modal.png)
+<!-- update pic -->
 
-A warranty plan may also be added to a Loan with the _Change Warranty_ button. A popup appears with input fields for a warranty plan type, duration, mileage, and cost. Confirming this popup updates the Loan with a warranty plan, or updates the existing plan if there was already one.
+Clicking the _Change Warranty_ button opens this popup. Once submitted, and as long as the *price is _not_ zero*, the next show below will be added to the loan view in **both** admin and customer view.
+
+![warranty_section](documentation/warranty_section.png)
+
+
+#### Email updates
+<!-- application_update_email.png -->
+![application_update_email](documentation/application_update_email.png)
+Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order.
 
 
 #### Mass Loan Operations
