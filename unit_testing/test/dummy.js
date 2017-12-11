@@ -1,12 +1,12 @@
 // MUAHAHAHAHA
 // When connected to the right db, this script will create a backup super admin
 
-'use strict' ;
+'use strict';
 
 // Dependencies - installed modules
-var should   = require('should') ;
-var mongoose = require('mongoose') ;
-var request  = require('supertest') ;
+var should   = require('should');
+var mongoose = require('mongoose');
+var request  = require('supertest');
 
 // Heroku Variables
 var config_loader = require('dotenv');
@@ -14,52 +14,37 @@ config_loader.load({path: ".env"});
 config_loader.load({path: "../../.env"});
 
 // Dependencies - local files
-var Loan      = require('../../server/db/loans.model.js') ;
-var express   = require('../../server/express.js') ;
+var express   = require('../../server/express.js');
+var Loan      = require('../../server/db/loans.model.js');
 
-describe('Making backup super admin', function () {
+describe('Backup user', function () {
   
   // Set timeout to 5 seconds
-  this.timeout(5000) ;
+  this.timeout(5000);
   
   var agent;
-  
-  before(function(done) {
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
-    
-    // this hash don't matter...
-    var dummy_hash = 'gardner-mccune > dave small' ;
 
-    agent = request.agent(express.init()) ;
+  it('Doing the thing ~', function(done) {
+    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    agent = request.agent(express.init());
+    
     // Login arguments
-    var args = {
-      username: 'super',
-      password: 'admin',
-      md5hash: dummy_hash,
+    var newUser = {
+      name:      'Fidel Castro',
+      dob:       '1926/08/13',
+      dl:        'F******3',
+      username:  'super',
+      password:  'admin',
+      revolucion: 'SI',
     }
     
-    // Gimme' a token
-    // Append hash to it as well as dictated by the authentication module
-    agent.post('/login').send(args).expect(200).end(function(err, res) {
-      token_hash_ok = res.body + ',' + test_hash ;
-      
-      done() ;
+    // create new user
+    agent.post('/new').send(newUser).expect(200)
+    .end(function(err, res) {
+      should.not.exist(res.body.err)
+      done();
     });
 
-  });
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // Test #2.0: Loan is created and saved succesfully -> HTTP response is empty object
-  //--------------------------------------------------------------------------------------------------------------------
-  it('', 
-    function(done) {
-
-  });
-
-
-  after('bleh',
-    function (done) {
-      
   });
 
 });

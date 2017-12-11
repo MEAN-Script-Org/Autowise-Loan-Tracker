@@ -134,7 +134,8 @@ module.exports = {
   getAllUsernames: function(req, res, data) {
     var users = req.users;
     
-    var user_names = [];
+    var user_names = ["super"];
+    
     users.forEach(function(item, index) {
       user_names.push(item.username);
     })

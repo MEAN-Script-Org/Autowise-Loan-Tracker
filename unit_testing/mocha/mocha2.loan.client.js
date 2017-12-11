@@ -76,17 +76,20 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
     mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
     agent = request.agent(express.init()) ;
     
-    // yeah... change this!
-    // // Login arguments
-    // var args = {
-    //   username: 'super',
-    //   password: 'admin',
-    //   md5hash: test_hash,
-    // }
+    // Login arguments
+    var newUser = {
+      name:     'Joe Momma',
+      dob:      '1923/11/23',
+      dl:       '1234ghjkasdf3',
+      username: 'AAAAAAAAAAAAAAAAAAAAAAAA',
+      password: 'VVVVVVVVVVVVVVVVVVVVVVVV',
+    }
     
     // Gimme' a token
     // Append hash to it as well as dictated by the authentication module
-    agent.post('/login').send(args).expect(200).end(function(err, res) {
+    agent.post('/new').send(newUser).expect(200).end(function(err, res) {
+      console.log(res.body) ;
+      
       token_hash_ok = res.body + ',' + test_hash ;
       
       done() ;
