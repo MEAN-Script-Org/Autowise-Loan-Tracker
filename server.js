@@ -9,7 +9,7 @@ function startServer() {
 function waitForHerokuVariables(count) {
   // we need this else the ".env" is worthless
   
-  if (process.env.MONGO_URI)
+  if (process.env.MONGODB_URI)
     startServer();
   else {
     // console.log("loading...", count);

@@ -76,8 +76,10 @@ angular.module('SWEApp').controller(
         function(res) {
           $rootScope.user = res.data;
           
-          if (!$rootScope.user.isAdmin)
-            window.location.href = "/profile/wrongUserType";
+        if (!$rootScope.user)
+          window.location.href = "/profile/noAccount";
+        else if (!$rootScope.user.isAdmin)
+          window.location.href = "/profile/wrongUserType";
       });
 
       // This fixes bug when a SELECTED loan goes out of sight, 

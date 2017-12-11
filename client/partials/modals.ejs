@@ -356,9 +356,14 @@
               </button>
               <span>
                 <h3>
-                  Are you sure you want to make this user 
+                  Are you sure you want to make 
                   <br>
-                  ({{currentUser.name}})
+                  <span ng-show="currentUser._id == this_user._id">
+                    <b style="color: red">YOURSELF</b>
+                  </span>
+                  <span ng-hide="currentUser._id == this_user._id">
+                    <i>{{currentUser.name}}</i>
+                  </span>
                   <br>
                   a Super Admin?
                 </h3>
@@ -390,9 +395,14 @@
               </button>
               <span>
                 <h3>
-                  Are you sure you want to make this user 
+                  Are you sure you want to make 
                   <br>
-                  ({{currentUser.name}}) 
+                  <span ng-show="currentUser._id == this_user._id">
+                    <b style="color: red">YOURSELF</b>
+                  </span>
+                  <span ng-hide="currentUser._id == this_user._id">
+                    <i>{{currentUser.name}}</i>
+                  </span>
                   <br>
                   an Admin?
                 </h3>
@@ -424,9 +434,14 @@
               </button>
               <span>
               <h3>
-                Are you sure you want to make this user 
+                Are you sure you want to make 
                 <br>
-                ({{currentUser.name}})
+                <span ng-show="currentUser._id == this_user._id">
+                  <b style="color: red">YOURSELF</b>
+                </span>
+                <span ng-hide="currentUser._id == this_user._id">
+                  <i>{{currentUser.name}}</i>
+                </span>
                 <br>
                 a Customer?
               </h3>
@@ -457,11 +472,19 @@
               </button>
               <span>
                   <h3>
-                    Are you sure you want to <b style="color: red">DELETE</b> this user 
-                    <br>
-                    ({{currentUser.name}})? 
+                    Are you sure you want to 
+                    <span ng-show="currentUser._id == this_user._id">
+                      <br>
+                      <b style="color: red"> DELETE YOURSELF!?!?! </b>
+                    </span>
+                    <span ng-hide="currentUser._id == this_user._id">
+                      <b style="color: red">DELETE</b>
+                      <br>
+                      {{currentUser.name}}? 
+                    </span>
                     <br>
                     This action <b>CANNOT</b> be undone
+
                   </h3>
                   <div class="divider"></div>
                 </span>

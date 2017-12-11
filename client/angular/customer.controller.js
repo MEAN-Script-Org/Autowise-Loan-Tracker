@@ -14,7 +14,9 @@ angular.module('SWEApp').controller(
       function(res) {
         $rootScope.user = res.data;
         
-        if ($rootScope.user.isAdmin)
+        if (!$rootScope.user)
+          window.location.href = "/profile/noAccount";
+        else if ($rootScope.user.isAdmin || $rootScope.user.isSuperAdmin)
           window.location.href = "/profile/wrongUserType";
     });
     

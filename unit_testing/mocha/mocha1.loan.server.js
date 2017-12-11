@@ -6,7 +6,7 @@ var mongoose = require('mongoose') ;
 var config_loader = require('dotenv');
 
 config_loader.load({path: "../../.env"});
-if (!process.env.MONGO_URI)
+if (!process.env.MONGODB_URI)
   config_loader.load();
 
 // Dependencies - local files
@@ -21,7 +21,7 @@ describe('TEST GROUP I - LOAN BACK-END DATABASE CRUD FUNCTIONALITY', function ()
   // Specify database connection
   before(function(done) {
 
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
     //'mongodb://max_admin2:n$E0yDCyLc07@ds119044.mlab.com:19044/cen-class'
     done() ;
   }) ;

@@ -73,7 +73,7 @@ describe('TEST GROUP II - FRONT-END LOAN HTTP ROUTING', function () {
   var token_haxxor = 'jo_mamma'
   
   before(function(done) {
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+    mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
     agent = request.agent(express.init()) ;
     
     // Login arguments

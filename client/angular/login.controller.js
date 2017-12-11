@@ -20,10 +20,8 @@ angular.module('SWEApp').controller('LoginController',
       Factory.isLoggedIn().then(
         function(res) {
 
-          if (res.data.error || error_message || type) {
-            // useless error..
-            // console.log(res.data.error);
-            // if (type != "btn-danger")
+          // remove tokens in all cases but this
+          if (error_message && error_message != "Please enter a valid URL") {
               Factory.removeToken();
           } 
           

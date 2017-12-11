@@ -17,25 +17,28 @@ config_loader.load({path: "../../.env"});
 var express   = require('../../server/express.js');
 var Loan      = require('../../server/db/loans.model.js');
 
-describe('Backup user', function () {
+describe('~ Doing the thing ', function () {
   
   // Set timeout to 5 seconds
   this.timeout(5000);
   
   var agent;
 
-  it('Doing the thing ~', function(done) {
-    mongoose.connect(process.env.MONGO_URI, {useMongoClient: true});
+  it(' Did the thing ~', function(done) {
+    mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
     agent = request.agent(express.init());
     
     // Login arguments
     var newUser = {
-      name:      'Fidel Castro',
-      dob:       '1926/08/13',
-      dl:        'F******3',
-      username:  'super',
-      password:  'admin',
+      dl: 'F******3',
+      dob: '1926/08/13',
+      name: 'Fidel Castro',
+      isAdmin: true,
+      username: 'super',
+      password: 'admin',
       revolucion: 'SI',
+      isDictator: "it's true",
+      isSuperAdmin: true,
     }
     
     // create new user

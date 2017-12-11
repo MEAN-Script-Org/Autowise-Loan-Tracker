@@ -103,10 +103,10 @@ module.exports = function (req, res) {
 
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
-      console.log(error);
+      // console.log(error);
       res.json({error});
     } else {
-      console.log('Message sent: ' + info.response);
+      // console.log('Message sent: ' + info.response);
       res.json({result: info.response});
     }
   });

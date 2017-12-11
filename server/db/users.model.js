@@ -55,8 +55,8 @@ var userSchema = new mongoose.Schema({
 userSchema.pre('save', function(next) {
   // General Fields
   this.loans = []
-  this.isAdmin = false;
-  this.isSuperAdmin = false;
+  // this.isAdmin = false;
+  // this.isSuperAdmin = false;
   
   var currentDate = new Date();
   this.updated_at = currentDate;

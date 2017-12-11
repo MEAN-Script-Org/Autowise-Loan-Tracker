@@ -14,7 +14,9 @@ angular.module('SWEApp').controller('Permissions',
       function(res) {
         $rootScope.this_user = res.data;
 
-        if (!$rootScope.this_user.isSuperAdmin)
+        if (!$rootScope.this_user)
+          window.location.href = "/profile/noAccount";
+        else if (!$rootScope.this_user.isSuperAdmin)
           window.location.href = "/profile/wrongUserType";
     });
 
@@ -38,7 +40,7 @@ angular.module('SWEApp').controller('Permissions',
 
       $timeout(function() {
         $rootScope.loading = false;
-      }, 1000);
+      }, 1500);
     }
 
     // 'prepare' selected use
@@ -59,6 +61,9 @@ angular.module('SWEApp').controller('Permissions',
               }
             }
           });
+          
+          if (userID == $rootScope.this_user._id)
+            window.location.href = "/profile/noAccount";
         },
         function(err) {
           alert("There was a problem deleting this User.");

@@ -40,7 +40,7 @@ module.exports = {
           } 
           else {
             var p = { error: 'Invalid Username and password combination' };
-            console.log(p);
+            // console.log(p);
             res.json(p);
           }
         }
@@ -63,14 +63,14 @@ module.exports = {
       jwt.verify(token, secret, function(err, decodedToken) {
 
         if (err || decodedToken.md5hash != md5hash) {
-          if (err) {
-            // console.log(token, err, decodedToken);
-            console.log("INVALID TOKEN!!!");
-          }
-          else if (decodedToken.md5hash != md5hash) {
-            // console.log(decodedToken, md5hash);
-            console.log("GOOD TRY");
-          }
+          // if (err) {
+          //   console.log(token, err, decodedToken);
+          //   console.log("INVALID TOKEN!!!");
+          // }
+          // else if (decodedToken.md5hash != md5hash) {
+          //   console.log(decodedToken, md5hash);
+          //   console.log("GOOD TRY");
+          // }
 
           req.problem = true;
           req.ejs_msg = "Your session expired. Please log in again";
@@ -108,7 +108,7 @@ module.exports = {
 
       jwt.verify(token, secret, function(err, decodedToken) {
         if (err || decodedToken.md5hash != md5hash) {
-          console.log("Bad Token");
+          // console.log("Bad Token");
           // console.log(decodedToken, md5hash);
           
           req.problem = true;
@@ -129,7 +129,7 @@ module.exports = {
       });
     } 
     else {
-      console.log("no token evah", token_array);
+      // console.log("no token evah", token_array);
       req.problem = true;
       req.ejs_msg = "Please log in to access your profile";
       req.ejs_class = 'alert bg-danger';

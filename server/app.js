@@ -1,5 +1,4 @@
 var express = require('./express');
-var request = require('supertest');
 
 module.exports.start = function() {
   var port = (process.env.PORT || 5000);

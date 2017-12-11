@@ -17,7 +17,7 @@ var loans = require('./db/loans.crud.js');
 module.exports.init = function() {
 
   // Connect to database
-  mongoose.connect(process.env.MONGO_URI, { useMongoClient: true });
+  mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
   // initialize app
   var app = express();
@@ -40,16 +40,21 @@ module.exports.init = function() {
   //   retrieve usernames
   //   create new profiles
   app.use('/', login_routes);
-  app.use('/login', auth.login);
+
+  // automatic reroute here if account was deleted and still had valid token
+  app.use('/profile/noAccount', function(req, res, next) {
+    req.problem = true;
+    req.ejs_msg = "Your account has been deleted";
+    req.ejs_class = "alert bg-danger";
+    next();
+  }, login_routes.login);
 
   app.use('/new', users.create, loans.affixUsers, auth.login);
   app.use('/usernames', users.getAll, users.getAllUsernames);
-
-  // automatic reroute here
   app.use('/profile', profile_routes);
+  app.use('/login', auth.login);
 
-  // Token-Based Auth starts here
-  // Backend API routes
+  // FULL Token-Based Auth starts here
   app.use('/api', auth.authenticate, login_routes.login, api_routes);
 
   // Wildcard for everything else

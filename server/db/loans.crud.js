@@ -39,7 +39,7 @@ module.exports = {
 
     newLoan.save(function(err, realNewLoan) {
       if (err) {
-        console.log(err);
+        // console.log(err);
         res.status(400).send(err);
       } 
       else {
@@ -102,7 +102,7 @@ module.exports = {
   getAll: function(req, res) {
     Loan.find({}, function(err, loans) {
       if (err) {
-        console.log(err);
+        // console.log(err);
         res.status(404).send(err);
       } 
       else res.json(loans);
@@ -117,7 +117,7 @@ module.exports = {
     Loan.find({user_ids: req.body.token.id, status: { $ne : "ARCHIVED"} },
       function(err, loans) {
         if (err) {
-          console.log(err);
+          // console.log(err);
           res.status(400).send(err);
         } else {
           res.json(loans);
@@ -129,23 +129,16 @@ module.exports = {
   // Get a loan of the specified ID
   //--------------------------------------------------------------------------------------------------------------------
   loanByID: function(req, res, next, id) {
-    if (id) {
-
-      Loan.findById(id).exec(function(err, loan) {
-        if (err) {
-          console.log(err);
-          // res.status(400).send(err);
-          res.redirect("/profile/"+req.body.old_token);
-        } else {
-          req.loan = loan;
-          next();
-        }
-      });
-
-    } else {
-      console.log("NO IDDDD");
-      console.log(req.body, req.body.token);
-    }
+    Loan.findById(id).exec(function(err, loan) {
+      if (err) {
+        // console.log(err);
+        // res.status(400).send(err);
+        res.redirect("/profile/"+req.body.old_token);
+      } else {
+        req.loan = loan;
+        next();
+      }
+    });
   },
 
   affixUsers: function(req, res, next) {
@@ -173,9 +166,10 @@ module.exports = {
     // Find all loans according to the query, affix this user's id to them
     Loan.find({$or: [query, co_query]}).exec(function(err, loans) {
       // console.log(query);
-      console.log(loans.length);
+      // console.log(loans.length);
 
-      if (err) console.log(err);
+      // if (err) console.log(err);
+      if (false) console.log(err);
       else {
         // Update found loans with user ID
         loans.forEach(function(loan) {
@@ -190,7 +184,7 @@ module.exports = {
         // update users
         User.findByIdAndUpdate(req.new.id, new_loans, {new: true}).exec(
           function(err, updated) {
-            console.log("DALE!", updated);
+            // console.log("DALE!", updated);
             // User.findByIdAndRemove(req.new.id).exec();
             next();
         });

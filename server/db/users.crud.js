@@ -31,13 +31,13 @@ module.exports = {
             }); 
           }
           else {
-            console.log(err);
+            // console.log(err);
             res.json({ 
               message: err
             });
           } 
         } else {
-          console.log(realNewUser);
+          // console.log(realNewUser);
           req.new = newUser;
           next();
         }
@@ -50,7 +50,7 @@ module.exports = {
   userByToken: function(req, res) {
     User.findById(req.body.token.id).exec(function(err, user) {
       if (err) {
-        console.log(err) ;
+        // console.log(err) ;
         res.status(400).send(err) ;
       }
       else {
@@ -145,7 +145,7 @@ module.exports = {
   userByID: function(req, res, next, id) {
     User.findById(id).exec(function(err, user) {
       if (err) {
-        console.log(err) ;
+        // console.log(err) ;
         res.status(400).send(err) ;
       }
       else {
@@ -184,9 +184,10 @@ module.exports = {
     // TODO: Test this!
     // Find all users according to the query, affix this user's id to them
     User.find({$or: all_qs}).exec(function(err, users) {
-      console.log(users.length);
+      // console.log(users.length);
 
-      if (err) console.log(err);
+      // if (err) console.log(err);
+      if (false) console.log(err);
       else {
         // Update found users with loan ID
         users.forEach(function(user) {
@@ -200,7 +201,7 @@ module.exports = {
         // update loan
         Loan.findByIdAndUpdate(req.new.id, new_users, {new: true}).exec(
           function(err, updated) {
-            console.log("DALE!", updated);
+            // console.log("DALE!", updated);
             next();
         });
       }
