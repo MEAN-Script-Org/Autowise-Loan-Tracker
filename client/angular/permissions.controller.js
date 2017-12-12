@@ -2,9 +2,6 @@ angular.module('SWEApp').controller('Permissions',
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
-    if (!Factory.getToken())
-      window.location.href = "/profile/badtoken";
-
     $scope.visible = 'visible';
     $rootScope.users = [];
     $rootScope.loading = true;

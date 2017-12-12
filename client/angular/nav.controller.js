@@ -2,6 +2,19 @@ angular.module('SWEApp').controller('Navigation',
   ['$rootScope', '$scope', '$location', '$window', 'Factory',
   function($rootScope, $scope, $location, $window, Factory) {
     
+    // Security check
+    if (!$scope.login_page && !Factory.getToken()) {
+      window.location.href = "/profile/badtoken";
+    }
+    else {
+      var website = window.location.href;
+      var isNotSececure = website.indexOf("https") < 0;
+      var isNotRunningLocally = website.indexOf("localhost") < 0;
+
+      if (isNotSececure && isNotRunningLocally)
+        window.location.href = "https" + website.slice(4);
+    }
+    
     //--------------------------------------------------------------------------------------------------------------------
     // Navigates to the page as specified by the 'key'
     //--------------------------------------------------------------------------------------------------------------------

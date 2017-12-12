@@ -2,9 +2,6 @@ angular.module('SWEApp').controller(
   'CRUDController', ['$rootScope', '$scope', '$location', '$timeout', '$window', 'Factory',
   function($rootScope, $scope, $location, $timeout, $window, Factory) {
     
-    if (!Factory.getToken())
-      window.location.href = "/profile/badtoken";
-
     // GLOBALS
     // Essentially, anything that goes into an async (Factory) call
     $rootScope.loans = []; // All loans in the database
@@ -68,7 +65,7 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 500);
+          }, 1500);
         }
       );
 

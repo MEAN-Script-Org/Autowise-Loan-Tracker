@@ -15,7 +15,7 @@ function mm_dd_yyyy(string) {
 angular.module('SWEApp').controller('Warranties', 
   ['$rootScope', '$scope', '$http', '$location', '$window', 'Factory',
   function($rootScope, $scope, $http, $location, $window, Factory) {
-
+    
     // GLOBALS
     $rootScope.loan = null; // Current loan to have a warranty added
     $rootScope.user = null; // Current logged-in user
@@ -24,6 +24,7 @@ angular.module('SWEApp').controller('Warranties',
     // Initialize the controller, declaraing the 'matchedWarranties' and 'query' objects
     //--------------------------------------------------------------------------------------------------------------------
     $scope.init = function() {
+
       $scope.visible = "visible";
       $scope.query = { age: '-1', mileage: 0, make: 'Domestic' };
       $scope.warrantyInfo = "Warranty information will go here";
@@ -35,11 +36,10 @@ angular.module('SWEApp').controller('Warranties',
         "2011": "2011 or newer",
       };
 
-      // FOR TESTING PURPOSES ONLY
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
-          user = res.data;
+          // user = res.data;
         });
 
       $scope.queryWarrantyPlan();

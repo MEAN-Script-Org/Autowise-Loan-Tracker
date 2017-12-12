@@ -1,10 +1,7 @@
 angular.module('SWEApp').controller(
   'CustomerController', ['$rootScope', '$scope', '$location', '$window', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $window, $timeout, Factory) {
-
-    if (!Factory.getToken())
-      window.location.href = "/profile/badtoken";
-    
+        
     // GLOBALS
     $rootScope.bo = {};
     $rootScope.loans = [];

@@ -6,7 +6,6 @@ angular.module('SWEApp').controller('LoginController',
     $rootScope.users = [];
     $rootScope.newUser = {isAdmin: false, isSuperAdmin: false};
     $rootScope.usernames = {};
-    // $rootScope.forgotUsername = "";
 
     $scope.init = function(error_message, type) {
       $scope.login_page = true;
@@ -22,7 +21,7 @@ angular.module('SWEApp').controller('LoginController',
 
           // remove tokens in all cases but this
           if (error_message && error_message != "Please enter a valid URL") {
-              Factory.removeToken();
+            Factory.removeToken();
           } 
           
           var token_array = Factory.getToken();
