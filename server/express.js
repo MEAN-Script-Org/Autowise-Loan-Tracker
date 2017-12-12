@@ -44,20 +44,11 @@ module.exports.init = function() {
   //   create new profiles
   app.use('/', login_routes);
 
-  // automatic reroute here if account was deleted and still had valid token
-  app.use('/profile/noAccount', function(req, res, next) {
-    req.problem = true;
-    req.ejs_msg = "Your account has been deleted";
-    req.ejs_class = "alert bg-danger";
-    next();
-  }, login_routes.login);
-
+  // Token-Based Auth starts here
   app.use('/new', users.create, loans.affixUsers, auth.login);
   app.use('/usernames', users.getAll, users.getAllUsernames);
   app.use('/profile', profile_routes);
   app.use('/login', auth.login);
-
-  // FULL Token-Based Auth starts here
   app.use('/api', auth.authenticate, login_routes.login, api_routes);
 
   // Wildcard for everything else

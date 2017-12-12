@@ -79,6 +79,12 @@ module.exports = {
             req.ejs_class = "alert bg-danger";
             next();
           }
+          else if (token == "noAccount") {
+            // if the account was deleted and still had valid token
+            req.ejs_msg = "Your account has been deleted";
+            req.ejs_class = "alert bg-danger";
+            next();
+          }
           else {
             // console.log(token, err, decodedToken);
             // console.log("INVALID TOKEN!!!");

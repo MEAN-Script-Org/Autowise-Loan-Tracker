@@ -40,7 +40,7 @@
       </div>
 
       <div class="users-table invisible {{visible}}" ng-hide="loading" >
-        <div ng-repeat="user in filtered_users = (users | filter: query)"
+        <div ng-repeat="user in filtered_users = (users | filter: query | orderBy: 'updated_at')"
              class="centered-text cleafix" style="clear: both">
 
           <span class="btn m-col-2 {{user.isAdmin ? 'isAdmin' : ''}} {{user.isSuperAdmin ? 'isSuperAdmin' : ''}}">

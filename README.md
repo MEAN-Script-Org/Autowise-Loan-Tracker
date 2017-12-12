@@ -3,9 +3,9 @@
   + Sign up for [Heroku](https://signup.heroku.com/)
   + Become a collaborator to our current project (need email)
   + Know how to modify/remove Heroku variables **<- We are here**
-    + [Instructions](#soon)
+    + [Instructions](#heroku)
   + Get email variables for automated emailing 
-    + [Instructions](#soon)
+    + [Instructions](#emailing-variables)
   + Transfer project ownership
 
 
@@ -29,15 +29,6 @@ Enjoy your paperless loan tracking application!
     - Warranty Change (**not** admin-only)
   - More in-depth testing, and done on a mock database
 
-<!-- TO Document heroku vars: -->
-<!-- 
-BASE_URL
-MAX_SESSION_TIME
-WARRANTIES_DESTINATION
- -->
-<!-- https://github.com/zeit/ms#examples -->
-<!-- email text!!! -->
-
 
 # Autowise Loan Tracking Documentation
 
@@ -50,8 +41,8 @@ WARRANTIES_DESTINATION
         - [Modifying Loans](#modifying-loans)
         - [Comments on Loans](#comments-on-loans)
         - [Warranties - Admins](#warranties---admins)
-        - [Email updates](#email-updates)
         - [Mass Loan Operations](#mass-loan-operations)
+        - [Email updates](#email-updates)
     * [Warranties - Customers](#warranties---customers)
     * [User Management](#user-management)
 + [Technical details](#technical-details)
@@ -206,6 +197,7 @@ Everyone is a  _customer_ by default. Next sections describes how this can be ch
 Super admins can change permissions by accessing the *permissions view* by clicking the "User Management" button as seen above.
 
 ![Permissions](documentation/User_Permissions_change_view.png)
+
 Here you can search for *any* existing user's values associated with their account (name, username, DOB, DL #). The type of user account can be inferred based on the styling of their name:
 + Customers
 + <b>Admins</b>
@@ -230,13 +222,7 @@ They can also delete **any** account, and never look back!
     + Run `heroku login` to authenticate into your Heroku account.
     + Connect to a app: `heroku git:remote -a [heroku app name]`
         * Gulp will **NOT** work if you don't do this (and by extension **NOTHING WILL**). There are ways around this once you acquire the environmental variables
-    + For project duplication: You **MUST** be added as a collaborator on the project, and have specific config variables defined in order for this to work. These variables are referred in the backend code as `process.env.VARIABLE_NAME`, and they are:
-        * Database: MONGODB_URI
-        * Emailing:
-            - Yahoo: YAHOO_USERNAME and YAHOO_PASSWORD (not real password, see instructions)
-            - Gmail: GMAIL_USERNAME, GMAIL_PASSWORD (**real password**) and CLIENT_ID. I'd recommend to at least b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
-            - Instructions how to obtain these can be found [here](#somewhere)
-            <!-- Marcial: TODO soon -->
+    + For project duplication: You **MUST** be added as a collaborator on the project, and have specific Heroku config variables defined in order for this to work. These variables are referred in the backend code as `process.env.VARIABLE_NAME`, and the needed ones are listed [here](#modifying-variables)
 - Installation and Execution
   + First run: `npm run first-install`
       * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](http://sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
@@ -356,3 +342,41 @@ The following details the folder structure of the application and the purposes o
 - unit_testing: files and scripts used in app testing
 
 
+### Heroku
+
+#### Accessing Variables
+
+![ht](documentation/heroku_tab.png)
+
+You get to your sensitive variables thru the 'Settings' Tab, then by clicking 'Reveal Config Vars'
+
+#### Modifying Variables
+
+![hv](documentation/heroku_vars.png)
+
+Here you can edit/remove values which are sensitive, and that shouldn't be stored publicly. The established environment variables are follows:
+<!-- https://github.com/zeit/ms#examples -->
+
+- BASE_URL: Heroku or bought domain name website where the main app is browsable from. Used in automated emails as links to site.
+  - Heroku has by default FREE SSL/HTTPS, so don't spend the extra $$$$ to pay for it.
+- WARRANTIES_DESTINATION: Email where the Warranty requests emails will be sent to. Allows for more flexibility (and less spam) on emails if you desire to use a different from the one sending automated emails.
+- MAX_SESSION_TIME: Max amount of time **any** user is allowed to stay on the site without logging in again. The format of this fields needs to be like [this](https://github.com/zeit/ms#examples)
+- MONGODB_URI: Database access link (user sensitive). Provided from Heroku Add-On. This can be changed to any valid MongoDB DB (eg. localhost or etc).
+- For automated emails (further instructions [here](#emailing-variables))
+  + If using a yahoo account: YAHOO_USERNAME and YAHOO_PASSWORD
+  + If using a gmail account: GMAIL_USERNAME and CLIENT_ID, and you'd need to add GMAIL_PASSWORD (**real password**). 
+      - I'd recommend you to **at least** b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
+      - Currently using the Yahoo settings, so you'd have to enable flip the comments if you'd like to switch over.
+
+
+### Emailing Variables
+
+#### Yahoo
+// Yahoo instructions =>
+//   Account Security => Two-step => New App => Other App
+//   Maybe also: Allow less-secure apps
+
+
+#### Gmail
+Gmail is an interesting case...
+// Gmail Instructions: Get a Gmail API key, adjust valid urls
