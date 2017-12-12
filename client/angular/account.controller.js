@@ -3,7 +3,6 @@ angular.module('SWEApp').controller('UserAccounts', ['$rootScope', '$scope', '$l
 
     // GLOBALS
     $rootScope.user = {}; // Currently logged-in user
-    $rootScope.visible = 'visible'; // Display ugly looking angular content once it's loaded
 
     $scope.init = function() {
       // Fetch user information

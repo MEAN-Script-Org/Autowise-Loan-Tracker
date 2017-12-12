@@ -40,7 +40,6 @@ angular.module('SWEApp').controller(
 
       $scope.newLoan = {};
       $scope.isAdmin = true;
-      $scope.visible = "visible";
 
       // Filtering variables
       $scope.looking_for_archived = false;

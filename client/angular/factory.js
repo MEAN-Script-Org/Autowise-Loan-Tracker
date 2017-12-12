@@ -17,8 +17,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       var token = $window.localStorage.getItem('token');
       if (token)
         if (Object.keys(token).length > 0)
-          token = [token, $window.fingerprint.md5hash];
-      return token;
+          return [token, $window.fingerprint.md5hash];
     }
 
     // READ:

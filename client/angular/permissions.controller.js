@@ -2,7 +2,6 @@ angular.module('SWEApp').controller('Permissions',
   ['$rootScope', '$scope', '$location', '$timeout', 'Factory',
   function($rootScope, $scope, $location, $timeout, Factory) {
 
-    $scope.visible = 'visible';
     $rootScope.users = [];
     $rootScope.loading = true;
     $rootScope.currentUser = {};

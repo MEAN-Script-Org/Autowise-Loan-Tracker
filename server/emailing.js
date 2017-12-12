@@ -29,7 +29,7 @@ var format_email_html = function (req) {
       
   } 
   else {
-    to = req.body.to;
+    to = req.to;
     subject = "Autowise Cars: Your loan application has been updated";
     
     // Create and insert a link to the user's loan inside the message body

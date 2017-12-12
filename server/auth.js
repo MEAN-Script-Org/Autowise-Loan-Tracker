@@ -34,8 +34,7 @@ module.exports = {
               isSuperAdmin: user.isSuperAdmin,
             }
 
-            // turn token into a two peace deal
-            var token = jwt.sign(user_details, secret, { expiresIn: '3h' });
+            var token = jwt.sign(user_details, secret, { expiresIn: process.env.MAX_SESSION_TIME });
             res.json(token);
           } 
           else {
@@ -47,8 +46,9 @@ module.exports = {
     });
   },
 
+  // Returns GUUD token
   decodeToken: function(req, res, next, token_array) {
-    // console.log(req.body, token);
+    // console.log(token_array);
 
     if (!token_array) {
       req.body.token = "nothing ever";
@@ -57,25 +57,36 @@ module.exports = {
     else {
       if (typeof token_array == 'string')
         token_array = token_array.split(",");
+
       var token = token_array[0];
       var md5hash = token_array[1];
 
       jwt.verify(token, secret, function(err, decodedToken) {
 
-        if (err || decodedToken.md5hash != md5hash) {
-          // if (err) {
-          //   console.log(token, err, decodedToken);
-          //   console.log("INVALID TOKEN!!!");
-          // }
-          // else if (decodedToken.md5hash != md5hash) {
-          //   console.log(decodedToken, md5hash);
-          //   console.log("GOOD TRY");
-          // }
-
+        if (err) {
           req.problem = true;
-          req.ejs_msg = "Your session expired. Please log in again";
-          req.ejs_class = "alert bg-warning";
-          next();
+          // console.log(err);
+          // console.log(token_array, md5hash);
+          
+          if (err.name == "TokenExpiredError") {
+            req.ejs_msg = "Your session expired. Please login again";
+            req.ejs_class = "alert bg-warning";
+            next();
+          }
+          else if (token == "badtoken" || token == "wrongUserType") {
+            // console.log("GOOD TRY");
+            req.ejs_msg = "Pasting links onto other computers/browsers won't work :D";
+            req.ejs_class = "alert bg-danger";
+            next();
+          }
+          else {
+            // console.log(token, err, decodedToken);
+            // console.log("INVALID TOKEN!!!");
+            req.ejs_msg = "Please login to access your profile";
+            req.ejs_class = "alert bg-danger";
+            next();
+          }
+
         }
         else {
           // REAL NEXT
@@ -91,14 +102,13 @@ module.exports = {
 
   // Auth middleware *mess warning*
   //      Send to login if no token with no message
-  //      IF not valid, display you need to log in again
+  //      IF not valid, display you need to login again
   //      If valid, continue to next callback
   authenticate: function(req, res, next) {
     
     var token_array = req.body.token;
     
     if (token_array) {
-
       // console.log(token_array);
       if (typeof token_array == 'string')
         token_array = token_array.split(",");
@@ -110,13 +120,14 @@ module.exports = {
         if (err || decodedToken.md5hash != md5hash) {
           // console.log("Bad Token");
           // console.log(decodedToken, md5hash);
-          
+
+          // technically don't need these, but leaving for future debugging
           req.problem = true;
-          req.ejs_msg = "Your session expired. Please log in again";
+          req.ejs_msg = "Your session expired. Please login again";
           req.ejs_class = "alert bg-warning";
+
           next();
         }
-
         // REAL next
         else {
           // console.log("GUUUD Token");
@@ -131,7 +142,7 @@ module.exports = {
     else {
       // console.log("no token evah", token_array);
       req.problem = true;
-      req.ejs_msg = "Please log in to access your profile";
+      req.ejs_msg = "Please login to access your profile";
       req.ejs_class = 'alert bg-danger';
       next();
     }

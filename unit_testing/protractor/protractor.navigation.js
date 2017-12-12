@@ -3,7 +3,24 @@
 // TEST GROUP III - GENERAL NAVIGATION
 //======================================================================================================================
 describe('TEST GROUP III - GENERAL NAVIGATION: ', function() {
-  
+    
+  // Before all tests, load the admin hub page
+  beforeAll(function() {
+    browser.get('http://localhost:5001/') ;
+    
+    // Fill out username and password fields
+    element(by.model('username')).sendKeys('super') ;
+    element(by.model('password')).sendKeys('admin') ;
+    
+    var EC = protractor.ExpectedConditions;
+    browser.wait(EC.elementToBeClickable(by.id('button-login')), 5000);
+    
+    // Click 'Login' button
+    element(by.id('button-login')).click() ;
+    
+    browser.waitForAngular() ;
+  });
+
   //--------------------------------------------------------------------------------------------------------------------
   // HELPER FUNCTIONS
   //--------------------------------------------------------------------------------------------------------------------
@@ -35,24 +52,7 @@ describe('TEST GROUP III - GENERAL NAVIGATION: ', function() {
   onPrepare: function() {
     browser.manage().window().setSize(1600, 1000);
   }
-  
-  // Before all tests, load the admin hub page
-  beforeAll(function() {
-    browser.get('http://localhost:5001/') ;
-    
-    // Fill out username and password fields
-    element(by.model('username')).sendKeys('super') ;
-    element(by.model('password')).sendKeys('admin') ;
-    
-    var EC = protractor.ExpectedConditions;
-    browser.wait(EC.elementToBeClickable(by.id('button-login')), 5000);
-    
-    // Click 'Login' button
-    element(by.id('button-login')).click() ;
-    
-    browser.waitForAngular() ;
-  });
-  
+
   //--------------------------------------------------------------------------------------------------------------------
   // Test #3.0: Select all navigation options
   //--------------------------------------------------------------------------------------------------------------------

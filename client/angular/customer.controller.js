@@ -22,7 +22,6 @@ angular.module('SWEApp').controller(
     // Pulls all loans associated with the current user
     //------------------------------------------------------------------------------------------------------------------
     $scope.init = function() {
-      $scope.visible = "visible";
       $scope.isAdmin = false;
       $scope.reverse_comments = true;
       

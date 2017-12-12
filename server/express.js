@@ -24,7 +24,9 @@ module.exports.init = function() {
   var app = express();
 
   // enable request logging for development debugging
-  app.use(morgan('dev'));
+  // Heroku automatically sets this
+  if (!process.env.NODE_ENV)
+    app.use(morgan('dev'));
 
   // body parsing middleware
   app.use(bodyParser.json());

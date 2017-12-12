@@ -3,9 +3,9 @@
   "author": "Marcial Abrahantes",
   "scripts": {
     "first-install": "npm install -g gulp && npm run start",
-    "first-tests": "npm install -g mocha && npm install -g protractor && npm run test",
-    "start": "npm install && gulp",
-    "tests": "python test.py"
+    "first-tests": "npm install -g mocha && npm install -g protractor && npm run tests",
+    "tests": "start python test_reqs.py && python test.py",
+    "start": "npm install && gulp"
   },
   "dependencies": {
     "angular-animate": "^1.4.14",

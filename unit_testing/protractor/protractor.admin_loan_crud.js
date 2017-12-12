@@ -5,6 +5,26 @@
 describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   
   //--------------------------------------------------------------------------------------------------------------------
+  // TESTING FUNCTIONS
+  //--------------------------------------------------------------------------------------------------------------------
+  
+  // Before all tests, load the admin hub page and assign 
+  beforeAll(function() {
+    browser.manage().window().maximize() ;
+    
+    browser.get('http://localhost:5001/') ;
+    
+    // Fill out username and password fields
+    element(by.model('username')).sendKeys('super') ;
+    element(by.model('password')).sendKeys('admin') ;
+    
+    // Click 'Login' button
+    clickIt(element(by.css('.tab-content .btn'))) ;
+    
+    browser.waitForAngular() ;
+  });
+  
+  //--------------------------------------------------------------------------------------------------------------------
   // HELPER FUNCTIONS
   //--------------------------------------------------------------------------------------------------------------------
   
@@ -49,26 +69,6 @@ describe('TEST GROUP I - ADMIN LOAN CRUD: ', function() {
   var clickIt = function(element) {
     browser.executeScript('arguments[0].click();', element.getWebElement()); 
   }
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  // TESTING FUNCTIONS
-  //--------------------------------------------------------------------------------------------------------------------
-  
-  // Before all tests, load the admin hub page and assign 
-  beforeAll(function() {
-    browser.manage().window().maximize() ;
-    
-    browser.get('http://autowise.herokuapp.com') ;
-    
-    // Fill out username and password fields
-    element(by.model('username')).sendKeys('super') ;
-    element(by.model('password')).sendKeys('admin') ;
-    
-    // Click 'Login' button
-    clickIt(element(by.css('.tab-content .btn'))) ;
-    
-    browser.waitForAngular() ;
-  });
   
   //--------------------------------------------------------------------------------------------------------------------
   // Test #1.0: Loan status update dialog

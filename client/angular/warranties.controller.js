@@ -25,7 +25,6 @@ angular.module('SWEApp').controller('Warranties',
     //--------------------------------------------------------------------------------------------------------------------
     $scope.init = function() {
 
-      $scope.visible = "visible";
       $scope.query = { age: '-1', mileage: 0, make: 'Domestic' };
       $scope.warrantyInfo = "Warranty information will go here";
       $scope.matchedWarranties = [];

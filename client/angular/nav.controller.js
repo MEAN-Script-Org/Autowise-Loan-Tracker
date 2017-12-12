@@ -2,18 +2,26 @@ angular.module('SWEApp').controller('Navigation',
   ['$rootScope', '$scope', '$location', '$window', 'Factory',
   function($rootScope, $scope, $location, $window, Factory) {
     
-    // Security check
-    if (!$scope.login_page && !Factory.getToken()) {
-      window.location.href = "/profile/badtoken";
-    }
-    else {
-      var website = window.location.href;
+    // Security checks
+    var website = window.location.href;
+    if (!$scope.login_page) {
       var isNotSececure = website.indexOf("https") < 0;
       var isNotRunningLocally = website.indexOf("localhost") < 0;
 
       if (isNotSececure && isNotRunningLocally)
         window.location.href = "https" + website.slice(4);
     }
+
+    var badHash = website.indexOf(Factory.getToken());
+    var alreadyBad = website.indexOf("badtoken") < 0;
+    alreadyBad = alreadyBad | website.indexOf("wrongUserType") < 0;
+
+    if (!Factory.getToken() && !alreadyBad) {
+      window.location.href = "/profile/badtoken";
+    }
+
+    // GLOBALS ACCROSS ALL VIEWS/CONTROLLERS
+    $rootScope.visible = 'visible'; // Display ugly looking angular content once it's loaded
     
     //--------------------------------------------------------------------------------------------------------------------
     // Navigates to the page as specified by the 'key'

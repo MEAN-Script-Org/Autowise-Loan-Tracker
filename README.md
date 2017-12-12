@@ -1,42 +1,44 @@
-<!-- make non-local hrefs open new tabs -->
 
 # TODOs for successful client transition
   + Sign up for [Heroku](https://signup.heroku.com/)
   + Become a collaborator to our current project (need email)
-  + Transfer project ownership
-  + Know how to modify/remove Heroku variables
-    + [Instructions will be available soon](#soon)
+  + Know how to modify/remove Heroku variables **<- We are here**
+    + [Instructions](#soon)
   + Get email variables for automated emailing 
-    + [Instructions will be available soon](#soon)
-  + All of this will cost you:
-    + $0/month **_for now_**, until database capacity is reached (512MB)
-    + Prices of current database provider (mLab) then start at $15/month/GB
-  + Enjoy your paperless loan tracking application
+    + [Instructions](#soon)
+  + Transfer project ownership
+
+
+All of this will cost you:
+- $0/month **_for now_**, until database capacity is reached (512MB)
+- Prices of current database provider (mLab) then start at $15/month/GB
+
+Enjoy your paperless loan tracking application!
 
 ## Scaling Recommendations
 - Instructions to move to a bigger database of the current provider can be found [here](https://devcenter.heroku.com/articles/mongolab#changing-plans)
   - Recommended Implementation: Have archived loans as a static JSON/mongodump file in a S3 bucket or similar storage/CDN service. Only retrieve them when searching for them, and modify that file as such. Then accordingly modify 'archived_filter' on *custom-filters.js*, reset loading, add a new Factory ↔ Express interaction, and add/remove loans to active MongoDB on loan 'revival' or death.
     - *Learning opportunity* if no prior experience with these services
+- Other possible features:
+  - Date filters based on updated_at Date
+  - Auto logout due to inactivity or token expiration. Possible looks:
+    - Notification-style popup on the lower-right corner with time left
+    - Modal style of "MM:SS left [renew token]" etc
+  - Auto System comment with Admin name on (internally referred to as 'notes'):
+    - Buyer's Order Change (admin-only)
+    - Warranty Change (**not** admin-only)
 
-<!-- TO Add to heroku vars: -->
+<!-- TO Document heroku vars: -->
+<!-- https://github.com/zeit/ms#examples -->
+BASE_URL
+MAX_SESSION_TIME
+WARRANTIES_DESTINATION
 <!-- email text!!! -->
-<!-- token expiration time!!! -->
-
-<!-- 'Fun' future features -->
-<!-- Features for the future -->
-<!-- Date filters based on updated_at or the like -->
-<!-- auto logout ... etc -->
 
 
-<!-- # Lean MEAN Client Machine Presents:  -->
 # Autowise Loan Tracking Documentation
 
 ## Table of Contents
-<!-- 
-  easily done in sublime by: 
-    Multi selecting all "# ", then select current line (Ctrl+Shift+L)
-    then paste to another page, edit there, then paste back here :D
--->
 + [Summary](#summary)
 + [App Functionality Abridged](#app-functionality-abridged)
     * [Loan Management](#loan-management)
@@ -44,18 +46,17 @@
         - [Buyer's Order](#buyers-order)
         - [Modifying Loans](#modifying-loans)
         - [Comments on Loans](#comments-on-loans)
-        - [Warranties - Admin](#warranties---admin)
+        - [Warranties - Admins](#warranties---admins)
         - [Email updates](#email-updates)
         - [Mass Loan Operations](#mass-loan-operations)
-    * [Warranties - customer](#warranties---customer)
+    * [Warranties - Customers](#warranties---customers)
     * [User Management](#user-management)
 + [Technical details](#technical-details)
     * [Project Dependencies](#project-dependencies)
     * [Development](#development)
-    * [Borrowed Code](#borrowed-code)
-    * [Project Structure](#project-structure)
     * [Overall Comments & Implementation Tweaks](#overall-comments--implementation-tweaks)
     * [Testing](#testing)
+    * [Project Structure](#project-structure)
 
 
 ## Summary
@@ -84,10 +85,12 @@ Autowise managers ('super admins'), in addition to admins privileges, have the a
 ## App Functionality Abridged
 
 ### Loan Management
+
 #### Creating Loans
 ![New Loan Button](documentation/add-button.png)
 
 From the **admin view**, you start the load creation process by first clicking the button on the lower right corner of the page (as pictured above). Clicking this button opens the Buyer's Order modal.
+
 
 #### Buyer's Order
 
@@ -95,12 +98,12 @@ From the **admin view**, you start the load creation process by first clicking t
 
 Modal that once completed, creates a loan in the system.
 
-Loans will be automatically assigned to customers **once a customer creates an account with matching full name (they must be EXACT, case and empty spaces included) and DOB of an EXISITING purchaser or copurchaser's name and DOB buyers order.** The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
+> Loans will be automatically assigned to customers **once a customer creates an account with matching full name (they must be EXACT, case and empty spaces included) and DOB of an EXISITING purchaser or copurchaser's name and DOB buyers order.** The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
+
 
 #### Modifying Loans
 
 ![Loan_Admin](documentation/Expanded_Loan_Accordion_Admin.png)
-<!-- update pic -->
 
 If you're an admin, all Loans in the database can be accessed be seen once you login. When a loan *row* is click, it will expand and the picture above will appear. From there you can:
 - Edit the original Buyer's Order with the _Buyer's Order_ button. Changing names and DOBs here will **not** connect this loan to customer accounts with the new information. See more [here](#somewhere)
@@ -110,17 +113,23 @@ If you're an admin, all Loans in the database can be accessed be seen once you l
 
 > Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty).
 
+
 #### Comments on Loans
 
-Comments are created by clicking "Save comment". Comments are shown reverse chronological order. Both customers and admins can create and see normal comments. Admin can also create comments that will only be visible other admins and not the customer. This is shown in each row as '**Admin Only**'.
+Comments are created by clicking "Save comment", and they are shown reverse chronological order. Both customers and admins can save and see normal comments. 
 
-- Customers **cannot** delete their comments.
-- Admins can only delete their  **own** comments.
+Clicking on the "Visible to customer" button as an admin and then saving it will create comments that will only be visible to other admins, and not the customer(s).
+
+Comment permissions are as follows:
+- Customers can create but **cannot** delete comments
+- Admins can only delete their **own** comments.
 - Super admins can delete everyone's comments, except for System's.
 
 
 #### Changing Loan Status
-A Loan's status can be changed with the _Change Status_ button. The popup below will then later appear and that prompt you to select one of the 7 Loan statuses:
+![Loan_Status](documentation/Change_Status_Modal.png)
+
+A Loan's status can be changed with the _Change Status_ button. The popup above will then later appear, and it'll prompt you to select one of the 7 Loan statuses:
 - Received
 - Submitted
 - Pending
@@ -129,63 +138,77 @@ A Loan's status can be changed with the _Change Status_ button. The popup below 
 - Denied
 - Archived
 
-![Loan_Status](documentation/Change_Status_Modal.png)
-
-Confirming this popup updates the Loan to the selected status
-
-<!-- have a user section -->
-<!-- 
-When a customer is logged in, they are presented with the **customer view**. A customer cannot create, modify, or delete any loans and may only see loans associated with their account. A customer may publish comments, as discussed in the following section.
-![Loan_Customer](documentation/Expanded_Loan_Accordion_Customer.png)
-> Screenshot of the customer view when they login. It will show their loan status, their warranty plan if they have one, as well as the comments.
- -->
-
-#### Warranties - Admin
-![Admin_Warranty](documentation/Update_warranty_plan_modal.png)
-<!-- update pic -->
-
-Clicking the _Change Warranty_ button opens this popup. Once submitted, and as long as the *price is _not_ zero*, the next show below will be added to the loan view in **both** admin and customer view.
-
-![warranty_section](documentation/warranty_section.png)
-
 
 #### Email updates
-<!-- application_update_email.png -->
 ![application_update_email](documentation/application_update_email.png)
+
 Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order.
 
 
-#### Mass Loan Operations
-Each Loan header has a checkbox to the left. Click this box to select or unselect the Loan.
+#### Warranties - Admins
+![Admin_Warranty](documentation/Update_warranty_plan_modal.png)
 
-If a Loan is selected, when you hover over the circular "+" button in the lower right corner of the **admin view**, several additional buttons are revealed.
+Clicking the _Change Warranty_ button opens this popup. Once submitted, and as long as the *price is _not_ zero*, the next show below will be added to the loan view in **both** admin and customer view. You can make the below section disappear from the loan by either the "Reset warranty" button.
+  
+![warranty_section](documentation/warranty_section.png)
+
+
+#### Mass Loan Operations
+
+![s](documentation/selected.png)
+
+You can 'mass' change status or remove loans. You first start by selecting them by checking the checkbox associated with them. Then, by hovering over the circular "+" button in the lower-right corner of the **admin view** the below buttons are revealed.
+
+![m](documentation/mass.png)
+
 - The *pencil* button opens the change status popup as discussed in the Modifying Loans section. Confirming this popup will change all selected Loans to the status specified in the dropdown.
 - The *box* button archives all selected Loans.
 - The *trash* button (only visible to a _Super Admin_) deletes all selected Loans permanently.
 
-#### Warranties - Customer
+
+### Warranties - Customers
+![c](documentation/qc.png)
+
+<!-- ABRIDGE!!! -->
 A customer may request a warranty plan on a specific loan by clicking the _Request a warranty plan_ button near the top of the loan. This takes the customer to the **customer loan view**. In this area, the customer searches for a warranty plan of interest based on criteria of plan type and car age and make. Available warranty plans are automatically filtered below and a customer selects one they are interested in. Upon selecting, a popup appears listing the warranty plan details and a confirmation button. When the button is clicked, an email with the warranty plan details is sent to Autowise and a comment is added to the loan with the requested plan information.
 
-Once an admin reviews the plan, they may approve it by added a warranty plan to the specified loan, as described in the [Warranties-Admin](#warranties---admin) section
+Once an admin reviews the plan, they may approve it by added a warranty plan to the specified loan, as described in the [Warranties-Admins](#warranties---admins) section.
+
+
+#### Warranty requests
+![warranty_email](documentation/warranty_email.png)
+
+???
 
 ### User Management
 
 #### User Creation and Types
-Users are created by _registering_ on the login page. To create an account, a person must specify their name, a username, their DOB, and DL number (email is optional). To access your account, you login on the **login page** with your specified username and password. The app does not have the ability to recover passwords, so _do not forget your password!_
+![Register](documentation/Register_view.png)
+
+To create an account, a person must specify their name, a username, their DOB, and DL number (email is optional). The app does not have the ability to recover passwords, so _do not forget your password!_ (there's a workaround this. Click "Forgot username of password?" on the site for more information)
 
 ![Login](documentation/Login_view.png)
-> Screenshot of the login page. You must enter a valid username and password in order to login.
 
-![Register](documentation/Register_view.png)
-> Screenshot of the Registration page. You must enter something valid for all of the required fields in order to register.
+Everyone is a  _customer_ by default. Next sections describes how this can be changed.
 
-Upon registering, a User is assigned the role of a _customer_ who may view their loans and request warranty plans. When logged in as an _admin_, you may see all the loans in the database and make modifications to them. When logged in as a _super admin_, you have all of the privileges of admins in addition to the ability to delete loans, delete any comments, and change permissions of other users.
 
 #### User Permissions and Account Management
-To change permissions, access the *user permissions view* as a super admin. Here you may search for an existing user based on name or username and change their role to customer, admin, or super admin. You may also delete User accounts (note that deleted accounts _may not be recovered_)
+
+![p](documentation/permissions.png)
+
+Super admins can change permissions by accessing the *permissions view* by clicking the "User Management" button as seen above.
 
 ![Permissions](documentation/User_Permissions_change_view.png)
-> Screenshot of the admin user permissions page. On this page super admins can change the status of any user to a regular customer, admin, or super admin, as well as delete users completely.
+Here you can search for *any* existing user's values associated with their account (name, username, DOB, DL #). The type of user account can be inferred based on the styling of their name:
++ Customers
++ <b>Admins</b>
++ <b>Super admins</b> + *red text color*
+A more colorful legend can also been seen by clicking the green "i" button next to the "Name" column header.
+
+**Any** super admin can change **any** user account to a **any** of one the three types.
+
+They can also delete **any** account, and never look back!
+
 
 ## Technical details
 
@@ -193,7 +216,6 @@ To change permissions, access the *user permissions view* as a super admin. Here
 - [Node.js and npm](https://nodejs.org/en/download)
 - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 - [Python 3.x](https://www.python.org/downloads/) for automated tests
-<!-- I need to figure out protractor webdriver with Selenium ~ ~ -->
 
 ### Development
 - Clone or Download
@@ -212,24 +234,20 @@ To change permissions, access the *user permissions view* as a super admin. Here
   + First run: `npm run first-install`
       * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](http://sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
   + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
-      * For a cleaner command line, it helps if you add the clearing command of your OS first (`cls` on Windows, `clear` on Unix), then command separator (`;` or `&&`), and THEN `gulp`
+      * For a cleaner command line, it helps if you add the clearing command of your OS first, then command separator, and THEN `gulp`
+        * Clearing: `cls` on Windows, `clear` on Unix
+        * Separator: `;` or `&&`
 - Deployments
-  + Automatically on every push to master if you have set up automatic deployment in Heroku
-    * [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
-    * TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
-  + Manually once connected with Heroku's git: 
-    * `git push heroku master`
+  + Automatically
+    * Can be set up on every push to any branch if you set up automatic deployment in Heroku
+      - [Instructions](https://youtu.be/_tiecDrW6yY?t=179)
+      - TL;DW: Heroku → App → Deploy tab → On 'Deployment method' select 'GitHub' → Connect to GiHub → Search your repo → 'Connect' → 'Automatic deploys' → 'Enable automatic deploys'
+  + Manually
+    * Once connected with Heroku's git (first two bullets of *Connect to Heroku* above) run `git push heroku master`
 - Testing
-    + First time: `npm run first-tests`
-    + Later: `npm run tests`
-
-
-### Borrowed Code
-- Boilerplate project was based off a modified and completed [Assignment 5](https://github.com/CEN3031-spr16/Assignment-5).
-- Most static dependencies are listed in *package.json*, and downloaded in *client/fonts* and *client/dependencies*.
-- Styling templates: Bootstrap, and the [Lumino](https://medialoot.com/item/lumino-admin-bootstrap-template/) template.
-- *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe).
-- Other code sections were borrowed from StackOverflow, and used throughout our app. A their source was provided in a comment if so.
+  - First time: `npm run first-tests`
+  - Later: `npm run tests`
+  - Another command line will open when running these. It'll run gulp and selenium in parallel if they're not already. You **must** have gulp running for all tests, and selenium for the e2e ones to work. This extra command line takes care of it for you.
 
 
 ### Overall comments & Implementation tweaks
@@ -237,6 +255,7 @@ To change permissions, access the *user permissions view* as a super admin. Here
 - *Main parts of the app (Factory and Modals monolith, Express)*
 - *EJS and path passing*
 - *Authentication description*
+<!-- - *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe). -->
 - Custom Frontend:
   - Checkbox to search query functionality
   - Material design floating (& hidden) menu button(s)
@@ -251,6 +270,15 @@ To change permissions, access the *user permissions view* as a super admin. Here
   - Selection/checkbox for mass data manipulation (mass update, delete, archive, etc.)
   - Material design inputs and drop down selectors
  -->
+
+## Testing
+Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
+
+All tests can be run automatically with the command `npm run tests` as previously described [here](#development) on the Testing bullet.
+
+The 3 backend tests (located at *unit_testing/mocha*) can be run individually with  `mocha [filename]`. Remember to have gulp running in parallel.
+
+The end-to-end can be found in _unit_testing/protractor_, and can be run individually with `protractor unit_testing/protractor/protractor.config.js`. Remember to have gulp + selenium running in parallel.
 
 
 ### Project Structure
@@ -318,29 +346,6 @@ The following details the folder structure of the application and the purposes o
   + _express.js:_ defines top-level routing which is further detailed by one of the other routing files
   + _login_routes.js:_ defines routing for user login and registration requests
   + _profile_routes.js:_ defines routing for "logged-in" pages, such as the user account info view
-- unit_testing: files and scripts used in app testing. More details [below](#testing)
+- unit_testing: files and scripts used in app testing
 
 
-## Testing
-Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
-
-All 3 backend tests (located at *unit_testing/mocha*) can be run automatically with one command, described [here](#development), or individually with  `mocha [filename]`. The protractor/end-to-end test requires a bit more work.
-
-### Backend testing
-Two sets of back-end tests were developed.
-
-The first is the server-side back-end mocha tests _mocha.loan.server_ and _mocha.user.server_. These two tests check for loan and user creation, modification, and deletion respectively using purely server-side database commands.
-
-The second set of tests is the client-side back-end mocha tests _mocha.loan.client_ and _mocha.user.client_. These test loan and user creation, modification, and deletion respectively using client-side HTTP requests. These tests also validate the functionality of server side routing.
-
-### End-to-end testing
-A single end-to-end test was developed. Written with Protractor, this test validates navigation in the admin view and shows how an admin user can edit properties of a loan.
-
-This test is found in _unit_testing/protractor_ and can be run individually with the command `protractor protractor.config.js`
-
-<!-- imma fix all this on the python file ~ too much work -->
-To run this test individually, follow these instructions
-1. Open a command line window and run `webdriver-manager update` to update the selenium webdiver package
-2. Run `webdriver-manager start` to set up a selenium server in parallel with the test
-3. Open a _second_ command line window and navigate to the top-level directory of the project
-4. Here, run `protractor unit_testing/protractor/protractor.config.js`
