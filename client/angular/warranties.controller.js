@@ -249,7 +249,7 @@ angular.module('SWEApp').controller('Warranties',
         "<b>Type</b>: " + converted_war_type,
         "<b>Plan length</b>: " + warranty.term.months,
         "<b>Plan mileage</b>: " + warranty.term.miles * 1000,
-        "<b>Starting at:</b> $" + warranty.price,
+        "<b>Starting at:</b> $" +  money_formatter.format(warranty.price),
       ].join("<br>");
 
       // Email object

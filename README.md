@@ -27,12 +27,15 @@ Enjoy your paperless loan tracking application!
   - Auto System comment with Admin name on (internally referred to as 'notes'):
     - Buyer's Order Change (admin-only)
     - Warranty Change (**not** admin-only)
+  - More in-depth testing, and done on a mock database
 
 <!-- TO Document heroku vars: -->
-<!-- https://github.com/zeit/ms#examples -->
+<!-- 
 BASE_URL
 MAX_SESSION_TIME
 WARRANTIES_DESTINATION
+ -->
+<!-- https://github.com/zeit/ms#examples -->
 <!-- email text!!! -->
 
 
@@ -142,7 +145,7 @@ A Loan's status can be changed with the _Change Status_ button. The popup above 
 #### Email updates
 ![application_update_email](documentation/application_update_email.png)
 
-Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order.
+Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order with the respective fields filled.
 
 
 #### Warranties - Admins
@@ -172,7 +175,11 @@ You can 'mass' change status or remove loans. You first start by selecting them 
 <!-- ABRIDGE!!! -->
 A customer may request a warranty plan on a specific loan by clicking the _Request a warranty plan_ button near the top of the loan. This takes the customer to the **customer loan view**. In this area, the customer searches for a warranty plan of interest based on criteria of plan type and car age and make. Available warranty plans are automatically filtered below and a customer selects one they are interested in. Upon selecting, a popup appears listing the warranty plan details and a confirmation button. When the button is clicked, an email with the warranty plan details is sent to Autowise and a comment is added to the loan with the requested plan information.
 
-Once an admin reviews the plan, they may approve it by added a warranty plan to the specified loan, as described in the [Warranties-Admins](#warranties---admins) section.
+![qcm](documentation/qcm.png)
+
+<!-- Once an admin reviews the plan, they may approve it by added a warranty plan to the specified loan, as described in the  -->
+
+[Warranties-Admins](#warranties---admins) section.
 
 
 #### Warranty requests

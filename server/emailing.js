@@ -46,6 +46,7 @@ var format_email_html = function (req) {
       "If that doesn't work, please copy and paste the following into your browser:",
       verbatim_link,
       "",
+      "",
       "Sincerely,",
       "",
       "<b>Autowise Buying Service, Inc</b>"

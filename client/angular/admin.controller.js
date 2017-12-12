@@ -64,7 +64,7 @@ angular.module('SWEApp').controller(
 
           $timeout(function() {
             $rootScope.loading = false;
-          }, 1500);
+          }, 1000);
         }
       );
 

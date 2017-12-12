@@ -36,7 +36,7 @@ angular.module('SWEApp').controller('Permissions',
 
       $timeout(function() {
         $rootScope.loading = false;
-      }, 1500);
+      }, 500);
     }
 
     // 'prepare' selected use

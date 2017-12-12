@@ -32,7 +32,7 @@ angular.module('SWEApp').controller(
           
           $timeout(function() {
             $rootScope.loading = false;
-          }, 500);
+          }, 1500);
         },
         function(err) {
           console.log(err) ;
