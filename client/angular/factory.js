@@ -9,8 +9,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
     var addToken = function(token) {
       // console.log(token);
       removeToken();
-      $window.localStorage.setItem('token', token);
-      $window.location.href = '/profile/' + getToken();
+      if (!$window.localStorage.setItem('token', token))
+        $window.location.href = '/profile/' + getToken();
     }
 
     var getToken = function() {
@@ -20,8 +20,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
           return [token, $window.fingerprint.md5hash];
     }
 
-    // READ:
-    //      DO NOT MAKE 'GET' METHODS THAT HANDLE TOKENS!!!! THEY DON'T WORK!
+    // DO NOT MAKE 'GET'/'DELETE' METHODS THAT HANDLE TOKENS!!!! THEY DON'T WORK!
     var methods = {
       
       //----------------------------------------------------------------------------------------------------------------
@@ -53,7 +52,7 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
       getUsernames: function() {
         return $http.get('/usernames');
       },
-      // this needs to change
+      // Security: this needs to change
       getAllUsers: function() {
         var args = {token: getToken()};
         return $http.put('/api/users', args);
@@ -117,8 +116,8 @@ angular.module('SWEApp').factory('Factory', ['$http', '$window',
         return $http.post('/login', args);
       },
       logout: function() {
-        removeToken();
-        $window.location.href = '/';
+        if (!removeToken())
+          $window.location.href = '/';
       },
     };
     

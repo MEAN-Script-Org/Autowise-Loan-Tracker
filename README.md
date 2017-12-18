@@ -1,12 +1,12 @@
 
 # TODOs for successful client transition
   + Sign up for [Heroku](https://signup.heroku.com/)
-  + Become a collaborator to our current project (need email)
-  + Know how to modify/remove Heroku variables **<- We are here**
+  + Become a collaborator on our current project (need email)
+  + Transfer project ownership (went ahead and did this anyhow)
+  + Know how to modify/remove Heroku variables **<- We were here last time**
     + [Instructions](#heroku)
   + Get email variables for automated emailing 
     + [Instructions](#emailing-variables)
-  + Transfer project ownership
 
 
 All of this will cost you:
@@ -24,9 +24,9 @@ Enjoy your paperless loan tracking application!
   - Auto logout due to inactivity or token expiration. Possible looks:
     - Notification-style popup on the lower-right corner with time left
     - Modal style of "MM:SS left [renew token]" etc
-  - Auto System comment with Admin name on (internally referred to as 'notes'):
-    - Buyer's Order Change (admin-only)
-    - Warranty Change (**not** admin-only)
+  - Auto System comment with Admin name on it (internally referred to as 'notes'):
+    - Buyer's Order Changes (admin-only)
+    - Warranty Changes (**not** admin-only)
   - More in-depth testing, and done on a mock database
 
 
@@ -41,23 +41,31 @@ Enjoy your paperless loan tracking application!
         - [Modifying Loans](#modifying-loans)
         - [Comments on Loans](#comments-on-loans)
         - [Warranties - Admins](#warranties---admins)
-        - [Mass Loan Operations](#mass-loan-operations)
         - [Email updates](#email-updates)
+        - [Mass Operations](#mass-loan-operations)
     * [Warranties - Customers](#warranties---customers)
+      - [Warranty Requests](#warranty-requests)
     * [User Management](#user-management)
+      - [User Creation and Types](#user-creation-and-types)
+      - [User Permissions and Account Management](#user-permissions-and-account-management)
 + [Technical details](#technical-details)
     * [Project Dependencies](#project-dependencies)
     * [Development](#development)
     * [Overall Comments & Implementation Tweaks](#overall-comments--implementation-tweaks)
     * [Testing](#testing)
     * [Project Structure](#project-structure)
-
++ [Heroku](#heroku)
+    * [Accessing Variables](#accessing-variables)
+    * [Modifying Variables](#modifying-variables)
++ [Emailing Variables](#emailing-variables)
+    * [Yahoo](#yahoo)
+    * [Gmail](#gmail)
 
 ## Summary
 <!-- high level feature/user-stories summary -->
 This application is intended as the paperless replacement for loan applications for Autowise, an used-card dealership in Tallahassee, Florida. It also provides Autowise's customers the ability to track their application details, so they can login online whenever they want, and check their application and comments (updates, requests for more information) instead of flooding the phone lines.
 
-Autowise customers (further referred to as 'customers') are able to:
+Autowise customers (further referred to as 'customers', and sometimes '(co)purchaser') are able to:
 - Create an account
 - View their loan application status and their loan's buyer's order details
 - Make and see any comments they wrote, along with seeing non-admin comments
@@ -92,7 +100,7 @@ From the **admin view**, you start the load creation process by first clicking t
 
 Modal that once completed, creates a loan in the system.
 
-> Loans will be automatically assigned to customers **once a customer creates an account with matching full name (they must be EXACT, case and empty spaces included) and DOB of an EXISITING purchaser or copurchaser's name and DOB buyers order.** The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
+> Loans will be automatically assigned to customers **once a customer creates an account with EXACT full name (case and empty spaces included) and DOB of an EXISITING purchaser or copurchaser's name and DOB in a buyers order.** The Loan-User match does **not** take the customer's driver's license number into consideration, although this may easily be implemented in *loans.crud.js*.
 
 
 #### Modifying Loans
@@ -100,12 +108,12 @@ Modal that once completed, creates a loan in the system.
 ![Loan_Admin](documentation/Expanded_Loan_Accordion_Admin.png)
 
 If you're an admin, all Loans in the database can be accessed be seen once you login. When a loan *row* is click, it will expand and the picture above will appear. From there you can:
-- Edit the original Buyer's Order with the _Buyer's Order_ button. Changing names and DOBs here will **not** connect this loan to customer accounts with the new information. See more [here](#somewhere)
-- Send a generic email to the purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order.
+- Edit the original Buyer's Order with the _Buyer's Order_ button (although see note below about changing names or DOBs).
+- Send a generic email to the purchaser and copurchaser *ONLY IF* their emails are listed on the buyer's order.
 - Assign a warranty to this loan. After one is assigned, the grey section under "Warranty plan" will appear.
 - Change the loan status
 
-> Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. This only happens loan or account CREATION. Modifying this will need some routing work (easy-medium difficulty).
+> Updates to the purchaser/copurchaser's name or DOB will **not** result on automatic updates to possible users. As mentioned above, this only happens at customer's account CREATION time. Modifying this will need some work (easy-medium difficulty).
 
 
 #### Comments on Loans
@@ -133,18 +141,18 @@ A Loan's status can be changed with the _Change Status_ button. The popup above 
 - Archived
 
 
-#### Email updates
-![application_update_email](documentation/application_update_email.png)
-
-Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order with the respective fields filled.
-
-
 #### Warranties - Admins
 ![Admin_Warranty](documentation/Update_warranty_plan_modal.png)
 
 Clicking the _Change Warranty_ button opens this popup. Once submitted, and as long as the *price is _not_ zero*, the next show below will be added to the loan view in **both** admin and customer view. You can make the below section disappear from the loan by either the "Reset warranty" button.
   
 ![warranty_section](documentation/warranty_section.png)
+
+
+#### Email Updates
+![application_update_email](documentation/application_update_email.png)
+
+Clicking on the an orange _Email Customer(s)_ button will send the email above to the loan's purchaser and copurchaser *ONLY* if their emails are listed on the buyer's order with the respective fields filled.
 
 
 #### Mass Loan Operations
@@ -173,7 +181,7 @@ A customer may request a warranty plan on a specific loan by clicking the _Reque
 [Warranties-Admins](#warranties---admins) section.
 
 
-#### Warranty requests
+#### Warranty Requests
 ![warranty_email](documentation/warranty_email.png)
 
 ???
@@ -187,7 +195,7 @@ To create an account, a person must specify their name, a username, their DOB, a
 
 ![Login](documentation/Login_view.png)
 
-Everyone is a  _customer_ by default. Next sections describes how this can be changed.
+Everyone starts as a  _customer_ by default. Next sections describes how this can be changed.
 
 
 #### User Permissions and Account Management
@@ -209,7 +217,7 @@ A more colorful legend can also been seen by clicking the green "i" button next 
 They can also delete **any** account, and never look back!
 
 
-## Technical details
+## Technical Details
 
 ### Project Dependencies
 - [Node.js and npm](https://nodejs.org/en/download)
@@ -226,7 +234,7 @@ They can also delete **any** account, and never look back!
 - Installation and Execution
   + First run: `npm run first-install`
       * Make sure **NOT** to have the project tree open in an IDE/Text Edition (e.g. [Sublime Text 3](http://sublimetext.com), or any of other crappier alternative kids use these days). If issues persist after closing it try to run the command with admin privileges
-  + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and front-end restarts after local file changes
+  + Any other time: `gulp`. [Gulp](https://gulpjs.com/) provides automatic server and frontend restarts after local file changes
       * For a cleaner command line, it helps if you add the clearing command of your OS first, then command separator, and THEN `gulp`
         * Clearing: `cls` on Windows, `clear` on Unix
         * Separator: `;` or `&&`
@@ -243,18 +251,18 @@ They can also delete **any** account, and never look back!
   - Another command line will open when running these. It'll run gulp and selenium in parallel if they're not already. You **must** have gulp running for all tests, and selenium for the e2e ones to work. This extra command line takes care of it for you.
 
 
-### Overall comments & Implementation tweaks
-- TBFuther explained
-- *Main parts of the app (Factory and Modals monolith, Express)*
-- *EJS and path passing*
+### Overall Comments & Implementation Tweaks
+- To have modularity (since we started from scratch after all), we used [EJS](http://ejs.co/) as templating engine to allow for HTML code reuse, and overall better project organization. That being said, you MUST pass a `path` variable when rendering any of our files, since it's a reference to frontend dependencies. In the case of dynamic urls, `login_routes.validPath` takes care of figuring out the correct `path` given a Node `req(uest)`.
+<!-- ALMOST DONE ~ -->
 - *Authentication description*
+<!-- window.fingerprint.md5hash -->
 <!-- - *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe). -->
-- Custom Frontend:
-  - Checkbox to search query functionality
-  - Material design floating (& hidden) menu button(s)
-  - Selection/checkbox for mass data manipulation (mass update, delete, archive, etc.)
-    - On click event for checkbox and updates local mass list based on the checkbox's checked value.
-  - Material design inputs and drop down selectors
+- Frontend:
+  - We implemented Material Design in pure CSS (i.e. no dependencies)
+  - The frontend has two main Monoliths:
+    * `Factory.js`: contains all API calls used throughout all the controllers
+    * `modals.ejs`: has all the modals used (except for the Buyer's Order).
+- Sometimes to circumvent Node/JavaScript's asynchronous nature, logic is placed inside `if`s to force precedence/synchronism.
 
 <!-- 
   @Max: check if you can put this somewhere else in the app functionality. Gotta AT LEAST STRESS Material design somewhere.
@@ -265,7 +273,7 @@ They can also delete **any** account, and never look back!
  -->
 
 ## Testing
-Two classes of tests are developed: back-end and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
+Two classes of tests are developed: backend and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
 
 All tests can be run automatically with the command `npm run tests` as previously described [here](#development) on the Testing bullet.
 
@@ -357,26 +365,25 @@ You get to your sensitive variables thru the 'Settings' Tab, then by clicking 'R
 Here you can edit/remove values which are sensitive, and that shouldn't be stored publicly. The established environment variables are follows:
 <!-- https://github.com/zeit/ms#examples -->
 
-- BASE_URL: Heroku or bought domain name website where the main app is browsable from. Used in automated emails as links to site.
-  - Heroku has by default FREE SSL/HTTPS, so don't spend the extra $$$$ to pay for it.
-- WARRANTIES_DESTINATION: Email where the Warranty requests emails will be sent to. Allows for more flexibility (and less spam) on emails if you desire to use a different from the one sending automated emails.
-- MAX_SESSION_TIME: Max amount of time **any** user is allowed to stay on the site without logging in again. The format of this fields needs to be like [this](https://github.com/zeit/ms#examples)
-- MONGODB_URI: Database access link (user sensitive). Provided from Heroku Add-On. This can be changed to any valid MongoDB DB (eg. localhost or etc).
+- **BASE_URL**: Heroku or bought domain name website where the main app is browsable from. Used in automated emails as links to site.
+  - Currently reroutes views to HTTPS since Heroku has by default FREE SSL/HTTPS. No need to spend the extra $$$$ to pay for it.
+- **WARRANTIES_DESTINATION**: Email where the Warranty requests emails will be sent to. Allows for more flexibility (and less spam) on emails if you desire to use a different from the one sending automated emails.
+- **MAX_SESSION_TIME**: Max amount of time **any** user is allowed to stay on the site without logging in again. The format of this fields needs to be like [this](https://github.com/zeit/ms#examples)
+- **MONGODB_URI**: Database access link (user sensitive). Provided from Heroku Add-On. This can be changed to any valid MongoDB DB (eg. localhost or etc).
 - For automated emails (further instructions [here](#emailing-variables))
-  + If using a yahoo account: YAHOO_USERNAME and YAHOO_PASSWORD
-  + If using a gmail account: GMAIL_USERNAME and CLIENT_ID, and you'd need to add GMAIL_PASSWORD (**real password**). 
+  + If using a Yahoo account: **YAHOO_USERNAME** and **YAHOO_PASSWORD**
+  + If using a Gmail account: **GMAIL_USERNAME**, **CLIENT_ID**, and you'd need to add **GMAIL_PASSWORD** (_**real password**_). 
       - I'd recommend you to **at least** b64-encode your password since you will have to store it in plain text (`atob` and `btoa` node packages do this in the backend for you).
-      - Currently using the Yahoo settings, so you'd have to enable flip the comments if you'd like to switch over.
+      - Currently using the Yahoo settings, so you'd have to flip the comments if you'd like to switch over to Gmail.
 
 
 ### Emailing Variables
+> TBFinished
 
 #### Yahoo
-// Yahoo instructions =>
-//   Account Security => Two-step => New App => Other App
-//   Maybe also: Allow less-secure apps
+Account Security => Two-step => New App => Other App
+Maybe also: Allow less-secure apps
 
 
 #### Gmail
-Gmail is an interesting case...
-// Gmail Instructions: Get a Gmail API key, adjust valid urls
+Get a Gmail API key, adjust valid urls

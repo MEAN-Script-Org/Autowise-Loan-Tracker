@@ -10,7 +10,8 @@ var login_routes = express.Router();
 function validPath(path) {
   var results = [];
 
-  if (path) {
+  if (req.originalUrl) {
+    var path = req.originalUrl;
     var var_array = path.split("/");
     for (var i = 0; i < var_array.length; i++) {
       results.push("../");
@@ -25,7 +26,7 @@ login_routes.login = function(req, res, next) {
   // only do it if you have both or neither (that's why XOR, first time i use it out after CDA)
 
   if (req.problem) {
-    var good_path = validPath(req.originalUrl);
+    var good_path = validPath(req);
 
     if (req.ejs_msg && req.ejs_class) {
       res.render('login', {

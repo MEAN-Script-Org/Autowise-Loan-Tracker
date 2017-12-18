@@ -142,6 +142,7 @@ angular.module('SWEApp').controller('Warranties',
       { age: 2011, type: 'Factory-Type', term: { months: 96, miles: 75 }, mileage: { min: 00, max: 15 }, price: { Foreign: 1730, Domestic: 1920 } },
     ]
 
+    // TODO LATEEEEERRRR: Turn this into an Angular filter ~
     /* WARRANTY QUERYING -
      A Query is pulled from the client side and matched against warranty plans in the warranty table
      The following steps determine the warranty plan that is returned

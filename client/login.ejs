@@ -26,7 +26,7 @@
           <div class="tab-pane active" id="login">
             <form role="form" ng-submit="login()">
               <fieldset>
-                <input ng-model="username" class="form-group form-control" placeholder="Username (this could be your email)" required type="text">
+                <input ng-model="username" class="form-group form-control" placeholder="Username" required type="text">
                 <input ng-model="password" class="form-group form-control" placeholder="Password" required type="password">
 
                 <!-- TODO LATEEEERR -->
@@ -42,11 +42,11 @@
             <form role="form" ng-submit="register()">
               <fieldset>
                 <input ng-model="newUser.email" placeholder="Email" class="form-group form-control" type="email">
-                <input ng-model="newUser.name" placeholder="Full legal name (case sensitive)*" required class="form-group form-control"  type="text">
+                <input ng-model="newUser.name" placeholder="Full legal name* (case sensitive)" required class="form-group form-control"  type="text">
 
                 <div class="form-group">
                   <span style="color:red" ng-show="usernames[newUser.username]"> Username already taken </span>
-                  <input ng-model="newUser.username" placeholder="Username*" required type="text"
+                  <input ng-model="newUser.username" placeholder="Username* (this could be your email)" required type="text"
                          class="{{usernames[newUser.username] ? 'has-error' : ''}} form-control">
                 </div>
 
@@ -66,7 +66,7 @@
                          class="{{funny_dob ? 'has-error' : ''}} form-control" ng-blur="checkDOB()">
                 </div>
 
-                <!-- Here for now just in case -->
+                <!-- just in case -->
                 <!-- 
                 <div class="form-group">
                   <span>Admin?</span>

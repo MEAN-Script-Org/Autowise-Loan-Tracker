@@ -7,17 +7,6 @@ angular.module('SWEApp').controller(
     $rootScope.loans = [];
     $rootScope.loading = true;
 
-    Factory.getUserInfo().then(
-      function(res) {
-        $rootScope.user = res.data;
-        
-        if (!$rootScope.user)
-          window.location.href = "/profile/noAccount";
-        else if ($rootScope.user.isAdmin || $rootScope.user.isSuperAdmin)
-          window.location.href = "/profile/wrongUserType";
-    });
-    
-
     //------------------------------------------------------------------------------------------------------------------
     // Pulls all loans associated with the current user
     //------------------------------------------------------------------------------------------------------------------
@@ -43,9 +32,13 @@ angular.module('SWEApp').controller(
       Factory.getUserInfo().then(
         function(res) {
           $rootScope.user = res.data;
+          
+          if (!$rootScope.user)
+            window.location.href = "/profile/noAccount";
+          else if ($rootScope.user.isAdmin || $rootScope.user.isSuperAdmin)
+            window.location.href = "/profile/wrongUserType";
       });
     }
-    
 
     $scope.prepareLoanDates = function(bo) {
       // All dates need to be reformated for correct display

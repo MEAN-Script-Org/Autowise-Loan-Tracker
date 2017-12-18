@@ -17,7 +17,6 @@ var loans = require('./db/loans.crud.js');
 module.exports.init = function() {
 
   // Connect to database
-  // mongoose.connect(process.env.MONGO_URI, { useMongoClient: true });
   mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
   // initialize app
