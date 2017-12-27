@@ -210,6 +210,7 @@ Here you can search for *any* existing user's values associated with their accou
 + Customers
 + <b>Admins</b>
 + <b>Super admins</b> + *red text color*
+
 A more colorful legend can also been seen by clicking the green "i" button next to the "Name" column header.
 
 **Any** super admin can change **any** user account to a **any** of one the three types.
