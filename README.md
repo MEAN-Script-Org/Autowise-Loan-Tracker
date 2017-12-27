@@ -272,7 +272,7 @@ They can also delete **any** account, and never look back!
   - Material design inputs and drop down selectors
  -->
 
-## Testing
+### Testing
 Two classes of tests are developed: backend and end-to-end tests. A total of 4 tests are provided and are described below (3 backend and 1 end-to-end).
 
 All tests can be run automatically with the command `npm run tests` as previously described [here](#development) on the Testing bullet.
