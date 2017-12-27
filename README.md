@@ -184,7 +184,7 @@ A customer may request a warranty plan on a specific loan by clicking the _Reque
 #### Warranty Requests
 ![warranty_email](documentation/warranty_email.png)
 
-???
+This is how an Warranty email request will look like, with the given [variables] filled out.
 
 ### User Management
 
@@ -255,12 +255,11 @@ They can also delete **any** account, and never look back!
 ### Overall Comments & Implementation Tweaks
 - To have modularity (since we started from scratch after all), we used [EJS](http://ejs.co/) as templating engine to allow for HTML code reuse, and overall better project organization. That being said, you MUST pass a `path` variable when rendering any of our files, since it's a reference to frontend dependencies. In the case of dynamic urls, `login_routes.validPath` takes care of figuring out the correct `path` given a Node `req(uest)`.
 <!-- ALMOST DONE ~ -->
-- *Authentication description*
-<!-- window.fingerprint.md5hash -->
-<!-- - *md5-device-fingerprint.js*: File used to calculate a browser-specific MD5 hash. [Source](https://gist.github.com/splosch/eaacc83f245372ae98fe). -->
+- We use a combination of a JWT token and a browser md5hash to authenticate users. The md5 hash is calculated from within *md5-device-fingerprint.js* ([Source](https://gist.github.com/splosch/eaacc83f245372ae98fe)) and can be accessed as `window.fingerprint.md5hash` inside any internal site. A JWT must be valid (i.e. not expired), and the md5 hash from the calling browser must be the same as the one the JWT was created with in order to correctly authenticate. This prohibits users from accessing other users account by copying and pasting links in different computers (or even 'Safe Browsing'/Incognito modes).
+  - An improvement to this would be to pass the tokens internally as state variables, but we didn't implement frontend routing.
 - Frontend:
   - We implemented Material Design in pure CSS (i.e. no dependencies)
-  - The frontend has two main Monoliths:
+  - There's two main Monoliths:
     * `Factory.js`: contains all API calls used throughout all the controllers
     * `modals.ejs`: has all the modals used (except for the Buyer's Order).
 - Sometimes to circumvent Node/JavaScript's asynchronous nature, logic is placed inside `if`s to force precedence/synchronism.
